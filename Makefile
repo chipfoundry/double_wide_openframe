@@ -14,7 +14,7 @@
 #
 PDK        ?= sky130A
 PDK_ROOT   ?= $(HOME)/.ciel
-PDK_COMMIT ?= 1e931c9417df0478df9ee6b7289202f3e87440ab
+PDK_COMMIT ?= 74c0e6b118a67d94c24172143d3bd597473fa63d
 
 CARAVEL_MAG ?= ../caravel/mag/chip_io_openframe.mag
 
@@ -29,11 +29,8 @@ CARAVEL_MAG ?= ../caravel/mag/chip_io_openframe.mag
 #  * Also keep run artifacts out of the flake dir (see .gitignore); otherwise
 #    `nix develop` copies gigabytes of runs/ into the nix store on every call.
 #
-# NOTE: do NOT pass --manual-pdk here. With this ciel-managed sky130A PDK it
-# mangles the PDK config (empties LIB / truncates DEFAULT_CORNER), which breaks
-# synthesis (yosys dfflibmap: "Missing -liberty"). Let librelane resolve the PDK
-# via ciel instead.
-LIBRELANE = librelane --pdk-root $(PDK_ROOT) --pdk $(PDK)
+# NOTE: run `make enable-pdk` once. Use --manual-pdk like sky130-fabulous-testchip.
+LIBRELANE = librelane --pdk-root $(PDK_ROOT) --pdk $(PDK) --manual-pdk
 
 .PHONY: all pads wrapper-empty padframe integrate clean \
         padframe-klayout padframe-openroad enable-pdk
@@ -55,6 +52,7 @@ pads:
 		--out-wrapper verilog/rtl/double_wide_openframe_project_wrapper.v \
 		--out-defines verilog/rtl/dw_defines.vh \
 		--out-config librelane/padframe/config.yaml \
+		--out-pad-blackboxes verilog/rtl/pad_ef_io_blackboxes.v \
 		--out-def-template librelane/wrapper/pin_template.def
 
 ## Harden the empty user-area wrapper (produces the LEF/DEF/GDS pin template).
