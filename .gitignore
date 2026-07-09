@@ -1,0 +1,13 @@
+# LibreLane run outputs and saved views (huge; must NOT be copied into the nix
+# store by `nix develop`, or every invocation copies gigabytes and hangs).
+**/runs/
+build/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Nix
+result
+result-*

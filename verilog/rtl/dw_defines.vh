@@ -1,0 +1,5 @@
+// AUTO-GENERATED
+`ifndef DW_DEFINES_VH
+`define DW_DEFINES_VH
+`define DW_OPENFRAME_IO_PADS 59
+`endif

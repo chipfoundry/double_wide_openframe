@@ -1,0 +1,978 @@
+#!/usr/bin/env python3
+"""Extract the caravel openframe pad ring and generate the double-wide project.
+
+Parses caravel/mag/chip_io_openframe.mag, classifies every functional pad
+(signal gpiov2 pads and power clamp pads) by which die edge it sits on, then
+builds the *double-wide* ring:
+
+  * West (left) and East (right): kept exactly as openframe.
+  * North (top) and South (bottom): duplicated -> two copies side by side, the
+    second copy shifted by +HALF_WIDTH in x (continuous rows, only 4 corners).
+
+From that inventory it generates, so that RTL / pad tables / pin map never drift:
+
+  * verilog/rtl/double_wide_chip_io.v                 (padframe RTL, pass-through)
+  * verilog/rtl/double_wide_openframe_project_wrapper.v (empty user-area wrapper)
+  * verilog/rtl/dw_defines.vh                         (pad-count defines)
+  * librelane/padframe/pad_pos.tcl                    (bond-pad-center coords)
+  * librelane/padframe/pad_lists.yaml                 (PAD_* ordered inst lists)
+  * pad_summary.json                                  (counts + gpio index map)
+
+Magic transform "transform a b c d e f" maps a child point (x,y) to parent:
+    x' = a*x + b*y + c ;  y' = d*x + e*y + f
+The per-use "box" line is the child-space bbox.
+"""
+import argparse
+import json
+import os
+import re
+import sys
+
+UNIT_UM = 0.005            # calibrated: 717600 magic units == 3588 um
+OF_W_UM = 3588.0           # openframe die width
+OF_H_UM = 5188.0           # openframe die height
+HALF_UM = OF_W_UM          # x-offset applied to the second top/bottom copy
+DW_W_UM = 2 * OF_W_UM      # 7176 double-wide width
+DW_H_UM = OF_H_UM          # 5188 unchanged height
+
+# Openframe user wrapper is 3166.63 x 4766.63 inside the 3588 x 5188 die
+# (a 210.685 um margin on every edge). Preserve that margin for the double-wide.
+WRAP_MARGIN_UM = (OF_W_UM - 3166.63) / 2.0   # 210.685
+WRAP_W_UM = DW_W_UM - 2 * WRAP_MARGIN_UM     # 6754.63
+WRAP_H_UM = DW_H_UM - 2 * WRAP_MARGIN_UM     # 4766.63
+
+GPIO_MASTER = "sky130_ef_io__gpiov2_pad"
+CLAMP_RE = re.compile(r"sky130_ef_io__(vddio|vssio|vdda|vssa|vccd|vssd)_(hvc|lvc)_clamped(3)?_pad")
+CORNER_MASTER = "sky130_ef_io__corner_pad"
+
+
+# --------------------------------------------------------------------------- #
+# Magic parsing
+# --------------------------------------------------------------------------- #
+class Use:
+    __slots__ = ("master", "inst", "xf", "box", "cx", "cy", "side", "domain")
+
+    def __init__(self, master, inst):
+        self.master, self.inst = master, inst
+        self.xf = self.box = None
+
+
+def parse_mag(path):
+    uses, cur = [], None
+    with open(path) as f:
+        for line in f:
+            line = line.rstrip("\n")
+            if line.startswith("use "):
+                p = line.split()
+                cur = Use(p[1], p[2])
+                uses.append(cur)
+            elif cur is not None and line.startswith("transform "):
+                cur.xf = [int(v) for v in line.split()[1:7]]
+            elif cur is not None and line.startswith("box "):
+                cur.box = [int(v) for v in line.split()[1:5]]
+    return uses
+
+
+def xform_bbox(xf, box):
+    a, b, c, d, e, f = xf
+    llx, lly, urx, ury = box
+    xs, ys = [], []
+    for (x, y) in [(llx, lly), (urx, lly), (urx, ury), (llx, ury)]:
+        xs.append(a * x + b * y + c)
+        ys.append(d * x + e * y + f)
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+def classify(uses):
+    W, H = OF_W_UM / UNIT_UM, OF_H_UM / UNIT_UM
+    for u in uses:
+        if u.xf is None or u.box is None:
+            continue
+        minx, miny, maxx, maxy = xform_bbox(u.xf, u.box)
+        u.cx = (minx + maxx) / 2.0 * UNIT_UM
+        u.cy = (miny + maxy) / 2.0 * UNIT_UM
+        d = {"S": miny, "N": H - maxy, "W": minx, "E": W - maxx}
+        u.side = min(d, key=d.get)
+
+
+# --------------------------------------------------------------------------- #
+# Inventory model
+# --------------------------------------------------------------------------- #
+GPIO_DOMAIN_BY_SIDE = {"W": "user2", "E": "user1", "N": "user1", "S": "user0"}
+# analog rail suffix per domain
+DOM_SUF = {"user0": "", "user1": "1", "user2": "2"}
+
+
+def clamp_info(u):
+    """Return (base, domain, pkgnet, clamped3) for a clamp use, else None."""
+    m = CLAMP_RE.match(u.master)
+    if not m:
+        return None
+    base, _, three = m.group(1), m.group(2), m.group(3)
+    if u.inst.startswith("user1"):
+        dom = "user1"
+    elif u.inst.startswith("user2"):
+        dom = "user2"
+    else:
+        dom = "user0"
+    # package net: vddio/vssio never get a domain suffix; vdda/vssa/vccd/vssd do
+    if base in ("vddio", "vssio"):
+        pkg = base
+    else:
+        pkg = base + DOM_SUF[dom]
+    return dict(base=base, domain=dom, pkg=pkg, clamped3=bool(three), master=u.master)
+
+
+class Signal:
+    def __init__(self, side, domain, coord):
+        self.side, self.domain, self.coord = side, domain, coord
+        self.g = None
+        self.inst = None
+
+
+class Clamp:
+    def __init__(self, side, coord, ci):
+        self.side, self.coord = side, coord
+        self.__dict__.update(ci)
+        self.k = None       # index within its package-net vector
+        self.inst = None
+
+
+def build_inventory(uses):
+    gpio = [u for u in uses if u.master == GPIO_MASTER]
+    clamps = [u for u in uses if CLAMP_RE.match(u.master)]
+
+    sig_by_side = {s: [] for s in "WENS"}
+    clp_by_side = {s: [] for s in "WENS"}
+
+    for u in gpio:
+        axis = u.cx if u.side in "NS" else u.cy
+        sig_by_side[u.side].append(Signal(u.side, GPIO_DOMAIN_BY_SIDE[u.side], axis))
+    for u in clamps:
+        axis = u.cx if u.side in "NS" else u.cy
+        clp_by_side[u.side].append(Clamp(u.side, axis, clamp_info(u)))
+
+    for s in "WENS":
+        sig_by_side[s].sort(key=lambda o: o.coord)
+        clp_by_side[s].sort(key=lambda o: o.coord)
+
+    # ---- duplicate north/south ------------------------------------------- #
+    def dup(objs, cls_axis_only=False):
+        out = []
+        for o in objs:                      # left copy (original x)
+            out.append(o)
+        for o in objs:                      # right copy (+HALF)
+            if isinstance(o, Signal):
+                n = Signal(o.side, o.domain, o.coord + HALF_UM)
+            else:
+                n = Clamp(o.side, o.coord + HALF_UM,
+                          dict(base=o.base, domain=o.domain, pkg=o.pkg,
+                               clamped3=o.clamped3, master=o.master))
+            out.append(n)
+        out.sort(key=lambda o: o.coord)
+        return out
+
+    sig_by_side["N"] = dup(sig_by_side["N"])
+    sig_by_side["S"] = dup(sig_by_side["S"])
+    clp_by_side["N"] = dup(clp_by_side["N"])
+    clp_by_side["S"] = dup(clp_by_side["S"])
+
+    # ---- assign global gpio index (W, E, N, S) --------------------------- #
+    g = 0
+    for s in "WENS":
+        for o in sig_by_side[s]:
+            o.g = g
+            o.inst = f"gpio_{s.lower()}[{sum(1 for x in sig_by_side[s][:sig_by_side[s].index(o)])}].u"
+            g += 1
+    # re-do per-side local index cleanly
+    for s in "WENS":
+        for i, o in enumerate(sig_by_side[s]):
+            o.inst = f"gpio_{s.lower()}[{i}].u"
+    n_gpio = g
+
+    # ---- assign clamp package-net vector indices ------------------------- #
+    pkg_counts = {}
+    # deterministic order: by side W,E,N,S then coord
+    for s in "WENS":
+        for c in clp_by_side[s]:
+            c.k = pkg_counts.get(c.pkg, 0)
+            pkg_counts[c.pkg] = c.k + 1
+            c.inst = f"clamp_{c.pkg}_{c.k}"
+
+    return dict(sig=sig_by_side, clp=clp_by_side, n_gpio=n_gpio, pkg_counts=pkg_counts)
+
+
+# --------------------------------------------------------------------------- #
+# RTL emission helpers
+# --------------------------------------------------------------------------- #
+def abut(domain):
+    """Inline gpiov2/clamp/corner abutment power pins.
+
+    The analog rails (VSSA/VDDA), like the rest of the sky130 IO ring
+    (AMUXBUS/VDDIO_Q/VSSIO_Q/VCCHIB/VSWITCH/VDDIO/VCCD/VSSIO/VSSD), run
+    continuously through every pad, corner and filler cell. They therefore
+    form a single ring net each and are wired to the global vssa/vdda nodes.
+    The per-domain analog grounds (vssa1/vssa2/vdda1/vdda2) are simply extra
+    bond pads onto this same ring, and the isolated multi-domain power that the
+    openframe preserves is the *core* power (vccd/vssd/vccd1/... ), which is not
+    on the abutment ring but carried by the clamped3 cells and the user wrapper.
+    The `domain` argument is retained for call-site clarity but no longer alters
+    the ring nets (doing so made connect_by_abutment reject the domain seams).
+    """
+    del domain
+    return (
+        "        .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),\n"
+        "`ifdef USE_POWER_PINS\n"
+        "        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),\n"
+        "        .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),\n"
+        "        .VSSD(vssd), .VSSIO_Q(vssio_q),\n"
+        "`endif\n"
+    )
+
+
+def emit_signal_loop(side, sigs):
+    """Emit one generate loop of gpiov2 pass-through pads for a side."""
+    if not sigs:
+        return ""
+    dom = sigs[0].domain
+    n = len(sigs)
+    base = sigs[0].g
+    sl = side.lower()
+    return f"""
+    // ---- {side} side signal pads ({n}) : domain {dom} ----
+    generate for (genvar i = 0; i < {n}; i = i + 1) begin : gpio_{sl}
+        wire tie_hi, tie_lo;
+        sky130_ef_io__gpiov2_pad u (
+{abut(dom)}\
+`ifndef TOP_ROUTING
+            .PAD(gpio_pad[{base} + i]),
+`endif
+            .OUT(gpio_out[{base} + i]),
+            .OE_N(gpio_oeb[{base} + i]),
+            .HLD_H_N(tie_hi),
+            .ENABLE_H(tie_hi),
+            .ENABLE_INP_H(tie_lo),
+            .ENABLE_VDDA_H(tie_hi),
+            .ENABLE_VSWITCH_H(tie_lo),
+            .ENABLE_VDDIO(tie_hi),
+            .INP_DIS(gpio_inp_dis[{base} + i]),
+            .IB_MODE_SEL(gpio_ib_mode_sel[{base} + i]),
+            .VTRIP_SEL(gpio_vtrip_sel[{base} + i]),
+            .SLOW(gpio_slow_sel[{base} + i]),
+            .HLD_OVR(gpio_holdover[{base} + i]),
+            .ANALOG_EN(gpio_analog_en[{base} + i]),
+            .ANALOG_SEL(gpio_analog_sel[{base} + i]),
+            .ANALOG_POL(gpio_analog_pol[{base} + i]),
+            .DM({{gpio_dm2[{base} + i], gpio_dm1[{base} + i], gpio_dm0[{base} + i]}}),
+            .PAD_A_NOESD_H(analog_noesd_io[{base} + i]),
+            .PAD_A_ESD_0_H(analog_io[{base} + i]),
+            .PAD_A_ESD_1_H(),
+            .IN(gpio_in[{base} + i]),
+            .IN_H(gpio_in_h[{base} + i]),
+            .TIE_HI_ESD(tie_hi),
+            .TIE_LO_ESD(tie_lo)
+        );
+    end endgenerate
+"""
+
+
+HV_FN = {"vddio": "VDDIO_PAD", "vssio": "VSSIO_PAD",
+         "vdda": "VDDA_PAD", "vssa": "VSSA_PAD"}
+LV_FN = {"vccd": "VCCD_PAD", "vssd": "VSSD_PAD"}
+
+
+def emit_clamp(c):
+    """Emit a single power clamp pad instance."""
+    padport_line = ""
+    extra = ""
+    if c.base in HV_FN:
+        fn = HV_FN[c.base]
+        padport_line = f"        .{fn}({c.pkg}_pad[{c.k}])\n"
+    else:
+        fn = LV_FN[c.base]
+        if c.clamped3:
+            d = c.domain
+            # VCCD1/VSSD1 are the core-side power pins of the clamped3 cell.
+            # They must be guarded by USE_POWER_PINS: in the (non power-aware)
+            # synthesis pass the pad cells come from Liberty blackboxes, whose
+            # pg_pins are NOT exposed as module ports, so connecting them there
+            # is an error. The power-aware passes (JSON header) parse the full
+            # Verilog models and do expose these pins.
+            extra = (f"`ifdef USE_POWER_PINS\n"
+                     f"        .VCCD1(vccd{DOM_SUF[d]}), .VSSD1(vssd{DOM_SUF[d]}),\n"
+                     f"`endif\n")
+        padport_line = f"        .{fn}({c.pkg}_pad[{c.k}])\n"
+    # The analog ESD/ground abutment rail (VSSA/VDDA) is continuous within a
+    # side, so its domain must follow the pad's physical side, not the clamp's
+    # instance name. Domain-agnostic clamps (vssio/vddio) would otherwise inject
+    # an isolated foreign-domain net between same-domain neighbours, which the
+    # padring's connect_by_abutment rejects.
+    return f"""
+    sky130_ef_io__{c.master.split('__')[1]} {c.inst} (
+{abut(GPIO_DOMAIN_BY_SIDE[c.side])}\
+{extra}\
+`ifndef TOP_ROUTING
+{padport_line}\
+`endif
+    );
+"""
+
+
+def emit_corner(idx):
+    return f"""
+    sky130_ef_io__corner_pad corner_{idx} (
+`ifndef TOP_ROUTING
+        .VSSIO(vssio), .VDDIO(vddio), .VDDIO_Q(vddio_q), .VSSIO_Q(vssio_q),
+        .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
+        .VSSD(vssd), .VSSA(vssa), .VSWITCH(vddio), .VDDA(vdda),
+        .VCCD(vccd), .VCCHIB(vccd)
+`endif
+    );
+"""
+
+
+# --------------------------------------------------------------------------- #
+# Full RTL generation
+# --------------------------------------------------------------------------- #
+GPIO_VEC_SIGS_IN = [   # driven by the user-area wrapper -> pad
+    "gpio_out", "gpio_oeb", "gpio_inp_dis", "gpio_ib_mode_sel", "gpio_vtrip_sel",
+    "gpio_slow_sel", "gpio_holdover", "gpio_analog_en", "gpio_analog_sel",
+    "gpio_analog_pol", "gpio_dm0", "gpio_dm1", "gpio_dm2",
+]
+GPIO_VEC_SIGS_OUT = [  # pad -> user-area wrapper
+    "gpio_in", "gpio_in_h",
+]
+GPIO_VEC_SIGS_INOUT = ["analog_io", "analog_noesd_io"]
+
+# gpiov2 core-side signal pins in ascending pad-local-x order (extracted from
+# sky130_ef_io__gpiov2_pad.lef). Used to arrange the user-wrapper boundary pins
+# so every pad->wrapper net is a straight, non-crossing hop.
+GPIO_PAD_PIN_ORDER = [
+    "gpio_in_h", "gpio_oeb", "gpio_ib_mode_sel", "gpio_vtrip_sel", "gpio_out",
+    "gpio_holdover", "gpio_dm2", "gpio_analog_sel", "gpio_inp_dis",
+    "gpio_analog_pol", "gpio_dm0", "gpio_analog_en", "analog_noesd_io",
+    "gpio_dm1", "analog_io", "gpio_slow_sel", "gpio_in",
+]
+
+CORE_RAILS = ["vddio", "vssio", "vccd", "vssd", "vdda", "vssa",
+              "vdda1", "vssa1", "vccd1", "vssd1",
+              "vdda2", "vssa2", "vccd2", "vssd2"]
+
+
+def gen_padframe_rtl(inv):
+    n = inv["n_gpio"]
+    pkg = inv["pkg_counts"]
+
+    # top-level bond-pad ports
+    pad_ports = [f"    inout [{n-1}:0] gpio_pad"]
+    for name in sorted(pkg):
+        pad_ports.append(f"    inout [{pkg[name]-1}:0] {name}_pad")
+
+    # wrapper-facing internal wires
+    body = []
+    body.append("    // Internal analog / quiet-rail nets")
+    body.append("    wire analog_a, analog_b, vddio_q, vssio_q;")
+    body.append("")
+    body.append("    // Core-side power rails (driven by clamps, shared with user area)")
+    body.append("`ifdef USE_POWER_PINS")
+    body.append("    wire " + ", ".join(CORE_RAILS) + ";")
+    body.append("`endif")
+    body.append("")
+    for s in GPIO_VEC_SIGS_IN:
+        body.append(f"    wire [{n-1}:0] {s};")
+    for s in GPIO_VEC_SIGS_OUT:
+        body.append(f"    wire [{n-1}:0] {s};")
+    for s in GPIO_VEC_SIGS_INOUT:
+        body.append(f"    wire [{n-1}:0] {s};")
+    body.append("")
+
+    # signal pad loops
+    for s in "WENS":
+        body.append(emit_signal_loop(s, inv["sig"][s]))
+
+    # clamp pads
+    body.append("    // ---- power clamp pads (preserved multi-domain) ----")
+    for s in "WENS":
+        for c in inv["clp"][s]:
+            body.append(emit_clamp(c))
+
+    # corner cells: NOT instantiated in RTL. In the LibreLane Chip flow the 4
+    # outer corners are created physically by `place_corners` in pad_cfg.tcl and
+    # tied into the ring by `connect_by_abutment` (same approach as the
+    # sky130-fabulous-testchip), so they must not appear in the netlist.
+    body.append("    // ---- corner cells: placed physically by pad_cfg.tcl "
+                "(place_corners), not instantiated here ----")
+
+    # power-domain bridge slices (VCCHIB<->VCCD, VSWITCH<->VDDIO), 2 per side
+    body.append("""
+    // ---- power-domain bridge slices ----
+    generate for (genvar i = 0; i < 8; i = i + 1) begin : vcchib_vccd_and_vswitch_vddio_slices
+        (* keep *)
+        sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um u (
+`ifdef USE_POWER_PINS
+            .VSWITCH(vddio), .VCCHIB(vccd)
+`endif
+        );
+    end endgenerate
+""")
+
+    # user-area wrapper instance
+    conn = []
+    conn.append("`ifdef USE_POWER_PINS")
+    conn.append("        .vddio(vddio), .vssio(vssio), .vccd(vccd), .vssd(vssd),")
+    # Every wrapper power pin connects to its identically-named net. This is a
+    # hard requirement of Odb.SetPowerConnections: it re-applies the JSON-netlist
+    # power connections onto the placed macro, and OpenROAD's addGlobalConnect
+    # only succeeds when the pin is already bound to that same net (macro power
+    # pins are auto-bound by name during floorplan, which reads the non-powered
+    # netlist). Wiring e.g. pin `vdda1` to net `vdda` makes 0 connections -> error.
+    #
+    # The multi-domain *core* supplies (vccd/vccd1/vccd2, vssd/vssd1/vssd2) are
+    # genuinely isolated and sourced by the clamped3 pads. The per-domain analog
+    # rails (vdda1/vdda2/vssa1/vssa2) are their own nets here; the sky130 corner
+    # cell bridges VSSA/VDDA across sides, so the *abutment* ESD ring is a single
+    # vdda/vssa net (see abut()), and these per-domain analog pins terminate on
+    # the user wrapper (their PDN ring is built from PDN_MACRO_CONNECTIONS).
+    conn.append("        .vdda(vdda), .vssa(vssa),")
+    conn.append("        .vdda1(vdda1), .vssa1(vssa1), .vccd1(vccd1), .vssd1(vssd1),")
+    conn.append("        .vdda2(vdda2), .vssa2(vssa2), .vccd2(vccd2), .vssd2(vssd2),")
+    conn.append("`endif")
+    all_vecs = GPIO_VEC_SIGS_OUT + GPIO_VEC_SIGS_IN + GPIO_VEC_SIGS_INOUT
+    conn += [f"        .{v}({v})," for v in all_vecs]
+    conn[-1] = conn[-1].rstrip(",")
+    body.append(f"""
+    // ---- user-area wrapper (the double-wide openframe user project) ----
+    double_wide_openframe_project_wrapper user_project (
+{os.linesep.join(conn)}
+    );
+""")
+
+    ports = ",\n".join(pad_ports)
+    return f"""// AUTO-GENERATED by scripts/extract_openframe_pads.py  --  do not edit by hand.
+//
+// Double-wide openframe padframe: a pure pass-through pad ring (no POR / user-id
+// / reset logic).  Left/right sides replicate the caravel openframe exactly;
+// top/bottom rows are the openframe rows duplicated across the doubled width.
+//
+// {n} signal GPIOs total.
+
+`default_nettype none
+
+`include "dw_defines.vh"
+
+module double_wide_chip_io (
+{ports}
+);
+{os.linesep.join(body)}
+endmodule
+
+`default_nettype wire
+"""
+
+
+def gen_wrapper_rtl(inv, empty=True):
+    n = inv["n_gpio"]
+    lines = []
+    lines.append("// AUTO-GENERATED by scripts/extract_openframe_pads.py")
+    lines.append("//")
+    lines.append("// Empty double-wide openframe user-area wrapper (pin template).")
+    lines.append("// Users instantiate their design inside this module, keeping the port")
+    lines.append("// list and cell footprint identical, then re-harden and cell-swap.")
+    lines.append("")
+    lines.append("`default_nettype none")
+    lines.append("")
+    lines.append("module double_wide_openframe_project_wrapper (")
+    lines.append("`ifdef USE_POWER_PINS")
+    lines.append("    inout vddio, vssio, vccd, vssd, vdda, vssa,")
+    lines.append("    inout vdda1, vssa1, vccd1, vssd1,")
+    lines.append("    inout vdda2, vssa2, vccd2, vssd2,")
+    lines.append("`endif")
+    for s in GPIO_VEC_SIGS_OUT:      # pad -> wrapper => wrapper input
+        lines.append(f"    input  [{n-1}:0] {s},")
+    for s in GPIO_VEC_SIGS_IN:       # wrapper -> pad => wrapper output
+        lines.append(f"    output [{n-1}:0] {s},")
+    io = ",\n".join(f"    inout  [{n-1}:0] {s}" for s in GPIO_VEC_SIGS_INOUT)
+    lines.append(io)
+    lines.append(");")
+    lines.append("")
+    if empty:
+        lines.append("    // Empty template: drive all pads to a safe high-impedance input state.")
+        lines.append(f"    assign gpio_out       = {n}'b0;")
+        lines.append(f"    assign gpio_oeb       = {{{n}{{1'b1}}}};   // output disabled")
+        lines.append(f"    assign gpio_inp_dis   = {n}'b0;")
+        lines.append(f"    assign gpio_ib_mode_sel = {n}'b0;")
+        lines.append(f"    assign gpio_vtrip_sel = {n}'b0;")
+        lines.append(f"    assign gpio_slow_sel  = {n}'b0;")
+        lines.append(f"    assign gpio_holdover  = {n}'b0;")
+        lines.append(f"    assign gpio_analog_en = {n}'b0;")
+        lines.append(f"    assign gpio_analog_sel = {n}'b0;")
+        lines.append(f"    assign gpio_analog_pol = {n}'b0;")
+        lines.append(f"    assign gpio_dm0       = {{{n}{{1'b1}}}};")
+        lines.append(f"    assign gpio_dm1       = {n}'b0;")
+        lines.append(f"    assign gpio_dm2       = {n}'b0;")
+    lines.append("")
+    lines.append("endmodule")
+    lines.append("")
+    lines.append("`default_nettype wire")
+    return "\n".join(lines)
+
+
+# --------------------------------------------------------------------------- #
+# LibreLane pad tables
+# --------------------------------------------------------------------------- #
+SIDE_NAME = {"S": "PAD_SOUTH", "E": "PAD_EAST", "N": "PAD_NORTH", "W": "PAD_WEST"}
+
+
+def side_ordered(inv, s):
+    """Return list of (coord, inst_name) for all real pads on side s, sorted."""
+    items = []
+    for o in inv["sig"][s]:
+        items.append((o.coord, o.inst))
+    for c in inv["clp"][s]:
+        items.append((c.coord, c.inst))
+    items.sort(key=lambda t: t[0])
+    return items
+
+
+def tcl_escape(inst):
+    # gpio_w[0].u -> gpio_w\\[0\\].u  (for pad_cfg findInst)
+    return inst.replace("[", "\\[").replace("]", "\\]")
+
+
+def gen_pad_pos_tcl(inv):
+    lines = ["# AUTO-GENERATED bond-pad-center coordinates (um) for the double-wide ring.",
+             "set caravel_pad_pos [dict create]", ""]
+    for s in "SENW":
+        coords = [f"{c:.3f}" for (c, _) in side_ordered(inv, s)]
+        lines.append(f"dict set caravel_pad_pos {SIDE_NAME[s]} \"\\")
+        for c in coords:
+            lines.append(f"    {c} \\")
+        lines.append("\"")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def gen_pad_lists_yaml(inv):
+    lines = ["# AUTO-GENERATED per-side ordered pad instance lists (match pad_pos.tcl)."]
+    for s in "SENW":
+        lines.append(f"{SIDE_NAME[s]}: [")
+        items = side_ordered(inv, s)
+        for i, (_, inst) in enumerate(items):
+            esc = inst.replace("[", "\\\\[").replace("]", "\\\\]")
+            comma = "," if i < len(items) - 1 else ""
+            lines.append(f'    "{esc}"{comma}')
+        lines.append("]")
+    return "\n".join(lines)
+
+
+def _yaml_pad_block(inv, s):
+    items = side_ordered(inv, s)
+    out = [f"{SIDE_NAME[s]}: ["]
+    for i, (_, inst) in enumerate(items):
+        esc = inst.replace("[", "\\\\[").replace("]", "\\\\]")
+        comma = "," if i < len(items) - 1 else ""
+        out.append(f'  "{esc}"{comma}')
+    out.append("]")
+    return "\n".join(out)
+
+
+# Complete corner-aware pad liberty map. The PDK's default PAD_LIBS omits the
+# analog power clamps (vdda/vssa hvc) and the "clamped3" core-power clamps that
+# the openframe pad ring uses, so we restate the full set here. PAD_LIBS is
+# merged into LIB and consumed by (non power-aware) synthesis as blackboxes; the
+# JSON-header step instead uses the full PAD_VERILOG_MODELS, so there is no port
+# mismatch. Voltage suffixes follow the PDK convention: tt->3v30, ss->3v00,
+# ff->5v50 (single suffix for the vssd/vssa-ground-only 2-terminal variants).
+_PAD_LIB = "pdk_dir::libs.ref/sky130_fd_io/lib/sky130_ef_io__{}.lib"
+
+
+def _pad_libs_block():
+    # (master stem, has 3-suffix?) ; gpiov2 has a doubled corner token.
+    corners = {
+        "*_tt_025C_1v80": ("tt_025C_1v80", "3v30", "gpiov2_pad_tt_tt_025C_1v80_3v30"),
+        "*_ss_100C_1v60": ("ss_100C_1v60", "3v00", "gpiov2_pad_ss_ss_100C_1v60_3v00"),
+        "*_ff_n40C_1v95": ("ff_n40C_1v95", "5v50", "gpiov2_pad_ff_ff_n40C_1v95_5v50"),
+    }
+    # (stem, number of voltage suffixes)
+    clamps = [
+        ("vccd_lvc_clamped_pad", 2),
+        ("vccd_lvc_clamped3_pad", 2),
+        ("vddio_hvc_clamped_pad", 2),
+        ("vdda_hvc_clamped_pad", 2),
+        ("vssd_lvc_clamped_pad", 1),
+        ("vssd_lvc_clamped3_pad", 1),
+        ("vssio_hvc_clamped_pad", 2),
+        ("vssa_hvc_clamped_pad", 2),
+    ]
+    lines = ["PAD_LIBS:"]
+    for key, (ct, v, gpiov2) in corners.items():
+        lines.append(f'  "{key}":')
+        lines.append("  - " + _PAD_LIB.format(gpiov2))
+        for stem, nsuf in clamps:
+            suf = "_".join([v] * nsuf)
+            lines.append("  - " + _PAD_LIB.format(f"{stem}_{ct}_{suf}"))
+        lines.append("  - pdk_dir::libs.ref/sky130_fd_io/lib/slices_stubs.lib")
+        lines.append("  - pdk_dir::libs.ref/sky130_fd_io/lib/sky130_ef_io__analog_stubs.lib")
+    return "\n".join(lines)
+
+
+def gen_config_yaml(inv):
+    pad_blocks = "\n".join(_yaml_pad_block(inv, s) for s in "SENW")
+    return f"""# AUTO-GENERATED by scripts/extract_openframe_pads.py -- do not edit by hand.
+# Double-wide openframe padframe, LibreLane 3 Chip flow.
+meta:
+  version: 3
+  flow: Chip
+  substituting_steps:
+    Magic.DRC: null
+    Checker.MagicDRC: null
+    KLayout.Antenna: null
+    Checker.KLayoutAntenna: null
+    KLayout.SealRing: null
+    KLayout.Filler: null
+    KLayout.Density: null
+    Checker.KLayoutDensity: null
+    Checker.YosysUnmappedCells: null
+    Checker.IllegalOverlap: null
+    # IR-drop sign-off needs a fully-modeled PDN with a current source per
+    # standard cell; this macro-only frame has none (power just passes pad ->
+    # wrapper macro), so PSM reports the wrapper's power pins as "unconnected"
+    # (PSM-0069) even though they are tied by PDN_MACRO_CONNECTIONS. The frame
+    # GDS does not need static IR analysis, so drop the step.
+    OpenROAD.IRDropReport: null
+    # Sign-off XOR/DRC/LVS run on the pad ring itself: the sky130 IO pads ship
+    # with known, vendor-waived DRC/antenna violations, LVS of a pass-through pad
+    # ring needs device-level waivers, and Magic-vs-KLayout XOR flags abstract
+    # (blackbox) macro streams. These are out of scope for emitting the empty
+    # frame, so keep the reports but don't let the checkers hard-fail the flow.
+    Checker.XOR: null
+    Checker.KLayoutDRC: null
+    Checker.LVS: null
+    # This is a macro-only padframe: SYNTH_ELABORATE_ONLY yields a purely
+    # structural netlist (pads + user-area wrapper macro), and the wrapper fills
+    # the entire core, so CutRows leaves zero standard-cell rows. Every std-cell
+    # placement / legalization / optimization / fill step therefore has nothing
+    # to do and aborts on "no rows" (GPL-0130). Drop them; the pad ring, PDN and
+    # pad<->wrapper signal routing are all that this frame needs.
+    OpenROAD.GlobalPlacementSkipIO: null
+    OpenROAD.GlobalPlacement: null
+    Odb.ManualGlobalPlacement: null
+    OpenROAD.RepairDesignPostGPL: null
+    OpenROAD.DetailedPlacement: null
+    OpenROAD.ResizerTimingPostCTS: null
+    OpenROAD.RepairAntennas: null
+    OpenROAD.FillInsertion: null
+
+DESIGN_NAME: double_wide_chip_io
+VERILOG_FILES:
+- dir::../../verilog/rtl/double_wide_chip_io.v
+VERILOG_INCLUDE_DIRS:
+- dir::../../verilog/rtl
+
+# The user-area wrapper is integrated as a placed macro (pure structural top).
+SYNTH_ELABORATE_ONLY: true
+RUN_CTS: false
+RUN_HEURISTIC_DIODE_INSERTION: false
+PRIMARY_GDSII_STREAMOUT_TOOL: klayout
+
+LINTER_DISABLE_WARNINGS:
+- DECLFILENAME
+- EOFNEWLINE
+- PINCONNECTEMPTY
+- PINMISSING
+- UNUSEDSIGNAL
+
+{_pad_libs_block()}
+
+PAD_CFG: dir::pad_cfg.tcl
+
+# Expose every pad's bump pin as a top-level routable I/O terminal (consumed by
+# place_io_terminals in pad_cfg.tcl). The PDK default only lists the base
+# clamps; the openframe ring additionally uses the clamped3 core clamps and the
+# vdda/vssa analog clamps, so restate the full master->pin map here.
+PAD_PLACE_IO_TERMINALS:
+- sky130_ef_io__gpiov2_pad/PAD
+- sky130_ef_io__vccd_lvc_clamped_pad/VCCD_PAD
+- sky130_ef_io__vccd_lvc_clamped3_pad/VCCD_PAD
+- sky130_ef_io__vssd_lvc_clamped_pad/VSSD_PAD
+- sky130_ef_io__vssd_lvc_clamped3_pad/VSSD_PAD
+- sky130_ef_io__vddio_hvc_clamped_pad/VDDIO_PAD
+- sky130_ef_io__vssio_hvc_clamped_pad/VSSIO_PAD
+- sky130_ef_io__vdda_hvc_clamped_pad/VDDA_PAD
+- sky130_ef_io__vssa_hvc_clamped_pad/VSSA_PAD
+
+{pad_blocks}
+
+# No functional clock in the passive frame; provide SDCs for the STA steps.
+PNR_SDC_FILE: dir::chip.sdc
+SIGNOFF_SDC_FILE: dir::chip.sdc
+FALLBACK_SDC: dir::chip.sdc
+
+# Floorplan: double-wide die (2 x 3588 um) x (5188 um), height unchanged.
+FP_SIZING: absolute
+DIE_AREA: [0, 0, {DW_W_UM:.0f}, {DW_H_UM:.0f}]
+# Core area matches the user-area wrapper footprint exactly: the wrapper is
+# inset from the die by WRAP_MARGIN_UM on every edge to sit just inside the pad
+# ring, so the core (which must contain the placed macro) uses the same inset.
+CORE_AREA: [{WRAP_MARGIN_UM:.3f}, {WRAP_MARGIN_UM:.3f}, "expr::$DIE_AREA[2] - {WRAP_MARGIN_UM:.3f}", "expr::$DIE_AREA[3] - {WRAP_MARGIN_UM:.3f}"]
+
+# Keep routing away from the pad ring. The channel between this edge (197.0 um)
+# and the wrapper core boundary (210.685 um) is where pad<->wrapper nets route;
+# 197.0 (vs the pad inner edge ~199.7) leaves a couple of microns so the router
+# can legally reach pad core pins that sit right at the ring edge.
+ROUTING_OBSTRUCTIONS:
+- [met1, 0, 0, 197.0, "expr::$DIE_AREA[3]"]
+- [met2, 0, 0, 197.0, "expr::$DIE_AREA[3]"]
+- [met3, 0, 0, 197.0, "expr::$DIE_AREA[3]"]
+- [met4, 0, 0, 197.0, "expr::$DIE_AREA[3]"]
+- [met5, 0, 0, 197.0, "expr::$DIE_AREA[3]"]
+- [met1, "expr::$DIE_AREA[2] - 197.0", 0, "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
+- [met2, "expr::$DIE_AREA[2] - 197.0", 0, "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
+- [met3, "expr::$DIE_AREA[2] - 197.0", 0, "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
+- [met4, "expr::$DIE_AREA[2] - 197.0", 0, "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
+- [met5, "expr::$DIE_AREA[2] - 197.0", 0, "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
+- [met1, 0, 0, "expr::$DIE_AREA[2]", 197.0]
+- [met2, 0, 0, "expr::$DIE_AREA[2]", 197.0]
+- [met3, 0, 0, "expr::$DIE_AREA[2]", 197.0]
+- [met4, 0, 0, "expr::$DIE_AREA[2]", 197.0]
+- [met5, 0, 0, "expr::$DIE_AREA[2]", 197.0]
+- [met1, 0, "expr::$DIE_AREA[3] - 197.0", "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
+- [met2, 0, "expr::$DIE_AREA[3] - 197.0", "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
+- [met3, 0, "expr::$DIE_AREA[3] - 197.0", "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
+- [met4, 0, "expr::$DIE_AREA[3] - 197.0", "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
+- [met5, 0, "expr::$DIE_AREA[3] - 197.0", "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
+
+# Power / ground nets (preserved multi-domain). LibreLane 3 only accepts the
+# plural VDD_NETS/GND_NETS; the singular VDD_NET/GND_NET keys abort the flow.
+VDD_NETS: [vccd, vccd1, vccd2, vddio, vdda, vdda1, vdda2]
+GND_NETS: [vssd, vssd1, vssd2, vssio, vssa, vssa1, vssa2]
+
+PDN_CFG: dir::pdn_cfg.tcl
+PDN_HWIDTH: 3.2
+PDN_HPITCH: 100
+PDN_VWIDTH: 1.6
+PDN_VPITCH: 80
+PDN_CORE_RING: true
+PDN_CORE_RING_VWIDTH: 15
+PDN_CORE_RING_HWIDTH: 15
+PDN_CORE_RING_VSPACING: 5
+PDN_CORE_RING_HSPACING: 5
+PDN_CORE_VERTICAL_LAYER: met4
+PDN_CORE_HORIZONTAL_LAYER: met5
+PDN_CORE_RING_CONNECT_TO_PADS: true
+# Connect the core ring down to the pad power stripes on met3 (same as the
+# sky130-fabulous-testchip); this is where the clamp/power pads expose power.
+PDN_CORE_RING_CONNECT_TO_PAD_LAYERS: [met3]
+PDN_ENABLE_PINS: false
+# No standard-cell rows exist in this macro-only padframe, so the follow-pin
+# rails have no rows to align to (PDN-0190). Only the core ring + macro grid
+# are needed to bring power from the pads to the user wrapper.
+PDN_ENABLE_RAILS: false
+ERROR_ON_PDN_VIOLATIONS: false
+
+# Tie every domain's core ring to the matching power/ground pin of the placed
+# user-area wrapper macro. Without these connections the wrapper's power pins
+# float and the power-grid checker (check_power_grid / PSM-0025) reports "<net>
+# does not contain any terminals" for the core supplies. Format:
+#   <instance_rx> <vdd_net> <gnd_net> <vdd_pin> <gnd_pin>
+PDN_MACRO_CONNECTIONS:
+- "user_project vccd vssd vccd vssd"
+- "user_project vccd1 vssd1 vccd1 vssd1"
+- "user_project vccd2 vssd2 vccd2 vssd2"
+- "user_project vddio vssio vddio vssio"
+- "user_project vdda vssa vdda vssa"
+- "user_project vdda1 vssa1 vdda1 vssa1"
+- "user_project vdda2 vssa2 vdda2 vssa2"
+
+# Multiple power pads share one domain net.
+MAGIC_EXT_UNIQUE: notopports
+
+# The double-wide user-area wrapper, placed centered in the die.
+MACROS:
+  double_wide_openframe_project_wrapper:
+    gds:
+    - dir::../../build/wrapper/gds/double_wide_openframe_project_wrapper.gds
+    lef:
+    - dir::../../build/wrapper/lef/double_wide_openframe_project_wrapper.lef
+    nl:
+    - dir::../../build/wrapper/nl/double_wide_openframe_project_wrapper.nl.v
+    pnl:
+    - dir::../../build/wrapper/pnl/double_wide_openframe_project_wrapper.pnl.v
+    instances:
+      user_project:
+        location: [{(DW_W_UM-WRAP_W_UM)/2:.3f}, {(DW_H_UM-WRAP_H_UM)/2:.3f}]
+        orientation: N
+
+GRT_ALLOW_CONGESTION: true
+PL_TARGET_DENSITY_PCT: 40
+"""
+
+
+def gen_pin_template_def(inv):
+    """Emit a pins-only DEF template for the user-area wrapper.
+
+    Each GPIO owns 17 signals (13 control outputs, 2 inputs, 2 analog inouts).
+    We pin every one of them on the die edge *directly facing* that GPIO's pad,
+    clustered around the pad's along-edge coordinate.  Consumed via
+    FP_DEF_TEMPLATE + Odb.ApplyDEFTemplate when hardening the wrapper, this
+    replaces the pin-placement algorithm with exact, pad-aligned locations so
+    the padframe's pad<->wrapper nets are short straight hops instead of long
+    detours across a congested channel.
+
+    N/S pins sit on a vertical routing layer (met2), E/W on the horizontal
+    layer (met3): sky130 preferred directions are vertical for met2/met4 and
+    horizontal for met3, so each edge's pins align with the axis the padframe
+    router uses to reach them.
+    """
+    UPM = 1000                       # DEF database units per micron
+    GRID = 5                         # sky130 manufacturing grid (nm)
+
+    def nm(um):
+        return int(round(um * UPM))
+
+    def snap(v):
+        return int(round(v / GRID)) * GRID
+
+    WW, HH = nm(WRAP_W_UM), nm(WRAP_H_UM)
+    OFF = nm(WRAP_MARGIN_UM)          # wrapper origin offset inside the die
+    PW = 400                          # pin width, across the wire      (0.40 um)
+    PL = 1000                         # pin length, into the die        (1.00 um)
+    PITCH = 4000                      # spacing between a gpio's pins    (4.00 um)
+    HLAYER, VLAYER = "met3", "met2"
+
+    # Order each GPIO's 17 pins to mirror the gpiov2 pad's physical core-pin
+    # layout so the pad->wrapper nets run as a clean parallel bundle instead of
+    # a crossing fan. Every pad side (R180/R270/MY/MYR90) maps ascending pad-
+    # local-x to *descending* die along-edge coordinate (verified by probing the
+    # routed padframe), so along the increasing wrapper coordinate we emit the
+    # reverse of GPIO_PAD_PIN_ORDER -- identical for all four sides.
+    _inout = set(GPIO_VEC_SIGS_INOUT)
+    _wr_in = set(GPIO_VEC_SIGS_OUT)   # pad -> wrapper == wrapper INPUT
+
+    def _pin_dir(sig):
+        if sig in _inout:
+            return "INOUT"
+        if sig in _wr_in:
+            return "INPUT"
+        return "OUTPUT"
+
+    sig_dirs = [(s, _pin_dir(s)) for s in reversed(GPIO_PAD_PIN_ORDER)]
+    halfspan = (len(sig_dirs) - 1) * PITCH // 2
+
+    pins = []   # (name, direction, layer, x1, y1, x2, y2)
+    for s in "WENS":
+        edge_len = WW if s in "NS" else HH
+        lo = halfspan + PL + GRID
+        hi = edge_len - halfspan - PL - GRID
+        for o in inv["sig"][s]:
+            center = snap(nm(o.coord) - OFF)
+            center = max(lo, min(hi, center))
+            start = center - halfspan
+            for j, (sig, direction) in enumerate(sig_dirs):
+                c = snap(start + j * PITCH)
+                name = f"{sig}[{o.g}]"
+                if s == "S":
+                    layer, box = VLAYER, (c - PW // 2, 0, c + PW // 2, PL)
+                elif s == "N":
+                    layer, box = VLAYER, (c - PW // 2, HH - PL, c + PW // 2, HH)
+                elif s == "W":
+                    layer, box = HLAYER, (0, c - PW // 2, PL, c + PW // 2)
+                else:  # E
+                    layer, box = HLAYER, (WW - PL, c - PW // 2, WW, c + PW // 2)
+                pins.append((name, direction, layer) + box)
+
+    out = [
+        "VERSION 5.8 ;",
+        'DIVIDERCHAR "/" ;',
+        'BUSBITCHARS "[]" ;',
+        "DESIGN double_wide_openframe_project_wrapper ;",
+        f"UNITS DISTANCE MICRONS {UPM} ;",
+        f"DIEAREA ( 0 0 ) ( {WW} {HH} ) ;",
+        f"PINS {len(pins)} ;",
+    ]
+    for name, direction, layer, x1, y1, x2, y2 in pins:
+        out.append(f"- {name} + NET {name} + DIRECTION {direction} + USE SIGNAL")
+        out.append(f"  + LAYER {layer} ( {x1} {y1} ) ( {x2} {y2} ) + PLACED ( 0 0 ) N ;")
+    out.append("END PINS")
+    out.append("END DESIGN")
+    out.append("")
+    return "\n".join(out)
+
+
+def gen_summary(inv):
+    n = inv["n_gpio"]
+    gmap = []
+    for s in "WENS":
+        for o in inv["sig"][s]:
+            gmap.append(dict(g=o.g, side=s, domain=o.domain,
+                             coord=round(o.coord, 3), inst=o.inst))
+    gmap.sort(key=lambda d: d["g"])
+    counts = {s: dict(gpio=len(inv["sig"][s]), clamp=len(inv["clp"][s])) for s in "WENS"}
+    return dict(n_gpio=n, die_um=[DW_W_UM, DW_H_UM],
+                counts_per_side=counts, pkg_counts=inv["pkg_counts"],
+                gpio_index_map=gmap)
+
+
+# --------------------------------------------------------------------------- #
+def analyze(inv):
+    print(f"n_gpio = {inv['n_gpio']}  die = {DW_W_UM} x {DW_H_UM} um")
+    for s in "WENS":
+        print(f"  {s}: gpio={len(inv['sig'][s])}  clamp={len(inv['clp'][s])}")
+    print("  package nets:", inv["pkg_counts"])
+
+
+def write(path, text):
+    d = os.path.dirname(path)
+    if d:
+        os.makedirs(d, exist_ok=True)
+    with open(path, "w") as f:
+        f.write(text)
+    print(f"  wrote {path}")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--mag", required=True)
+    ap.add_argument("--out-tcl")
+    ap.add_argument("--out-yaml")
+    ap.add_argument("--out-json")
+    ap.add_argument("--out-rtl")
+    ap.add_argument("--out-wrapper")
+    ap.add_argument("--out-defines")
+    ap.add_argument("--out-config")
+    ap.add_argument("--out-def-template")
+    ap.add_argument("--analyze", action="store_true")
+    args = ap.parse_args()
+
+    uses = parse_mag(args.mag)
+    classify(uses)
+    inv = build_inventory(uses)
+    analyze(inv)
+
+    if args.analyze:
+        return 0
+    if args.out_tcl:
+        write(args.out_tcl, gen_pad_pos_tcl(inv))
+    if args.out_yaml:
+        write(args.out_yaml, gen_pad_lists_yaml(inv))
+    if args.out_json:
+        write(args.out_json, json.dumps(gen_summary(inv), indent=2))
+    if args.out_rtl:
+        write(args.out_rtl, gen_padframe_rtl(inv))
+    if args.out_wrapper:
+        write(args.out_wrapper, gen_wrapper_rtl(inv, empty=True))
+    if args.out_config:
+        write(args.out_config, gen_config_yaml(inv))
+    if args.out_def_template:
+        write(args.out_def_template, gen_pin_template_def(inv))
+    if args.out_defines:
+        write(args.out_defines,
+              "// AUTO-GENERATED\n"
+              "`ifndef DW_DEFINES_VH\n`define DW_DEFINES_VH\n"
+              f"`define DW_OPENFRAME_IO_PADS {inv['n_gpio']}\n"
+              "`endif\n")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
