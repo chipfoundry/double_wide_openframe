@@ -83,6 +83,36 @@ nix develop --command make integrate \
 `make padframe` consumes the empty-wrapper LEF/GDS/nl produced in step 2, so run
 the wrapper harden first.
 
+## Golden assets for cf-precheck
+
+When running precheck on a user project, pass **this repo** as `-c` (golden root):
+
+```bash
+cf-precheck -i ../dw_openframe_user_project -p $PDK_ROOT/sky130A -c .
+# or: make -C ../dw_openframe_user_project precheck
+```
+
+Required golden files (also refreshed by `make publish-golden` after `wrapper-empty`):
+
+| Path | Purpose |
+|------|---------|
+| `gds/double_wide_openframe_project_wrapper_empty.gds` | XOR golden empty wrapper |
+| `verilog/rtl/__double_wide_openframe_project_wrapper.v` | Port-list golden |
+
+## Padframe DRC / LVS (cf-precheck scripts)
+
+```bash
+export PYTHONPATH=../cf-precheck/src:/usr/lib/klayout/pymod:$PYTHONPATH
+make drc-klayout          # KLayout FEOL/BEOL/… → signoff/padframe_drc/
+make drc-magic            # Magic drc(full) (slow; noisy on IO macros)
+make lvs-padframe         # needs netgen + magic on PATH
+```
+
+See [`signoff/README.md`](signoff/README.md) for the latest results. Known open
+item: **38× metal2 spacing (m2.2)** on the north edge from KLayout BEOL.
+
+LVS config: [`lvs/double_wide_chip_io/lvs_config.json`](lvs/double_wide_chip_io/lvs_config.json).
+
 ## Building a user project
 
 The user design lives in **`../dw_openframe_user_project`** (the
@@ -97,10 +127,15 @@ and the wrapper's pin locations are fixed by `librelane/wrapper/pin_template.def
 ```
 scripts/   extract_openframe_pads.py   generator (source of truth)
            integrate_openframe.tcl     Magic cell-swap
+           run_padframe_drc.py         cf-precheck Magic/KLayout DRC
+           run_padframe_lvs.py         cf-precheck LVS wrapper
 verilog/rtl/  double_wide_chip_io.v                       generated padframe (chip top)
               double_wide_openframe_project_wrapper.v      generated empty wrapper
+              __double_wide_openframe_project_wrapper.v    precheck port golden
               dw_defines.vh                                generated pad-count define
 librelane/padframe/  config.yaml pad_cfg.tcl pad_pos.tcl pdn_cfg.tcl chip.sdc
 librelane/wrapper/   config.json pin_template.def         empty-wrapper harden
+lvs/                 padframe LVS config for cf-precheck
+signoff/             DRC/LVS reports
 flake.nix Makefile   LibreLane 3 environment + orchestration
 ```

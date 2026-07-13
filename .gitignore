@@ -5,6 +5,8 @@ librelane/padframe/runs/
 librelane/wrapper/runs/
 runs/
 build/
+signoff/
+precheck_results/
 *.log
 
 # Python

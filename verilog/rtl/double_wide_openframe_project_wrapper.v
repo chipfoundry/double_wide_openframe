@@ -31,10 +31,20 @@ module double_wide_openframe_project_wrapper (
     inout  [58:0] analog_noesd_io
 );
 
-    // Empty pin template: no assigns, no logic. A single unused net is declared
-    // so yosys keeps this otherwise-empty module as the design top; a truly
-    // empty module gets dropped after `hierarchy` ("No top module found").
-    wire _unused_keep_top;
+    // Empty template: drive all pads to a safe high-impedance input state.
+    assign gpio_out       = 59'b0;
+    assign gpio_oeb       = {59{1'b1}};   // output disabled
+    assign gpio_inp_dis   = 59'b0;
+    assign gpio_ib_mode_sel = 59'b0;
+    assign gpio_vtrip_sel = 59'b0;
+    assign gpio_slow_sel  = 59'b0;
+    assign gpio_holdover  = 59'b0;
+    assign gpio_analog_en = 59'b0;
+    assign gpio_analog_sel = 59'b0;
+    assign gpio_analog_pol = 59'b0;
+    assign gpio_dm0       = {59{1'b1}};
+    assign gpio_dm1       = 59'b0;
+    assign gpio_dm2       = 59'b0;
 
 endmodule
 

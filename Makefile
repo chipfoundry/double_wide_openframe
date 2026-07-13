@@ -15,6 +15,8 @@
 PDK        ?= sky130A
 PDK_ROOT   ?= $(HOME)/.ciel
 PDK_COMMIT ?= 74c0e6b118a67d94c24172143d3bd597473fa63d
+export PDK_ROOT
+export PDK
 
 CARAVEL_MAG ?= ../caravel/mag/chip_io_openframe.mag
 
@@ -32,10 +34,16 @@ CARAVEL_MAG ?= ../caravel/mag/chip_io_openframe.mag
 # NOTE: run `make enable-pdk` once. Use --manual-pdk like sky130-fabulous-testchip.
 LIBRELANE = librelane --pdk-root $(PDK_ROOT) --pdk $(PDK) --manual-pdk
 
-.PHONY: all pads wrapper-empty padframe integrate clean \
-        padframe-klayout padframe-openroad enable-pdk
+# Prefer the workspace cf-precheck fork when present.
+CF_PRECHECK ?= ../cf-precheck
+KLAYOUT_PYMOD ?= /usr/lib/klayout/pymod
+export PYTHONPATH := $(abspath $(KLAYOUT_PYMOD)):$(abspath $(CF_PRECHECK)/src):$(PYTHONPATH)
 
-all: pads wrapper-empty padframe
+.PHONY: all pads wrapper-empty padframe integrate clean \
+        padframe-klayout padframe-openroad enable-pdk \
+        publish-golden drc drc-magic drc-klayout lvs-padframe
+
+all: pads wrapper-empty padframe publish-golden
 
 enable-pdk:
 	ciel enable $(PDK_COMMIT) --pdk-family $(PDK)
@@ -58,10 +66,30 @@ pads:
 ## Harden the empty user-area wrapper (produces the LEF/DEF/GDS pin template).
 wrapper-empty:
 	$(LIBRELANE) librelane/wrapper/config.json --save-views-to build/wrapper/
+	$(MAKE) publish-golden
+
+## Copy empty wrapper GDS/RTL into the golden names expected by cf-precheck (-c).
+publish-golden:
+	mkdir -p gds
+	@if [ -f build/wrapper/gds/double_wide_openframe_project_wrapper.gds ]; then \
+		cp -f build/wrapper/gds/double_wide_openframe_project_wrapper.gds \
+			gds/double_wide_openframe_project_wrapper_empty.gds; \
+		cp -f build/wrapper/gds/double_wide_openframe_project_wrapper.gds \
+			gds/double_wide_openframe_project_wrapper.gds; \
+	elif [ -f gds/double_wide_openframe_project_wrapper.gds ]; then \
+		cp -f gds/double_wide_openframe_project_wrapper.gds \
+			gds/double_wide_openframe_project_wrapper_empty.gds; \
+	else \
+		echo "No empty wrapper GDS found; run make wrapper-empty first"; exit 1; \
+	fi
+	@test -f verilog/rtl/__double_wide_openframe_project_wrapper.v
 
 ## Harden the double-wide padframe (Chip flow). Requires wrapper-empty first.
 padframe:
 	$(LIBRELANE) librelane/padframe/config.yaml --save-views-to build/padframe/
+	@if [ -f build/padframe/gds/double_wide_chip_io.gds ]; then \
+		mkdir -p gds && cp -f build/padframe/gds/double_wide_chip_io.gds gds/; \
+	fi
 
 padframe-klayout:
 	$(LIBRELANE) librelane/padframe/config.yaml --last-run --flow OpenInKLayout
@@ -81,6 +109,27 @@ integrate:
 	OUT_GDS=build/double_wide_openframe.gds \
 	magic -dnull -noconsole -rcfile $(PDK_ROOT)/$(PDK)/libs.tech/magic/$(PDK).magicrc \
 		scripts/integrate_openframe.tcl
+
+## Padframe DRC using cf-precheck Magic / KLayout scripts.
+PADFRAME_GDS ?= gds/double_wide_chip_io.gds
+DRC_OUT ?= $(CURDIR)/signoff/padframe_drc
+drc: drc-magic drc-klayout
+drc-magic:
+	python3 scripts/run_padframe_drc.py \
+		--gds $(abspath $(PADFRAME_GDS)) --design double_wide_chip_io \
+		--pdk-path $(PDK_ROOT)/$(PDK) --out $(DRC_OUT) --mode magic
+drc-klayout:
+	python3 scripts/run_padframe_drc.py \
+		--gds $(abspath $(PADFRAME_GDS)) --design double_wide_chip_io \
+		--pdk-path $(PDK_ROOT)/$(PDK) --out $(DRC_OUT) --mode klayout
+
+## Padframe LVS using cf-precheck backend (Magic extract + Netgen).
+LVS_OUT ?= $(CURDIR)/signoff/padframe_lvs
+lvs-padframe:
+	python3 scripts/run_padframe_lvs.py \
+		--design-dir $(CURDIR) \
+		--pdk-path $(PDK_ROOT)/$(PDK) \
+		--out $(LVS_OUT)
 
 clean:
 	rm -rf build runs

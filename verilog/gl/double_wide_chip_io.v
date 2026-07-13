@@ -17420,20 +17420,4 @@ module double_wide_chip_io (vccd1_pad,
     .VSSIO(vssio),
     .VSSD(vssd),
     .VSSIO_Q(vssio_q));
- sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[0].u  (.VSWITCH(vddio),
-    .VCCHIB(vccd));
- sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[1].u  (.VSWITCH(vddio),
-    .VCCHIB(vccd));
- sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[2].u  (.VSWITCH(vddio),
-    .VCCHIB(vccd));
- sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[3].u  (.VSWITCH(vddio),
-    .VCCHIB(vccd));
- sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[4].u  (.VSWITCH(vddio),
-    .VCCHIB(vccd));
- sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[5].u  (.VSWITCH(vddio),
-    .VCCHIB(vccd));
- sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[6].u  (.VSWITCH(vddio),
-    .VCCHIB(vccd));
- sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[7].u  (.VSWITCH(vddio),
-    .VCCHIB(vccd));
 endmodule

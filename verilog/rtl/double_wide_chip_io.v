@@ -548,8 +548,19 @@ module double_wide_chip_io (
     generate for (genvar i = 0; i < 8; i = i + 1) begin : vcchib_vccd_and_vswitch_vddio_slices
         (* keep *)
         sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um u (
+            .AMUXBUS_A(analog_a),
+            .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-            .VSWITCH(vddio), .VCCHIB(vccd)
+            .VSSA(vssa),
+            .VDDA(vdda),
+            .VSWITCH(vddio),
+            .VDDIO_Q(vddio_q),
+            .VCCHIB(vccd),
+            .VDDIO(vddio),
+            .VCCD(vccd),
+            .VSSIO(vssio),
+            .VSSD(vssd),
+            .VSSIO_Q(vssio_q)
 `endif
         );
     end endgenerate
