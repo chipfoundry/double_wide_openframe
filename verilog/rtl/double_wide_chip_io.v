@@ -593,6 +593,13 @@ module double_wide_chip_io (
         .analog_noesd_io(analog_noesd_io)
     );
 
+
+    // ---- branding (placed by LibreLane MACROS; no electrical pins) ----
+    (* keep *) open_source open_source ();
+    (* keep *) project_id_textblock project_id_textblock ();
+    (* keep *) logo_dw_openframe logo_dw_openframe ();
+    (* keep *) dw_openframe_motto dw_openframe_motto ();
+
 endmodule
 
 `default_nettype wire

@@ -1,0 +1,15 @@
+VERSION 5.7 ;
+  NOWIREEXTENSIONATPIN ON ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+MACRO project_id_textblock
+  CLASS BLOCK ;
+  FOREIGN project_id_textblock ;
+  ORIGIN 3.280 10.800 ;
+  SIZE 173.750 BY 51.720 ;
+  OBS
+      LAYER met5 ;
+        RECT 0.0 0.0 173.750 51.720 ;
+  END
+END project_id_textblock
+END LIBRARY

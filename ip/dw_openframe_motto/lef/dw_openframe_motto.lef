@@ -1,0 +1,15 @@
+VERSION 5.7 ;
+  NOWIREEXTENSIONATPIN ON ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+MACRO dw_openframe_motto
+  CLASS BLOCK ;
+  FOREIGN dw_openframe_motto ;
+  ORIGIN 0.000 0.000 ;
+  SIZE 135.400 BY 19.000 ;
+  OBS
+      LAYER met5 ;
+        RECT 0.0 0.0 135.400 19.000 ;
+  END
+END dw_openframe_motto
+END LIBRARY

@@ -1,0 +1,17 @@
+VERSION 5.7 ;
+  NOWIREEXTENSIONATPIN ON ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+MACRO logo_dw_openframe
+  CLASS BLOCK ;
+  FOREIGN logo_dw_openframe ;
+  ORIGIN 0.000 0.000 ;
+  SIZE 198.400 BY 54.000 ;
+  OBS
+      LAYER met4 ;
+        RECT 0.0 0.0 198.400 54.000 ;
+      LAYER met5 ;
+        RECT 0.0 0.0 198.400 54.000 ;
+  END
+END logo_dw_openframe
+END LIBRARY

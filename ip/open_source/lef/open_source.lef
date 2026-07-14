@@ -1,0 +1,15 @@
+VERSION 5.7 ;
+  NOWIREEXTENSIONATPIN ON ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+MACRO open_source
+  CLASS BLOCK ;
+  FOREIGN open_source ;
+  ORIGIN 0.000 0.000 ;
+  SIZE 141.390 BY 55.390 ;
+  OBS
+      LAYER met5 ;
+        RECT 0.0 0.0 141.390 55.390 ;
+  END
+END open_source
+END LIBRARY
