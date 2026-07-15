@@ -4,14 +4,14 @@
 // / reset logic).  Left/right sides replicate the caravel openframe exactly;
 // top/bottom rows are the openframe rows duplicated across the doubled width.
 //
-// 59 signal GPIOs total.
+// 63 signal GPIOs total.
 
 `default_nettype none
 
 `include "dw_defines.vh"
 
 module double_wide_chip_io (
-    inout [58:0] gpio_pad,
+    inout [62:0] gpio_pad,
     inout [0:0] vccd_pad,
     inout [0:0] vccd1_pad,
     inout [0:0] vccd2_pad,
@@ -35,23 +35,23 @@ module double_wide_chip_io (
     wire vddio, vssio, vccd, vssd, vdda, vssa, vdda1, vssa1, vccd1, vssd1, vdda2, vssa2, vccd2, vssd2;
 `endif
 
-    wire [58:0] gpio_out;
-    wire [58:0] gpio_oeb;
-    wire [58:0] gpio_inp_dis;
-    wire [58:0] gpio_ib_mode_sel;
-    wire [58:0] gpio_vtrip_sel;
-    wire [58:0] gpio_slow_sel;
-    wire [58:0] gpio_holdover;
-    wire [58:0] gpio_analog_en;
-    wire [58:0] gpio_analog_sel;
-    wire [58:0] gpio_analog_pol;
-    wire [58:0] gpio_dm0;
-    wire [58:0] gpio_dm1;
-    wire [58:0] gpio_dm2;
-    wire [58:0] gpio_in;
-    wire [58:0] gpio_in_h;
-    wire [58:0] analog_io;
-    wire [58:0] analog_noesd_io;
+    wire [62:0] gpio_out;
+    wire [62:0] gpio_oeb;
+    wire [62:0] gpio_inp_dis;
+    wire [62:0] gpio_ib_mode_sel;
+    wire [62:0] gpio_vtrip_sel;
+    wire [62:0] gpio_slow_sel;
+    wire [62:0] gpio_holdover;
+    wire [62:0] gpio_analog_en;
+    wire [62:0] gpio_analog_sel;
+    wire [62:0] gpio_analog_pol;
+    wire [62:0] gpio_dm0;
+    wire [62:0] gpio_dm1;
+    wire [62:0] gpio_dm2;
+    wire [62:0] gpio_in;
+    wire [62:0] gpio_in_h;
+    wire [62:0] analog_io;
+    wire [62:0] analog_noesd_io;
 
 
     // ---- W side signal pads (14) : domain user2 ----
@@ -136,8 +136,8 @@ module double_wide_chip_io (
     end endgenerate
 
 
-    // ---- N side signal pads (18) : domain user1 ----
-    generate for (genvar i = 0; i < 18; i = i + 1) begin : gpio_n
+    // ---- N side signal pads (20) : domain user1 ----
+    generate for (genvar i = 0; i < 20; i = i + 1) begin : gpio_n
         wire tie_hi, tie_lo;
         sky130_ef_io__gpiov2_pad u (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
@@ -177,8 +177,8 @@ module double_wide_chip_io (
     end endgenerate
 
 
-    // ---- S side signal pads (12) : domain user0 ----
-    generate for (genvar i = 0; i < 12; i = i + 1) begin : gpio_s
+    // ---- S side signal pads (14) : domain user0 ----
+    generate for (genvar i = 0; i < 14; i = i + 1) begin : gpio_s
         wire tie_hi, tie_lo;
         sky130_ef_io__gpiov2_pad u (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
@@ -188,30 +188,30 @@ module double_wide_chip_io (
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
 `ifndef TOP_ROUTING
-            .PAD(gpio_pad[47 + i]),
+            .PAD(gpio_pad[49 + i]),
 `endif
-            .OUT(gpio_out[47 + i]),
-            .OE_N(gpio_oeb[47 + i]),
+            .OUT(gpio_out[49 + i]),
+            .OE_N(gpio_oeb[49 + i]),
             .HLD_H_N(tie_hi),
             .ENABLE_H(tie_hi),
             .ENABLE_INP_H(tie_lo),
             .ENABLE_VDDA_H(tie_hi),
             .ENABLE_VSWITCH_H(tie_lo),
             .ENABLE_VDDIO(tie_hi),
-            .INP_DIS(gpio_inp_dis[47 + i]),
-            .IB_MODE_SEL(gpio_ib_mode_sel[47 + i]),
-            .VTRIP_SEL(gpio_vtrip_sel[47 + i]),
-            .SLOW(gpio_slow_sel[47 + i]),
-            .HLD_OVR(gpio_holdover[47 + i]),
-            .ANALOG_EN(gpio_analog_en[47 + i]),
-            .ANALOG_SEL(gpio_analog_sel[47 + i]),
-            .ANALOG_POL(gpio_analog_pol[47 + i]),
-            .DM({gpio_dm2[47 + i], gpio_dm1[47 + i], gpio_dm0[47 + i]}),
-            .PAD_A_NOESD_H(analog_noesd_io[47 + i]),
-            .PAD_A_ESD_0_H(analog_io[47 + i]),
+            .INP_DIS(gpio_inp_dis[49 + i]),
+            .IB_MODE_SEL(gpio_ib_mode_sel[49 + i]),
+            .VTRIP_SEL(gpio_vtrip_sel[49 + i]),
+            .SLOW(gpio_slow_sel[49 + i]),
+            .HLD_OVR(gpio_holdover[49 + i]),
+            .ANALOG_EN(gpio_analog_en[49 + i]),
+            .ANALOG_SEL(gpio_analog_sel[49 + i]),
+            .ANALOG_POL(gpio_analog_pol[49 + i]),
+            .DM({gpio_dm2[49 + i], gpio_dm1[49 + i], gpio_dm0[49 + i]}),
+            .PAD_A_NOESD_H(analog_noesd_io[49 + i]),
+            .PAD_A_ESD_0_H(analog_io[49 + i]),
             .PAD_A_ESD_1_H(),
-            .IN(gpio_in[47 + i]),
-            .IN_H(gpio_in_h[47 + i]),
+            .IN(gpio_in[49 + i]),
+            .IN_H(gpio_in_h[49 + i]),
             .TIE_HI_ESD(tie_hi),
             .TIE_LO_ESD(tie_lo)
         );
@@ -598,7 +598,6 @@ module double_wide_chip_io (
     (* keep *) open_source open_source ();
     (* keep *) project_id_textblock project_id_textblock ();
     (* keep *) logo_dw_openframe logo_dw_openframe ();
-    (* keep *) dw_openframe_motto dw_openframe_motto ();
 
 endmodule
 

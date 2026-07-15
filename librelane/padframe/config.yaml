@@ -119,14 +119,16 @@ PAD_SOUTH: [
   "gpio_s\\[5\\].u",
   "clamp_vssio_2",
   "clamp_vdda_0",
-  "clamp_vssa_1",
   "gpio_s\\[6\\].u",
-  "clamp_vssd_1",
   "gpio_s\\[7\\].u",
+  "clamp_vssa_1",
   "gpio_s\\[8\\].u",
+  "clamp_vssd_1",
   "gpio_s\\[9\\].u",
   "gpio_s\\[10\\].u",
   "gpio_s\\[11\\].u",
+  "gpio_s\\[12\\].u",
+  "gpio_s\\[13\\].u",
   "clamp_vssio_3",
   "clamp_vdda_1"
 ]
@@ -169,12 +171,14 @@ PAD_NORTH: [
   "gpio_n\\[11\\].u",
   "gpio_n\\[12\\].u",
   "gpio_n\\[13\\].u",
-  "clamp_vssio_1",
   "gpio_n\\[14\\].u",
   "gpio_n\\[15\\].u",
+  "clamp_vssio_1",
   "gpio_n\\[16\\].u",
+  "gpio_n\\[17\\].u",
+  "gpio_n\\[18\\].u",
   "clamp_vssa1_2",
-  "gpio_n\\[17\\].u"
+  "gpio_n\\[19\\].u"
 ]
 PAD_WEST: [
   "clamp_vccd_0",
@@ -255,13 +259,12 @@ IGNORE_DISCONNECTED_MODULES:
 - open_source
 - project_id_textblock
 - logo_dw_openframe
-- dw_openframe_motto
 
 # Multiple power pads share one domain net.
 MAGIC_EXT_UNIQUE: notopports
 
 # The double-wide user-area wrapper, placed centered in the die.
-# Branding sits in the middle N/S pad-ring gaps (no bond pads around X=3588).
+# Branding sits in left-half N/S pad-ring gaps; mid-seam holds extra GPIOs.
 MACROS:
   double_wide_openframe_project_wrapper:
     gds:
@@ -275,10 +278,9 @@ MACROS:
         location: [210.685, 210.685]
         orientation: N
 
-  # North mid-gap between gpio_n[8] (ends ~3213) and gpio_n[9] (starts ~3972).
-  # Logo (198.4 x 54) and motto (135.4 x 19) sit side-by-side, 15 um apart,
-  # centered on the gap, motto vertically centered on the logo. Clear of both
-  # bond pads; only com_bus_slice filler is underneath (artwork met4/met5 OBS).
+  # North left gap between gpio_n[5] (cell ends ~2002) and gpio_n[6] (starts ~2367).
+  # Logo only (198.4 x 54), centered in the clear filler span with margin from both
+  # pad cells; com_bus_slice filler underneath (artwork met4/met5 OBS).
   logo_dw_openframe:
     gds:
     - dir::../../ip/logo_dw_openframe/gds/logo_dw_openframe.gds.gz
@@ -288,21 +290,10 @@ MACROS:
     - dir::../../ip/logo_dw_openframe/vh/logo_dw_openframe.vh
     instances:
       logo_dw_openframe:
-        location: [3418.100, 5069.200]
+        location: [2085.300, 5095.200]
         orientation: N
 
-  dw_openframe_motto:
-    gds:
-    - dir::../../ip/dw_openframe_motto/gds/dw_openframe_motto.gds.gz
-    lef:
-    - dir::../../ip/dw_openframe_motto/lef/dw_openframe_motto.lef
-    vh:
-    - dir::../../ip/dw_openframe_motto/vh/dw_openframe_motto.vh
-    instances:
-      dw_openframe_motto:
-        location: [3631.500, 5086.700]
-        orientation: N
-
+  # South left gap between clamp_vssa_0 (~432) and gpio_s[0] (~972).
   open_source:
     gds:
     - dir::../../ip/open_source/gds/open_source.gds.gz
@@ -312,7 +303,7 @@ MACROS:
     - dir::../../ip/open_source/vh/open_source.vh
     instances:
       open_source:
-        location: [3422.930, 35.000]
+        location: [536.692, 35.000]
         orientation: N
 
   project_id_textblock:
@@ -324,7 +315,7 @@ MACROS:
     - dir::../../ip/project_id_textblock/vh/project_id_textblock.vh
     instances:
       project_id_textblock:
-        location: [3579.320, 44.020]
+        location: [693.082, 44.020]
         orientation: N
 
 GRT_ALLOW_CONGESTION: true

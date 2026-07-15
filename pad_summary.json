@@ -1,5 +1,5 @@
 {
-  "n_gpio": 59,
+  "n_gpio": 63,
   "die_um": [
     7176.0,
     5188.0
@@ -14,11 +14,11 @@
       "clamp": 5
     },
     "N": {
-      "gpio": 18,
+      "gpio": 20,
       "clamp": 4
     },
     "S": {
-      "gpio": 12,
+      "gpio": 14,
       "clamp": 8
     }
   },
@@ -309,148 +309,176 @@
       "g": 38,
       "side": "N",
       "domain": "user1",
-      "coord": 4008.977,
+      "coord": 3426.977,
       "inst": "gpio_n[9].u"
     },
     {
       "g": 39,
       "side": "N",
       "domain": "user1",
-      "coord": 4265.977,
+      "coord": 3683.977,
       "inst": "gpio_n[10].u"
     },
     {
       "g": 40,
       "side": "N",
       "domain": "user1",
-      "coord": 4522.977,
+      "coord": 4008.977,
       "inst": "gpio_n[11].u"
     },
     {
       "g": 41,
       "side": "N",
       "domain": "user1",
-      "coord": 4779.977,
+      "coord": 4265.977,
       "inst": "gpio_n[12].u"
     },
     {
       "g": 42,
       "side": "N",
       "domain": "user1",
-      "coord": 5037.977,
+      "coord": 4522.977,
       "inst": "gpio_n[13].u"
     },
     {
       "g": 43,
       "side": "N",
       "domain": "user1",
-      "coord": 5546.977,
+      "coord": 4779.977,
       "inst": "gpio_n[14].u"
     },
     {
       "g": 44,
       "side": "N",
       "domain": "user1",
-      "coord": 5991.977,
+      "coord": 5037.977,
       "inst": "gpio_n[15].u"
     },
     {
       "g": 45,
       "side": "N",
       "domain": "user1",
-      "coord": 6248.977,
+      "coord": 5546.977,
       "inst": "gpio_n[16].u"
     },
     {
       "g": 46,
       "side": "N",
       "domain": "user1",
-      "coord": 6757.977,
+      "coord": 5991.977,
       "inst": "gpio_n[17].u"
     },
     {
       "g": 47,
+      "side": "N",
+      "domain": "user1",
+      "coord": 6248.977,
+      "inst": "gpio_n[18].u"
+    },
+    {
+      "g": 48,
+      "side": "N",
+      "domain": "user1",
+      "coord": 6757.977,
+      "inst": "gpio_n[19].u"
+    },
+    {
+      "g": 49,
       "side": "S",
       "domain": "user0",
       "coord": 972.023,
       "inst": "gpio_s[0].u"
     },
     {
-      "g": 48,
+      "g": 50,
       "side": "S",
       "domain": "user0",
       "coord": 1515.023,
       "inst": "gpio_s[1].u"
     },
     {
-      "g": 49,
+      "g": 51,
       "side": "S",
       "domain": "user0",
       "coord": 1789.023,
       "inst": "gpio_s[2].u"
     },
     {
-      "g": 50,
+      "g": 52,
       "side": "S",
       "domain": "user0",
       "coord": 2063.023,
       "inst": "gpio_s[3].u"
     },
     {
-      "g": 51,
+      "g": 53,
       "side": "S",
       "domain": "user0",
       "coord": 2337.023,
       "inst": "gpio_s[4].u"
     },
     {
-      "g": 52,
+      "g": 54,
       "side": "S",
       "domain": "user0",
       "coord": 2611.023,
       "inst": "gpio_s[5].u"
     },
     {
-      "g": 53,
-      "side": "S",
-      "domain": "user0",
-      "coord": 4560.023,
-      "inst": "gpio_s[6].u"
-    },
-    {
-      "g": 54,
-      "side": "S",
-      "domain": "user0",
-      "coord": 5103.023,
-      "inst": "gpio_s[7].u"
-    },
-    {
       "g": 55,
       "side": "S",
       "domain": "user0",
-      "coord": 5377.023,
-      "inst": "gpio_s[8].u"
+      "coord": 3425.5,
+      "inst": "gpio_s[6].u"
     },
     {
       "g": 56,
       "side": "S",
       "domain": "user0",
-      "coord": 5651.023,
-      "inst": "gpio_s[9].u"
+      "coord": 3699.5,
+      "inst": "gpio_s[7].u"
     },
     {
       "g": 57,
       "side": "S",
       "domain": "user0",
-      "coord": 5925.023,
-      "inst": "gpio_s[10].u"
+      "coord": 4560.023,
+      "inst": "gpio_s[8].u"
     },
     {
       "g": 58,
       "side": "S",
       "domain": "user0",
-      "coord": 6199.023,
+      "coord": 5103.023,
+      "inst": "gpio_s[9].u"
+    },
+    {
+      "g": 59,
+      "side": "S",
+      "domain": "user0",
+      "coord": 5377.023,
+      "inst": "gpio_s[10].u"
+    },
+    {
+      "g": 60,
+      "side": "S",
+      "domain": "user0",
+      "coord": 5651.023,
       "inst": "gpio_s[11].u"
+    },
+    {
+      "g": 61,
+      "side": "S",
+      "domain": "user0",
+      "coord": 5925.023,
+      "inst": "gpio_s[12].u"
+    },
+    {
+      "g": 62,
+      "side": "S",
+      "domain": "user0",
+      "coord": 6199.023,
+      "inst": "gpio_s[13].u"
     }
   ]
 }

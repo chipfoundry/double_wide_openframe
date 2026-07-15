@@ -181,6 +181,18 @@ def build_inventory(uses):
     clp_by_side["N"] = dup(clp_by_side["N"])
     clp_by_side["S"] = dup(clp_by_side["S"])
 
+    # ---- fill N/S mid-seam with extra GPIOs at the existing pitch -------- #
+    # Duplicating left/right openframe halves leaves an empty seam around
+    # X=3588. Branding moves into left-half gaps; these pads occupy the seam.
+    # North: after left-half gpio @ 3169.977, pitch 257 -> 3426.977, 3683.977
+    # South: after left-half clamp_vdda @ 3151.500, pitch 274 -> 3425.500, 3699.500
+    for coord in (3426.977, 3683.977):
+        sig_by_side["N"].append(Signal("N", GPIO_DOMAIN_BY_SIDE["N"], coord))
+    for coord in (3425.500, 3699.500):
+        sig_by_side["S"].append(Signal("S", GPIO_DOMAIN_BY_SIDE["S"], coord))
+    sig_by_side["N"].sort(key=lambda o: o.coord)
+    sig_by_side["S"].sort(key=lambda o: o.coord)
+
     # ---- assign global gpio index (W, E, N, S) --------------------------- #
     g = 0
     for s in "WENS":
@@ -465,13 +477,12 @@ def gen_padframe_rtl(inv):
 """)
 
     # Branding macros: pinless keep-instances placed via LibreLane MACROS in the
-    # north/south middle pad-ring gaps (between left/right halves).
+    # left-half north/south pad-ring gaps (mid-seam holds extra GPIOs).
     body.append("""
     // ---- branding (placed by LibreLane MACROS; no electrical pins) ----
     (* keep *) open_source open_source ();
     (* keep *) project_id_textblock project_id_textblock ();
     (* keep *) logo_dw_openframe logo_dw_openframe ();
-    (* keep *) dw_openframe_motto dw_openframe_motto ();
 """)
 
     ports = ",\n".join(pad_ports)
@@ -902,13 +913,12 @@ IGNORE_DISCONNECTED_MODULES:
 - open_source
 - project_id_textblock
 - logo_dw_openframe
-- dw_openframe_motto
 
 # Multiple power pads share one domain net.
 MAGIC_EXT_UNIQUE: notopports
 
 # The double-wide user-area wrapper, placed centered in the die.
-# Branding sits in the middle N/S pad-ring gaps (no bond pads around X=3588).
+# Branding sits in left-half N/S pad-ring gaps; mid-seam holds extra GPIOs.
 MACROS:
   double_wide_openframe_project_wrapper:
     gds:
@@ -922,10 +932,9 @@ MACROS:
         location: [{WRAP_MARGIN_UM:.3f}, {WRAP_MARGIN_UM:.3f}]
         orientation: N
 
-  # North mid-gap between gpio_n[8] (ends ~3213) and gpio_n[9] (starts ~3972).
-  # Logo (198.4 x 54) and motto (135.4 x 19) sit side-by-side, 15 um apart,
-  # centered on the gap, motto vertically centered on the logo. Clear of both
-  # bond pads; only com_bus_slice filler is underneath (artwork met4/met5 OBS).
+  # North left gap between gpio_n[5] (cell ends ~2002) and gpio_n[6] (starts ~2367).
+  # Logo only (198.4 x 54), centered in the clear filler span with margin from both
+  # pad cells; com_bus_slice filler underneath (artwork met4/met5 OBS).
   logo_dw_openframe:
     gds:
     - dir::../../ip/logo_dw_openframe/gds/logo_dw_openframe.gds.gz
@@ -935,21 +944,10 @@ MACROS:
     - dir::../../ip/logo_dw_openframe/vh/logo_dw_openframe.vh
     instances:
       logo_dw_openframe:
-        location: [3418.100, 5069.200]
+        location: [2085.300, 5095.200]
         orientation: N
 
-  dw_openframe_motto:
-    gds:
-    - dir::../../ip/dw_openframe_motto/gds/dw_openframe_motto.gds.gz
-    lef:
-    - dir::../../ip/dw_openframe_motto/lef/dw_openframe_motto.lef
-    vh:
-    - dir::../../ip/dw_openframe_motto/vh/dw_openframe_motto.vh
-    instances:
-      dw_openframe_motto:
-        location: [3631.500, 5086.700]
-        orientation: N
-
+  # South left gap between clamp_vssa_0 (~432) and gpio_s[0] (~972).
   open_source:
     gds:
     - dir::../../ip/open_source/gds/open_source.gds.gz
@@ -959,7 +957,7 @@ MACROS:
     - dir::../../ip/open_source/vh/open_source.vh
     instances:
       open_source:
-        location: [3422.930, 35.000]
+        location: [536.692, 35.000]
         orientation: N
 
   project_id_textblock:
@@ -971,7 +969,7 @@ MACROS:
     - dir::../../ip/project_id_textblock/vh/project_id_textblock.vh
     instances:
       project_id_textblock:
-        location: [3579.320, 44.020]
+        location: [693.082, 44.020]
         orientation: N
 
 GRT_ALLOW_CONGESTION: true

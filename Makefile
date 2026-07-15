@@ -70,7 +70,7 @@ wrapper-empty:
 
 ## Copy empty wrapper GDS/RTL into the golden names expected by cf-precheck (-c).
 publish-golden:
-	mkdir -p gds
+	mkdir -p gds verilog/gl
 	@if [ -f build/wrapper/gds/double_wide_openframe_project_wrapper.gds ]; then \
 		cp -f build/wrapper/gds/double_wide_openframe_project_wrapper.gds \
 			gds/double_wide_openframe_project_wrapper_empty.gds; \
@@ -82,6 +82,20 @@ publish-golden:
 	else \
 		echo "No empty wrapper GDS found; run make wrapper-empty first"; exit 1; \
 	fi
+	@if [ -f build/wrapper/pnl/double_wide_openframe_project_wrapper.pnl.v ]; then \
+		cp -f build/wrapper/pnl/double_wide_openframe_project_wrapper.pnl.v \
+			verilog/gl/double_wide_openframe_project_wrapper.v; \
+	fi
+	@cp -f verilog/rtl/double_wide_openframe_project_wrapper.v \
+		verilog/rtl/__double_wide_openframe_project_wrapper.v.tmp && \
+		{ printf '%s\n' \
+			'// Golden port-list template for double_wide_openframe_project_wrapper.' \
+			'// Used by cf-precheck consistency / documentation when -c points at dw_openframe.' \
+			'// Keep ports identical to verilog/rtl/double_wide_openframe_project_wrapper.v.' \
+			''; \
+		  cat verilog/rtl/__double_wide_openframe_project_wrapper.v.tmp; \
+		} > verilog/rtl/__double_wide_openframe_project_wrapper.v && \
+		rm -f verilog/rtl/__double_wide_openframe_project_wrapper.v.tmp
 	@test -f verilog/rtl/__double_wide_openframe_project_wrapper.v
 
 ## Harden the double-wide padframe (Chip flow). Requires wrapper-empty first.

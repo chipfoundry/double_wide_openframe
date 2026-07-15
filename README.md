@@ -26,9 +26,9 @@ The double-wide therefore has **more GPIOs than openframe's 44**:
 |------|-----------|-------------|---|
 | West (left)  | 14 | **14** | same as openframe |
 | East (right) | 15 | **15** | same as openframe |
-| North (top)  | 9  | **18** | openframe x2 |
-| South (bottom)| 6 | **12** | openframe x2 |
-| **Total**    | 44 | **59** | |
+| North (top)  | 9  | **20** | openframe x2 + 2 mid-seam |
+| South (bottom)| 6 | **14** | openframe x2 + 2 mid-seam |
+| **Total**    | 44 | **63** | |
 
 Die: **7176 x 5188 um** (`2 x 3588` wide, height unchanged).
 User area (`double_wide_openframe_project_wrapper`): **6754.63 x 4766.63 um**.
@@ -36,7 +36,7 @@ User area (`double_wide_openframe_project_wrapper`): **6754.63 x 4766.63 um**.
 ## How it is built
 
 Everything below is generated from the real caravel openframe layout, so pad
-cells, positions, ordering, the 59-GPIO index map, RTL and LibreLane pad tables
+cells, positions, ordering, the 63-GPIO index map, RTL and LibreLane pad tables
 can never drift:
 
 ```
@@ -44,7 +44,7 @@ scripts/extract_openframe_pads.py
   parses ../caravel/mag/chip_io_openframe.mag
   -> verilog/rtl/double_wide_chip_io.v                    (padframe RTL)
   -> verilog/rtl/double_wide_openframe_project_wrapper.v  (empty user wrapper)
-  -> verilog/rtl/dw_defines.vh                            (DW_OPENFRAME_IO_PADS = 59)
+  -> verilog/rtl/dw_defines.vh                            (DW_OPENFRAME_IO_PADS = 63)
   -> librelane/padframe/config.yaml + pad_pos.tcl + pad_lists.yaml
   -> librelane/wrapper/pin_template.def                   (wrapper pin template)
   -> pad_summary.json                                     (per-pad index/side/domain map)
