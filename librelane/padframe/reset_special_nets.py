@@ -22,12 +22,10 @@ SPECIAL_NETS = [
     "xresloop",
     "xres_vss_loop",
     "xres_loopback_one",
-    # xres_buf reset outputs/inputs: connect by abutment, not DRT.
-    #   resetb_l = rstb_level.X -> wrapper.resetb_l   (buf output abuts wrapper pin)
-    #   resetb_h = pad.XRES_H_N -> rstb_level.A -> wrapper.resetb_h
-    #     (pin A abuts; the whole net is per-net SPECIAL so DRT skips pin A too)
-    "resetb_l",
-    "resetb_h",
+    # NOTE: resetb_l (rstb_level.X -> wrapper.resetb_l) and resetb_h
+    # (pad.XRES_H_N -> rstb_level.A -> wrapper.resetb_h) are NOT listed here --
+    # both are routed by TritonRoute (their pins get DRT access points), per
+    # request.
     # simple_por high-side output: abut to the wrapper porb_h pin, not routed.
     "porb_h",
 ]

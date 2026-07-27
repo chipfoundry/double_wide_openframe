@@ -31,7 +31,8 @@
             "Checker.YosysSynthChecks": null,
             "OpenROAD.GlobalRouting": null,
             "OpenROAD.CheckAntennas*": null,
-            "Odb.DiodesOnPorts": null
+            "Odb.DiodesOnPorts": null,
+            "+Odb.ApplyDEFTemplate": "Wrapper.AddPowerEdgePorts"
         }
     },
 
@@ -79,6 +80,9 @@
     "//pin-template3": "the padframe's pad<->wrapper nets are short straight hops.",
     "FP_DEF_TEMPLATE": "dir::../wrapper/pin_template.def",
     "FP_TEMPLATE_MATCH_MODE": "permissive",
+    "//power-edge-ports": "Do NOT set FP_TEMPLATE_COPY_POWER_PINS: that flag",
+    "//power-edge-ports2": "destroys existing PDN ring BPins. Edge met3 clamp-aligned",
+    "//power-edge-ports3": "ports are added by Wrapper.AddPowerEdgePorts instead.",
 
     "VDD_NETS": ["vccd1", "vccd2", "vccd", "vddio", "vdda", "vdda1", "vdda2"],
     "GND_NETS": ["vssd1", "vssd2", "vssd", "vssio", "vssa", "vssa1", "vssa2"],

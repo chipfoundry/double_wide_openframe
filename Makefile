@@ -65,8 +65,15 @@ pads:
 		--out-def-template librelane/wrapper/pin_template.def
 
 ## Harden the empty user-area wrapper (produces the LEF/DEF/GDS pin template).
+## run_wrapper.py imports wrapper_steps so Wrapper.AddPowerEdgePorts is registered.
 wrapper-empty:
-	$(LIBRELANE) librelane/wrapper/config.json --save-views-to build/wrapper/
+	PYTHONPATH=$(abspath librelane/wrapper):$$PYTHONPATH \
+		python3 librelane/wrapper/run_wrapper.py \
+		--pdk-root $(PDK_ROOT) --pdk $(PDK) --manual-pdk \
+		librelane/wrapper/config.json --save-views-to build/wrapper/
+	python3 scripts/patch_wrapper_lef_power_ports.py \
+		--lef build/wrapper/lef/double_wide_openframe_project_wrapper.lef \
+		--def $$(ls -td librelane/wrapper/runs/*/final/def/double_wide_openframe_project_wrapper.def | head -1)
 	$(MAKE) publish-golden
 
 ## Copy empty wrapper GDS/RTL into the golden names expected by cf-precheck (-c).

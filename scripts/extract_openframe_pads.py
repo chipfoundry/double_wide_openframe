@@ -158,6 +158,33 @@ GPIO_PIN_CX_UM = (
 )
 GPIO_PAD_WIDTH_UM = 80.0       # gpiov2 LEF SIZE width (along-edge span of the pins)
 
+# Clamp pads: SIZE 75um along-edge, bondpad_offset 0 -> cell_LL = bond - 37.5.
+# Same local-x flip as GPIO (ascending cx -> descending die along-edge):
+#   along = bond + CLAMP_BOND_TO_EDGE_UM - cx
+CLAMP_BOND_TO_EDGE_UM = 37.5
+# Core-facing domain-pin met3 stubs from sky130_ef_io clamp LEFs:
+# (local_cx_center_um, width_um). Regular clamps use pin BASE.upper();
+# clamped3 domain rails use VCCD1/VSSD1 with the same x spans as LVC vccd/vssd.
+CLAMP_MET3_STUBS = {
+    # LVC: RECT 0.500..24.500 and 50.755..74.700
+    "vccd": ((12.500, 24.000), (62.7275, 23.945)),
+    "vssd": ((12.500, 24.000), (62.7275, 23.945)),
+    # HVC: RECT 0.495..24.395 and 50.390..74.290
+    "vddio": ((12.445, 23.900), (62.340, 23.900)),
+    "vssio": ((12.445, 23.900), (62.340, 23.900)),
+    "vdda": ((12.445, 23.900), (62.340, 23.900)),
+    "vssa": ((12.445, 23.900), (62.340, 23.900)),
+}
+# Openframe-style wrapper power edge ports: met3, ~24um along-edge, 2.3um deep
+# with a small overhang past the die edge (LAYER (-1.15,-w/2)-(1.15,w/2) at
+# PLACED (-0.85, y) -> absolute x in [-2.0, 0.3]).
+POWER_PIN_LAYER = "met3"
+POWER_PIN_OUT_NM = 2000          # overhang outside the wrapper die edge
+POWER_PIN_IN_NM = 300            # into the die
+GND_RAIL_NAMES = {
+    "vssd", "vssd1", "vssd2", "vssio", "vssa", "vssa1", "vssa2",
+}
+
 # Openframe POR place Y (E); used to shift wrapper POR pins with our POR Y.
 OF_POR_LOCATION_Y_UM = 472.460
 
@@ -1143,7 +1170,28 @@ def _routing_obstructions_yaml(inv):
     # notched per pin) shorts DRT (72 shorts) -- the strip carries the dense 25-pin
     # fan-out. Use the minimal DM[0]-only version instead.
     lines.extend(_pad_dm0_wall_lines(inv))
+    lines.extend(_xres_const_obstruction_lines())
     return "\n".join(lines)
+
+
+def _xres_const_obstruction_lines():
+    """Block DRT out of the xres constant_block footprint.
+
+    The constant_block LEF met2 OBS only covers local x<=11.8 of its 14um SIZE,
+    leaving a ~2.2um met2-open strip inside the placed macro. With resetb_h routed
+    (not abut), DRT crammed its route + met2/met3 vias into that strip against the
+    block body, producing same-net m2.2 notches + a via2.2. The block's own outputs
+    (one=abut/SPECIAL, zero=unconnected) are never DRT-routed, so we can safely wall
+    the whole placed footprint on met2/met3 and force resetb_h to route cleanly
+    around the block.
+    """
+    x0 = CONSTANT_LOCATION_UM[0]
+    y0 = CONSTANT_LOCATION_UM[1] - CONST_BLOCK_OUTWARD_SHIFT_UM
+    x1, y1 = x0 + 14.0, y0 + 13.0  # LEF SIZE 14x13, orientation S keeps dims
+    lines = ["# xres constant_block footprint: keep DRT out (resetb_h routes around)."]
+    for L in ("met2", "met3"):
+        lines.append(f"- [{L}, {x0:.3f}, {y0:.3f}, {x1:.3f}, {y1:.3f}]")
+    return lines
 
 
 def _pad_dm0_wall_lines(inv):
@@ -1225,31 +1273,41 @@ def _pad_pin_notch_lines(inv):
 
 
 def _pad_footprints(inv):
-    """(side, along-edge center, pad width) for every real pad in the ring."""
+    """(side, along-edge center, pad width, kind) for every real pad in the ring.
+
+    kind is 'gpio', 'clamp', or 'reset' -- clamp footprints omit met3 from the
+    per-pad OBS so the core-facing power stubs stay reachable for special straps.
+    """
     pads = []
     for s in "WENS":
         for o in inv["sig"][s]:
-            pads.append((s, o.coord, PAD_WIDTH_GPIO_UM))
+            pads.append((s, o.coord, PAD_WIDTH_GPIO_UM, "gpio"))
         for c in inv["clp"][s]:
-            pads.append((s, c.coord, PAD_WIDTH_CLAMP_UM))
+            pads.append((s, c.coord, PAD_WIDTH_CLAMP_UM, "clamp"))
     rst = inv.get("reset")
     if rst:
-        pads.append((rst["side"], rst["coord"], PAD_WIDTH_RESET_UM))
+        pads.append((rst["side"], rst["coord"], PAD_WIDTH_RESET_UM, "reset"))
     return pads
 
 
 def _pad_obstruction_lines(inv):
     """OBS boxes over each pad footprint (all metal layers) to keep DRT from
-    routing under pads through the reset/POR windows."""
+    routing under pads through the reset/POR windows.
+
+    Clamp pads skip met3: their core-facing domain pins are wide met3 stubs that
+    Padframe.BridgePowerPads straps into the wrapper; walling met3 over those
+    stubs would only fight the special straps / later manual PDN.
+    """
     d = ROUTE_OBS_DEPTH_UM
     m = PAD_OBS_MARGIN_UM
     dw = "expr::$DIE_AREA[2]"
     dh = "expr::$DIE_AREA[3]"
     lines = ["# Per-pad OBS: block routing under the pads in the reset/POR windows."]
-    for s, c, w in _pad_footprints(inv):
+    for s, c, w, kind in _pad_footprints(inv):
         lo = c - w / 2.0 - m
         hi = c + w / 2.0 + m
-        for L in ROUTE_OBS_LAYERS:
+        layers = tuple(L for L in ROUTE_OBS_LAYERS if not (kind == "clamp" and L == "met3"))
+        for L in layers:
             if s == "S":
                 lines.append(f"- [{L}, {lo:.3f}, 0, {hi:.3f}, {d}]")
             elif s == "N":
@@ -1376,6 +1434,11 @@ meta:
     # those two SPECIAL; DRT leaves them alone and they connect at integrate.
     -OpenROAD.GlobalRouting: Padframe.ResetSpecialNets
     +OpenROAD.GlobalRouting: Odb.InsertECODiodes
+    # Power nets are SPECIAL (VDD_NETS/GND_NETS) so DRT will not bridge clamp
+    # met3 stubs to the wrapper. Draw wide special met3 straps from each clamp
+    # domain pin to the facing wrapper edge port before detailed routing -- the
+    # power equivalent of the signal pad<->wrapper hop.
+    +Odb.InsertECODiodes: Padframe.BridgePowerPads
 
     # After detailed routing, each gpio_dm0[i] route reaches its own DM[0] pad pin
     # (a short met2 tip stub) but stops 0.07-0.13um short of the pin metal, leaving
@@ -1689,6 +1752,31 @@ def gen_pin_template_def(inv):
         x = snap(nm(x_of))
         pins.append((sig, "INPUT", VLAYER, x - 140, -2000, x + 140, 280))
 
+    # Power / ground edge ports: one SPECIAL multi-PORT pin per rail, with a
+    # met3 rectangle facing every clamp met3 stub (openframe dual-~24um pattern).
+    # These coexist with the wrapper PDN ring pins (FP_TEMPLATE_MATCH_MODE
+    # permissive); the edge ports are the padframe landing sites.
+    power_ports = {rail: [] for rail in CORE_RAILS}  # rail -> [(x1,y1,x2,y2)]
+    for s in "WENS":
+        for c in inv["clp"][s]:
+            stubs = CLAMP_MET3_STUBS.get(c.base)
+            if not stubs:
+                continue
+            for cx, width in stubs:
+                along = snap(nm(c.coord + CLAMP_BOND_TO_EDGE_UM - cx) - OFF)
+                half = snap(nm(width / 2.0))
+                lo, hi = along - half, along + half
+                if s == "S":
+                    box = (lo, -POWER_PIN_OUT_NM, hi, POWER_PIN_IN_NM)
+                elif s == "N":
+                    box = (lo, HH - POWER_PIN_IN_NM, hi, HH + POWER_PIN_OUT_NM)
+                elif s == "W":
+                    box = (-POWER_PIN_OUT_NM, lo, POWER_PIN_IN_NM, hi)
+                else:  # E
+                    box = (WW - POWER_PIN_IN_NM, lo, WW + POWER_PIN_OUT_NM, hi)
+                power_ports[c.pkg].append(box)
+
+    n_pins = len(pins) + sum(1 for r in CORE_RAILS if power_ports[r])
     out = [
         "VERSION 5.8 ;",
         'DIVIDERCHAR "/" ;',
@@ -1696,11 +1784,24 @@ def gen_pin_template_def(inv):
         "DESIGN double_wide_openframe_project_wrapper ;",
         f"UNITS DISTANCE MICRONS {UPM} ;",
         f"DIEAREA ( 0 0 ) ( {WW} {HH} ) ;",
-        f"PINS {len(pins)} ;",
+        f"PINS {n_pins} ;",
     ]
     for name, direction, layer, x1, y1, x2, y2 in pins:
         out.append(f"- {name} + NET {name} + DIRECTION {direction} + USE SIGNAL")
         out.append(f"  + LAYER {layer} ( {x1} {y1} ) ( {x2} {y2} ) + PLACED ( 0 0 ) N ;")
+    for rail in CORE_RAILS:
+        ports = power_ports[rail]
+        if not ports:
+            continue
+        use = "GROUND" if rail in GND_RAIL_NAMES else "POWER"
+        out.append(f"- {rail} + NET {rail} + SPECIAL + DIRECTION INOUT + USE {use}")
+        for i, (x1, y1, x2, y2) in enumerate(ports):
+            end = " ;" if i == len(ports) - 1 else ""
+            out.append("  + PORT")
+            out.append(
+                f"    + LAYER {POWER_PIN_LAYER} ( {x1} {y1} ) ( {x2} {y2} )"
+                f" + PLACED ( 0 0 ) N{end}"
+            )
     out.append("END PINS")
     out.append("END DESIGN")
     out.append("")
