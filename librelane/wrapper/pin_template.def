@@ -4,7 +4,7 @@ BUSBITCHARS "[]" ;
 DESIGN double_wide_openframe_project_wrapper ;
 UNITS DISTANCE MICRONS 1000 ;
 DIEAREA ( 0 0 ) ( 6754630 4766630 ) ;
-PINS 1071 ;
+PINS 1202 ;
 - gpio_in[0] + NET gpio_in[0] + DIRECTION INPUT + USE SIGNAL
   + LAYER met3 ( 0 705095 ) ( 1000 705495 ) + PLACED ( 0 0 ) N ;
 - gpio_slow_sel[0] + NET gpio_slow_sel[0] + DIRECTION OUTPUT + USE SIGNAL
@@ -2147,5 +2147,267 @@ PINS 1071 ;
   + LAYER met2 ( 6016135 0 ) ( 6016535 1000 ) + PLACED ( 0 0 ) N ;
 - gpio_in_h[62] + NET gpio_in_h[62] + DIRECTION INPUT + USE SIGNAL
   + LAYER met2 ( 6020135 0 ) ( 6020535 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[0] + NET gpio_loopback_one[0] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 668020 ) ( 1000 668420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[0] + NET gpio_loopback_zero[0] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 672020 ) ( 1000 672420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[1] + NET gpio_loopback_one[1] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 883020 ) ( 1000 883420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[1] + NET gpio_loopback_zero[1] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 887020 ) ( 1000 887420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[2] + NET gpio_loopback_one[2] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 1098020 ) ( 1000 1098420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[2] + NET gpio_loopback_zero[2] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 1102020 ) ( 1000 1102420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[3] + NET gpio_loopback_one[3] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 1313020 ) ( 1000 1313420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[3] + NET gpio_loopback_zero[3] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 1317020 ) ( 1000 1317420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[4] + NET gpio_loopback_one[4] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 1528020 ) ( 1000 1528420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[4] + NET gpio_loopback_zero[4] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 1532020 ) ( 1000 1532420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[5] + NET gpio_loopback_one[5] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 1743020 ) ( 1000 1743420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[5] + NET gpio_loopback_zero[5] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 1747020 ) ( 1000 1747420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[6] + NET gpio_loopback_one[6] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 2388020 ) ( 1000 2388420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[6] + NET gpio_loopback_zero[6] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 2392020 ) ( 1000 2392420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[7] + NET gpio_loopback_one[7] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 2603020 ) ( 1000 2603420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[7] + NET gpio_loopback_zero[7] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 2607020 ) ( 1000 2607420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[8] + NET gpio_loopback_one[8] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 2818020 ) ( 1000 2818420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[8] + NET gpio_loopback_zero[8] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 2822020 ) ( 1000 2822420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[9] + NET gpio_loopback_one[9] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 3033020 ) ( 1000 3033420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[9] + NET gpio_loopback_zero[9] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 3037020 ) ( 1000 3037420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[10] + NET gpio_loopback_one[10] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 3248020 ) ( 1000 3248420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[10] + NET gpio_loopback_zero[10] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 3252020 ) ( 1000 3252420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[11] + NET gpio_loopback_one[11] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 3463020 ) ( 1000 3463420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[11] + NET gpio_loopback_zero[11] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 3467020 ) ( 1000 3467420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[12] + NET gpio_loopback_one[12] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 3678020 ) ( 1000 3678420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[12] + NET gpio_loopback_zero[12] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 3682020 ) ( 1000 3682420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[13] + NET gpio_loopback_one[13] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 4528020 ) ( 1000 4528420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[13] + NET gpio_loopback_zero[13] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 0 4532020 ) ( 1000 4532420 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[14] + NET gpio_loopback_one[14] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 381140 ) ( 6754630 381540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[14] + NET gpio_loopback_zero[14] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 385140 ) ( 6754630 385540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[15] + NET gpio_loopback_one[15] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 606140 ) ( 6754630 606540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[15] + NET gpio_loopback_zero[15] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 610140 ) ( 6754630 610540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[16] + NET gpio_loopback_one[16] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 831140 ) ( 6754630 831540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[16] + NET gpio_loopback_zero[16] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 835140 ) ( 6754630 835540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[17] + NET gpio_loopback_one[17] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 1056140 ) ( 6754630 1056540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[17] + NET gpio_loopback_zero[17] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 1060140 ) ( 6754630 1060540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[18] + NET gpio_loopback_one[18] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 1281140 ) ( 6754630 1281540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[18] + NET gpio_loopback_zero[18] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 1285140 ) ( 6754630 1285540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[19] + NET gpio_loopback_one[19] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 1506140 ) ( 6754630 1506540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[19] + NET gpio_loopback_zero[19] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 1510140 ) ( 6754630 1510540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[20] + NET gpio_loopback_one[20] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 1731140 ) ( 6754630 1731540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[20] + NET gpio_loopback_zero[20] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 1735140 ) ( 6754630 1735540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[21] + NET gpio_loopback_one[21] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 2616140 ) ( 6754630 2616540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[21] + NET gpio_loopback_zero[21] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 2620140 ) ( 6754630 2620540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[22] + NET gpio_loopback_one[22] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 2841140 ) ( 6754630 2841540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[22] + NET gpio_loopback_zero[22] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 2845140 ) ( 6754630 2845540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[23] + NET gpio_loopback_one[23] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 3066140 ) ( 6754630 3066540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[23] + NET gpio_loopback_zero[23] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 3070140 ) ( 6754630 3070540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[24] + NET gpio_loopback_one[24] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 3291140 ) ( 6754630 3291540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[24] + NET gpio_loopback_zero[24] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 3295140 ) ( 6754630 3295540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[25] + NET gpio_loopback_one[25] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 3516140 ) ( 6754630 3516540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[25] + NET gpio_loopback_zero[25] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 3520140 ) ( 6754630 3520540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[26] + NET gpio_loopback_one[26] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 3741140 ) ( 6754630 3741540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[26] + NET gpio_loopback_zero[26] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 3745140 ) ( 6754630 3745540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[27] + NET gpio_loopback_one[27] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 4186140 ) ( 6754630 4186540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[27] + NET gpio_loopback_zero[27] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 4190140 ) ( 6754630 4190540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[28] + NET gpio_loopback_one[28] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 4636140 ) ( 6754630 4636540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[28] + NET gpio_loopback_zero[28] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( 6753630 4640140 ) ( 6754630 4640540 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[29] + NET gpio_loopback_one[29] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 142290 4765630 ) ( 142690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[29] + NET gpio_loopback_zero[29] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 146290 4765630 ) ( 146690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[30] + NET gpio_loopback_one[30] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 398290 4765630 ) ( 398690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[30] + NET gpio_loopback_zero[30] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 402290 4765630 ) ( 402690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[31] + NET gpio_loopback_one[31] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 654290 4765630 ) ( 654690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[31] + NET gpio_loopback_zero[31] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 658290 4765630 ) ( 658690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[32] + NET gpio_loopback_one[32] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 910290 4765630 ) ( 910690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[32] + NET gpio_loopback_zero[32] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 914290 4765630 ) ( 914690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[33] + NET gpio_loopback_one[33] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 1166290 4765630 ) ( 1166690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[33] + NET gpio_loopback_zero[33] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 1170290 4765630 ) ( 1170690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[34] + NET gpio_loopback_one[34] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 1688290 4765630 ) ( 1688690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[34] + NET gpio_loopback_zero[34] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 1692290 4765630 ) ( 1692690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[35] + NET gpio_loopback_one[35] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 2133290 4765630 ) ( 2133690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[35] + NET gpio_loopback_zero[35] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 2137290 4765630 ) ( 2137690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[36] + NET gpio_loopback_one[36] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 2389290 4765630 ) ( 2389690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[36] + NET gpio_loopback_zero[36] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 2393290 4765630 ) ( 2393690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[37] + NET gpio_loopback_one[37] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 2886290 4765630 ) ( 2886690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[37] + NET gpio_loopback_zero[37] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 2890290 4765630 ) ( 2890690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[38] + NET gpio_loopback_one[38] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 3148290 4765630 ) ( 3148690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[38] + NET gpio_loopback_zero[38] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 3152290 4765630 ) ( 3152690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[39] + NET gpio_loopback_one[39] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 3405290 4765630 ) ( 3405690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[39] + NET gpio_loopback_zero[39] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 3409290 4765630 ) ( 3409690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[40] + NET gpio_loopback_one[40] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 3730290 4765630 ) ( 3730690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[40] + NET gpio_loopback_zero[40] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 3734290 4765630 ) ( 3734690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[41] + NET gpio_loopback_one[41] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 3986290 4765630 ) ( 3986690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[41] + NET gpio_loopback_zero[41] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 3990290 4765630 ) ( 3990690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[42] + NET gpio_loopback_one[42] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 4242290 4765630 ) ( 4242690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[42] + NET gpio_loopback_zero[42] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 4246290 4765630 ) ( 4246690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[43] + NET gpio_loopback_one[43] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 4498290 4765630 ) ( 4498690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[43] + NET gpio_loopback_zero[43] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 4502290 4765630 ) ( 4502690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[44] + NET gpio_loopback_one[44] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 4754290 4765630 ) ( 4754690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[44] + NET gpio_loopback_zero[44] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 4758290 4765630 ) ( 4758690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[45] + NET gpio_loopback_one[45] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 5276290 4765630 ) ( 5276690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[45] + NET gpio_loopback_zero[45] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 5280290 4765630 ) ( 5280690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[46] + NET gpio_loopback_one[46] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 5721290 4765630 ) ( 5721690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[46] + NET gpio_loopback_zero[46] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 5725290 4765630 ) ( 5725690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[47] + NET gpio_loopback_one[47] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 5977290 4765630 ) ( 5977690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[47] + NET gpio_loopback_zero[47] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 5981290 4765630 ) ( 5981690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[48] + NET gpio_loopback_one[48] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 6474290 4765630 ) ( 6474690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[48] + NET gpio_loopback_zero[48] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 6478290 4765630 ) ( 6478690 4766630 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[49] + NET gpio_loopback_one[49] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 809195 0 ) ( 809595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[49] + NET gpio_loopback_zero[49] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 813195 0 ) ( 813595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[50] + NET gpio_loopback_one[50] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 1357195 0 ) ( 1357595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[50] + NET gpio_loopback_zero[50] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 1361195 0 ) ( 1361595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[51] + NET gpio_loopback_one[51] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 1631195 0 ) ( 1631595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[51] + NET gpio_loopback_zero[51] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 1635195 0 ) ( 1635595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[52] + NET gpio_loopback_one[52] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 1905195 0 ) ( 1905595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[52] + NET gpio_loopback_zero[52] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 1909195 0 ) ( 1909595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[53] + NET gpio_loopback_one[53] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 2179195 0 ) ( 2179595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[53] + NET gpio_loopback_zero[53] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 2183195 0 ) ( 2183595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[54] + NET gpio_loopback_one[54] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 2453195 0 ) ( 2453595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[54] + NET gpio_loopback_zero[54] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 2457195 0 ) ( 2457595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[55] + NET gpio_loopback_one[55] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 3262675 0 ) ( 3263075 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[55] + NET gpio_loopback_zero[55] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 3266675 0 ) ( 3267075 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[56] + NET gpio_loopback_one[56] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 3536675 0 ) ( 3537075 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[56] + NET gpio_loopback_zero[56] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 3540675 0 ) ( 3541075 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[57] + NET gpio_loopback_one[57] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 4397195 0 ) ( 4397595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[57] + NET gpio_loopback_zero[57] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 4401195 0 ) ( 4401595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[58] + NET gpio_loopback_one[58] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 4945195 0 ) ( 4945595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[58] + NET gpio_loopback_zero[58] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 4949195 0 ) ( 4949595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[59] + NET gpio_loopback_one[59] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 5219195 0 ) ( 5219595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[59] + NET gpio_loopback_zero[59] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 5223195 0 ) ( 5223595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[60] + NET gpio_loopback_one[60] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 5493195 0 ) ( 5493595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[60] + NET gpio_loopback_zero[60] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 5497195 0 ) ( 5497595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[61] + NET gpio_loopback_one[61] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 5767195 0 ) ( 5767595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[61] + NET gpio_loopback_zero[61] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 5771195 0 ) ( 5771595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_one[62] + NET gpio_loopback_one[62] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 6041195 0 ) ( 6041595 1000 ) + PLACED ( 0 0 ) N ;
+- gpio_loopback_zero[62] + NET gpio_loopback_zero[62] + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 6045195 0 ) ( 6045595 1000 ) + PLACED ( 0 0 ) N ;
+- porb_h + NET porb_h + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( -2000 527055 ) ( 300 527405 ) + PLACED ( 0 0 ) N ;
+- por_l + NET por_l + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( -2000 528180 ) ( 300 528530 ) + PLACED ( 0 0 ) N ;
+- porb_l + NET porb_l + DIRECTION INPUT + USE SIGNAL
+  + LAYER met3 ( -2000 529295 ) ( 300 529645 ) + PLACED ( 0 0 ) N ;
+- resetb_h + NET resetb_h + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 497880 -2000 ) ( 498160 280 ) + PLACED ( 0 0 ) N ;
+- resetb_l + NET resetb_l + DIRECTION INPUT + USE SIGNAL
+  + LAYER met2 ( 550820 -2000 ) ( 551100 280 ) + PLACED ( 0 0 ) N ;
 END PINS
 END DESIGN

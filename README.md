@@ -50,14 +50,18 @@ scripts/extract_openframe_pads.py
   -> pad_summary.json                                     (per-pad index/side/domain map)
 ```
 
-The padframe is a **pure pass-through** ring: no POR / user-id / reset logic.
-Each GPIO pad's control signals route straight to the user-area boundary
-(the openframe-style interface: `gpio_in/out/oeb/inp_dis/ib_mode_sel/vtrip_sel/
-slow_sel/holdover/analog_en/sel/pol/dm0-2/analog_io/analog_noesd_io/in_h`). Pad
-enables are tied on-chip from each pad's own `TIE_HI_ESD`/`TIE_LO_ESD`, so the
-frame needs no support cells. Power is the **preserved openframe multi-domain**
-structure (user0 bottom, user1 right, user2 left), with the top/bottom clamp
-pads duplicated and sharing their domain rails.
+The padframe is a **pass-through GPIO ring** (no management SoC / user-id
+block): each GPIO pad's control signals route straight to the user-area
+boundary (openframe-style `gpio_in/out/oeb/inp_dis/ib_mode_sel/vtrip_sel/
+slow_sel/holdover/analog_en/sel/pol/dm0-2/analog_io/analog_noesd_io/in_h`).
+Openframe-style **POR / reset** is retained (`simple_por`, south `xres4v2`,
+`xres_buf`, `constant_block`). GPIO pad enables use local
+`TIE_HI_ESD`/`TIE_LO_ESD` (the reset pad still uses `porb_h`). Power is the
+**preserved openframe multi-domain** structure (user0 bottom, user1
+right/top, user2 left), with top/bottom clamps duplicated across the doubled
+width.
+
+Technical datasheet (catalog): [`docs/`](docs/).
 
 ## Flow
 
@@ -122,10 +126,19 @@ name and port list identical** — harden it there, then `make integrate` with y
 GDS. `pad_summary.json` documents which physical pad each `gpio[*]` index maps to,
 and the wrapper's pin locations are fixed by `librelane/wrapper/pin_template.def`.
 
+## Documentation
+
+Catalog datasheet (geometry, pinout, power, GPIO/reset, integration):
+
+- [`docs/datasheet.md`](docs/datasheet.md)
+- [`docs/pinout.md`](docs/pinout.md)
+
 ## Layout
 
 ```
+docs/      datasheet + pinout + SVG figures
 scripts/   extract_openframe_pads.py   generator (source of truth)
+           gen_datasheet_figures.py    datasheet SVG / pinout tables
            integrate_openframe.tcl     Magic cell-swap
            run_padframe_drc.py         cf-precheck Magic/KLayout DRC
            run_padframe_lvs.py         cf-precheck LVS wrapper

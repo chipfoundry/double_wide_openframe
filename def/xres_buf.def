@@ -1,0 +1,184 @@
+VERSION 5.7 ;
+   NAMESCASESENSITIVE ON ;
+   DIVIDERCHAR "/" ;
+   BUSBITCHARS "()" ;
+   DESIGN xres_buf ;
+   TECHNOLOGY sky130A ;
+   UNITS DISTANCE MICRONS 1000 ;
+   DIEAREA ( 0 0 ) ( 20000 17000 ) ;
+
+VIAS 9 ;
+   - via_260_260_hv
+      + RECT met1 ( -160 -130 ) ( 160 130 )
+      + RECT met2 ( -130 -160 ) ( 130 160 )
+      + RECT via ( -75 -75 ) ( 75 75 ) ;
+   - via2_280_280_hx
+      + RECT met2 ( -185 -140 ) ( 185 140 )
+      + RECT met3 ( -165 -165 ) ( 165 165 )
+      + RECT via2 ( -100 -100 ) ( 100 100 ) ;
+   - via3_1920_2320_hx
+      + RECT met3 ( -990 -1160 ) ( 990 1160 )
+      + RECT met4 ( -965 -1165 ) ( 965 1165 )
+      + RECT via3 ( -900 -1100 ) ( -700 -900 )
+      + RECT via3 ( -500 -1100 ) ( -300 -900 )
+      + RECT via3 ( -100 -1100 ) ( 100 -900 )
+      + RECT via3 ( 300 -1100 ) ( 500 -900 )
+      + RECT via3 ( 700 -1100 ) ( 900 -900 )
+      + RECT via3 ( -900 -700 ) ( -700 -500 )
+      + RECT via3 ( -500 -700 ) ( -300 -500 )
+      + RECT via3 ( -100 -700 ) ( 100 -500 )
+      + RECT via3 ( 300 -700 ) ( 500 -500 )
+      + RECT via3 ( 700 -700 ) ( 900 -500 )
+      + RECT via3 ( -900 -300 ) ( -700 -100 )
+      + RECT via3 ( -500 -300 ) ( -300 -100 )
+      + RECT via3 ( -100 -300 ) ( 100 -100 )
+      + RECT via3 ( 300 -300 ) ( 500 -100 )
+      + RECT via3 ( 700 -300 ) ( 900 -100 )
+      + RECT via3 ( -900 100 ) ( -700 300 )
+      + RECT via3 ( -500 100 ) ( -300 300 )
+      + RECT via3 ( -100 100 ) ( 100 300 )
+      + RECT via3 ( 300 100 ) ( 500 300 )
+      + RECT via3 ( 700 100 ) ( 900 300 )
+      + RECT via3 ( -900 500 ) ( -700 700 )
+      + RECT via3 ( -500 500 ) ( -300 700 )
+      + RECT via3 ( -100 500 ) ( 100 700 )
+      + RECT via3 ( 300 500 ) ( 500 700 )
+      + RECT via3 ( 700 500 ) ( 900 700 )
+      + RECT via3 ( -900 900 ) ( -700 1100 )
+      + RECT via3 ( -500 900 ) ( -300 1100 )
+      + RECT via3 ( -100 900 ) ( 100 1100 )
+      + RECT via3 ( 300 900 ) ( 500 1100 )
+      + RECT via3 ( 700 900 ) ( 900 1100 ) ;
+   - mcon_170_170
+      + RECT li1 ( -85 -85 ) ( 85 85 )
+      + RECT met1 ( -115 -115 ) ( 115 115 )
+      + RECT mcon ( -85 -85 ) ( 85 85 ) ;
+   - via3_1920_3920_hx
+      + RECT met3 ( -990 -1960 ) ( 990 1960 )
+      + RECT met4 ( -965 -1965 ) ( 965 1965 )
+      + RECT via3 ( -900 -1900 ) ( -700 -1700 )
+      + RECT via3 ( -500 -1900 ) ( -300 -1700 )
+      + RECT via3 ( -100 -1900 ) ( 100 -1700 )
+      + RECT via3 ( 300 -1900 ) ( 500 -1700 )
+      + RECT via3 ( 700 -1900 ) ( 900 -1700 )
+      + RECT via3 ( -900 -1500 ) ( -700 -1300 )
+      + RECT via3 ( -500 -1500 ) ( -300 -1300 )
+      + RECT via3 ( -100 -1500 ) ( 100 -1300 )
+      + RECT via3 ( 300 -1500 ) ( 500 -1300 )
+      + RECT via3 ( 700 -1500 ) ( 900 -1300 )
+      + RECT via3 ( -900 -1100 ) ( -700 -900 )
+      + RECT via3 ( -500 -1100 ) ( -300 -900 )
+      + RECT via3 ( -100 -1100 ) ( 100 -900 )
+      + RECT via3 ( 300 -1100 ) ( 500 -900 )
+      + RECT via3 ( 700 -1100 ) ( 900 -900 )
+      + RECT via3 ( -900 -700 ) ( -700 -500 )
+      + RECT via3 ( -500 -700 ) ( -300 -500 )
+      + RECT via3 ( -100 -700 ) ( 100 -500 )
+      + RECT via3 ( 300 -700 ) ( 500 -500 )
+      + RECT via3 ( 700 -700 ) ( 900 -500 )
+      + RECT via3 ( -900 -300 ) ( -700 -100 )
+      + RECT via3 ( -500 -300 ) ( -300 -100 )
+      + RECT via3 ( -100 -300 ) ( 100 -100 )
+      + RECT via3 ( 300 -300 ) ( 500 -100 )
+      + RECT via3 ( 700 -300 ) ( 900 -100 )
+      + RECT via3 ( -900 100 ) ( -700 300 )
+      + RECT via3 ( -500 100 ) ( -300 300 )
+      + RECT via3 ( -100 100 ) ( 100 300 )
+      + RECT via3 ( 300 100 ) ( 500 300 )
+      + RECT via3 ( 700 100 ) ( 900 300 )
+      + RECT via3 ( -900 500 ) ( -700 700 )
+      + RECT via3 ( -500 500 ) ( -300 700 )
+      + RECT via3 ( -100 500 ) ( 100 700 )
+      + RECT via3 ( 300 500 ) ( 500 700 )
+      + RECT via3 ( 700 500 ) ( 900 700 )
+      + RECT via3 ( -900 900 ) ( -700 1100 )
+      + RECT via3 ( -500 900 ) ( -300 1100 )
+      + RECT via3 ( -100 900 ) ( 100 1100 )
+      + RECT via3 ( 300 900 ) ( 500 1100 )
+      + RECT via3 ( 700 900 ) ( 900 1100 )
+      + RECT via3 ( -900 1300 ) ( -700 1500 )
+      + RECT via3 ( -500 1300 ) ( -300 1500 )
+      + RECT via3 ( -100 1300 ) ( 100 1500 )
+      + RECT via3 ( 300 1300 ) ( 500 1500 )
+      + RECT via3 ( 700 1300 ) ( 900 1500 )
+      + RECT via3 ( -900 1700 ) ( -700 1900 )
+      + RECT via3 ( -500 1700 ) ( -300 1900 )
+      + RECT via3 ( -100 1700 ) ( 100 1900 )
+      + RECT via3 ( 300 1700 ) ( 500 1900 )
+      + RECT via3 ( 700 1700 ) ( 900 1900 ) ;
+   - via4_1180_1180
+      + RECT met4 ( -590 -590 ) ( 590 590 )
+      + RECT met5 ( -710 -710 ) ( 710 710 )
+      + RECT via4 ( -400 -400 ) ( 400 400 ) ;
+   - via_260_260_hh
+      + RECT met1 ( -160 -130 ) ( 160 130 )
+      + RECT met2 ( -160 -130 ) ( 160 130 )
+      + RECT via ( -75 -75 ) ( 75 75 ) ;
+   - via2_280_280_vx
+      + RECT met2 ( -140 -185 ) ( 140 185 )
+      + RECT met3 ( -165 -165 ) ( 165 165 )
+      + RECT via2 ( -100 -100 ) ( 100 100 ) ;
+   - via3_320_320_hx
+      + RECT met3 ( -190 -160 ) ( 190 160 )
+      + RECT met4 ( -165 -165 ) ( 165 165 )
+      + RECT via3 ( -100 -100 ) ( 100 100 ) ;
+END VIAS
+
+COMPONENTS 16 ;
+   - FILLER_1_30 sky130_fd_sc_hvl__fill_1
+      + PLACED ( 2720 8140 ) FN ;
+   - FILLER_0_30 sky130_fd_sc_hvl__fill_1
+      + PLACED ( 2720 4070 ) S ;
+   - FILLER_0_28 sky130_fd_sc_hvl__fill_2
+      + PLACED ( 3200 4070 ) S ;
+   - FILLER_0_24 sky130_fd_sc_hvl__decap_4
+      + PLACED ( 4160 4070 ) S ;
+   - FILLER_0_16 sky130_fd_sc_hvl__decap_8
+      + PLACED ( 6080 4070 ) S ;
+   - FILLER_1_12 sky130_fd_sc_hvl__fill_1
+      + PLACED ( 11360 8140 ) FN ;
+   - FILLER_0_8 sky130_fd_sc_hvl__decap_8
+      + PLACED ( 9920 4070 ) S ;
+   - FILLER_1_0 sky130_fd_sc_hvl__decap_8
+      + PLACED ( 13760 8140 ) FN ;
+   - FILLER_0_0 sky130_fd_sc_hvl__decap_8
+      + PLACED ( 13760 4070 ) S ;
+   - FILLER_1_8 sky130_fd_sc_hvl__decap_4
+      + PLACED ( 11840 8140 ) FN ;
+   - FILLER_2_0 sky130_fd_sc_hvl__decap_8
+      + PLACED ( 13760 12210 ) S ;
+   - FILLER_2_10 sky130_fd_sc_hvl__fill_1
+      + PLACED ( 12320 12210 ) S ;
+   - FILLER_2_30 sky130_fd_sc_hvl__fill_1
+      + PLACED ( 2720 12210 ) S ;
+   - FILLER_2_8 sky130_fd_sc_hvl__fill_2
+      + PLACED ( 12800 12210 ) S ;
+   - ANTENNA_lvlshiftdown_A sky130_fd_sc_hvl__diode_2
+      + PLACED ( 11360 12210 ) S ;
+   - lvlshiftdown sky130_fd_sc_hvl__lsbufhv2lv_1
+      + PLACED ( 3200 8140 ) FN ;
+END COMPONENTS
+
+PINS 6 ;
+   - A + NET A
+     + PORT
+        + LAYER met2 ( -140 -3000 ) ( 140 3000 )        + PLACED ( 3440 16000 ) N ;
+   - X + NET X
+     + PORT
+        + LAYER met2 ( -140 -3000 ) ( 140 3000 )        + PLACED ( 16880 1000 ) N ;
+   - VPWR + NET VPWR
+     + PORT
+        + LAYER met4 ( -450 -6360 ) ( 450 6360 )        + PLACED ( 15600 10175 ) N ;
+   - VGND + NET VGND
+     + PORT
+        + LAYER met4 ( -450 -6360 ) ( 450 6360 )        + PLACED ( 9100 10175 ) N ;
+   - LVPWR + NET LVPWR
+     + PORT
+        + LAYER met4 ( -450 -6105 ) ( 450 6105 )        + PLACED ( 11200 10175 ) N ;
+   - LVGND + NET LVGND
+     + PORT
+        + LAYER met4 ( -450 -6105 ) ( 450 6105 )        + PLACED ( 4700 10175 ) N ;
+END PINS
+
+END DESIGN
+

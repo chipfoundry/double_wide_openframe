@@ -38,9 +38,10 @@ set row_names [dict create PAD_SOUTH IO_SOUTH PAD_EAST IO_EAST PAD_NORTH IO_NORT
 # AUTO-GENERATED bond-pad-center coordinates (defines caravel_pad_pos).
 source [file join [file dirname [info script]] pad_pos.tcl]
 
-# gpiov2 pads have a small bondpad offset from the cell center.
+# gpiov2 / xres pads have a small bondpad offset from the cell center.
 set bondpad_offsets [dict create]
 dict set bondpad_offsets sky130_ef_io__gpiov2_pad 2.885
+dict set bondpad_offsets sky130_fd_io__top_xres4v2 -1.658
 
 foreach side $sides {
     set positions [dict get $caravel_pad_pos $side]

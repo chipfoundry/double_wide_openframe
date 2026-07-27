@@ -63,11 +63,26 @@ meta:
     OpenROAD.IRDropReport: null
     OpenROAD.CheckAntennas*: null
 
+    # Most of the reset/POR cluster (porb_h, resetb_h, resetb_l, xres*) is routed
+    # by TritonRoute through the west/south obstruction windows (see
+    # ROUTING_OBSTRUCTIONS). The two simple_por level-shifter outputs por_l/porb_l
+    # sit on thin met3 pins ~113um from the wrapper that never get a routing
+    # access point (DRT-0419 -> crash), so Padframe.ResetSpecialNets marks just
+    # those two SPECIAL; DRT leaves them alone and they connect at integrate.
+    -OpenROAD.GlobalRouting: Padframe.ResetSpecialNets
     +OpenROAD.GlobalRouting: Odb.InsertECODiodes
+
+    # After detailed routing, each gpio_dm0[i] route reaches its own DM[0] pad pin
+    # (a short met2 tip stub) but stops 0.07-0.13um short of the pin metal, leaving
+    # a *same-net* met2 gap that KLayout flags as m2.2. Bridge each with a small
+    # same-net met2 patch (electrically a no-op; only gpio_dm0 metal is present
+    # there) so the shapes merge and the gap disappears.
+    +OpenROAD.DetailedRouting: Padframe.BridgeDM0
 
 DESIGN_NAME: double_wide_chip_io
 VERILOG_FILES:
 - dir::../../verilog/rtl/pad_ef_io_blackboxes.v
+- dir::../../verilog/rtl/por_reset_blackboxes.v
 - dir::../../verilog/rtl/double_wide_chip_io.v
 
 PAD_VERILOG_MODELS: []
@@ -95,10 +110,19 @@ LINTER_DISABLE_WARNINGS:
 
 PAD_CFG: dir::pad_cfg.tcl
 
+# PDK PAD_LEFS is only sky130_ef_io.lef; the openframe reset pad lives in
+# sky130_fd_io.lef (sky130_fd_io__top_xres4v2).
+EXTRA_LEFS:
+- pdk_dir::libs.ref/sky130_fd_io/lef/sky130_fd_io.lef
+
+# Macro-only padframe (no std-cell rows); keep SCL global-connects off.
+PDN_ENABLE_GLOBAL_CONNECTIONS: false
+
 # PDK default omits clamped3 / vdda / vssa HVC clamps — without these their
 # bond nets get no DEF PORT / GDS pin label and padframe LVS fails pin matching.
 PAD_PLACE_IO_TERMINALS:
 - sky130_ef_io__gpiov2_pad/PAD
+- sky130_fd_io__top_xres4v2/PAD
 - sky130_ef_io__vccd_lvc_clamped_pad/VCCD_PAD
 - sky130_ef_io__vccd_lvc_clamped3_pad/VCCD_PAD
 - sky130_ef_io__vssd_lvc_clamped_pad/VSSD_PAD
@@ -110,6 +134,7 @@ PAD_PLACE_IO_TERMINALS:
 
 PAD_SOUTH: [
   "clamp_vssa_0",
+  "master_resetb_pad",
   "gpio_s\\[0\\].u",
   "clamp_vssd_0",
   "gpio_s\\[1\\].u",
@@ -220,27 +245,609 @@ CORE_AREA: [210.685, 210.685, "expr::$DIE_AREA[2] - 210.685", "expr::$DIE_AREA[3
 # enough for west/east met3 IN_H pin-access vias near x≈199.18 — both a 199.7
 # cut-in (met3 short) and a 199.0 cut-in (met3 spacing vs obstruction) flagged
 # deferred DRT on gpio_in_h[3].
+#
+# Pad-ring OBS with windows cut on the west (POR) and south (reset) edges so
+# TritonRoute can wire the reset/POR cluster (resetb_h/resetb_l/porb_*/por_l).
+# East/north stay full-depth; see _routing_obstructions_yaml().
 ROUTING_OBSTRUCTIONS:
-- [met1, 0, 0, 198.5, "expr::$DIE_AREA[3]"]
-- [met2, 0, 0, 198.5, "expr::$DIE_AREA[3]"]
-- [met3, 0, 0, 198.5, "expr::$DIE_AREA[3]"]
-- [met4, 0, 0, 198.5, "expr::$DIE_AREA[3]"]
-- [met5, 0, 0, 198.5, "expr::$DIE_AREA[3]"]
+- [met1, 0, 0, 198.5, 695.0]
+- [met1, 0, 820.0, 198.5, "expr::$DIE_AREA[3]"]
+- [met2, 0, 0, 198.5, 695.0]
+- [met2, 0, 820.0, 198.5, "expr::$DIE_AREA[3]"]
+- [met3, 0, 0, 198.5, 695.0]
+- [met3, 0, 820.0, 198.5, "expr::$DIE_AREA[3]"]
+- [met4, 0, 0, 198.5, 695.0]
+- [met4, 0, 820.0, 198.5, "expr::$DIE_AREA[3]"]
+- [met5, 0, 0, 198.5, 695.0]
+- [met5, 0, 820.0, 198.5, "expr::$DIE_AREA[3]"]
 - [met1, "expr::$DIE_AREA[2] - 198.5", 0, "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
 - [met2, "expr::$DIE_AREA[2] - 198.5", 0, "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
 - [met3, "expr::$DIE_AREA[2] - 198.5", 0, "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
 - [met4, "expr::$DIE_AREA[2] - 198.5", 0, "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
 - [met5, "expr::$DIE_AREA[2] - 198.5", 0, "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
-- [met1, 0, 0, "expr::$DIE_AREA[2]", 198.5]
-- [met2, 0, 0, "expr::$DIE_AREA[2]", 198.5]
-- [met3, 0, 0, "expr::$DIE_AREA[2]", 198.5]
-- [met4, 0, 0, "expr::$DIE_AREA[2]", 198.5]
-- [met5, 0, 0, "expr::$DIE_AREA[2]", 198.5]
+- [met1, 0, 0, 655.0, 198.5]
+- [met1, 800.0, 0, "expr::$DIE_AREA[2]", 198.5]
+- [met2, 0, 0, 655.0, 198.5]
+- [met2, 800.0, 0, "expr::$DIE_AREA[2]", 198.5]
+- [met3, 0, 0, 655.0, 198.5]
+- [met3, 800.0, 0, "expr::$DIE_AREA[2]", 198.5]
+- [met4, 0, 0, 655.0, 198.5]
+- [met4, 800.0, 0, "expr::$DIE_AREA[2]", 198.5]
+- [met5, 0, 0, 655.0, 198.5]
+- [met5, 800.0, 0, "expr::$DIE_AREA[2]", 198.5]
 - [met1, 0, "expr::$DIE_AREA[3] - 198.5", "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
 - [met2, 0, "expr::$DIE_AREA[3] - 198.5", "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
 - [met3, 0, "expr::$DIE_AREA[3] - 198.5", "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
 - [met4, 0, "expr::$DIE_AREA[3] - 198.5", "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
 - [met5, 0, "expr::$DIE_AREA[3] - 198.5", "expr::$DIE_AREA[2]", "expr::$DIE_AREA[3]"]
+# Per-pad OBS: block routing under the pads in the reset/POR windows.
+- [met1, 0, 903.977, 198.5, 991.977]
+- [met2, 0, 903.977, 198.5, 991.977]
+- [met3, 0, 903.977, 198.5, 991.977]
+- [met4, 0, 903.977, 198.5, 991.977]
+- [met5, 0, 903.977, 198.5, 991.977]
+- [met1, 0, 1119.977, 198.5, 1207.977]
+- [met2, 0, 1119.977, 198.5, 1207.977]
+- [met3, 0, 1119.977, 198.5, 1207.977]
+- [met4, 0, 1119.977, 198.5, 1207.977]
+- [met5, 0, 1119.977, 198.5, 1207.977]
+- [met1, 0, 1335.977, 198.5, 1423.977]
+- [met2, 0, 1335.977, 198.5, 1423.977]
+- [met3, 0, 1335.977, 198.5, 1423.977]
+- [met4, 0, 1335.977, 198.5, 1423.977]
+- [met5, 0, 1335.977, 198.5, 1423.977]
+- [met1, 0, 1551.977, 198.5, 1639.977]
+- [met2, 0, 1551.977, 198.5, 1639.977]
+- [met3, 0, 1551.977, 198.5, 1639.977]
+- [met4, 0, 1551.977, 198.5, 1639.977]
+- [met5, 0, 1551.977, 198.5, 1639.977]
+- [met1, 0, 1767.977, 198.5, 1855.977]
+- [met2, 0, 1767.977, 198.5, 1855.977]
+- [met3, 0, 1767.977, 198.5, 1855.977]
+- [met4, 0, 1767.977, 198.5, 1855.977]
+- [met5, 0, 1767.977, 198.5, 1855.977]
+- [met1, 0, 1983.977, 198.5, 2071.977]
+- [met2, 0, 1983.977, 198.5, 2071.977]
+- [met3, 0, 1983.977, 198.5, 2071.977]
+- [met4, 0, 1983.977, 198.5, 2071.977]
+- [met5, 0, 1983.977, 198.5, 2071.977]
+- [met1, 0, 2621.977, 198.5, 2709.977]
+- [met2, 0, 2621.977, 198.5, 2709.977]
+- [met3, 0, 2621.977, 198.5, 2709.977]
+- [met4, 0, 2621.977, 198.5, 2709.977]
+- [met5, 0, 2621.977, 198.5, 2709.977]
+- [met1, 0, 2837.977, 198.5, 2925.977]
+- [met2, 0, 2837.977, 198.5, 2925.977]
+- [met3, 0, 2837.977, 198.5, 2925.977]
+- [met4, 0, 2837.977, 198.5, 2925.977]
+- [met5, 0, 2837.977, 198.5, 2925.977]
+- [met1, 0, 3053.977, 198.5, 3141.977]
+- [met2, 0, 3053.977, 198.5, 3141.977]
+- [met3, 0, 3053.977, 198.5, 3141.977]
+- [met4, 0, 3053.977, 198.5, 3141.977]
+- [met5, 0, 3053.977, 198.5, 3141.977]
+- [met1, 0, 3269.977, 198.5, 3357.977]
+- [met2, 0, 3269.977, 198.5, 3357.977]
+- [met3, 0, 3269.977, 198.5, 3357.977]
+- [met4, 0, 3269.977, 198.5, 3357.977]
+- [met5, 0, 3269.977, 198.5, 3357.977]
+- [met1, 0, 3485.977, 198.5, 3573.977]
+- [met2, 0, 3485.977, 198.5, 3573.977]
+- [met3, 0, 3485.977, 198.5, 3573.977]
+- [met4, 0, 3485.977, 198.5, 3573.977]
+- [met5, 0, 3485.977, 198.5, 3573.977]
+- [met1, 0, 3701.977, 198.5, 3789.977]
+- [met2, 0, 3701.977, 198.5, 3789.977]
+- [met3, 0, 3701.977, 198.5, 3789.977]
+- [met4, 0, 3701.977, 198.5, 3789.977]
+- [met5, 0, 3701.977, 198.5, 3789.977]
+- [met1, 0, 3917.977, 198.5, 4005.977]
+- [met2, 0, 3917.977, 198.5, 4005.977]
+- [met3, 0, 3917.977, 198.5, 4005.977]
+- [met4, 0, 3917.977, 198.5, 4005.977]
+- [met5, 0, 3917.977, 198.5, 4005.977]
+- [met1, 0, 4766.977, 198.5, 4854.977]
+- [met2, 0, 4766.977, 198.5, 4854.977]
+- [met3, 0, 4766.977, 198.5, 4854.977]
+- [met4, 0, 4766.977, 198.5, 4854.977]
+- [met5, 0, 4766.977, 198.5, 4854.977]
+- [met1, 0, 341.598, 198.5, 424.598]
+- [met2, 0, 341.598, 198.5, 424.598]
+- [met3, 0, 341.598, 198.5, 424.598]
+- [met4, 0, 341.598, 198.5, 424.598]
+- [met5, 0, 341.598, 198.5, 424.598]
+- [met1, 0, 547.000, 198.5, 630.000]
+- [met2, 0, 547.000, 198.5, 630.000]
+- [met3, 0, 547.000, 198.5, 630.000]
+- [met4, 0, 547.000, 198.5, 630.000]
+- [met5, 0, 547.000, 198.5, 630.000]
+- [met1, 0, 2205.468, 198.5, 2288.468]
+- [met2, 0, 2205.468, 198.5, 2288.468]
+- [met3, 0, 2205.468, 198.5, 2288.468]
+- [met4, 0, 2205.468, 198.5, 2288.468]
+- [met5, 0, 2205.468, 198.5, 2288.468]
+- [met1, 0, 2411.000, 198.5, 2494.000]
+- [met2, 0, 2411.000, 198.5, 2494.000]
+- [met3, 0, 2411.000, 198.5, 2494.000]
+- [met4, 0, 2411.000, 198.5, 2494.000]
+- [met5, 0, 2411.000, 198.5, 2494.000]
+- [met1, 0, 4134.000, 198.5, 4217.000]
+- [met2, 0, 4134.000, 198.5, 4217.000]
+- [met3, 0, 4134.000, 198.5, 4217.000]
+- [met4, 0, 4134.000, 198.5, 4217.000]
+- [met5, 0, 4134.000, 198.5, 4217.000]
+- [met1, 0, 4345.000, 198.5, 4428.000]
+- [met2, 0, 4345.000, 198.5, 4428.000]
+- [met3, 0, 4345.000, 198.5, 4428.000]
+- [met4, 0, 4345.000, 198.5, 4428.000]
+- [met5, 0, 4345.000, 198.5, 4428.000]
+- [met1, 0, 4561.467, 198.5, 4644.467]
+- [met2, 0, 4561.467, 198.5, 4644.467]
+- [met3, 0, 4561.467, 198.5, 4644.467]
+- [met4, 0, 4561.467, 198.5, 4644.467]
+- [met5, 0, 4561.467, 198.5, 4644.467]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 496.023, "expr::$DIE_AREA[2]", 584.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 496.023, "expr::$DIE_AREA[2]", 584.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 496.023, "expr::$DIE_AREA[2]", 584.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 496.023, "expr::$DIE_AREA[2]", 584.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 496.023, "expr::$DIE_AREA[2]", 584.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 722.023, "expr::$DIE_AREA[2]", 810.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 722.023, "expr::$DIE_AREA[2]", 810.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 722.023, "expr::$DIE_AREA[2]", 810.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 722.023, "expr::$DIE_AREA[2]", 810.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 722.023, "expr::$DIE_AREA[2]", 810.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 947.023, "expr::$DIE_AREA[2]", 1035.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 947.023, "expr::$DIE_AREA[2]", 1035.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 947.023, "expr::$DIE_AREA[2]", 1035.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 947.023, "expr::$DIE_AREA[2]", 1035.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 947.023, "expr::$DIE_AREA[2]", 1035.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 1173.023, "expr::$DIE_AREA[2]", 1261.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 1173.023, "expr::$DIE_AREA[2]", 1261.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 1173.023, "expr::$DIE_AREA[2]", 1261.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 1173.023, "expr::$DIE_AREA[2]", 1261.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 1173.023, "expr::$DIE_AREA[2]", 1261.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 1398.023, "expr::$DIE_AREA[2]", 1486.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 1398.023, "expr::$DIE_AREA[2]", 1486.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 1398.023, "expr::$DIE_AREA[2]", 1486.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 1398.023, "expr::$DIE_AREA[2]", 1486.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 1398.023, "expr::$DIE_AREA[2]", 1486.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 1623.023, "expr::$DIE_AREA[2]", 1711.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 1623.023, "expr::$DIE_AREA[2]", 1711.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 1623.023, "expr::$DIE_AREA[2]", 1711.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 1623.023, "expr::$DIE_AREA[2]", 1711.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 1623.023, "expr::$DIE_AREA[2]", 1711.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 1849.023, "expr::$DIE_AREA[2]", 1937.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 1849.023, "expr::$DIE_AREA[2]", 1937.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 1849.023, "expr::$DIE_AREA[2]", 1937.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 1849.023, "expr::$DIE_AREA[2]", 1937.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 1849.023, "expr::$DIE_AREA[2]", 1937.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 2735.023, "expr::$DIE_AREA[2]", 2823.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 2735.023, "expr::$DIE_AREA[2]", 2823.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 2735.023, "expr::$DIE_AREA[2]", 2823.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 2735.023, "expr::$DIE_AREA[2]", 2823.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 2735.023, "expr::$DIE_AREA[2]", 2823.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 2961.023, "expr::$DIE_AREA[2]", 3049.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 2961.023, "expr::$DIE_AREA[2]", 3049.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 2961.023, "expr::$DIE_AREA[2]", 3049.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 2961.023, "expr::$DIE_AREA[2]", 3049.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 2961.023, "expr::$DIE_AREA[2]", 3049.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 3186.023, "expr::$DIE_AREA[2]", 3274.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 3186.023, "expr::$DIE_AREA[2]", 3274.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 3186.023, "expr::$DIE_AREA[2]", 3274.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 3186.023, "expr::$DIE_AREA[2]", 3274.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 3186.023, "expr::$DIE_AREA[2]", 3274.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 3412.023, "expr::$DIE_AREA[2]", 3500.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 3412.023, "expr::$DIE_AREA[2]", 3500.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 3412.023, "expr::$DIE_AREA[2]", 3500.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 3412.023, "expr::$DIE_AREA[2]", 3500.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 3412.023, "expr::$DIE_AREA[2]", 3500.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 3637.023, "expr::$DIE_AREA[2]", 3725.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 3637.023, "expr::$DIE_AREA[2]", 3725.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 3637.023, "expr::$DIE_AREA[2]", 3725.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 3637.023, "expr::$DIE_AREA[2]", 3725.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 3637.023, "expr::$DIE_AREA[2]", 3725.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 3862.023, "expr::$DIE_AREA[2]", 3950.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 3862.023, "expr::$DIE_AREA[2]", 3950.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 3862.023, "expr::$DIE_AREA[2]", 3950.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 3862.023, "expr::$DIE_AREA[2]", 3950.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 3862.023, "expr::$DIE_AREA[2]", 3950.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 4308.023, "expr::$DIE_AREA[2]", 4396.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 4308.023, "expr::$DIE_AREA[2]", 4396.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 4308.023, "expr::$DIE_AREA[2]", 4396.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 4308.023, "expr::$DIE_AREA[2]", 4396.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 4308.023, "expr::$DIE_AREA[2]", 4396.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 4754.023, "expr::$DIE_AREA[2]", 4842.023]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 4754.023, "expr::$DIE_AREA[2]", 4842.023]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 4754.023, "expr::$DIE_AREA[2]", 4842.023]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 4754.023, "expr::$DIE_AREA[2]", 4842.023]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 4754.023, "expr::$DIE_AREA[2]", 4842.023]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 2074.000, "expr::$DIE_AREA[2]", 2157.000]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 2074.000, "expr::$DIE_AREA[2]", 2157.000]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 2074.000, "expr::$DIE_AREA[2]", 2157.000]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 2074.000, "expr::$DIE_AREA[2]", 2157.000]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 2074.000, "expr::$DIE_AREA[2]", 2157.000]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 2289.533, "expr::$DIE_AREA[2]", 2372.533]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 2289.533, "expr::$DIE_AREA[2]", 2372.533]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 2289.533, "expr::$DIE_AREA[2]", 2372.533]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 2289.533, "expr::$DIE_AREA[2]", 2372.533]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 2289.533, "expr::$DIE_AREA[2]", 2372.533]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 2515.000, "expr::$DIE_AREA[2]", 2598.000]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 2515.000, "expr::$DIE_AREA[2]", 2598.000]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 2515.000, "expr::$DIE_AREA[2]", 2598.000]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 2515.000, "expr::$DIE_AREA[2]", 2598.000]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 2515.000, "expr::$DIE_AREA[2]", 2598.000]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 4088.000, "expr::$DIE_AREA[2]", 4171.000]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 4088.000, "expr::$DIE_AREA[2]", 4171.000]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 4088.000, "expr::$DIE_AREA[2]", 4171.000]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 4088.000, "expr::$DIE_AREA[2]", 4171.000]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 4088.000, "expr::$DIE_AREA[2]", 4171.000]
+- [met1, "expr::$DIE_AREA[2] - 198.5", 4528.533, "expr::$DIE_AREA[2]", 4611.533]
+- [met2, "expr::$DIE_AREA[2] - 198.5", 4528.533, "expr::$DIE_AREA[2]", 4611.533]
+- [met3, "expr::$DIE_AREA[2] - 198.5", 4528.533, "expr::$DIE_AREA[2]", 4611.533]
+- [met4, "expr::$DIE_AREA[2] - 198.5", 4528.533, "expr::$DIE_AREA[2]", 4611.533]
+- [met5, "expr::$DIE_AREA[2] - 198.5", 4528.533, "expr::$DIE_AREA[2]", 4611.533]
+- [met1, 376.978, "expr::$DIE_AREA[3] - 198.5", 464.978, "expr::$DIE_AREA[3]"]
+- [met2, 376.978, "expr::$DIE_AREA[3] - 198.5", 464.978, "expr::$DIE_AREA[3]"]
+- [met3, 376.978, "expr::$DIE_AREA[3] - 198.5", 464.978, "expr::$DIE_AREA[3]"]
+- [met4, 376.978, "expr::$DIE_AREA[3] - 198.5", 464.978, "expr::$DIE_AREA[3]"]
+- [met5, 376.978, "expr::$DIE_AREA[3] - 198.5", 464.978, "expr::$DIE_AREA[3]"]
+- [met1, 633.977, "expr::$DIE_AREA[3] - 198.5", 721.977, "expr::$DIE_AREA[3]"]
+- [met2, 633.977, "expr::$DIE_AREA[3] - 198.5", 721.977, "expr::$DIE_AREA[3]"]
+- [met3, 633.977, "expr::$DIE_AREA[3] - 198.5", 721.977, "expr::$DIE_AREA[3]"]
+- [met4, 633.977, "expr::$DIE_AREA[3] - 198.5", 721.977, "expr::$DIE_AREA[3]"]
+- [met5, 633.977, "expr::$DIE_AREA[3] - 198.5", 721.977, "expr::$DIE_AREA[3]"]
+- [met1, 890.977, "expr::$DIE_AREA[3] - 198.5", 978.977, "expr::$DIE_AREA[3]"]
+- [met2, 890.977, "expr::$DIE_AREA[3] - 198.5", 978.977, "expr::$DIE_AREA[3]"]
+- [met3, 890.977, "expr::$DIE_AREA[3] - 198.5", 978.977, "expr::$DIE_AREA[3]"]
+- [met4, 890.977, "expr::$DIE_AREA[3] - 198.5", 978.977, "expr::$DIE_AREA[3]"]
+- [met5, 890.977, "expr::$DIE_AREA[3] - 198.5", 978.977, "expr::$DIE_AREA[3]"]
+- [met1, 1147.977, "expr::$DIE_AREA[3] - 198.5", 1235.977, "expr::$DIE_AREA[3]"]
+- [met2, 1147.977, "expr::$DIE_AREA[3] - 198.5", 1235.977, "expr::$DIE_AREA[3]"]
+- [met3, 1147.977, "expr::$DIE_AREA[3] - 198.5", 1235.977, "expr::$DIE_AREA[3]"]
+- [met4, 1147.977, "expr::$DIE_AREA[3] - 198.5", 1235.977, "expr::$DIE_AREA[3]"]
+- [met5, 1147.977, "expr::$DIE_AREA[3] - 198.5", 1235.977, "expr::$DIE_AREA[3]"]
+- [met1, 1405.977, "expr::$DIE_AREA[3] - 198.5", 1493.977, "expr::$DIE_AREA[3]"]
+- [met2, 1405.977, "expr::$DIE_AREA[3] - 198.5", 1493.977, "expr::$DIE_AREA[3]"]
+- [met3, 1405.977, "expr::$DIE_AREA[3] - 198.5", 1493.977, "expr::$DIE_AREA[3]"]
+- [met4, 1405.977, "expr::$DIE_AREA[3] - 198.5", 1493.977, "expr::$DIE_AREA[3]"]
+- [met5, 1405.977, "expr::$DIE_AREA[3] - 198.5", 1493.977, "expr::$DIE_AREA[3]"]
+- [met1, 1914.977, "expr::$DIE_AREA[3] - 198.5", 2002.977, "expr::$DIE_AREA[3]"]
+- [met2, 1914.977, "expr::$DIE_AREA[3] - 198.5", 2002.977, "expr::$DIE_AREA[3]"]
+- [met3, 1914.977, "expr::$DIE_AREA[3] - 198.5", 2002.977, "expr::$DIE_AREA[3]"]
+- [met4, 1914.977, "expr::$DIE_AREA[3] - 198.5", 2002.977, "expr::$DIE_AREA[3]"]
+- [met5, 1914.977, "expr::$DIE_AREA[3] - 198.5", 2002.977, "expr::$DIE_AREA[3]"]
+- [met1, 2359.977, "expr::$DIE_AREA[3] - 198.5", 2447.977, "expr::$DIE_AREA[3]"]
+- [met2, 2359.977, "expr::$DIE_AREA[3] - 198.5", 2447.977, "expr::$DIE_AREA[3]"]
+- [met3, 2359.977, "expr::$DIE_AREA[3] - 198.5", 2447.977, "expr::$DIE_AREA[3]"]
+- [met4, 2359.977, "expr::$DIE_AREA[3] - 198.5", 2447.977, "expr::$DIE_AREA[3]"]
+- [met5, 2359.977, "expr::$DIE_AREA[3] - 198.5", 2447.977, "expr::$DIE_AREA[3]"]
+- [met1, 2616.977, "expr::$DIE_AREA[3] - 198.5", 2704.977, "expr::$DIE_AREA[3]"]
+- [met2, 2616.977, "expr::$DIE_AREA[3] - 198.5", 2704.977, "expr::$DIE_AREA[3]"]
+- [met3, 2616.977, "expr::$DIE_AREA[3] - 198.5", 2704.977, "expr::$DIE_AREA[3]"]
+- [met4, 2616.977, "expr::$DIE_AREA[3] - 198.5", 2704.977, "expr::$DIE_AREA[3]"]
+- [met5, 2616.977, "expr::$DIE_AREA[3] - 198.5", 2704.977, "expr::$DIE_AREA[3]"]
+- [met1, 3125.977, "expr::$DIE_AREA[3] - 198.5", 3213.977, "expr::$DIE_AREA[3]"]
+- [met2, 3125.977, "expr::$DIE_AREA[3] - 198.5", 3213.977, "expr::$DIE_AREA[3]"]
+- [met3, 3125.977, "expr::$DIE_AREA[3] - 198.5", 3213.977, "expr::$DIE_AREA[3]"]
+- [met4, 3125.977, "expr::$DIE_AREA[3] - 198.5", 3213.977, "expr::$DIE_AREA[3]"]
+- [met5, 3125.977, "expr::$DIE_AREA[3] - 198.5", 3213.977, "expr::$DIE_AREA[3]"]
+- [met1, 3382.977, "expr::$DIE_AREA[3] - 198.5", 3470.977, "expr::$DIE_AREA[3]"]
+- [met2, 3382.977, "expr::$DIE_AREA[3] - 198.5", 3470.977, "expr::$DIE_AREA[3]"]
+- [met3, 3382.977, "expr::$DIE_AREA[3] - 198.5", 3470.977, "expr::$DIE_AREA[3]"]
+- [met4, 3382.977, "expr::$DIE_AREA[3] - 198.5", 3470.977, "expr::$DIE_AREA[3]"]
+- [met5, 3382.977, "expr::$DIE_AREA[3] - 198.5", 3470.977, "expr::$DIE_AREA[3]"]
+- [met1, 3639.977, "expr::$DIE_AREA[3] - 198.5", 3727.977, "expr::$DIE_AREA[3]"]
+- [met2, 3639.977, "expr::$DIE_AREA[3] - 198.5", 3727.977, "expr::$DIE_AREA[3]"]
+- [met3, 3639.977, "expr::$DIE_AREA[3] - 198.5", 3727.977, "expr::$DIE_AREA[3]"]
+- [met4, 3639.977, "expr::$DIE_AREA[3] - 198.5", 3727.977, "expr::$DIE_AREA[3]"]
+- [met5, 3639.977, "expr::$DIE_AREA[3] - 198.5", 3727.977, "expr::$DIE_AREA[3]"]
+- [met1, 3964.977, "expr::$DIE_AREA[3] - 198.5", 4052.977, "expr::$DIE_AREA[3]"]
+- [met2, 3964.977, "expr::$DIE_AREA[3] - 198.5", 4052.977, "expr::$DIE_AREA[3]"]
+- [met3, 3964.977, "expr::$DIE_AREA[3] - 198.5", 4052.977, "expr::$DIE_AREA[3]"]
+- [met4, 3964.977, "expr::$DIE_AREA[3] - 198.5", 4052.977, "expr::$DIE_AREA[3]"]
+- [met5, 3964.977, "expr::$DIE_AREA[3] - 198.5", 4052.977, "expr::$DIE_AREA[3]"]
+- [met1, 4221.977, "expr::$DIE_AREA[3] - 198.5", 4309.977, "expr::$DIE_AREA[3]"]
+- [met2, 4221.977, "expr::$DIE_AREA[3] - 198.5", 4309.977, "expr::$DIE_AREA[3]"]
+- [met3, 4221.977, "expr::$DIE_AREA[3] - 198.5", 4309.977, "expr::$DIE_AREA[3]"]
+- [met4, 4221.977, "expr::$DIE_AREA[3] - 198.5", 4309.977, "expr::$DIE_AREA[3]"]
+- [met5, 4221.977, "expr::$DIE_AREA[3] - 198.5", 4309.977, "expr::$DIE_AREA[3]"]
+- [met1, 4478.977, "expr::$DIE_AREA[3] - 198.5", 4566.977, "expr::$DIE_AREA[3]"]
+- [met2, 4478.977, "expr::$DIE_AREA[3] - 198.5", 4566.977, "expr::$DIE_AREA[3]"]
+- [met3, 4478.977, "expr::$DIE_AREA[3] - 198.5", 4566.977, "expr::$DIE_AREA[3]"]
+- [met4, 4478.977, "expr::$DIE_AREA[3] - 198.5", 4566.977, "expr::$DIE_AREA[3]"]
+- [met5, 4478.977, "expr::$DIE_AREA[3] - 198.5", 4566.977, "expr::$DIE_AREA[3]"]
+- [met1, 4735.977, "expr::$DIE_AREA[3] - 198.5", 4823.977, "expr::$DIE_AREA[3]"]
+- [met2, 4735.977, "expr::$DIE_AREA[3] - 198.5", 4823.977, "expr::$DIE_AREA[3]"]
+- [met3, 4735.977, "expr::$DIE_AREA[3] - 198.5", 4823.977, "expr::$DIE_AREA[3]"]
+- [met4, 4735.977, "expr::$DIE_AREA[3] - 198.5", 4823.977, "expr::$DIE_AREA[3]"]
+- [met5, 4735.977, "expr::$DIE_AREA[3] - 198.5", 4823.977, "expr::$DIE_AREA[3]"]
+- [met1, 4993.977, "expr::$DIE_AREA[3] - 198.5", 5081.977, "expr::$DIE_AREA[3]"]
+- [met2, 4993.977, "expr::$DIE_AREA[3] - 198.5", 5081.977, "expr::$DIE_AREA[3]"]
+- [met3, 4993.977, "expr::$DIE_AREA[3] - 198.5", 5081.977, "expr::$DIE_AREA[3]"]
+- [met4, 4993.977, "expr::$DIE_AREA[3] - 198.5", 5081.977, "expr::$DIE_AREA[3]"]
+- [met5, 4993.977, "expr::$DIE_AREA[3] - 198.5", 5081.977, "expr::$DIE_AREA[3]"]
+- [met1, 5502.977, "expr::$DIE_AREA[3] - 198.5", 5590.977, "expr::$DIE_AREA[3]"]
+- [met2, 5502.977, "expr::$DIE_AREA[3] - 198.5", 5590.977, "expr::$DIE_AREA[3]"]
+- [met3, 5502.977, "expr::$DIE_AREA[3] - 198.5", 5590.977, "expr::$DIE_AREA[3]"]
+- [met4, 5502.977, "expr::$DIE_AREA[3] - 198.5", 5590.977, "expr::$DIE_AREA[3]"]
+- [met5, 5502.977, "expr::$DIE_AREA[3] - 198.5", 5590.977, "expr::$DIE_AREA[3]"]
+- [met1, 5947.977, "expr::$DIE_AREA[3] - 198.5", 6035.977, "expr::$DIE_AREA[3]"]
+- [met2, 5947.977, "expr::$DIE_AREA[3] - 198.5", 6035.977, "expr::$DIE_AREA[3]"]
+- [met3, 5947.977, "expr::$DIE_AREA[3] - 198.5", 6035.977, "expr::$DIE_AREA[3]"]
+- [met4, 5947.977, "expr::$DIE_AREA[3] - 198.5", 6035.977, "expr::$DIE_AREA[3]"]
+- [met5, 5947.977, "expr::$DIE_AREA[3] - 198.5", 6035.977, "expr::$DIE_AREA[3]"]
+- [met1, 6204.977, "expr::$DIE_AREA[3] - 198.5", 6292.977, "expr::$DIE_AREA[3]"]
+- [met2, 6204.977, "expr::$DIE_AREA[3] - 198.5", 6292.977, "expr::$DIE_AREA[3]"]
+- [met3, 6204.977, "expr::$DIE_AREA[3] - 198.5", 6292.977, "expr::$DIE_AREA[3]"]
+- [met4, 6204.977, "expr::$DIE_AREA[3] - 198.5", 6292.977, "expr::$DIE_AREA[3]"]
+- [met5, 6204.977, "expr::$DIE_AREA[3] - 198.5", 6292.977, "expr::$DIE_AREA[3]"]
+- [met1, 6713.977, "expr::$DIE_AREA[3] - 198.5", 6801.977, "expr::$DIE_AREA[3]"]
+- [met2, 6713.977, "expr::$DIE_AREA[3] - 198.5", 6801.977, "expr::$DIE_AREA[3]"]
+- [met3, 6713.977, "expr::$DIE_AREA[3] - 198.5", 6801.977, "expr::$DIE_AREA[3]"]
+- [met4, 6713.977, "expr::$DIE_AREA[3] - 198.5", 6801.977, "expr::$DIE_AREA[3]"]
+- [met5, 6713.977, "expr::$DIE_AREA[3] - 198.5", 6801.977, "expr::$DIE_AREA[3]"]
+- [met1, 1663.000, "expr::$DIE_AREA[3] - 198.5", 1746.000, "expr::$DIE_AREA[3]"]
+- [met2, 1663.000, "expr::$DIE_AREA[3] - 198.5", 1746.000, "expr::$DIE_AREA[3]"]
+- [met3, 1663.000, "expr::$DIE_AREA[3] - 198.5", 1746.000, "expr::$DIE_AREA[3]"]
+- [met4, 1663.000, "expr::$DIE_AREA[3] - 198.5", 1746.000, "expr::$DIE_AREA[3]"]
+- [met5, 1663.000, "expr::$DIE_AREA[3] - 198.5", 1746.000, "expr::$DIE_AREA[3]"]
+- [met1, 2874.000, "expr::$DIE_AREA[3] - 198.5", 2957.000, "expr::$DIE_AREA[3]"]
+- [met2, 2874.000, "expr::$DIE_AREA[3] - 198.5", 2957.000, "expr::$DIE_AREA[3]"]
+- [met3, 2874.000, "expr::$DIE_AREA[3] - 198.5", 2957.000, "expr::$DIE_AREA[3]"]
+- [met4, 2874.000, "expr::$DIE_AREA[3] - 198.5", 2957.000, "expr::$DIE_AREA[3]"]
+- [met5, 2874.000, "expr::$DIE_AREA[3] - 198.5", 2957.000, "expr::$DIE_AREA[3]"]
+- [met1, 5251.000, "expr::$DIE_AREA[3] - 198.5", 5334.000, "expr::$DIE_AREA[3]"]
+- [met2, 5251.000, "expr::$DIE_AREA[3] - 198.5", 5334.000, "expr::$DIE_AREA[3]"]
+- [met3, 5251.000, "expr::$DIE_AREA[3] - 198.5", 5334.000, "expr::$DIE_AREA[3]"]
+- [met4, 5251.000, "expr::$DIE_AREA[3] - 198.5", 5334.000, "expr::$DIE_AREA[3]"]
+- [met5, 5251.000, "expr::$DIE_AREA[3] - 198.5", 5334.000, "expr::$DIE_AREA[3]"]
+- [met1, 6462.000, "expr::$DIE_AREA[3] - 198.5", 6545.000, "expr::$DIE_AREA[3]"]
+- [met2, 6462.000, "expr::$DIE_AREA[3] - 198.5", 6545.000, "expr::$DIE_AREA[3]"]
+- [met3, 6462.000, "expr::$DIE_AREA[3] - 198.5", 6545.000, "expr::$DIE_AREA[3]"]
+- [met4, 6462.000, "expr::$DIE_AREA[3] - 198.5", 6545.000, "expr::$DIE_AREA[3]"]
+- [met5, 6462.000, "expr::$DIE_AREA[3] - 198.5", 6545.000, "expr::$DIE_AREA[3]"]
+- [met1, 928.023, 0, 1016.023, 198.5]
+- [met2, 928.023, 0, 1016.023, 198.5]
+- [met3, 928.023, 0, 1016.023, 198.5]
+- [met4, 928.023, 0, 1016.023, 198.5]
+- [met5, 928.023, 0, 1016.023, 198.5]
+- [met1, 1471.023, 0, 1559.023, 198.5]
+- [met2, 1471.023, 0, 1559.023, 198.5]
+- [met3, 1471.023, 0, 1559.023, 198.5]
+- [met4, 1471.023, 0, 1559.023, 198.5]
+- [met5, 1471.023, 0, 1559.023, 198.5]
+- [met1, 1745.023, 0, 1833.023, 198.5]
+- [met2, 1745.023, 0, 1833.023, 198.5]
+- [met3, 1745.023, 0, 1833.023, 198.5]
+- [met4, 1745.023, 0, 1833.023, 198.5]
+- [met5, 1745.023, 0, 1833.023, 198.5]
+- [met1, 2019.023, 0, 2107.023, 198.5]
+- [met2, 2019.023, 0, 2107.023, 198.5]
+- [met3, 2019.023, 0, 2107.023, 198.5]
+- [met4, 2019.023, 0, 2107.023, 198.5]
+- [met5, 2019.023, 0, 2107.023, 198.5]
+- [met1, 2293.023, 0, 2381.023, 198.5]
+- [met2, 2293.023, 0, 2381.023, 198.5]
+- [met3, 2293.023, 0, 2381.023, 198.5]
+- [met4, 2293.023, 0, 2381.023, 198.5]
+- [met5, 2293.023, 0, 2381.023, 198.5]
+- [met1, 2567.023, 0, 2655.023, 198.5]
+- [met2, 2567.023, 0, 2655.023, 198.5]
+- [met3, 2567.023, 0, 2655.023, 198.5]
+- [met4, 2567.023, 0, 2655.023, 198.5]
+- [met5, 2567.023, 0, 2655.023, 198.5]
+- [met1, 3381.500, 0, 3469.500, 198.5]
+- [met2, 3381.500, 0, 3469.500, 198.5]
+- [met3, 3381.500, 0, 3469.500, 198.5]
+- [met4, 3381.500, 0, 3469.500, 198.5]
+- [met5, 3381.500, 0, 3469.500, 198.5]
+- [met1, 3655.500, 0, 3743.500, 198.5]
+- [met2, 3655.500, 0, 3743.500, 198.5]
+- [met3, 3655.500, 0, 3743.500, 198.5]
+- [met4, 3655.500, 0, 3743.500, 198.5]
+- [met5, 3655.500, 0, 3743.500, 198.5]
+- [met1, 4516.023, 0, 4604.023, 198.5]
+- [met2, 4516.023, 0, 4604.023, 198.5]
+- [met3, 4516.023, 0, 4604.023, 198.5]
+- [met4, 4516.023, 0, 4604.023, 198.5]
+- [met5, 4516.023, 0, 4604.023, 198.5]
+- [met1, 5059.023, 0, 5147.023, 198.5]
+- [met2, 5059.023, 0, 5147.023, 198.5]
+- [met3, 5059.023, 0, 5147.023, 198.5]
+- [met4, 5059.023, 0, 5147.023, 198.5]
+- [met5, 5059.023, 0, 5147.023, 198.5]
+- [met1, 5333.023, 0, 5421.023, 198.5]
+- [met2, 5333.023, 0, 5421.023, 198.5]
+- [met3, 5333.023, 0, 5421.023, 198.5]
+- [met4, 5333.023, 0, 5421.023, 198.5]
+- [met5, 5333.023, 0, 5421.023, 198.5]
+- [met1, 5607.023, 0, 5695.023, 198.5]
+- [met2, 5607.023, 0, 5695.023, 198.5]
+- [met3, 5607.023, 0, 5695.023, 198.5]
+- [met4, 5607.023, 0, 5695.023, 198.5]
+- [met5, 5607.023, 0, 5695.023, 198.5]
+- [met1, 5881.023, 0, 5969.023, 198.5]
+- [met2, 5881.023, 0, 5969.023, 198.5]
+- [met3, 5881.023, 0, 5969.023, 198.5]
+- [met4, 5881.023, 0, 5969.023, 198.5]
+- [met5, 5881.023, 0, 5969.023, 198.5]
+- [met1, 6155.023, 0, 6243.023, 198.5]
+- [met2, 6155.023, 0, 6243.023, 198.5]
+- [met3, 6155.023, 0, 6243.023, 198.5]
+- [met4, 6155.023, 0, 6243.023, 198.5]
+- [met5, 6155.023, 0, 6243.023, 198.5]
+- [met1, 390.000, 0, 473.000, 198.5]
+- [met2, 390.000, 0, 473.000, 198.5]
+- [met3, 390.000, 0, 473.000, 198.5]
+- [met4, 390.000, 0, 473.000, 198.5]
+- [met5, 390.000, 0, 473.000, 198.5]
+- [met1, 1196.402, 0, 1279.402, 198.5]
+- [met2, 1196.402, 0, 1279.402, 198.5]
+- [met3, 1196.402, 0, 1279.402, 198.5]
+- [met4, 1196.402, 0, 1279.402, 198.5]
+- [met5, 1196.402, 0, 1279.402, 198.5]
+- [met1, 2841.000, 0, 2924.000, 198.5]
+- [met2, 2841.000, 0, 2924.000, 198.5]
+- [met3, 2841.000, 0, 2924.000, 198.5]
+- [met4, 2841.000, 0, 2924.000, 198.5]
+- [met5, 2841.000, 0, 2924.000, 198.5]
+- [met1, 3110.000, 0, 3193.000, 198.5]
+- [met2, 3110.000, 0, 3193.000, 198.5]
+- [met3, 3110.000, 0, 3193.000, 198.5]
+- [met4, 3110.000, 0, 3193.000, 198.5]
+- [met5, 3110.000, 0, 3193.000, 198.5]
+- [met1, 3978.000, 0, 4061.000, 198.5]
+- [met2, 3978.000, 0, 4061.000, 198.5]
+- [met3, 3978.000, 0, 4061.000, 198.5]
+- [met4, 3978.000, 0, 4061.000, 198.5]
+- [met5, 3978.000, 0, 4061.000, 198.5]
+- [met1, 4784.403, 0, 4867.403, 198.5]
+- [met2, 4784.403, 0, 4867.403, 198.5]
+- [met3, 4784.403, 0, 4867.403, 198.5]
+- [met4, 4784.403, 0, 4867.403, 198.5]
+- [met5, 4784.403, 0, 4867.403, 198.5]
+- [met1, 6429.000, 0, 6512.000, 198.5]
+- [met2, 6429.000, 0, 6512.000, 198.5]
+- [met3, 6429.000, 0, 6512.000, 198.5]
+- [met4, 6429.000, 0, 6512.000, 198.5]
+- [met5, 6429.000, 0, 6512.000, 198.5]
+- [met1, 6698.000, 0, 6781.000, 198.5]
+- [met2, 6698.000, 0, 6781.000, 198.5]
+- [met3, 6698.000, 0, 6781.000, 198.5]
+- [met4, 6698.000, 0, 6781.000, 198.5]
+- [met5, 6698.000, 0, 6781.000, 198.5]
+- [met1, 658.947, 0, 741.947, 198.5]
+- [met2, 658.947, 0, 741.947, 198.5]
+- [met3, 658.947, 0, 741.947, 198.5]
+- [met4, 658.947, 0, 741.947, 198.5]
+- [met5, 658.947, 0, 741.947, 198.5]
+# Per-pad DM[0] flank walls (deep pin-tip band) to clear m2.2 at DM[0].
+- [met2, 199.0, 937.992, 200.5, 940.542]
+- [met2, 199.0, 941.442, 200.5, 945.092]
+- [met2, 199.0, 1153.993, 200.5, 1156.543]
+- [met2, 199.0, 1157.443, 200.5, 1161.092]
+- [met2, 199.0, 1369.993, 200.5, 1372.543]
+- [met2, 199.0, 1373.443, 200.5, 1377.092]
+- [met2, 199.0, 1585.993, 200.5, 1588.543]
+- [met2, 199.0, 1589.443, 200.5, 1593.092]
+- [met2, 199.0, 1801.993, 200.5, 1804.543]
+- [met2, 199.0, 1805.443, 200.5, 1809.092]
+- [met2, 199.0, 2017.993, 200.5, 2020.543]
+- [met2, 199.0, 2021.443, 200.5, 2025.092]
+- [met2, 199.0, 2655.992, 200.5, 2658.543]
+- [met2, 199.0, 2659.442, 200.5, 2663.092]
+- [met2, 199.0, 2871.992, 200.5, 2874.543]
+- [met2, 199.0, 2875.442, 200.5, 2879.092]
+- [met2, 199.0, 3087.992, 200.5, 3090.543]
+- [met2, 199.0, 3091.442, 200.5, 3095.092]
+- [met2, 199.0, 3303.992, 200.5, 3306.543]
+- [met2, 199.0, 3307.442, 200.5, 3311.092]
+- [met2, 199.0, 3519.992, 200.5, 3522.543]
+- [met2, 199.0, 3523.442, 200.5, 3527.092]
+- [met2, 199.0, 3735.992, 200.5, 3738.543]
+- [met2, 199.0, 3739.442, 200.5, 3743.092]
+- [met2, 199.0, 3951.992, 200.5, 3954.543]
+- [met2, 199.0, 3955.442, 200.5, 3959.092]
+- [met2, 199.0, 4800.993, 200.5, 4803.543]
+- [met2, 199.0, 4804.443, 200.5, 4808.093]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 530.038, "expr::$DIE_AREA[2] - 199.0", 532.587]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 533.488, "expr::$DIE_AREA[2] - 199.0", 537.138]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 756.038, "expr::$DIE_AREA[2] - 199.0", 758.587]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 759.488, "expr::$DIE_AREA[2] - 199.0", 763.138]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 981.038, "expr::$DIE_AREA[2] - 199.0", 983.587]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 984.488, "expr::$DIE_AREA[2] - 199.0", 988.138]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 1207.038, "expr::$DIE_AREA[2] - 199.0", 1209.588]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 1210.488, "expr::$DIE_AREA[2] - 199.0", 1214.138]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 1432.038, "expr::$DIE_AREA[2] - 199.0", 1434.588]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 1435.488, "expr::$DIE_AREA[2] - 199.0", 1439.138]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 1657.038, "expr::$DIE_AREA[2] - 199.0", 1659.588]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 1660.488, "expr::$DIE_AREA[2] - 199.0", 1664.138]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 1883.038, "expr::$DIE_AREA[2] - 199.0", 1885.588]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 1886.488, "expr::$DIE_AREA[2] - 199.0", 1890.138]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 2769.037, "expr::$DIE_AREA[2] - 199.0", 2771.588]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 2772.487, "expr::$DIE_AREA[2] - 199.0", 2776.137]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 2995.037, "expr::$DIE_AREA[2] - 199.0", 2997.588]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 2998.487, "expr::$DIE_AREA[2] - 199.0", 3002.137]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 3220.037, "expr::$DIE_AREA[2] - 199.0", 3222.588]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 3223.487, "expr::$DIE_AREA[2] - 199.0", 3227.137]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 3446.037, "expr::$DIE_AREA[2] - 199.0", 3448.588]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 3449.487, "expr::$DIE_AREA[2] - 199.0", 3453.137]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 3671.037, "expr::$DIE_AREA[2] - 199.0", 3673.588]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 3674.487, "expr::$DIE_AREA[2] - 199.0", 3678.137]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 3896.037, "expr::$DIE_AREA[2] - 199.0", 3898.588]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 3899.487, "expr::$DIE_AREA[2] - 199.0", 3903.137]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 4342.038, "expr::$DIE_AREA[2] - 199.0", 4344.588]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 4345.488, "expr::$DIE_AREA[2] - 199.0", 4349.138]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 4788.038, "expr::$DIE_AREA[2] - 199.0", 4790.588]
+- [met2, "expr::$DIE_AREA[2] - 200.5", 4791.488, "expr::$DIE_AREA[2] - 199.0", 4795.138]
+- [met2, 410.993, "expr::$DIE_AREA[3] - 200.5", 413.613, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 414.373, "expr::$DIE_AREA[3] - 200.5", 418.093, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 667.992, "expr::$DIE_AREA[3] - 200.5", 670.612, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 671.372, "expr::$DIE_AREA[3] - 200.5", 675.092, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 924.992, "expr::$DIE_AREA[3] - 200.5", 927.612, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 928.372, "expr::$DIE_AREA[3] - 200.5", 932.092, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 1181.993, "expr::$DIE_AREA[3] - 200.5", 1184.612, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 1185.373, "expr::$DIE_AREA[3] - 200.5", 1189.092, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 1439.993, "expr::$DIE_AREA[3] - 200.5", 1442.612, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 1443.373, "expr::$DIE_AREA[3] - 200.5", 1447.092, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 1948.993, "expr::$DIE_AREA[3] - 200.5", 1951.612, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 1952.373, "expr::$DIE_AREA[3] - 200.5", 1956.092, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 2393.992, "expr::$DIE_AREA[3] - 200.5", 2396.612, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 2397.372, "expr::$DIE_AREA[3] - 200.5", 2401.092, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 2650.992, "expr::$DIE_AREA[3] - 200.5", 2653.612, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 2654.372, "expr::$DIE_AREA[3] - 200.5", 2658.092, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 3159.992, "expr::$DIE_AREA[3] - 200.5", 3162.612, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 3163.372, "expr::$DIE_AREA[3] - 200.5", 3167.092, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 3416.992, "expr::$DIE_AREA[3] - 200.5", 3419.612, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 3420.372, "expr::$DIE_AREA[3] - 200.5", 3424.092, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 3673.992, "expr::$DIE_AREA[3] - 200.5", 3676.612, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 3677.372, "expr::$DIE_AREA[3] - 200.5", 3681.092, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 3998.992, "expr::$DIE_AREA[3] - 200.5", 4001.612, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 4002.372, "expr::$DIE_AREA[3] - 200.5", 4006.092, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 4255.993, "expr::$DIE_AREA[3] - 200.5", 4258.613, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 4259.373, "expr::$DIE_AREA[3] - 200.5", 4263.093, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 4512.993, "expr::$DIE_AREA[3] - 200.5", 4515.613, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 4516.373, "expr::$DIE_AREA[3] - 200.5", 4520.093, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 4769.993, "expr::$DIE_AREA[3] - 200.5", 4772.613, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 4773.373, "expr::$DIE_AREA[3] - 200.5", 4777.093, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 5027.993, "expr::$DIE_AREA[3] - 200.5", 5030.613, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 5031.373, "expr::$DIE_AREA[3] - 200.5", 5035.093, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 5536.993, "expr::$DIE_AREA[3] - 200.5", 5539.613, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 5540.373, "expr::$DIE_AREA[3] - 200.5", 5544.093, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 5981.993, "expr::$DIE_AREA[3] - 200.5", 5984.613, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 5985.373, "expr::$DIE_AREA[3] - 200.5", 5989.093, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 6238.993, "expr::$DIE_AREA[3] - 200.5", 6241.613, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 6242.373, "expr::$DIE_AREA[3] - 200.5", 6246.093, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 6747.993, "expr::$DIE_AREA[3] - 200.5", 6750.613, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 6751.373, "expr::$DIE_AREA[3] - 200.5", 6755.093, "expr::$DIE_AREA[3] - 199.0"]
+- [met2, 962.038, 199.0, 964.658, 200.5]
+- [met2, 965.418, 199.0, 969.138, 200.5]
+- [met2, 1505.038, 199.0, 1507.658, 200.5]
+- [met2, 1508.418, 199.0, 1512.138, 200.5]
+- [met2, 1779.038, 199.0, 1781.658, 200.5]
+- [met2, 1782.418, 199.0, 1786.138, 200.5]
+- [met2, 2053.037, 199.0, 2055.657, 200.5]
+- [met2, 2056.418, 199.0, 2060.137, 200.5]
+- [met2, 2327.037, 199.0, 2329.657, 200.5]
+- [met2, 2330.418, 199.0, 2334.137, 200.5]
+- [met2, 2601.037, 199.0, 2603.657, 200.5]
+- [met2, 2604.418, 199.0, 2608.137, 200.5]
+- [met2, 3415.515, 199.0, 3418.135, 200.5]
+- [met2, 3418.895, 199.0, 3422.615, 200.5]
+- [met2, 3689.515, 199.0, 3692.135, 200.5]
+- [met2, 3692.895, 199.0, 3696.615, 200.5]
+- [met2, 4550.038, 199.0, 4552.658, 200.5]
+- [met2, 4553.418, 199.0, 4557.138, 200.5]
+- [met2, 5093.038, 199.0, 5095.658, 200.5]
+- [met2, 5096.418, 199.0, 5100.138, 200.5]
+- [met2, 5367.038, 199.0, 5369.658, 200.5]
+- [met2, 5370.418, 199.0, 5374.138, 200.5]
+- [met2, 5641.038, 199.0, 5643.658, 200.5]
+- [met2, 5644.418, 199.0, 5648.138, 200.5]
+- [met2, 5915.038, 199.0, 5917.658, 200.5]
+- [met2, 5918.418, 199.0, 5922.138, 200.5]
+- [met2, 6189.038, 199.0, 6191.658, 200.5]
+- [met2, 6192.418, 199.0, 6196.138, 200.5]
 
 # Power / ground nets (preserved multi-domain). LibreLane 3 only accepts the
 # plural VDD_NETS/GND_NETS; the singular VDD_NET/GND_NET keys abort the flow.
@@ -265,6 +872,7 @@ MAGIC_EXT_UNIQUE: notopports
 
 # The double-wide user-area wrapper, placed centered in the die.
 # Branding sits in left-half N/S pad-ring gaps; mid-seam holds extra GPIOs.
+# POR sits in the west ring gap (fixed reharden coords).
 MACROS:
   double_wide_openframe_project_wrapper:
     gds:
@@ -277,6 +885,227 @@ MACROS:
       user_project:
         location: [210.685, 210.685]
         orientation: N
+
+  # West-gap Mag drop-in (dw_openframe GDS); X locked, Y free.
+  simple_por:
+    gds:
+    - dir::../../gds/simple_por.gds
+    lef:
+    - dir::../../lef/simple_por.lef
+    instances:
+      por:
+        location: [55.300, 733.780]
+        orientation: E
+
+  # South-edge reset level shifter + constant one (openframe Mag places).
+  xres_buf:
+    gds:
+    - dir::../../gds/xres_buf.gds
+    lef:
+    - dir::../../lef/xres_buf.lef
+    instances:
+      rstb_level:
+        location: [742.915, 82.355]
+        orientation: N
+
+  constant_block:
+    gds:
+    - dir::../../gds/constant_block.gds
+    lef:
+    - dir::../../lef/constant_block.lef
+    instances:
+      constant_value_xres_inst:
+        location: [739.080, 198.710]
+        orientation: S
+      gpio_w[0].const_val:
+        location: [198.260, 873.905]
+        orientation: W
+      gpio_w[1].const_val:
+        location: [198.260, 1088.905]
+        orientation: W
+      gpio_w[2].const_val:
+        location: [198.260, 1303.905]
+        orientation: W
+      gpio_w[3].const_val:
+        location: [198.260, 1518.905]
+        orientation: W
+      gpio_w[4].const_val:
+        location: [198.260, 1733.905]
+        orientation: W
+      gpio_w[5].const_val:
+        location: [198.260, 1948.905]
+        orientation: W
+      gpio_w[6].const_val:
+        location: [198.260, 2593.905]
+        orientation: W
+      gpio_w[7].const_val:
+        location: [198.260, 2808.905]
+        orientation: W
+      gpio_w[8].const_val:
+        location: [198.260, 3023.905]
+        orientation: W
+      gpio_w[9].const_val:
+        location: [198.260, 3238.905]
+        orientation: W
+      gpio_w[10].const_val:
+        location: [198.260, 3453.905]
+        orientation: W
+      gpio_w[11].const_val:
+        location: [198.260, 3668.905]
+        orientation: W
+      gpio_w[12].const_val:
+        location: [198.260, 3883.905]
+        orientation: W
+      gpio_w[13].const_val:
+        location: [198.260, 4733.905]
+        orientation: W
+      gpio_e[0].const_val:
+        location: [6963.615, 587.025]
+        orientation: E
+      gpio_e[1].const_val:
+        location: [6963.615, 812.025]
+        orientation: E
+      gpio_e[2].const_val:
+        location: [6963.615, 1037.025]
+        orientation: E
+      gpio_e[3].const_val:
+        location: [6963.615, 1262.025]
+        orientation: E
+      gpio_e[4].const_val:
+        location: [6963.615, 1487.025]
+        orientation: E
+      gpio_e[5].const_val:
+        location: [6963.615, 1712.025]
+        orientation: E
+      gpio_e[6].const_val:
+        location: [6963.615, 1937.025]
+        orientation: E
+      gpio_e[7].const_val:
+        location: [6963.615, 2822.025]
+        orientation: E
+      gpio_e[8].const_val:
+        location: [6963.615, 3047.025]
+        orientation: E
+      gpio_e[9].const_val:
+        location: [6963.615, 3272.025]
+        orientation: E
+      gpio_e[10].const_val:
+        location: [6963.615, 3497.025]
+        orientation: E
+      gpio_e[11].const_val:
+        location: [6963.615, 3722.025]
+        orientation: E
+      gpio_e[12].const_val:
+        location: [6963.615, 3947.025]
+        orientation: E
+      gpio_e[13].const_val:
+        location: [6963.615, 4398.025]
+        orientation: E
+      gpio_e[14].const_val:
+        location: [6963.615, 4842.025]
+        orientation: E
+      gpio_n[0].const_val:
+        location: [348.175, 4976.760]
+        orientation: N
+      gpio_n[1].const_val:
+        location: [604.175, 4976.760]
+        orientation: N
+      gpio_n[2].const_val:
+        location: [860.175, 4976.760]
+        orientation: N
+      gpio_n[3].const_val:
+        location: [1116.175, 4976.760]
+        orientation: N
+      gpio_n[4].const_val:
+        location: [1372.175, 4976.760]
+        orientation: N
+      gpio_n[5].const_val:
+        location: [1894.175, 4976.760]
+        orientation: N
+      gpio_n[6].const_val:
+        location: [2339.175, 4976.760]
+        orientation: N
+      gpio_n[7].const_val:
+        location: [2595.175, 4976.760]
+        orientation: N
+      gpio_n[8].const_val:
+        location: [3092.175, 4976.760]
+        orientation: N
+      gpio_n[9].const_val:
+        location: [3354.175, 4976.760]
+        orientation: N
+      gpio_n[10].const_val:
+        location: [3611.175, 4976.760]
+        orientation: N
+      gpio_n[11].const_val:
+        location: [3936.175, 4976.760]
+        orientation: N
+      gpio_n[12].const_val:
+        location: [4192.175, 4976.760]
+        orientation: N
+      gpio_n[13].const_val:
+        location: [4448.175, 4976.760]
+        orientation: N
+      gpio_n[14].const_val:
+        location: [4704.175, 4976.760]
+        orientation: N
+      gpio_n[15].const_val:
+        location: [4960.175, 4976.760]
+        orientation: N
+      gpio_n[16].const_val:
+        location: [5482.175, 4976.760]
+        orientation: N
+      gpio_n[17].const_val:
+        location: [5927.175, 4976.760]
+        orientation: N
+      gpio_n[18].const_val:
+        location: [6183.175, 4976.760]
+        orientation: N
+      gpio_n[19].const_val:
+        location: [6680.175, 4976.760]
+        orientation: N
+      gpio_s[0].const_val:
+        location: [1015.080, 199.380]
+        orientation: S
+      gpio_s[1].const_val:
+        location: [1563.080, 199.380]
+        orientation: S
+      gpio_s[2].const_val:
+        location: [1837.080, 199.380]
+        orientation: S
+      gpio_s[3].const_val:
+        location: [2111.080, 199.380]
+        orientation: S
+      gpio_s[4].const_val:
+        location: [2385.080, 199.380]
+        orientation: S
+      gpio_s[5].const_val:
+        location: [2659.080, 199.380]
+        orientation: S
+      gpio_s[6].const_val:
+        location: [3468.557, 199.380]
+        orientation: S
+      gpio_s[7].const_val:
+        location: [3742.557, 199.380]
+        orientation: S
+      gpio_s[8].const_val:
+        location: [4603.080, 199.380]
+        orientation: S
+      gpio_s[9].const_val:
+        location: [5151.080, 199.380]
+        orientation: S
+      gpio_s[10].const_val:
+        location: [5425.080, 199.380]
+        orientation: S
+      gpio_s[11].const_val:
+        location: [5699.080, 199.380]
+        orientation: S
+      gpio_s[12].const_val:
+        location: [5973.080, 199.380]
+        orientation: S
+      gpio_s[13].const_val:
+        location: [6247.080, 199.380]
+        orientation: S
 
   # North left gap between gpio_n[5] (cell ends ~2002) and gpio_n[6] (starts ~2367).
   # Logo only (198.4 x 54), centered in the clear filler span with margin from both
@@ -293,7 +1122,8 @@ MACROS:
         location: [2085.300, 5095.200]
         orientation: N
 
-  # South left gap between clamp_vssa_0 (~432) and gpio_s[0] (~972).
+  # Clean mid-south gap (~3742-3982), away from the reset pad / xres cluster and
+  # the south reset routing window. open_source is 141.4 wide -> centered here.
   open_source:
     gds:
     - dir::../../ip/open_source/gds/open_source.gds.gz
@@ -303,9 +1133,11 @@ MACROS:
     - dir::../../ip/open_source/vh/open_source.vh
     instances:
       open_source:
-        location: [536.692, 35.000]
+        location: [3791.300, 35.000]
         orientation: N
 
+  # Large clean mid-south gap (~4057-4523), away from the reset/xres cluster.
+  # project_id_textblock is 173.75 wide -> centered here.
   project_id_textblock:
     gds:
     - dir::../../ip/project_id_textblock/gds/project_id_textblock.gds.gz
@@ -315,7 +1147,7 @@ MACROS:
     - dir::../../ip/project_id_textblock/vh/project_id_textblock.vh
     instances:
       project_id_textblock:
-        location: [693.082, 44.020]
+        location: [4203.100, 44.020]
         orientation: N
 
 GRT_ALLOW_CONGESTION: true

@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 780" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif" font-size="12" role="img" aria-label="Double-wide openframe I/O map">
+<rect width="1040" height="780" fill="#ffffff"/>
+<text x="520" y="42" text-anchor="middle" font-size="18" font-weight="600" fill="#1d1d1f">Double-Wide OpenFrame — I/O Map</text>
+<text x="520" y="62" text-anchor="middle" font-size="11" fill="#86868b">63 GPIOs · indexed West → East → North → South</text>
+<rect x="220" y="180" width="600" height="433.779" fill="#fafafa" stroke="#1d1d1f" stroke-width="2"/>
+<rect x="237.616" y="197.616" width="564.768" height="398.548" fill="#eef5ea" stroke="#3a6b3d" stroke-width="1.2"/>
+<text x="520" y="388.89" text-anchor="middle" font-size="15" font-weight="600" fill="#5a5a5f">User project area</text>
+<text x="520" y="406.89" text-anchor="middle" font-size="11" fill="#86868b">6.75 × 4.77 mm</text>
+<text x="520" y="422.89" text-anchor="middle" font-size="10" fill="#86868b">die 7.18 × 5.19 mm</text>
+<g stroke="#1d1d1f" stroke-width="1" fill="none">
+<line x1="211" y1="534.517" x2="220" y2="534.517"/>
+<line x1="211" y1="516.457" x2="220" y2="516.457"/>
+<line x1="211" y1="498.397" x2="220" y2="498.397"/>
+<line x1="211" y1="480.336" x2="220" y2="480.336"/>
+<line x1="211" y1="462.276" x2="220" y2="462.276"/>
+<line x1="211" y1="444.216" x2="220" y2="444.216"/>
+<line x1="211" y1="390.871" x2="220" y2="390.871"/>
+<line x1="211" y1="372.811" x2="220" y2="372.811"/>
+<line x1="211" y1="354.751" x2="220" y2="354.751"/>
+<line x1="211" y1="336.691" x2="220" y2="336.691"/>
+<line x1="211" y1="318.631" x2="220" y2="318.631"/>
+<line x1="211" y1="300.57" x2="220" y2="300.57"/>
+<line x1="211" y1="282.51" x2="220" y2="282.51"/>
+<line x1="211" y1="211.524" x2="220" y2="211.524"/>
+<line x1="820" y1="568.627" x2="829" y2="568.627"/>
+<line x1="820" y1="549.731" x2="829" y2="549.731"/>
+<line x1="820" y1="530.918" x2="829" y2="530.918"/>
+<line x1="820" y1="512.021" x2="829" y2="512.021"/>
+<line x1="820" y1="493.209" x2="829" y2="493.209"/>
+<line x1="820" y1="474.396" x2="829" y2="474.396"/>
+<line x1="820" y1="455.5" x2="829" y2="455.5"/>
+<line x1="820" y1="381.419" x2="829" y2="381.419"/>
+<line x1="820" y1="362.523" x2="829" y2="362.523"/>
+<line x1="820" y1="343.71" x2="829" y2="343.71"/>
+<line x1="820" y1="324.814" x2="829" y2="324.814"/>
+<line x1="820" y1="306.001" x2="829" y2="306.001"/>
+<line x1="820" y1="287.189" x2="829" y2="287.189"/>
+<line x1="820" y1="249.898" x2="829" y2="249.898"/>
+<line x1="820" y1="212.607" x2="829" y2="212.607"/>
+<line x1="255.199" y1="171" x2="255.199" y2="180"/>
+<line x1="276.687" y1="171" x2="276.687" y2="180"/>
+<line x1="298.175" y1="171" x2="298.175" y2="180"/>
+<line x1="319.664" y1="171" x2="319.664" y2="180"/>
+<line x1="341.236" y1="171" x2="341.236" y2="180"/>
+<line x1="383.794" y1="171" x2="383.794" y2="180"/>
+<line x1="421.001" y1="171" x2="421.001" y2="180"/>
+<line x1="442.49" y1="171" x2="442.49" y2="180"/>
+<line x1="485.048" y1="171" x2="485.048" y2="180"/>
+<line x1="506.537" y1="171" x2="506.537" y2="180"/>
+<line x1="528.025" y1="171" x2="528.025" y2="180"/>
+<line x1="555.199" y1="171" x2="555.199" y2="180"/>
+<line x1="576.687" y1="171" x2="576.687" y2="180"/>
+<line x1="598.175" y1="171" x2="598.175" y2="180"/>
+<line x1="619.664" y1="171" x2="619.664" y2="180"/>
+<line x1="641.236" y1="171" x2="641.236" y2="180"/>
+<line x1="683.794" y1="171" x2="683.794" y2="180"/>
+<line x1="721.001" y1="171" x2="721.001" y2="180"/>
+<line x1="742.49" y1="171" x2="742.49" y2="180"/>
+<line x1="785.048" y1="171" x2="785.048" y2="180"/>
+<line x1="301.273" y1="613.779" x2="301.273" y2="622.779"/>
+<line x1="346.674" y1="613.779" x2="346.674" y2="622.779"/>
+<line x1="369.584" y1="613.779" x2="369.584" y2="622.779"/>
+<line x1="392.494" y1="613.779" x2="392.494" y2="622.779"/>
+<line x1="415.403" y1="613.779" x2="415.403" y2="622.779"/>
+<line x1="438.313" y1="613.779" x2="438.313" y2="622.779"/>
+<line x1="506.413" y1="613.779" x2="506.413" y2="622.779"/>
+<line x1="529.323" y1="613.779" x2="529.323" y2="622.779"/>
+<line x1="601.273" y1="613.779" x2="601.273" y2="622.779"/>
+<line x1="646.674" y1="613.779" x2="646.674" y2="622.779"/>
+<line x1="669.584" y1="613.779" x2="669.584" y2="622.779"/>
+<line x1="692.494" y1="613.779" x2="692.494" y2="622.779"/>
+<line x1="715.403" y1="613.779" x2="715.403" y2="622.779"/>
+<line x1="738.313" y1="613.779" x2="738.313" y2="622.779"/>
+</g>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0070f3"/></marker></defs>
+<g stroke="#0070f3" stroke-width="1.4" fill="none" stroke-dasharray="3 3">
+<line x1="204" y1="534.517" x2="204" y2="211.524" marker-end="url(#ar)"/>
+<line x1="836" y1="568.627" x2="836" y2="212.607" marker-end="url(#ar)"/>
+<line x1="255.199" y1="162" x2="785.048" y2="162" marker-end="url(#ar)"/>
+<line x1="301.273" y1="631.779" x2="738.313" y2="631.779" marker-end="url(#ar)"/>
+</g>
+<line x1="211" y1="534.517" x2="186" y2="534.517" stroke="#1d1d1f"/>
+<text x="182" y="538.517" text-anchor="end" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[0]</text>
+<text x="182" y="551.517" text-anchor="end" font-size="9.5" fill="#86868b">start</text>
+<line x1="211" y1="211.524" x2="186" y2="211.524" stroke="#1d1d1f"/>
+<text x="182" y="215.524" text-anchor="end" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[13]</text>
+<line x1="829" y1="568.627" x2="854" y2="568.627" stroke="#1d1d1f"/>
+<text x="858" y="572.627" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[14]</text>
+<line x1="829" y1="212.607" x2="854" y2="212.607" stroke="#1d1d1f"/>
+<text x="858" y="216.607" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[28]</text>
+<line x1="255.199" y1="171" x2="255.199" y2="146" stroke="#1d1d1f"/>
+<text x="255.199" y="142" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[29]</text>
+<line x1="785.048" y1="171" x2="785.048" y2="146" stroke="#1d1d1f"/>
+<text x="785.048" y="142" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[48]</text>
+<line x1="301.273" y1="622.779" x2="301.273" y2="647.779" stroke="#1d1d1f"/>
+<text x="301.273" y="659.779" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[49]</text>
+<line x1="738.313" y1="622.779" x2="738.313" y2="647.779" stroke="#1d1d1f"/>
+<text x="738.313" y="659.779" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[62]</text>
+<text x="738.313" y="672.779" text-anchor="middle" font-size="9.5" fill="#0070f3">last GPIO</text>
+<circle cx="220" cy="552.426" r="3.4" fill="#bf4800"/>
+<line x1="211" y1="552.426" x2="186" y2="570.426" stroke="#bf4800"/>
+<text x="182" y="574.426" text-anchor="end" font-size="12" font-weight="600" fill="#bf4800">POR</text>
+<text x="182" y="587.426" text-anchor="end" font-size="9.5" fill="#86868b">porb_h · porb_l · por_l</text>
+<circle cx="278.566" cy="613.779" r="3.4" fill="#bf4800"/>
+<line x1="278.566" y1="622.779" x2="254.566" y2="665.779" stroke="#bf4800"/>
+<text x="250.566" y="665.779" text-anchor="end" font-size="12" font-weight="600" fill="#bf4800">reset pad</text>
+<text x="250.566" y="678.779" text-anchor="end" font-size="9.5" fill="#86868b">resetb_h · resetb_l</text>
+<text x="124" y="366.89" text-anchor="end" font-size="11" font-weight="600" fill="#1d1d1f">West edge</text>
+<text x="124" y="381.89" text-anchor="end" font-size="11" fill="#86868b">GPIO[0]–[13] · user2</text>
+<text x="124" y="395.89" text-anchor="end" font-size="11" fill="#86868b">14 GPIOs, bottom→top</text>
+<text x="916" y="366.89" font-size="11" font-weight="600" fill="#1d1d1f">East edge</text>
+<text x="916" y="381.89" font-size="11" fill="#86868b">GPIO[14]–[28] · user1</text>
+<text x="916" y="395.89" font-size="11" fill="#86868b">15 GPIOs, bottom→top</text>
+<text x="520" y="108" text-anchor="middle" font-size="11" fill="#86868b">North edge — GPIO[29]–[48] — 20 GPIOs — user1 — left→right</text>
+<text x="520" y="756" text-anchor="middle" font-size="11" fill="#86868b">South edge — GPIO[49]–[62] — 14 GPIOs — user0 — left→right</text>
+<g transform="translate(40,738)">
+<rect width="250" height="30" fill="none" stroke="#d2d2d7" rx="4"/>
+<line x1="14" y1="15" x2="26" y2="15" stroke="#1d1d1f" stroke-width="1.4"/>
+<text x="32" y="19" font-size="11" fill="#1d1d1f">GPIO pad</text>
+<circle cx="120" cy="15" r="3.4" fill="#bf4800"/>
+<text x="130" y="19" font-size="11" fill="#1d1d1f">POR / reset pad</text>
+</g>
+</svg>

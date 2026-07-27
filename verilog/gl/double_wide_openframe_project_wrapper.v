@@ -1,4 +1,9 @@
-module double_wide_openframe_project_wrapper (vssa2,
+module double_wide_openframe_project_wrapper (por_l,
+    porb_h,
+    porb_l,
+    resetb_h,
+    resetb_l,
+    vssa2,
     vdda2,
     vssa1,
     vdda1,
@@ -25,10 +30,17 @@ module double_wide_openframe_project_wrapper (vssa2,
     gpio_in,
     gpio_in_h,
     gpio_inp_dis,
+    gpio_loopback_one,
+    gpio_loopback_zero,
     gpio_oeb,
     gpio_out,
     gpio_slow_sel,
     gpio_vtrip_sel);
+ input por_l;
+ input porb_h;
+ input porb_l;
+ input resetb_h;
+ input resetb_l;
  inout vssa2;
  inout vdda2;
  inout vssa1;
@@ -56,6 +68,8 @@ module double_wide_openframe_project_wrapper (vssa2,
  input [62:0] gpio_in;
  input [62:0] gpio_in_h;
  output [62:0] gpio_inp_dis;
+ input [62:0] gpio_loopback_one;
+ input [62:0] gpio_loopback_zero;
  output [62:0] gpio_oeb;
  output [62:0] gpio_out;
  output [62:0] gpio_slow_sel;

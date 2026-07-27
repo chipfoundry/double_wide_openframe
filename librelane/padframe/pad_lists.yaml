@@ -1,6 +1,7 @@
 # AUTO-GENERATED per-side ordered pad instance lists (match pad_pos.tcl).
 PAD_SOUTH: [
     "clamp_vssa_0",
+    "master_resetb_pad",
     "gpio_s\\[0\\].u",
     "clamp_vssd_0",
     "gpio_s\\[1\\].u",

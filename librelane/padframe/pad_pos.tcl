@@ -3,6 +3,7 @@ set caravel_pad_pos [dict create]
 
 dict set caravel_pad_pos PAD_SOUTH "\
     431.500 \
+    700.447 \
     972.023 \
     1237.902 \
     1515.023 \

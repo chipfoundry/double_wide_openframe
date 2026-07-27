@@ -480,5 +480,18 @@
       "coord": 6199.023,
       "inst": "gpio_s[13].u"
     }
-  ]
+  ],
+  "reset": {
+    "side": "S",
+    "coord": 700.447,
+    "inst": "master_resetb_pad"
+  },
+  "por": {
+    "inst": "por",
+    "location_um": [
+      55.3,
+      733.78
+    ],
+    "orientation": "E"
+  }
 }

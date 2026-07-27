@@ -61,6 +61,7 @@ pads:
 		--out-defines verilog/rtl/dw_defines.vh \
 		--out-config librelane/padframe/config.yaml \
 		--out-pad-blackboxes verilog/rtl/pad_ef_io_blackboxes.v \
+		--out-por-reset-blackboxes verilog/rtl/por_reset_blackboxes.v \
 		--out-def-template librelane/wrapper/pin_template.def
 
 ## Harden the empty user-area wrapper (produces the LEF/DEF/GDS pin template).
@@ -99,8 +100,12 @@ publish-golden:
 	@test -f verilog/rtl/__double_wide_openframe_project_wrapper.v
 
 ## Harden the double-wide padframe (Chip flow). Requires wrapper-empty first.
+## run_padframe.py imports padframe_steps so Padframe.ResetSpecialNets is registered.
 padframe:
-	$(LIBRELANE) librelane/padframe/config.yaml --save-views-to build/padframe/
+	PYTHONPATH=$(abspath librelane/padframe):$$PYTHONPATH \
+		python3 librelane/padframe/run_padframe.py \
+		--pdk-root $(PDK_ROOT) --pdk $(PDK) --manual-pdk \
+		librelane/padframe/config.yaml --save-views-to build/padframe/
 	@if [ -f build/padframe/gds/double_wide_chip_io.gds ]; then \
 		mkdir -p gds && cp -f build/padframe/gds/double_wide_chip_io.gds gds/; \
 	fi
