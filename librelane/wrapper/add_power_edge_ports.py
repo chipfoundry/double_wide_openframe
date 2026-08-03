@@ -16,6 +16,9 @@ POWER_NETS = {
     "vccd", "vccd1", "vccd2", "vddio", "vdda", "vdda1", "vdda2",
     "vssd", "vssd1", "vssd2", "vssio", "vssa", "vssa1", "vssa2",
 }
+M3M4_VIA = "M3M4_PR"
+STRAP_WIDTH_DBU = 1600
+MIN_PDN_STRIPE_LENGTH_DBU = 4000
 
 
 def _parse_power_ports(def_path):
@@ -41,6 +44,93 @@ def _parse_power_ports(def_path):
     return ports
 
 
+def _met4_stripes(net):
+    """Return the long vertical met4 shapes in an existing PDN mesh."""
+    stripes = []
+    for swire in net.getSWires():
+        for box in swire.getWires():
+            if box.isVia():
+                continue
+            layer = box.getTechLayer()
+            if layer is None or layer.getName() != "met4":
+                continue
+            if (
+                box.yMax() - box.yMin() > box.xMax() - box.xMin()
+                and box.yMax() - box.yMin() >= MIN_PDN_STRIPE_LENGTH_DBU
+            ):
+                stripes.append(box)
+    return stripes
+
+
+def _add_rect(swire, layer, x1, y1, x2, y2):
+    x1, x2 = sorted((x1, x2))
+    y1, y2 = sorted((y1, y2))
+    if x1 != x2 and y1 != y2:
+        odb.dbSBox.create(swire, layer, x1, y1, x2, y2, "STRIPE")
+
+
+def _stitch_ports_to_pdn(block, tech, ports):
+    """Route edge ports on met3 to each net's nearest internal met4 PDN stripe."""
+    met3 = tech.findLayer("met3")
+    via = tech.findVia(M3M4_VIA)
+    if met3 is None or via is None:
+        raise RuntimeError("met3 or M3M4_PR is unavailable")
+
+    die = block.getDieArea()
+    half = STRAP_WIDTH_DBU // 2
+    stitched = 0
+    skipped = []
+    for name, boxes in ports.items():
+        net = block.findNet(name)
+        if net is None:
+            continue
+        stripes = _met4_stripes(net)
+        if not stripes:
+            # An unused top-level supply has no in-macro PDN to stitch.
+            continue
+        net.setSpecial()
+        swire = odb.dbSWire.create(net, "ROUTED")
+        for _layer, x1, y1, x2, y2 in boxes:
+            px = (x1 + x2) // 2
+            py = (y1 + y2) // 2
+            if x1 < die.xMin():  # west
+                ax, ay = die.xMin(), py
+            elif x2 > die.xMax():  # east
+                ax, ay = die.xMax(), py
+            elif y1 < die.yMin():  # south
+                ax, ay = px, die.yMin()
+            elif y2 > die.yMax():  # north
+                ax, ay = px, die.yMax()
+            else:
+                skipped.append((name, "port does not touch an edge"))
+                continue
+
+            spanning = [s for s in stripes if s.yMin() <= ay <= s.yMax()]
+            candidates = spanning or stripes
+            stripe = min(
+                candidates,
+                key=lambda s: (
+                    abs((s.xMin() + s.xMax()) // 2 - ax)
+                    + max(s.yMin() - ay, 0, ay - s.yMax())
+                ),
+            )
+            vx = (stripe.xMin() + stripe.xMax()) // 2
+            vy = min(max(ay, stripe.yMin() + half), stripe.yMax() - half)
+
+            if ax in (die.xMin(), die.xMax()):
+                _add_rect(swire, met3, ax, ay - half, vx, ay + half)
+                _add_rect(swire, met3, vx - half, ay, vx + half, vy)
+            else:
+                _add_rect(swire, met3, ax - half, ay, ax + half, vy)
+                _add_rect(swire, met3, ax, vy - half, vx, vy + half)
+            odb.dbSBox.create(swire, via, vx, vy, "STRIPE")
+            stitched += 1
+
+    if skipped:
+        print(f"[add_power_edge_ports] WARNING stitch skips {skipped[:8]}")
+    print(f"[add_power_edge_ports] stitched {stitched} edge ports into the PDN")
+
+
 @click.command()
 @click.option(
     "-t",
@@ -62,13 +152,17 @@ def add_power_edge_ports(reader, def_template):
         if bterm is None:
             skipped.append((name, "no BTerm"))
             continue
+        bpins = bterm.getBPins()
+        if bpins:
+            bpin = bpins[0]
+        else:
+            bpin = odb.dbBPin.create(bterm)
+            bpin.setPlacementStatus("FIRM")
         for layer_name, x1, y1, x2, y2 in boxes:
             layer = tech.findLayer(layer_name)
             if layer is None:
                 skipped.append((name, f"missing layer {layer_name}"))
                 continue
-            bpin = odb.dbBPin.create(bterm)
-            bpin.setPlacementStatus("FIRM")
             odb.dbBox.create(bpin, layer, x1, y1, x2, y2)
             added += 1
             print(
@@ -78,6 +172,7 @@ def add_power_edge_ports(reader, def_template):
     if skipped:
         print(f"[add_power_edge_ports] WARNING skipped {skipped[:8]}")
     print(f"[add_power_edge_ports] added {added} edge power/ground ports")
+    _stitch_ports_to_pdn(block, tech, ports)
 
 
 if __name__ == "__main__":

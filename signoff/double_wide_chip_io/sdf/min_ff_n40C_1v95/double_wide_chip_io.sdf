@@ -1,7 +1,7 @@
 (DELAYFILE
  (SDFVERSION "3.0")
  (DESIGN "double_wide_chip_io")
- (DATE "Thu Jul  9 13:05:06 2026")
+ (DATE "Mon Aug  3 07:27:51 2026")
  (VENDOR "Parallax")
  (PROGRAM "STA")
  (VERSION "2.7.0")
@@ -15,18 +15,23 @@
   (INSTANCE)
   (DELAY
    (ABSOLUTE
-    (INTERCONNECT gpio_pad[58] gpio_s\[11\]\.u.PAD (0.000:0.000:0.000))
-    (INTERCONNECT gpio_pad[57] gpio_s\[10\]\.u.PAD (0.000:0.000:0.000))
-    (INTERCONNECT gpio_pad[56] gpio_s\[9\]\.u.PAD (0.000:0.000:0.000))
-    (INTERCONNECT gpio_pad[55] gpio_s\[8\]\.u.PAD (0.000:0.000:0.000))
-    (INTERCONNECT gpio_pad[54] gpio_s\[7\]\.u.PAD (0.000:0.000:0.000))
-    (INTERCONNECT gpio_pad[53] gpio_s\[6\]\.u.PAD (0.000:0.000:0.000))
-    (INTERCONNECT gpio_pad[52] gpio_s\[5\]\.u.PAD (0.000:0.000:0.000))
-    (INTERCONNECT gpio_pad[51] gpio_s\[4\]\.u.PAD (0.000:0.000:0.000))
-    (INTERCONNECT gpio_pad[50] gpio_s\[3\]\.u.PAD (0.000:0.000:0.000))
-    (INTERCONNECT gpio_pad[49] gpio_s\[2\]\.u.PAD (0.000:0.000:0.000))
-    (INTERCONNECT gpio_pad[48] gpio_s\[1\]\.u.PAD (0.000:0.000:0.000))
-    (INTERCONNECT gpio_pad[47] gpio_s\[0\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT resetb_pad master_resetb_pad.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[62] gpio_s\[13\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[61] gpio_s\[12\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[60] gpio_s\[11\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[59] gpio_s\[10\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[58] gpio_s\[9\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[57] gpio_s\[8\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[56] gpio_s\[7\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[55] gpio_s\[6\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[54] gpio_s\[5\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[53] gpio_s\[4\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[52] gpio_s\[3\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[51] gpio_s\[2\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[50] gpio_s\[1\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[49] gpio_s\[0\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[48] gpio_n\[19\]\.u.PAD (0.000:0.000:0.000))
+    (INTERCONNECT gpio_pad[47] gpio_n\[18\]\.u.PAD (0.000:0.000:0.000))
     (INTERCONNECT gpio_pad[46] gpio_n\[17\]\.u.PAD (0.000:0.000:0.000))
     (INTERCONNECT gpio_pad[45] gpio_n\[16\]\.u.PAD (0.000:0.000:0.000))
     (INTERCONNECT gpio_pad[44] gpio_n\[15\]\.u.PAD (0.000:0.000:0.000))
@@ -74,654 +79,635 @@
     (INTERCONNECT gpio_pad[2] gpio_w\[2\]\.u.PAD (0.000:0.000:0.000))
     (INTERCONNECT gpio_pad[1] gpio_w\[1\]\.u.PAD (0.000:0.000:0.000))
     (INTERCONNECT gpio_pad[0] gpio_w\[0\]\.u.PAD (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[0\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[44] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[0\]\.u.PAD_A_ESD_0_H user_project.analog_io[44] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[0\]\.u.IN user_project.gpio_in[44] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[0\]\.u.IN_H user_project.gpio_in_h[44] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[0\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[48] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[0\]\.u.PAD_A_ESD_0_H user_project.analog_io[48] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[0\]\.u.IN user_project.gpio_in[48] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[0\]\.u.IN_H user_project.gpio_in_h[48] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[0\]\.u.PAD gpio_pad[14] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[0\]\.u.TIE_LO_ESD gpio_e\[0\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[0\]\.u.TIE_LO_ESD gpio_e\[0\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[0\]\.u.TIE_HI_ESD gpio_e\[0\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[0\]\.u.TIE_HI_ESD gpio_e\[0\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[0\]\.u.TIE_HI_ESD gpio_e\[0\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[0\]\.u.TIE_HI_ESD gpio_e\[0\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[10\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[34] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[10\]\.u.PAD_A_ESD_0_H user_project.analog_io[34] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[10\]\.u.IN user_project.gpio_in[34] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[10\]\.u.IN_H user_project.gpio_in_h[34] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[10\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[38] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[10\]\.u.PAD_A_ESD_0_H user_project.analog_io[38] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[10\]\.u.IN user_project.gpio_in[38] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[10\]\.u.IN_H user_project.gpio_in_h[38] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[10\]\.u.PAD gpio_pad[24] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[10\]\.u.TIE_LO_ESD gpio_e\[10\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[10\]\.u.TIE_LO_ESD gpio_e\[10\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[10\]\.u.TIE_HI_ESD gpio_e\[10\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[10\]\.u.TIE_HI_ESD gpio_e\[10\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[10\]\.u.TIE_HI_ESD gpio_e\[10\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[10\]\.u.TIE_HI_ESD gpio_e\[10\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[11\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[33] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[11\]\.u.PAD_A_ESD_0_H user_project.analog_io[33] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[11\]\.u.IN user_project.gpio_in[33] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[11\]\.u.IN_H user_project.gpio_in_h[33] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[11\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[37] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[11\]\.u.PAD_A_ESD_0_H user_project.analog_io[37] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[11\]\.u.IN user_project.gpio_in[37] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[11\]\.u.IN_H user_project.gpio_in_h[37] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[11\]\.u.PAD gpio_pad[25] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[11\]\.u.TIE_LO_ESD gpio_e\[11\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[11\]\.u.TIE_LO_ESD gpio_e\[11\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[11\]\.u.TIE_HI_ESD gpio_e\[11\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[11\]\.u.TIE_HI_ESD gpio_e\[11\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[11\]\.u.TIE_HI_ESD gpio_e\[11\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[11\]\.u.TIE_HI_ESD gpio_e\[11\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[12\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[32] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[12\]\.u.PAD_A_ESD_0_H user_project.analog_io[32] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[12\]\.u.IN user_project.gpio_in[32] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[12\]\.u.IN_H user_project.gpio_in_h[32] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[12\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[36] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[12\]\.u.PAD_A_ESD_0_H user_project.analog_io[36] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[12\]\.u.IN user_project.gpio_in[36] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[12\]\.u.IN_H user_project.gpio_in_h[36] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[12\]\.u.PAD gpio_pad[26] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[12\]\.u.TIE_LO_ESD gpio_e\[12\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[12\]\.u.TIE_LO_ESD gpio_e\[12\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[12\]\.u.TIE_HI_ESD gpio_e\[12\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[12\]\.u.TIE_HI_ESD gpio_e\[12\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[12\]\.u.TIE_HI_ESD gpio_e\[12\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[12\]\.u.TIE_HI_ESD gpio_e\[12\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[13\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[31] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[13\]\.u.PAD_A_ESD_0_H user_project.analog_io[31] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[13\]\.u.IN user_project.gpio_in[31] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[13\]\.u.IN_H user_project.gpio_in_h[31] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[13\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[35] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[13\]\.u.PAD_A_ESD_0_H user_project.analog_io[35] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[13\]\.u.IN user_project.gpio_in[35] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[13\]\.u.IN_H user_project.gpio_in_h[35] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[13\]\.u.PAD gpio_pad[27] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[13\]\.u.TIE_LO_ESD gpio_e\[13\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[13\]\.u.TIE_LO_ESD gpio_e\[13\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[13\]\.u.TIE_HI_ESD gpio_e\[13\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[13\]\.u.TIE_HI_ESD gpio_e\[13\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[13\]\.u.TIE_HI_ESD gpio_e\[13\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[13\]\.u.TIE_HI_ESD gpio_e\[13\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[14\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[30] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[14\]\.u.PAD_A_ESD_0_H user_project.analog_io[30] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[14\]\.u.IN user_project.gpio_in[30] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[14\]\.u.IN_H user_project.gpio_in_h[30] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[14\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[34] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[14\]\.u.PAD_A_ESD_0_H user_project.analog_io[34] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[14\]\.u.IN user_project.gpio_in[34] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[14\]\.u.IN_H user_project.gpio_in_h[34] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[14\]\.u.PAD gpio_pad[28] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[14\]\.u.TIE_LO_ESD gpio_e\[14\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[14\]\.u.TIE_LO_ESD gpio_e\[14\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[14\]\.u.TIE_HI_ESD gpio_e\[14\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[14\]\.u.TIE_HI_ESD gpio_e\[14\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[14\]\.u.TIE_HI_ESD gpio_e\[14\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[14\]\.u.TIE_HI_ESD gpio_e\[14\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[1\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[43] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[1\]\.u.PAD_A_ESD_0_H user_project.analog_io[43] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[1\]\.u.IN user_project.gpio_in[43] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[1\]\.u.IN_H user_project.gpio_in_h[43] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[1\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[47] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[1\]\.u.PAD_A_ESD_0_H user_project.analog_io[47] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[1\]\.u.IN user_project.gpio_in[47] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[1\]\.u.IN_H user_project.gpio_in_h[47] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[1\]\.u.PAD gpio_pad[15] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[1\]\.u.TIE_LO_ESD gpio_e\[1\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[1\]\.u.TIE_LO_ESD gpio_e\[1\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[1\]\.u.TIE_HI_ESD gpio_e\[1\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[1\]\.u.TIE_HI_ESD gpio_e\[1\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[1\]\.u.TIE_HI_ESD gpio_e\[1\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[1\]\.u.TIE_HI_ESD gpio_e\[1\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[2\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[42] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[2\]\.u.PAD_A_ESD_0_H user_project.analog_io[42] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[2\]\.u.IN user_project.gpio_in[42] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[2\]\.u.IN_H user_project.gpio_in_h[42] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[2\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[46] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[2\]\.u.PAD_A_ESD_0_H user_project.analog_io[46] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[2\]\.u.IN user_project.gpio_in[46] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[2\]\.u.IN_H user_project.gpio_in_h[46] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[2\]\.u.PAD gpio_pad[16] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[2\]\.u.TIE_LO_ESD gpio_e\[2\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[2\]\.u.TIE_LO_ESD gpio_e\[2\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[2\]\.u.TIE_HI_ESD gpio_e\[2\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[2\]\.u.TIE_HI_ESD gpio_e\[2\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[2\]\.u.TIE_HI_ESD gpio_e\[2\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[2\]\.u.TIE_HI_ESD gpio_e\[2\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[3\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[41] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[3\]\.u.PAD_A_ESD_0_H user_project.analog_io[41] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[3\]\.u.IN user_project.gpio_in[41] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[3\]\.u.IN_H user_project.gpio_in_h[41] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[3\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[45] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[3\]\.u.PAD_A_ESD_0_H user_project.analog_io[45] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[3\]\.u.IN user_project.gpio_in[45] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[3\]\.u.IN_H user_project.gpio_in_h[45] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[3\]\.u.PAD gpio_pad[17] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[3\]\.u.TIE_LO_ESD gpio_e\[3\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[3\]\.u.TIE_LO_ESD gpio_e\[3\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[3\]\.u.TIE_HI_ESD gpio_e\[3\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[3\]\.u.TIE_HI_ESD gpio_e\[3\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[3\]\.u.TIE_HI_ESD gpio_e\[3\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[3\]\.u.TIE_HI_ESD gpio_e\[3\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[4\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[40] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[4\]\.u.PAD_A_ESD_0_H user_project.analog_io[40] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[4\]\.u.IN user_project.gpio_in[40] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[4\]\.u.IN_H user_project.gpio_in_h[40] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[4\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[44] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[4\]\.u.PAD_A_ESD_0_H user_project.analog_io[44] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[4\]\.u.IN user_project.gpio_in[44] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[4\]\.u.IN_H user_project.gpio_in_h[44] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[4\]\.u.PAD gpio_pad[18] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[4\]\.u.TIE_LO_ESD gpio_e\[4\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[4\]\.u.TIE_LO_ESD gpio_e\[4\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[4\]\.u.TIE_HI_ESD gpio_e\[4\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[4\]\.u.TIE_HI_ESD gpio_e\[4\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[4\]\.u.TIE_HI_ESD gpio_e\[4\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[4\]\.u.TIE_HI_ESD gpio_e\[4\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[5\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[39] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[5\]\.u.PAD_A_ESD_0_H user_project.analog_io[39] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[5\]\.u.IN user_project.gpio_in[39] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[5\]\.u.IN_H user_project.gpio_in_h[39] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[5\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[43] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[5\]\.u.PAD_A_ESD_0_H user_project.analog_io[43] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[5\]\.u.IN user_project.gpio_in[43] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[5\]\.u.IN_H user_project.gpio_in_h[43] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[5\]\.u.PAD gpio_pad[19] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[5\]\.u.TIE_LO_ESD gpio_e\[5\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[5\]\.u.TIE_LO_ESD gpio_e\[5\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[5\]\.u.TIE_HI_ESD gpio_e\[5\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[5\]\.u.TIE_HI_ESD gpio_e\[5\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[5\]\.u.TIE_HI_ESD gpio_e\[5\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[5\]\.u.TIE_HI_ESD gpio_e\[5\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[6\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[38] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[6\]\.u.PAD_A_ESD_0_H user_project.analog_io[38] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[6\]\.u.IN user_project.gpio_in[38] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[6\]\.u.IN_H user_project.gpio_in_h[38] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[6\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[42] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[6\]\.u.PAD_A_ESD_0_H user_project.analog_io[42] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[6\]\.u.IN user_project.gpio_in[42] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[6\]\.u.IN_H user_project.gpio_in_h[42] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[6\]\.u.PAD gpio_pad[20] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[6\]\.u.TIE_LO_ESD gpio_e\[6\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[6\]\.u.TIE_LO_ESD gpio_e\[6\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[6\]\.u.TIE_HI_ESD gpio_e\[6\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[6\]\.u.TIE_HI_ESD gpio_e\[6\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[6\]\.u.TIE_HI_ESD gpio_e\[6\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[6\]\.u.TIE_HI_ESD gpio_e\[6\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[7\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[37] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[7\]\.u.PAD_A_ESD_0_H user_project.analog_io[37] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[7\]\.u.IN user_project.gpio_in[37] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[7\]\.u.IN_H user_project.gpio_in_h[37] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[7\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[41] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[7\]\.u.PAD_A_ESD_0_H user_project.analog_io[41] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[7\]\.u.IN user_project.gpio_in[41] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[7\]\.u.IN_H user_project.gpio_in_h[41] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[7\]\.u.PAD gpio_pad[21] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[7\]\.u.TIE_LO_ESD gpio_e\[7\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[7\]\.u.TIE_LO_ESD gpio_e\[7\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[7\]\.u.TIE_HI_ESD gpio_e\[7\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[7\]\.u.TIE_HI_ESD gpio_e\[7\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[7\]\.u.TIE_HI_ESD gpio_e\[7\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[7\]\.u.TIE_HI_ESD gpio_e\[7\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[8\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[36] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[8\]\.u.PAD_A_ESD_0_H user_project.analog_io[36] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[8\]\.u.IN user_project.gpio_in[36] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[8\]\.u.IN_H user_project.gpio_in_h[36] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[8\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[40] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[8\]\.u.PAD_A_ESD_0_H user_project.analog_io[40] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[8\]\.u.IN user_project.gpio_in[40] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[8\]\.u.IN_H user_project.gpio_in_h[40] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[8\]\.u.PAD gpio_pad[22] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[8\]\.u.TIE_LO_ESD gpio_e\[8\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[8\]\.u.TIE_LO_ESD gpio_e\[8\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[8\]\.u.TIE_HI_ESD gpio_e\[8\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[8\]\.u.TIE_HI_ESD gpio_e\[8\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[8\]\.u.TIE_HI_ESD gpio_e\[8\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[8\]\.u.TIE_HI_ESD gpio_e\[8\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[9\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[35] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[9\]\.u.PAD_A_ESD_0_H user_project.analog_io[35] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[9\]\.u.IN user_project.gpio_in[35] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[9\]\.u.IN_H user_project.gpio_in_h[35] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[9\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[39] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[9\]\.u.PAD_A_ESD_0_H user_project.analog_io[39] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[9\]\.u.IN user_project.gpio_in[39] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_e\[9\]\.u.IN_H user_project.gpio_in_h[39] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[9\]\.u.PAD gpio_pad[23] (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[9\]\.u.TIE_LO_ESD gpio_e\[9\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[9\]\.u.TIE_LO_ESD gpio_e\[9\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[9\]\.u.TIE_HI_ESD gpio_e\[9\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[9\]\.u.TIE_HI_ESD gpio_e\[9\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_e\[9\]\.u.TIE_HI_ESD gpio_e\[9\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_e\[9\]\.u.TIE_HI_ESD gpio_e\[9\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[0\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[29] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[0\]\.u.PAD_A_ESD_0_H user_project.analog_io[29] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[0\]\.u.IN user_project.gpio_in[29] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[0\]\.u.IN_H user_project.gpio_in_h[29] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[0\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[33] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[0\]\.u.PAD_A_ESD_0_H user_project.analog_io[33] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[0\]\.u.IN user_project.gpio_in[33] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[0\]\.u.IN_H user_project.gpio_in_h[33] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[0\]\.u.PAD gpio_pad[29] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[0\]\.u.TIE_LO_ESD gpio_n\[0\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[0\]\.u.TIE_LO_ESD gpio_n\[0\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[0\]\.u.TIE_HI_ESD gpio_n\[0\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[0\]\.u.TIE_HI_ESD gpio_n\[0\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[0\]\.u.TIE_HI_ESD gpio_n\[0\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[0\]\.u.TIE_HI_ESD gpio_n\[0\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[10\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[19] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[10\]\.u.PAD_A_ESD_0_H user_project.analog_io[19] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[10\]\.u.IN user_project.gpio_in[19] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[10\]\.u.IN_H user_project.gpio_in_h[19] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[10\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[23] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[10\]\.u.PAD_A_ESD_0_H user_project.analog_io[23] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[10\]\.u.IN user_project.gpio_in[23] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[10\]\.u.IN_H user_project.gpio_in_h[23] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[10\]\.u.PAD gpio_pad[39] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[10\]\.u.TIE_LO_ESD gpio_n\[10\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[10\]\.u.TIE_LO_ESD gpio_n\[10\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[10\]\.u.TIE_HI_ESD gpio_n\[10\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[10\]\.u.TIE_HI_ESD gpio_n\[10\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[10\]\.u.TIE_HI_ESD gpio_n\[10\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[10\]\.u.TIE_HI_ESD gpio_n\[10\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[11\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[18] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[11\]\.u.PAD_A_ESD_0_H user_project.analog_io[18] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[11\]\.u.IN user_project.gpio_in[18] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[11\]\.u.IN_H user_project.gpio_in_h[18] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[11\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[22] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[11\]\.u.PAD_A_ESD_0_H user_project.analog_io[22] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[11\]\.u.IN user_project.gpio_in[22] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[11\]\.u.IN_H user_project.gpio_in_h[22] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[11\]\.u.PAD gpio_pad[40] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[11\]\.u.TIE_LO_ESD gpio_n\[11\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[11\]\.u.TIE_LO_ESD gpio_n\[11\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[11\]\.u.TIE_HI_ESD gpio_n\[11\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[11\]\.u.TIE_HI_ESD gpio_n\[11\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[11\]\.u.TIE_HI_ESD gpio_n\[11\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[11\]\.u.TIE_HI_ESD gpio_n\[11\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[12\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[17] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[12\]\.u.PAD_A_ESD_0_H user_project.analog_io[17] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[12\]\.u.IN user_project.gpio_in[17] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[12\]\.u.IN_H user_project.gpio_in_h[17] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[12\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[21] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[12\]\.u.PAD_A_ESD_0_H user_project.analog_io[21] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[12\]\.u.IN user_project.gpio_in[21] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[12\]\.u.IN_H user_project.gpio_in_h[21] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[12\]\.u.PAD gpio_pad[41] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[12\]\.u.TIE_LO_ESD gpio_n\[12\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[12\]\.u.TIE_LO_ESD gpio_n\[12\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[12\]\.u.TIE_HI_ESD gpio_n\[12\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[12\]\.u.TIE_HI_ESD gpio_n\[12\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[12\]\.u.TIE_HI_ESD gpio_n\[12\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[12\]\.u.TIE_HI_ESD gpio_n\[12\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[13\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[16] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[13\]\.u.PAD_A_ESD_0_H user_project.analog_io[16] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[13\]\.u.IN user_project.gpio_in[16] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[13\]\.u.IN_H user_project.gpio_in_h[16] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[13\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[20] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[13\]\.u.PAD_A_ESD_0_H user_project.analog_io[20] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[13\]\.u.IN user_project.gpio_in[20] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[13\]\.u.IN_H user_project.gpio_in_h[20] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[13\]\.u.PAD gpio_pad[42] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[13\]\.u.TIE_LO_ESD gpio_n\[13\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[13\]\.u.TIE_LO_ESD gpio_n\[13\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[13\]\.u.TIE_HI_ESD gpio_n\[13\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[13\]\.u.TIE_HI_ESD gpio_n\[13\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[13\]\.u.TIE_HI_ESD gpio_n\[13\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[13\]\.u.TIE_HI_ESD gpio_n\[13\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[14\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[15] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[14\]\.u.PAD_A_ESD_0_H user_project.analog_io[15] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[14\]\.u.IN user_project.gpio_in[15] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[14\]\.u.IN_H user_project.gpio_in_h[15] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[14\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[19] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[14\]\.u.PAD_A_ESD_0_H user_project.analog_io[19] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[14\]\.u.IN user_project.gpio_in[19] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[14\]\.u.IN_H user_project.gpio_in_h[19] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[14\]\.u.PAD gpio_pad[43] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[14\]\.u.TIE_LO_ESD gpio_n\[14\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[14\]\.u.TIE_LO_ESD gpio_n\[14\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[14\]\.u.TIE_HI_ESD gpio_n\[14\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[14\]\.u.TIE_HI_ESD gpio_n\[14\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[14\]\.u.TIE_HI_ESD gpio_n\[14\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[14\]\.u.TIE_HI_ESD gpio_n\[14\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[15\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[14] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[15\]\.u.PAD_A_ESD_0_H user_project.analog_io[14] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[15\]\.u.IN user_project.gpio_in[14] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[15\]\.u.IN_H user_project.gpio_in_h[14] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[15\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[18] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[15\]\.u.PAD_A_ESD_0_H user_project.analog_io[18] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[15\]\.u.IN user_project.gpio_in[18] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[15\]\.u.IN_H user_project.gpio_in_h[18] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[15\]\.u.PAD gpio_pad[44] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[15\]\.u.TIE_LO_ESD gpio_n\[15\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[15\]\.u.TIE_LO_ESD gpio_n\[15\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[15\]\.u.TIE_HI_ESD gpio_n\[15\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[15\]\.u.TIE_HI_ESD gpio_n\[15\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[15\]\.u.TIE_HI_ESD gpio_n\[15\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[15\]\.u.TIE_HI_ESD gpio_n\[15\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[16\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[13] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[16\]\.u.PAD_A_ESD_0_H user_project.analog_io[13] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[16\]\.u.IN user_project.gpio_in[13] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[16\]\.u.IN_H user_project.gpio_in_h[13] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[16\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[17] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[16\]\.u.PAD_A_ESD_0_H user_project.analog_io[17] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[16\]\.u.IN user_project.gpio_in[17] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[16\]\.u.IN_H user_project.gpio_in_h[17] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[16\]\.u.PAD gpio_pad[45] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[16\]\.u.TIE_LO_ESD gpio_n\[16\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[16\]\.u.TIE_LO_ESD gpio_n\[16\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[16\]\.u.TIE_HI_ESD gpio_n\[16\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[16\]\.u.TIE_HI_ESD gpio_n\[16\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[16\]\.u.TIE_HI_ESD gpio_n\[16\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[16\]\.u.TIE_HI_ESD gpio_n\[16\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[17\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[12] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[17\]\.u.PAD_A_ESD_0_H user_project.analog_io[12] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[17\]\.u.IN user_project.gpio_in[12] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[17\]\.u.IN_H user_project.gpio_in_h[12] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[17\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[16] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[17\]\.u.PAD_A_ESD_0_H user_project.analog_io[16] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[17\]\.u.IN user_project.gpio_in[16] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[17\]\.u.IN_H user_project.gpio_in_h[16] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[17\]\.u.PAD gpio_pad[46] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[17\]\.u.TIE_LO_ESD gpio_n\[17\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[17\]\.u.TIE_LO_ESD gpio_n\[17\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[17\]\.u.TIE_HI_ESD gpio_n\[17\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[17\]\.u.TIE_HI_ESD gpio_n\[17\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[17\]\.u.TIE_HI_ESD gpio_n\[17\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[17\]\.u.TIE_HI_ESD gpio_n\[17\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[1\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[28] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[1\]\.u.PAD_A_ESD_0_H user_project.analog_io[28] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[1\]\.u.IN user_project.gpio_in[28] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[1\]\.u.IN_H user_project.gpio_in_h[28] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[18\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[15] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[18\]\.u.PAD_A_ESD_0_H user_project.analog_io[15] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[18\]\.u.IN user_project.gpio_in[15] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[18\]\.u.IN_H user_project.gpio_in_h[15] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[18\]\.u.PAD gpio_pad[47] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[18\]\.u.TIE_LO_ESD gpio_n\[18\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[18\]\.u.TIE_LO_ESD gpio_n\[18\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[18\]\.u.TIE_HI_ESD gpio_n\[18\]\.u.ENABLE_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[18\]\.u.TIE_HI_ESD gpio_n\[18\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[18\]\.u.TIE_HI_ESD gpio_n\[18\]\.u.HLD_H_N (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[19\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[14] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[19\]\.u.PAD_A_ESD_0_H user_project.analog_io[14] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[19\]\.u.IN user_project.gpio_in[14] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[19\]\.u.IN_H user_project.gpio_in_h[14] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[19\]\.u.PAD gpio_pad[48] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[19\]\.u.TIE_LO_ESD gpio_n\[19\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[19\]\.u.TIE_LO_ESD gpio_n\[19\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[19\]\.u.TIE_HI_ESD gpio_n\[19\]\.u.ENABLE_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[19\]\.u.TIE_HI_ESD gpio_n\[19\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[19\]\.u.TIE_HI_ESD gpio_n\[19\]\.u.HLD_H_N (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[1\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[32] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[1\]\.u.PAD_A_ESD_0_H user_project.analog_io[32] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[1\]\.u.IN user_project.gpio_in[32] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[1\]\.u.IN_H user_project.gpio_in_h[32] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[1\]\.u.PAD gpio_pad[30] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[1\]\.u.TIE_LO_ESD gpio_n\[1\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[1\]\.u.TIE_LO_ESD gpio_n\[1\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[1\]\.u.TIE_HI_ESD gpio_n\[1\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[1\]\.u.TIE_HI_ESD gpio_n\[1\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[1\]\.u.TIE_HI_ESD gpio_n\[1\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[1\]\.u.TIE_HI_ESD gpio_n\[1\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[2\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[27] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[2\]\.u.PAD_A_ESD_0_H user_project.analog_io[27] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[2\]\.u.IN user_project.gpio_in[27] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[2\]\.u.IN_H user_project.gpio_in_h[27] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[2\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[31] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[2\]\.u.PAD_A_ESD_0_H user_project.analog_io[31] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[2\]\.u.IN user_project.gpio_in[31] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[2\]\.u.IN_H user_project.gpio_in_h[31] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[2\]\.u.PAD gpio_pad[31] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[2\]\.u.TIE_LO_ESD gpio_n\[2\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[2\]\.u.TIE_LO_ESD gpio_n\[2\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[2\]\.u.TIE_HI_ESD gpio_n\[2\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[2\]\.u.TIE_HI_ESD gpio_n\[2\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[2\]\.u.TIE_HI_ESD gpio_n\[2\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[2\]\.u.TIE_HI_ESD gpio_n\[2\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[3\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[26] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[3\]\.u.PAD_A_ESD_0_H user_project.analog_io[26] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[3\]\.u.IN user_project.gpio_in[26] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[3\]\.u.IN_H user_project.gpio_in_h[26] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[3\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[30] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[3\]\.u.PAD_A_ESD_0_H user_project.analog_io[30] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[3\]\.u.IN user_project.gpio_in[30] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[3\]\.u.IN_H user_project.gpio_in_h[30] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[3\]\.u.PAD gpio_pad[32] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[3\]\.u.TIE_LO_ESD gpio_n\[3\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[3\]\.u.TIE_LO_ESD gpio_n\[3\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[3\]\.u.TIE_HI_ESD gpio_n\[3\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[3\]\.u.TIE_HI_ESD gpio_n\[3\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[3\]\.u.TIE_HI_ESD gpio_n\[3\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[3\]\.u.TIE_HI_ESD gpio_n\[3\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[4\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[25] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[4\]\.u.PAD_A_ESD_0_H user_project.analog_io[25] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[4\]\.u.IN user_project.gpio_in[25] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[4\]\.u.IN_H user_project.gpio_in_h[25] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[4\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[29] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[4\]\.u.PAD_A_ESD_0_H user_project.analog_io[29] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[4\]\.u.IN user_project.gpio_in[29] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[4\]\.u.IN_H user_project.gpio_in_h[29] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[4\]\.u.PAD gpio_pad[33] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[4\]\.u.TIE_LO_ESD gpio_n\[4\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[4\]\.u.TIE_LO_ESD gpio_n\[4\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[4\]\.u.TIE_HI_ESD gpio_n\[4\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[4\]\.u.TIE_HI_ESD gpio_n\[4\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[4\]\.u.TIE_HI_ESD gpio_n\[4\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[4\]\.u.TIE_HI_ESD gpio_n\[4\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[5\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[24] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[5\]\.u.PAD_A_ESD_0_H user_project.analog_io[24] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[5\]\.u.IN user_project.gpio_in[24] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[5\]\.u.IN_H user_project.gpio_in_h[24] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[5\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[28] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[5\]\.u.PAD_A_ESD_0_H user_project.analog_io[28] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[5\]\.u.IN user_project.gpio_in[28] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[5\]\.u.IN_H user_project.gpio_in_h[28] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[5\]\.u.PAD gpio_pad[34] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[5\]\.u.TIE_LO_ESD gpio_n\[5\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[5\]\.u.TIE_LO_ESD gpio_n\[5\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[5\]\.u.TIE_HI_ESD gpio_n\[5\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[5\]\.u.TIE_HI_ESD gpio_n\[5\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[5\]\.u.TIE_HI_ESD gpio_n\[5\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[5\]\.u.TIE_HI_ESD gpio_n\[5\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[6\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[23] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[6\]\.u.PAD_A_ESD_0_H user_project.analog_io[23] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[6\]\.u.IN user_project.gpio_in[23] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[6\]\.u.IN_H user_project.gpio_in_h[23] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[6\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[27] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[6\]\.u.PAD_A_ESD_0_H user_project.analog_io[27] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[6\]\.u.IN user_project.gpio_in[27] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[6\]\.u.IN_H user_project.gpio_in_h[27] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[6\]\.u.PAD gpio_pad[35] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[6\]\.u.TIE_LO_ESD gpio_n\[6\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[6\]\.u.TIE_LO_ESD gpio_n\[6\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[6\]\.u.TIE_HI_ESD gpio_n\[6\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[6\]\.u.TIE_HI_ESD gpio_n\[6\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[6\]\.u.TIE_HI_ESD gpio_n\[6\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[6\]\.u.TIE_HI_ESD gpio_n\[6\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[7\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[22] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[7\]\.u.PAD_A_ESD_0_H user_project.analog_io[22] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[7\]\.u.IN user_project.gpio_in[22] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[7\]\.u.IN_H user_project.gpio_in_h[22] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[7\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[26] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[7\]\.u.PAD_A_ESD_0_H user_project.analog_io[26] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[7\]\.u.IN user_project.gpio_in[26] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[7\]\.u.IN_H user_project.gpio_in_h[26] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[7\]\.u.PAD gpio_pad[36] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[7\]\.u.TIE_LO_ESD gpio_n\[7\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[7\]\.u.TIE_LO_ESD gpio_n\[7\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[7\]\.u.TIE_HI_ESD gpio_n\[7\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[7\]\.u.TIE_HI_ESD gpio_n\[7\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[7\]\.u.TIE_HI_ESD gpio_n\[7\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[7\]\.u.TIE_HI_ESD gpio_n\[7\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[8\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[21] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[8\]\.u.PAD_A_ESD_0_H user_project.analog_io[21] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[8\]\.u.IN user_project.gpio_in[21] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[8\]\.u.IN_H user_project.gpio_in_h[21] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[8\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[25] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[8\]\.u.PAD_A_ESD_0_H user_project.analog_io[25] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[8\]\.u.IN user_project.gpio_in[25] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[8\]\.u.IN_H user_project.gpio_in_h[25] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[8\]\.u.PAD gpio_pad[37] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[8\]\.u.TIE_LO_ESD gpio_n\[8\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[8\]\.u.TIE_LO_ESD gpio_n\[8\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[8\]\.u.TIE_HI_ESD gpio_n\[8\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[8\]\.u.TIE_HI_ESD gpio_n\[8\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[8\]\.u.TIE_HI_ESD gpio_n\[8\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[8\]\.u.TIE_HI_ESD gpio_n\[8\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[9\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[20] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[9\]\.u.PAD_A_ESD_0_H user_project.analog_io[20] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[9\]\.u.IN user_project.gpio_in[20] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[9\]\.u.IN_H user_project.gpio_in_h[20] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[9\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[24] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[9\]\.u.PAD_A_ESD_0_H user_project.analog_io[24] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[9\]\.u.IN user_project.gpio_in[24] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_n\[9\]\.u.IN_H user_project.gpio_in_h[24] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[9\]\.u.PAD gpio_pad[38] (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[9\]\.u.TIE_LO_ESD gpio_n\[9\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[9\]\.u.TIE_LO_ESD gpio_n\[9\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[9\]\.u.TIE_HI_ESD gpio_n\[9\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[9\]\.u.TIE_HI_ESD gpio_n\[9\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_n\[9\]\.u.TIE_HI_ESD gpio_n\[9\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_n\[9\]\.u.TIE_HI_ESD gpio_n\[9\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[0\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[11] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[0\]\.u.PAD_A_ESD_0_H user_project.analog_io[11] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[0\]\.u.IN user_project.gpio_in[11] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[0\]\.u.IN_H user_project.gpio_in_h[11] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[0\]\.u.PAD gpio_pad[47] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[0\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[13] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[0\]\.u.PAD_A_ESD_0_H user_project.analog_io[13] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[0\]\.u.IN user_project.gpio_in[13] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[0\]\.u.IN_H user_project.gpio_in_h[13] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[0\]\.u.PAD gpio_pad[49] (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[0\]\.u.TIE_LO_ESD gpio_s\[0\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[0\]\.u.TIE_LO_ESD gpio_s\[0\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[0\]\.u.TIE_HI_ESD gpio_s\[0\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[0\]\.u.TIE_HI_ESD gpio_s\[0\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[0\]\.u.TIE_HI_ESD gpio_s\[0\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[0\]\.u.TIE_HI_ESD gpio_s\[0\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[10\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[1] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[10\]\.u.PAD_A_ESD_0_H user_project.analog_io[1] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[10\]\.u.IN user_project.gpio_in[1] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[10\]\.u.IN_H user_project.gpio_in_h[1] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[10\]\.u.PAD gpio_pad[57] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[10\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[3] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[10\]\.u.PAD_A_ESD_0_H user_project.analog_io[3] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[10\]\.u.IN user_project.gpio_in[3] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[10\]\.u.IN_H user_project.gpio_in_h[3] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[10\]\.u.PAD gpio_pad[59] (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[10\]\.u.TIE_LO_ESD gpio_s\[10\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[10\]\.u.TIE_LO_ESD gpio_s\[10\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[10\]\.u.TIE_HI_ESD gpio_s\[10\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[10\]\.u.TIE_HI_ESD gpio_s\[10\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[10\]\.u.TIE_HI_ESD gpio_s\[10\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[10\]\.u.TIE_HI_ESD gpio_s\[10\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[11\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[0] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[11\]\.u.PAD_A_ESD_0_H user_project.analog_io[0] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[11\]\.u.IN user_project.gpio_in[0] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[11\]\.u.IN_H user_project.gpio_in_h[0] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[11\]\.u.PAD gpio_pad[58] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[11\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[2] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[11\]\.u.PAD_A_ESD_0_H user_project.analog_io[2] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[11\]\.u.IN user_project.gpio_in[2] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[11\]\.u.IN_H user_project.gpio_in_h[2] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[11\]\.u.PAD gpio_pad[60] (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[11\]\.u.TIE_LO_ESD gpio_s\[11\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[11\]\.u.TIE_LO_ESD gpio_s\[11\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[11\]\.u.TIE_HI_ESD gpio_s\[11\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[11\]\.u.TIE_HI_ESD gpio_s\[11\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[11\]\.u.TIE_HI_ESD gpio_s\[11\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[11\]\.u.TIE_HI_ESD gpio_s\[11\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[1\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[10] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[1\]\.u.PAD_A_ESD_0_H user_project.analog_io[10] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[1\]\.u.IN user_project.gpio_in[10] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[1\]\.u.IN_H user_project.gpio_in_h[10] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[1\]\.u.PAD gpio_pad[48] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[12\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[1] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[12\]\.u.PAD_A_ESD_0_H user_project.analog_io[1] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[12\]\.u.IN user_project.gpio_in[1] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[12\]\.u.IN_H user_project.gpio_in_h[1] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[12\]\.u.PAD gpio_pad[61] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[12\]\.u.TIE_LO_ESD gpio_s\[12\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[12\]\.u.TIE_LO_ESD gpio_s\[12\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[12\]\.u.TIE_HI_ESD gpio_s\[12\]\.u.ENABLE_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[12\]\.u.TIE_HI_ESD gpio_s\[12\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[12\]\.u.TIE_HI_ESD gpio_s\[12\]\.u.HLD_H_N (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[13\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[0] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[13\]\.u.PAD_A_ESD_0_H user_project.analog_io[0] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[13\]\.u.IN user_project.gpio_in[0] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[13\]\.u.IN_H user_project.gpio_in_h[0] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[13\]\.u.PAD gpio_pad[62] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[13\]\.u.TIE_LO_ESD gpio_s\[13\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[13\]\.u.TIE_LO_ESD gpio_s\[13\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[13\]\.u.TIE_HI_ESD gpio_s\[13\]\.u.ENABLE_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[13\]\.u.TIE_HI_ESD gpio_s\[13\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[13\]\.u.TIE_HI_ESD gpio_s\[13\]\.u.HLD_H_N (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[1\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[12] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[1\]\.u.PAD_A_ESD_0_H user_project.analog_io[12] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[1\]\.u.IN user_project.gpio_in[12] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[1\]\.u.IN_H user_project.gpio_in_h[12] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[1\]\.u.PAD gpio_pad[50] (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[1\]\.u.TIE_LO_ESD gpio_s\[1\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[1\]\.u.TIE_LO_ESD gpio_s\[1\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[1\]\.u.TIE_HI_ESD gpio_s\[1\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[1\]\.u.TIE_HI_ESD gpio_s\[1\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[1\]\.u.TIE_HI_ESD gpio_s\[1\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[1\]\.u.TIE_HI_ESD gpio_s\[1\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[2\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[9] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[2\]\.u.PAD_A_ESD_0_H user_project.analog_io[9] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[2\]\.u.IN user_project.gpio_in[9] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[2\]\.u.IN_H user_project.gpio_in_h[9] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[2\]\.u.PAD gpio_pad[49] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[2\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[11] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[2\]\.u.PAD_A_ESD_0_H user_project.analog_io[11] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[2\]\.u.IN user_project.gpio_in[11] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[2\]\.u.IN_H user_project.gpio_in_h[11] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[2\]\.u.PAD gpio_pad[51] (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[2\]\.u.TIE_LO_ESD gpio_s\[2\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[2\]\.u.TIE_LO_ESD gpio_s\[2\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[2\]\.u.TIE_HI_ESD gpio_s\[2\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[2\]\.u.TIE_HI_ESD gpio_s\[2\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[2\]\.u.TIE_HI_ESD gpio_s\[2\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[2\]\.u.TIE_HI_ESD gpio_s\[2\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[3\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[8] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[3\]\.u.PAD_A_ESD_0_H user_project.analog_io[8] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[3\]\.u.IN user_project.gpio_in[8] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[3\]\.u.IN_H user_project.gpio_in_h[8] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[3\]\.u.PAD gpio_pad[50] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[3\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[10] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[3\]\.u.PAD_A_ESD_0_H user_project.analog_io[10] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[3\]\.u.IN user_project.gpio_in[10] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[3\]\.u.IN_H user_project.gpio_in_h[10] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[3\]\.u.PAD gpio_pad[52] (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[3\]\.u.TIE_LO_ESD gpio_s\[3\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[3\]\.u.TIE_LO_ESD gpio_s\[3\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[3\]\.u.TIE_HI_ESD gpio_s\[3\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[3\]\.u.TIE_HI_ESD gpio_s\[3\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[3\]\.u.TIE_HI_ESD gpio_s\[3\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[3\]\.u.TIE_HI_ESD gpio_s\[3\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[4\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[7] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[4\]\.u.PAD_A_ESD_0_H user_project.analog_io[7] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[4\]\.u.IN user_project.gpio_in[7] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[4\]\.u.IN_H user_project.gpio_in_h[7] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[4\]\.u.PAD gpio_pad[51] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[4\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[9] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[4\]\.u.PAD_A_ESD_0_H user_project.analog_io[9] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[4\]\.u.IN user_project.gpio_in[9] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[4\]\.u.IN_H user_project.gpio_in_h[9] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[4\]\.u.PAD gpio_pad[53] (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[4\]\.u.TIE_LO_ESD gpio_s\[4\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[4\]\.u.TIE_LO_ESD gpio_s\[4\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[4\]\.u.TIE_HI_ESD gpio_s\[4\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[4\]\.u.TIE_HI_ESD gpio_s\[4\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[4\]\.u.TIE_HI_ESD gpio_s\[4\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[4\]\.u.TIE_HI_ESD gpio_s\[4\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[5\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[6] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[5\]\.u.PAD_A_ESD_0_H user_project.analog_io[6] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[5\]\.u.IN user_project.gpio_in[6] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[5\]\.u.IN_H user_project.gpio_in_h[6] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[5\]\.u.PAD gpio_pad[52] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[5\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[8] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[5\]\.u.PAD_A_ESD_0_H user_project.analog_io[8] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[5\]\.u.IN user_project.gpio_in[8] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[5\]\.u.IN_H user_project.gpio_in_h[8] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[5\]\.u.PAD gpio_pad[54] (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[5\]\.u.TIE_LO_ESD gpio_s\[5\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[5\]\.u.TIE_LO_ESD gpio_s\[5\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[5\]\.u.TIE_HI_ESD gpio_s\[5\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[5\]\.u.TIE_HI_ESD gpio_s\[5\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[5\]\.u.TIE_HI_ESD gpio_s\[5\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[5\]\.u.TIE_HI_ESD gpio_s\[5\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[6\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[5] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[6\]\.u.PAD_A_ESD_0_H user_project.analog_io[5] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[6\]\.u.IN user_project.gpio_in[5] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[6\]\.u.IN_H user_project.gpio_in_h[5] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[6\]\.u.PAD gpio_pad[53] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[6\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[7] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[6\]\.u.PAD_A_ESD_0_H user_project.analog_io[7] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[6\]\.u.IN user_project.gpio_in[7] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[6\]\.u.IN_H user_project.gpio_in_h[7] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[6\]\.u.PAD gpio_pad[55] (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[6\]\.u.TIE_LO_ESD gpio_s\[6\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[6\]\.u.TIE_LO_ESD gpio_s\[6\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[6\]\.u.TIE_HI_ESD gpio_s\[6\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[6\]\.u.TIE_HI_ESD gpio_s\[6\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[6\]\.u.TIE_HI_ESD gpio_s\[6\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[6\]\.u.TIE_HI_ESD gpio_s\[6\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[7\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[4] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[7\]\.u.PAD_A_ESD_0_H user_project.analog_io[4] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[7\]\.u.IN user_project.gpio_in[4] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[7\]\.u.IN_H user_project.gpio_in_h[4] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[7\]\.u.PAD gpio_pad[54] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[7\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[6] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[7\]\.u.PAD_A_ESD_0_H user_project.analog_io[6] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[7\]\.u.IN user_project.gpio_in[6] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[7\]\.u.IN_H user_project.gpio_in_h[6] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[7\]\.u.PAD gpio_pad[56] (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[7\]\.u.TIE_LO_ESD gpio_s\[7\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[7\]\.u.TIE_LO_ESD gpio_s\[7\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[7\]\.u.TIE_HI_ESD gpio_s\[7\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[7\]\.u.TIE_HI_ESD gpio_s\[7\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[7\]\.u.TIE_HI_ESD gpio_s\[7\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[7\]\.u.TIE_HI_ESD gpio_s\[7\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[8\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[3] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[8\]\.u.PAD_A_ESD_0_H user_project.analog_io[3] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[8\]\.u.IN user_project.gpio_in[3] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[8\]\.u.IN_H user_project.gpio_in_h[3] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[8\]\.u.PAD gpio_pad[55] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[8\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[5] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[8\]\.u.PAD_A_ESD_0_H user_project.analog_io[5] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[8\]\.u.IN user_project.gpio_in[5] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[8\]\.u.IN_H user_project.gpio_in_h[5] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[8\]\.u.PAD gpio_pad[57] (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[8\]\.u.TIE_LO_ESD gpio_s\[8\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[8\]\.u.TIE_LO_ESD gpio_s\[8\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[8\]\.u.TIE_HI_ESD gpio_s\[8\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[8\]\.u.TIE_HI_ESD gpio_s\[8\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[8\]\.u.TIE_HI_ESD gpio_s\[8\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[8\]\.u.TIE_HI_ESD gpio_s\[8\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[9\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[2] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[9\]\.u.PAD_A_ESD_0_H user_project.analog_io[2] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[9\]\.u.IN user_project.gpio_in[2] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[9\]\.u.IN_H user_project.gpio_in_h[2] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[9\]\.u.PAD gpio_pad[56] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[9\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[4] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[9\]\.u.PAD_A_ESD_0_H user_project.analog_io[4] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[9\]\.u.IN user_project.gpio_in[4] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[9\]\.u.IN_H user_project.gpio_in_h[4] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_s\[9\]\.u.PAD gpio_pad[58] (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[9\]\.u.TIE_LO_ESD gpio_s\[9\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[9\]\.u.TIE_LO_ESD gpio_s\[9\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[9\]\.u.TIE_HI_ESD gpio_s\[9\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[9\]\.u.TIE_HI_ESD gpio_s\[9\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_s\[9\]\.u.TIE_HI_ESD gpio_s\[9\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_s\[9\]\.u.TIE_HI_ESD gpio_s\[9\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[0\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[58] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[0\]\.u.PAD_A_ESD_0_H user_project.analog_io[58] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[0\]\.u.IN user_project.gpio_in[58] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[0\]\.u.IN_H user_project.gpio_in_h[58] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[0\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[62] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[0\]\.u.PAD_A_ESD_0_H user_project.analog_io[62] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[0\]\.u.IN user_project.gpio_in[62] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[0\]\.u.IN_H user_project.gpio_in_h[62] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[0\]\.u.PAD gpio_pad[0] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[0\]\.u.TIE_LO_ESD gpio_w\[0\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[0\]\.u.TIE_LO_ESD gpio_w\[0\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[0\]\.u.TIE_HI_ESD gpio_w\[0\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[0\]\.u.TIE_HI_ESD gpio_w\[0\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[0\]\.u.TIE_HI_ESD gpio_w\[0\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[0\]\.u.TIE_HI_ESD gpio_w\[0\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[10\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[48] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[10\]\.u.PAD_A_ESD_0_H user_project.analog_io[48] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[10\]\.u.IN user_project.gpio_in[48] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[10\]\.u.IN_H user_project.gpio_in_h[48] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[10\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[52] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[10\]\.u.PAD_A_ESD_0_H user_project.analog_io[52] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[10\]\.u.IN user_project.gpio_in[52] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[10\]\.u.IN_H user_project.gpio_in_h[52] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[10\]\.u.PAD gpio_pad[10] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[10\]\.u.TIE_LO_ESD gpio_w\[10\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[10\]\.u.TIE_LO_ESD gpio_w\[10\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[10\]\.u.TIE_HI_ESD gpio_w\[10\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[10\]\.u.TIE_HI_ESD gpio_w\[10\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[10\]\.u.TIE_HI_ESD gpio_w\[10\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[10\]\.u.TIE_HI_ESD gpio_w\[10\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[11\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[47] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[11\]\.u.PAD_A_ESD_0_H user_project.analog_io[47] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[11\]\.u.IN user_project.gpio_in[47] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[11\]\.u.IN_H user_project.gpio_in_h[47] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[11\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[51] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[11\]\.u.PAD_A_ESD_0_H user_project.analog_io[51] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[11\]\.u.IN user_project.gpio_in[51] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[11\]\.u.IN_H user_project.gpio_in_h[51] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[11\]\.u.PAD gpio_pad[11] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[11\]\.u.TIE_LO_ESD gpio_w\[11\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[11\]\.u.TIE_LO_ESD gpio_w\[11\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[11\]\.u.TIE_HI_ESD gpio_w\[11\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[11\]\.u.TIE_HI_ESD gpio_w\[11\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[11\]\.u.TIE_HI_ESD gpio_w\[11\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[11\]\.u.TIE_HI_ESD gpio_w\[11\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[12\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[46] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[12\]\.u.PAD_A_ESD_0_H user_project.analog_io[46] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[12\]\.u.IN user_project.gpio_in[46] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[12\]\.u.IN_H user_project.gpio_in_h[46] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[12\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[50] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[12\]\.u.PAD_A_ESD_0_H user_project.analog_io[50] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[12\]\.u.IN user_project.gpio_in[50] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[12\]\.u.IN_H user_project.gpio_in_h[50] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[12\]\.u.PAD gpio_pad[12] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[12\]\.u.TIE_LO_ESD gpio_w\[12\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[12\]\.u.TIE_LO_ESD gpio_w\[12\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[12\]\.u.TIE_HI_ESD gpio_w\[12\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[12\]\.u.TIE_HI_ESD gpio_w\[12\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[12\]\.u.TIE_HI_ESD gpio_w\[12\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[12\]\.u.TIE_HI_ESD gpio_w\[12\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[13\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[45] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[13\]\.u.PAD_A_ESD_0_H user_project.analog_io[45] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[13\]\.u.IN user_project.gpio_in[45] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[13\]\.u.IN_H user_project.gpio_in_h[45] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[13\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[49] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[13\]\.u.PAD_A_ESD_0_H user_project.analog_io[49] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[13\]\.u.IN user_project.gpio_in[49] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[13\]\.u.IN_H user_project.gpio_in_h[49] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[13\]\.u.PAD gpio_pad[13] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[13\]\.u.TIE_LO_ESD gpio_w\[13\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[13\]\.u.TIE_LO_ESD gpio_w\[13\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[13\]\.u.TIE_HI_ESD gpio_w\[13\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[13\]\.u.TIE_HI_ESD gpio_w\[13\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[13\]\.u.TIE_HI_ESD gpio_w\[13\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[13\]\.u.TIE_HI_ESD gpio_w\[13\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[1\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[57] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[1\]\.u.PAD_A_ESD_0_H user_project.analog_io[57] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[1\]\.u.IN user_project.gpio_in[57] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[1\]\.u.IN_H user_project.gpio_in_h[57] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[1\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[61] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[1\]\.u.PAD_A_ESD_0_H user_project.analog_io[61] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[1\]\.u.IN user_project.gpio_in[61] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[1\]\.u.IN_H user_project.gpio_in_h[61] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[1\]\.u.PAD gpio_pad[1] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[1\]\.u.TIE_LO_ESD gpio_w\[1\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[1\]\.u.TIE_LO_ESD gpio_w\[1\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[1\]\.u.TIE_HI_ESD gpio_w\[1\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[1\]\.u.TIE_HI_ESD gpio_w\[1\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[1\]\.u.TIE_HI_ESD gpio_w\[1\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[1\]\.u.TIE_HI_ESD gpio_w\[1\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[2\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[56] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[2\]\.u.PAD_A_ESD_0_H user_project.analog_io[56] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[2\]\.u.IN user_project.gpio_in[56] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[2\]\.u.IN_H user_project.gpio_in_h[56] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[2\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[60] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[2\]\.u.PAD_A_ESD_0_H user_project.analog_io[60] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[2\]\.u.IN user_project.gpio_in[60] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[2\]\.u.IN_H user_project.gpio_in_h[60] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[2\]\.u.PAD gpio_pad[2] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[2\]\.u.TIE_LO_ESD gpio_w\[2\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[2\]\.u.TIE_LO_ESD gpio_w\[2\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[2\]\.u.TIE_HI_ESD gpio_w\[2\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[2\]\.u.TIE_HI_ESD gpio_w\[2\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[2\]\.u.TIE_HI_ESD gpio_w\[2\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[2\]\.u.TIE_HI_ESD gpio_w\[2\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[3\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[55] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[3\]\.u.PAD_A_ESD_0_H user_project.analog_io[55] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[3\]\.u.IN user_project.gpio_in[55] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[3\]\.u.IN_H user_project.gpio_in_h[55] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[3\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[59] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[3\]\.u.PAD_A_ESD_0_H user_project.analog_io[59] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[3\]\.u.IN user_project.gpio_in[59] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[3\]\.u.IN_H user_project.gpio_in_h[59] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[3\]\.u.PAD gpio_pad[3] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[3\]\.u.TIE_LO_ESD gpio_w\[3\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[3\]\.u.TIE_LO_ESD gpio_w\[3\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[3\]\.u.TIE_HI_ESD gpio_w\[3\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[3\]\.u.TIE_HI_ESD gpio_w\[3\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[3\]\.u.TIE_HI_ESD gpio_w\[3\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[3\]\.u.TIE_HI_ESD gpio_w\[3\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[4\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[54] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[4\]\.u.PAD_A_ESD_0_H user_project.analog_io[54] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[4\]\.u.IN user_project.gpio_in[54] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[4\]\.u.IN_H user_project.gpio_in_h[54] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[4\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[58] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[4\]\.u.PAD_A_ESD_0_H user_project.analog_io[58] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[4\]\.u.IN user_project.gpio_in[58] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[4\]\.u.IN_H user_project.gpio_in_h[58] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[4\]\.u.PAD gpio_pad[4] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[4\]\.u.TIE_LO_ESD gpio_w\[4\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[4\]\.u.TIE_LO_ESD gpio_w\[4\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[4\]\.u.TIE_HI_ESD gpio_w\[4\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[4\]\.u.TIE_HI_ESD gpio_w\[4\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[4\]\.u.TIE_HI_ESD gpio_w\[4\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[4\]\.u.TIE_HI_ESD gpio_w\[4\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[5\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[53] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[5\]\.u.PAD_A_ESD_0_H user_project.analog_io[53] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[5\]\.u.IN user_project.gpio_in[53] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[5\]\.u.IN_H user_project.gpio_in_h[53] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[5\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[57] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[5\]\.u.PAD_A_ESD_0_H user_project.analog_io[57] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[5\]\.u.IN user_project.gpio_in[57] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[5\]\.u.IN_H user_project.gpio_in_h[57] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[5\]\.u.PAD gpio_pad[5] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[5\]\.u.TIE_LO_ESD gpio_w\[5\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[5\]\.u.TIE_LO_ESD gpio_w\[5\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[5\]\.u.TIE_HI_ESD gpio_w\[5\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[5\]\.u.TIE_HI_ESD gpio_w\[5\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[5\]\.u.TIE_HI_ESD gpio_w\[5\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[5\]\.u.TIE_HI_ESD gpio_w\[5\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[6\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[52] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[6\]\.u.PAD_A_ESD_0_H user_project.analog_io[52] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[6\]\.u.IN user_project.gpio_in[52] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[6\]\.u.IN_H user_project.gpio_in_h[52] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[6\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[56] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[6\]\.u.PAD_A_ESD_0_H user_project.analog_io[56] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[6\]\.u.IN user_project.gpio_in[56] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[6\]\.u.IN_H user_project.gpio_in_h[56] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[6\]\.u.PAD gpio_pad[6] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[6\]\.u.TIE_LO_ESD gpio_w\[6\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[6\]\.u.TIE_LO_ESD gpio_w\[6\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[6\]\.u.TIE_HI_ESD gpio_w\[6\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[6\]\.u.TIE_HI_ESD gpio_w\[6\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[6\]\.u.TIE_HI_ESD gpio_w\[6\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[6\]\.u.TIE_HI_ESD gpio_w\[6\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[7\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[51] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[7\]\.u.PAD_A_ESD_0_H user_project.analog_io[51] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[7\]\.u.IN user_project.gpio_in[51] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[7\]\.u.IN_H user_project.gpio_in_h[51] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[7\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[55] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[7\]\.u.PAD_A_ESD_0_H user_project.analog_io[55] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[7\]\.u.IN user_project.gpio_in[55] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[7\]\.u.IN_H user_project.gpio_in_h[55] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[7\]\.u.PAD gpio_pad[7] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[7\]\.u.TIE_LO_ESD gpio_w\[7\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[7\]\.u.TIE_LO_ESD gpio_w\[7\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[7\]\.u.TIE_HI_ESD gpio_w\[7\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[7\]\.u.TIE_HI_ESD gpio_w\[7\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[7\]\.u.TIE_HI_ESD gpio_w\[7\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[7\]\.u.TIE_HI_ESD gpio_w\[7\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[8\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[50] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[8\]\.u.PAD_A_ESD_0_H user_project.analog_io[50] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[8\]\.u.IN user_project.gpio_in[50] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[8\]\.u.IN_H user_project.gpio_in_h[50] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[8\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[54] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[8\]\.u.PAD_A_ESD_0_H user_project.analog_io[54] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[8\]\.u.IN user_project.gpio_in[54] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[8\]\.u.IN_H user_project.gpio_in_h[54] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[8\]\.u.PAD gpio_pad[8] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[8\]\.u.TIE_LO_ESD gpio_w\[8\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[8\]\.u.TIE_LO_ESD gpio_w\[8\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[8\]\.u.TIE_HI_ESD gpio_w\[8\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[8\]\.u.TIE_HI_ESD gpio_w\[8\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[8\]\.u.TIE_HI_ESD gpio_w\[8\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[8\]\.u.TIE_HI_ESD gpio_w\[8\]\.u.HLD_H_N (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[9\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[49] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[9\]\.u.PAD_A_ESD_0_H user_project.analog_io[49] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[9\]\.u.IN user_project.gpio_in[49] (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[9\]\.u.IN_H user_project.gpio_in_h[49] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[9\]\.u.PAD_A_NOESD_H user_project.analog_noesd_io[53] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[9\]\.u.PAD_A_ESD_0_H user_project.analog_io[53] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[9\]\.u.IN user_project.gpio_in[53] (0.000:0.000:0.000))
+    (INTERCONNECT gpio_w\[9\]\.u.IN_H user_project.gpio_in_h[53] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[9\]\.u.PAD gpio_pad[9] (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[9\]\.u.TIE_LO_ESD gpio_w\[9\]\.u.ENABLE_INP_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[9\]\.u.TIE_LO_ESD gpio_w\[9\]\.u.ENABLE_VSWITCH_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[9\]\.u.TIE_HI_ESD gpio_w\[9\]\.u.ENABLE_H (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[9\]\.u.TIE_HI_ESD gpio_w\[9\]\.u.ENABLE_VDDA_H (0.000:0.000:0.000))
-    (INTERCONNECT gpio_w\[9\]\.u.TIE_HI_ESD gpio_w\[9\]\.u.ENABLE_VDDIO (0.000:0.000:0.000))
     (INTERCONNECT gpio_w\[9\]\.u.TIE_HI_ESD gpio_w\[9\]\.u.HLD_H_N (0.000:0.000:0.000))
    )
   )
@@ -780,7 +766,7 @@
     (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
      (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
     (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
-    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
@@ -788,7 +774,7 @@
     (COND   IB_MODE_SEL==1'b1 
      (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN (0.634:0.634:0.634) (0.883:0.883:0.883)))
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
@@ -866,7 +852,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -940,7 +926,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -1088,7 +1074,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -1162,7 +1148,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -1236,7 +1222,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -1310,7 +1296,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -1384,7 +1370,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -1446,7 +1432,7 @@
     (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
      (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
     (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
-    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
@@ -1606,7 +1592,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -1680,7 +1666,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -1754,7 +1740,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -1816,7 +1802,7 @@
     (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
      (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
     (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
-    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
@@ -1824,9 +1810,9 @@
     (COND   IB_MODE_SEL==1'b1 
      (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN (0.634:0.634:0.634) (0.883:0.883:0.883)))
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
-     (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
+     (IOPATH PAD IN (0.642:0.642:0.642) (0.772:0.772:0.772)))
     (COND   IB_MODE_SEL==1'b1 
      (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
    )
@@ -1964,7 +1950,7 @@
     (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
      (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
     (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
-    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
@@ -1972,11 +1958,11 @@
     (COND   IB_MODE_SEL==1'b1 
      (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN (0.634:0.634:0.634) (0.883:0.883:0.883)))
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
+     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
    )
   )
   (TIMINGCHECK
@@ -2038,7 +2024,7 @@
     (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
      (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
     (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
-    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
@@ -2046,9 +2032,9 @@
     (COND   IB_MODE_SEL==1'b1 
      (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN (0.634:0.634:0.634) (0.883:0.883:0.883)))
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
-     (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
+     (IOPATH PAD IN (0.642:0.642:0.642) (0.772:0.772:0.772)))
     (COND   IB_MODE_SEL==1'b1 
      (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
    )
@@ -2334,7 +2320,7 @@
     (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
      (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
     (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
-    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
@@ -2346,7 +2332,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
+     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
    )
   )
   (TIMINGCHECK
@@ -2504,7 +2490,81 @@
  )
  (CELL
   (CELLTYPE "sky130_ef_io__gpiov2_pad")
-  (INSTANCE gpio_n\[1\]\.u)
+  (INSTANCE gpio_n\[18\]\.u)
+  (DELAY
+   (ABSOLUTE
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.222:7.222:7.222) (1.985:1.985:1.985)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.858:1.858:1.858) (2.024:2.024:2.024)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807) (7.466:7.466:7.466)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.822:1.822:1.822) (1.729:1.729:1.729)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.833:1.833:1.833)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD () (1.699:1.699:1.699)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD () (1.969:1.969:1.969)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.835:1.835:1.835) (7.467:7.467:7.467)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.221:7.221:7.221) (1.713:1.713:1.713)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.091:7.091:7.091) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.855:1.855:1.855)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (7.334:7.334:7.334)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.078:7.078:7.078) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD () (1.866:1.866:1.866)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD () (2.139:2.139:2.139)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (7.332:7.332:7.332)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
+    (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN_H (0.666:0.666:0.666) (0.668:0.668:0.668)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN (0.642:0.642:0.642) (0.772:0.772:0.772)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+   )
+  )
+  (TIMINGCHECK
+    (WIDTH (posedge HLD_H_N) (0.000:0.000:0.000))
+    (WIDTH (negedge HLD_H_N) (0.000:0.000:0.000))
+  )
+ )
+ (CELL
+  (CELLTYPE "sky130_ef_io__gpiov2_pad")
+  (INSTANCE gpio_n\[19\]\.u)
   (DELAY
    (ABSOLUTE
     (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
@@ -2578,6 +2638,80 @@
  )
  (CELL
   (CELLTYPE "sky130_ef_io__gpiov2_pad")
+  (INSTANCE gpio_n\[1\]\.u)
+  (DELAY
+   (ABSOLUTE
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.222:7.222:7.222) (1.985:1.985:1.985)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.858:1.858:1.858) (2.024:2.024:2.024)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807) (7.466:7.466:7.466)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.822:1.822:1.822) (1.729:1.729:1.729)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.833:1.833:1.833)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD () (1.699:1.699:1.699)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD () (1.969:1.969:1.969)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.835:1.835:1.835) (7.467:7.467:7.467)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.221:7.221:7.221) (1.713:1.713:1.713)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.091:7.091:7.091) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.855:1.855:1.855)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (7.334:7.334:7.334)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.078:7.078:7.078) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD () (1.866:1.866:1.866)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD () (2.139:2.139:2.139)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (7.332:7.332:7.332)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
+    (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN_H (0.666:0.666:0.666) (0.668:0.668:0.668)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN (0.642:0.642:0.642) (0.772:0.772:0.772)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+   )
+  )
+  (TIMINGCHECK
+    (WIDTH (posedge HLD_H_N) (0.000:0.000:0.000))
+    (WIDTH (negedge HLD_H_N) (0.000:0.000:0.000))
+  )
+ )
+ (CELL
+  (CELLTYPE "sky130_ef_io__gpiov2_pad")
   (INSTANCE gpio_n\[2\]\.u)
   (DELAY
    (ABSOLUTE
@@ -2630,7 +2764,7 @@
     (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
      (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
     (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
-    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
@@ -2638,11 +2772,11 @@
     (COND   IB_MODE_SEL==1'b1 
      (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN (0.634:0.634:0.634) (0.883:0.883:0.883)))
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
-     (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
+     (IOPATH PAD IN (0.642:0.642:0.642) (0.772:0.772:0.772)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
+     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
    )
   )
   (TIMINGCHECK
@@ -2778,7 +2912,7 @@
     (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
      (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
     (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
-    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
@@ -2786,11 +2920,11 @@
     (COND   IB_MODE_SEL==1'b1 
      (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN (0.634:0.634:0.634) (0.883:0.883:0.883)))
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
+     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
    )
   )
   (TIMINGCHECK
@@ -2862,7 +2996,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
      (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
-     (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
+     (IOPATH PAD IN (0.642:0.642:0.642) (0.772:0.772:0.772)))
     (COND   IB_MODE_SEL==1'b1 
      (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
    )
@@ -2938,7 +3072,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
+     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
    )
   )
   (TIMINGCHECK
@@ -3295,6 +3429,80 @@
      (IOPATH OE_N PAD (1.880:1.880:1.880)))
     (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
      (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
+    (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.988:1.988:1.988))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN_H (0.666:0.666:0.666) (0.667:0.667:0.667)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN (0.642:0.642:0.642) (0.772:0.772:0.772)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+   )
+  )
+  (TIMINGCHECK
+    (WIDTH (posedge HLD_H_N) (0.000:0.000:0.000))
+    (WIDTH (negedge HLD_H_N) (0.000:0.000:0.000))
+  )
+ )
+ (CELL
+  (CELLTYPE "sky130_ef_io__gpiov2_pad")
+  (INSTANCE gpio_s\[11\]\.u)
+  (DELAY
+   (ABSOLUTE
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.222:7.222:7.222) (1.985:1.985:1.985)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.858:1.858:1.858) (2.024:2.024:2.024)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807) (7.466:7.466:7.466)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.822:1.822:1.822) (1.729:1.729:1.729)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.833:1.833:1.833)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD () (1.699:1.699:1.699)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD () (1.969:1.969:1.969)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.835:1.835:1.835) (7.467:7.467:7.467)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.221:7.221:7.221) (1.713:1.713:1.713)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.091:7.091:7.091) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.855:1.855:1.855)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (7.334:7.334:7.334)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.078:7.078:7.078) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD () (1.866:1.866:1.866)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD () (2.139:2.139:2.139)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (7.332:7.332:7.332)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
     (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
     (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
@@ -3318,7 +3526,81 @@
  )
  (CELL
   (CELLTYPE "sky130_ef_io__gpiov2_pad")
-  (INSTANCE gpio_s\[11\]\.u)
+  (INSTANCE gpio_s\[12\]\.u)
+  (DELAY
+   (ABSOLUTE
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.222:7.222:7.222) (1.985:1.985:1.985)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.858:1.858:1.858) (2.024:2.024:2.024)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807) (7.466:7.466:7.466)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.822:1.822:1.822) (1.729:1.729:1.729)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.833:1.833:1.833)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD () (1.699:1.699:1.699)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD () (1.969:1.969:1.969)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.835:1.835:1.835) (7.467:7.467:7.467)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.221:7.221:7.221) (1.713:1.713:1.713)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.091:7.091:7.091) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.855:1.855:1.855)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (7.334:7.334:7.334)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.078:7.078:7.078) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD () (1.866:1.866:1.866)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD () (2.139:2.139:2.139)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (7.332:7.332:7.332)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
+    (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN_H (0.666:0.666:0.666) (0.668:0.668:0.668)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.883:0.883:0.883)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
+   )
+  )
+  (TIMINGCHECK
+    (WIDTH (posedge HLD_H_N) (0.000:0.000:0.000))
+    (WIDTH (negedge HLD_H_N) (0.000:0.000:0.000))
+  )
+ )
+ (CELL
+  (CELLTYPE "sky130_ef_io__gpiov2_pad")
+  (INSTANCE gpio_s\[13\]\.u)
   (DELAY
    (ABSOLUTE
     (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
@@ -3456,7 +3738,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -3518,19 +3800,19 @@
     (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
      (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
     (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.988:1.988:1.988))
-    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN_H (0.666:0.666:0.666) (0.668:0.668:0.668)))
+     (IOPATH PAD IN_H (0.666:0.666:0.666) (0.667:0.667:0.667)))
     (COND   IB_MODE_SEL==1'b1 
      (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN (0.634:0.634:0.634) (0.883:0.883:0.883)))
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
-     (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
+     (IOPATH PAD IN (0.642:0.642:0.642) (0.772:0.772:0.772)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
+     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
    )
   )
   (TIMINGCHECK
@@ -3666,228 +3948,6 @@
     (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
      (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
     (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
-    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
-    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
-     (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
-    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN_H (0.666:0.666:0.666) (0.668:0.668:0.668)))
-    (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
-    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
-    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
-     (IOPATH PAD IN (0.642:0.642:0.642) (0.772:0.772:0.772)))
-    (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
-   )
-  )
-  (TIMINGCHECK
-    (WIDTH (posedge HLD_H_N) (0.000:0.000:0.000))
-    (WIDTH (negedge HLD_H_N) (0.000:0.000:0.000))
-  )
- )
- (CELL
-  (CELLTYPE "sky130_ef_io__gpiov2_pad")
-  (INSTANCE gpio_s\[5\]\.u)
-  (DELAY
-   (ABSOLUTE
-    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OUT PAD (7.222:7.222:7.222) (1.985:1.985:1.985)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OUT PAD (1.858:1.858:1.858) (2.024:2.024:2.024)))
-    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OUT PAD (1.807:1.807:1.807) (7.466:7.466:7.466)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OUT PAD (1.807:1.807:1.807)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OUT PAD (1.822:1.822:1.822) (1.729:1.729:1.729)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OUT PAD (1.833:1.833:1.833)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OUT PAD () (1.699:1.699:1.699)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OUT PAD () (1.969:1.969:1.969)))
-    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OUT PAD (1.835:1.835:1.835) (7.467:7.467:7.467)))
-    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OUT PAD (7.221:7.221:7.221) (1.713:1.713:1.713)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OE_N PAD (7.091:7.091:7.091) (7.337:7.337:7.337)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OE_N PAD (1.855:1.855:1.855)))
-    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OE_N PAD (7.079:7.079:7.079) (2.150:2.150:2.150)))
-    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OE_N PAD (1.880:1.880:1.880) (7.334:7.334:7.334)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OE_N PAD (7.078:7.078:7.078) (7.337:7.337:7.337)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OE_N PAD () (1.866:1.866:1.866)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OE_N PAD (1.880:1.880:1.880) (2.150:2.150:2.150)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OE_N PAD (1.854:1.854:1.854) (1.880:1.880:1.880)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OE_N PAD () (2.139:2.139:2.139)))
-    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OE_N PAD (1.854:1.854:1.854) (7.332:7.332:7.332)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OE_N PAD (1.880:1.880:1.880)))
-    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
-    (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
-    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
-    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
-     (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
-    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN_H (0.666:0.666:0.666) (0.668:0.668:0.668)))
-    (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
-    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN (0.634:0.634:0.634) (0.883:0.883:0.883)))
-    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
-     (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
-    (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
-   )
-  )
-  (TIMINGCHECK
-    (WIDTH (posedge HLD_H_N) (0.000:0.000:0.000))
-    (WIDTH (negedge HLD_H_N) (0.000:0.000:0.000))
-  )
- )
- (CELL
-  (CELLTYPE "sky130_ef_io__gpiov2_pad")
-  (INSTANCE gpio_s\[6\]\.u)
-  (DELAY
-   (ABSOLUTE
-    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OUT PAD (7.222:7.222:7.222) (1.985:1.985:1.985)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OUT PAD (1.858:1.858:1.858) (2.024:2.024:2.024)))
-    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OUT PAD (1.807:1.807:1.807) (7.466:7.466:7.466)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OUT PAD (1.807:1.807:1.807)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OUT PAD (1.822:1.822:1.822) (1.729:1.729:1.729)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OUT PAD (1.833:1.833:1.833)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OUT PAD () (1.699:1.699:1.699)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OUT PAD () (1.969:1.969:1.969)))
-    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OUT PAD (1.835:1.835:1.835) (7.467:7.467:7.467)))
-    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OUT PAD (7.221:7.221:7.221) (1.713:1.713:1.713)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OE_N PAD (7.091:7.091:7.091) (7.337:7.337:7.337)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OE_N PAD (1.855:1.855:1.855)))
-    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OE_N PAD (7.079:7.079:7.079) (2.150:2.150:2.150)))
-    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OE_N PAD (1.880:1.880:1.880) (7.334:7.334:7.334)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OE_N PAD (7.078:7.078:7.078) (7.337:7.337:7.337)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OE_N PAD () (1.866:1.866:1.866)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OE_N PAD (1.880:1.880:1.880) (2.150:2.150:2.150)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OE_N PAD (1.854:1.854:1.854) (1.880:1.880:1.880)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OE_N PAD () (2.139:2.139:2.139)))
-    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OE_N PAD (1.854:1.854:1.854) (7.332:7.332:7.332)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OE_N PAD (1.880:1.880:1.880)))
-    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
-    (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
-    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
-    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
-     (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
-    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN_H (0.666:0.666:0.666) (0.668:0.668:0.668)))
-    (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
-    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
-    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
-     (IOPATH PAD IN (0.642:0.642:0.642) (0.772:0.772:0.772)))
-    (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
-   )
-  )
-  (TIMINGCHECK
-    (WIDTH (posedge HLD_H_N) (0.000:0.000:0.000))
-    (WIDTH (negedge HLD_H_N) (0.000:0.000:0.000))
-  )
- )
- (CELL
-  (CELLTYPE "sky130_ef_io__gpiov2_pad")
-  (INSTANCE gpio_s\[7\]\.u)
-  (DELAY
-   (ABSOLUTE
-    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OUT PAD (7.222:7.222:7.222) (1.985:1.985:1.985)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OUT PAD (1.858:1.858:1.858) (2.024:2.024:2.024)))
-    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OUT PAD (1.807:1.807:1.807) (7.466:7.466:7.466)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OUT PAD (1.807:1.807:1.807)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OUT PAD (1.822:1.822:1.822) (1.729:1.729:1.729)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OUT PAD (1.833:1.833:1.833)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OUT PAD () (1.699:1.699:1.699)))
-    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OUT PAD () (1.969:1.969:1.969)))
-    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OUT PAD (1.835:1.835:1.835) (7.467:7.467:7.467)))
-    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OUT PAD (7.221:7.221:7.221) (1.713:1.713:1.713)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OE_N PAD (7.091:7.091:7.091) (7.337:7.337:7.337)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OE_N PAD (1.855:1.855:1.855)))
-    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OE_N PAD (7.079:7.079:7.079) (2.150:2.150:2.150)))
-    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OE_N PAD (1.880:1.880:1.880) (7.334:7.334:7.334)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OE_N PAD (7.078:7.078:7.078) (7.337:7.337:7.337)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OE_N PAD () (1.866:1.866:1.866)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OE_N PAD (1.880:1.880:1.880) (2.150:2.150:2.150)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OE_N PAD (1.854:1.854:1.854) (1.880:1.880:1.880)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
-     (IOPATH OE_N PAD () (2.139:2.139:2.139)))
-    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
-     (IOPATH OE_N PAD (1.854:1.854:1.854) (7.332:7.332:7.332)))
-    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
-     (IOPATH OE_N PAD (1.880:1.880:1.880)))
-    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
-     (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
-    (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
     (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
@@ -3910,7 +3970,7 @@
  )
  (CELL
   (CELLTYPE "sky130_ef_io__gpiov2_pad")
-  (INSTANCE gpio_s\[8\]\.u)
+  (INSTANCE gpio_s\[5\]\.u)
   (DELAY
    (ABSOLUTE
     (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
@@ -3984,7 +4044,155 @@
  )
  (CELL
   (CELLTYPE "sky130_ef_io__gpiov2_pad")
-  (INSTANCE gpio_s\[9\]\.u)
+  (INSTANCE gpio_s\[6\]\.u)
+  (DELAY
+   (ABSOLUTE
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.222:7.222:7.222) (1.985:1.985:1.985)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.858:1.858:1.858) (2.024:2.024:2.024)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807) (7.466:7.466:7.466)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.822:1.822:1.822) (1.729:1.729:1.729)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.833:1.833:1.833)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD () (1.699:1.699:1.699)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD () (1.969:1.969:1.969)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.835:1.835:1.835) (7.467:7.467:7.467)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.221:7.221:7.221) (1.713:1.713:1.713)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.091:7.091:7.091) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.855:1.855:1.855)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (7.334:7.334:7.334)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.078:7.078:7.078) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD () (1.866:1.866:1.866)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD () (2.139:2.139:2.139)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (7.332:7.332:7.332)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
+    (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.988:1.988:1.988))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN_H (0.666:0.666:0.666) (0.667:0.667:0.667)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.883:0.883:0.883)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
+   )
+  )
+  (TIMINGCHECK
+    (WIDTH (posedge HLD_H_N) (0.000:0.000:0.000))
+    (WIDTH (negedge HLD_H_N) (0.000:0.000:0.000))
+  )
+ )
+ (CELL
+  (CELLTYPE "sky130_ef_io__gpiov2_pad")
+  (INSTANCE gpio_s\[7\]\.u)
+  (DELAY
+   (ABSOLUTE
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.222:7.222:7.222) (1.985:1.985:1.985)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.858:1.858:1.858) (2.024:2.024:2.024)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807) (7.466:7.466:7.466)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.822:1.822:1.822) (1.729:1.729:1.729)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.833:1.833:1.833)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD () (1.699:1.699:1.699)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD () (1.969:1.969:1.969)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.835:1.835:1.835) (7.467:7.467:7.467)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.221:7.221:7.221) (1.713:1.713:1.713)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.091:7.091:7.091) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.855:1.855:1.855)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (7.334:7.334:7.334)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.078:7.078:7.078) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD () (1.866:1.866:1.866)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD () (2.139:2.139:2.139)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (7.332:7.332:7.332)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
+    (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.988:1.988:1.988))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.976:1.976:1.976))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN_H (0.666:0.666:0.666) (0.667:0.667:0.667)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.884:0.884:0.884)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN (0.642:0.642:0.642) (0.772:0.772:0.772)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+   )
+  )
+  (TIMINGCHECK
+    (WIDTH (posedge HLD_H_N) (0.000:0.000:0.000))
+    (WIDTH (negedge HLD_H_N) (0.000:0.000:0.000))
+  )
+ )
+ (CELL
+  (CELLTYPE "sky130_ef_io__gpiov2_pad")
+  (INSTANCE gpio_s\[8\]\.u)
   (DELAY
    (ABSOLUTE
     (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
@@ -4049,6 +4257,80 @@
      (IOPATH PAD IN (0.642:0.642:0.642) (0.772:0.772:0.772)))
     (COND   IB_MODE_SEL==1'b1 
      (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+   )
+  )
+  (TIMINGCHECK
+    (WIDTH (posedge HLD_H_N) (0.000:0.000:0.000))
+    (WIDTH (negedge HLD_H_N) (0.000:0.000:0.000))
+  )
+ )
+ (CELL
+  (CELLTYPE "sky130_ef_io__gpiov2_pad")
+  (INSTANCE gpio_s\[9\]\.u)
+  (DELAY
+   (ABSOLUTE
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.222:7.222:7.222) (1.985:1.985:1.985)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.858:1.858:1.858) (2.024:2.024:2.024)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807) (7.466:7.466:7.466)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.807:1.807:1.807)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (1.822:1.822:1.822) (1.729:1.729:1.729)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.833:1.833:1.833)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.048:7.048:7.048) (7.182:7.182:7.182)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD () (1.699:1.699:1.699)))
+    (COND   OE_N==1'b0 & DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OUT PAD () (1.969:1.969:1.969)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OUT PAD (1.835:1.835:1.835) (7.467:7.467:7.467)))
+    (COND   OE_N==1'b0 & DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OUT PAD (7.221:7.221:7.221) (1.713:1.713:1.713)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.091:7.091:7.091) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.855:1.855:1.855)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (7.334:7.334:7.334)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (7.078:7.078:7.078) (7.337:7.337:7.337)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD () (1.866:1.866:1.866)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880) (2.150:2.150:2.150)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b0 & SLOW==1'b1 
+     (IOPATH OE_N PAD () (2.139:2.139:2.139)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b1 & SLOW==1'b0 
+     (IOPATH OE_N PAD (1.854:1.854:1.854) (7.332:7.332:7.332)))
+    (COND   DM[2]==1'b1 & DM[1]==1'b0 & DM[0]==1'b1 & SLOW==1'b1 
+     (IOPATH OE_N PAD (1.880:1.880:1.880)))
+    (COND   DM[2]==1'b0 & DM[1]==1'b1 & DM[0]==1'b0 & SLOW==1'b0 
+     (IOPATH OE_N PAD (7.079:7.079:7.079) (1.880:1.880:1.880)))
+    (IOPATH INP_DIS IN_H (2.509:2.509:2.509) (1.989:1.989:1.989))
+    (IOPATH INP_DIS IN (2.546:2.546:2.546) (1.975:1.975:1.975))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN_H (0.674:0.674:0.674) (0.556:0.556:0.556)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN_H (0.666:0.666:0.666) (0.668:0.668:0.668)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
+     (IOPATH PAD IN (0.634:0.634:0.634) (0.883:0.883:0.883)))
+    (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
+     (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
+    (COND   IB_MODE_SEL==1'b1 
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -4196,7 +4478,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
+     (IOPATH PAD IN (0.941:0.941:0.941) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -4270,7 +4552,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -4340,11 +4622,11 @@
     (COND   IB_MODE_SEL==1'b1 
      (IOPATH PAD IN_H (1.301:1.301:1.301) (0.923:0.923:0.923)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b1 
-     (IOPATH PAD IN (0.634:0.634:0.634) (0.883:0.883:0.883)))
+     (IOPATH PAD IN (0.633:0.633:0.633) (0.883:0.883:0.883)))
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -4418,7 +4700,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -4566,7 +4848,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
+     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
    )
   )
   (TIMINGCHECK
@@ -4788,7 +5070,7 @@
     (COND   IB_MODE_SEL==1'b0 & VTRIP_SEL==1'b0 
      (IOPATH PAD IN (0.642:0.642:0.642) (0.771:0.771:0.771)))
     (COND   IB_MODE_SEL==1'b1 
-     (IOPATH PAD IN (0.940:0.940:0.940) (0.818:0.818:0.818)))
+     (IOPATH PAD IN (0.941:0.941:0.941) (0.819:0.819:0.819)))
    )
   )
   (TIMINGCHECK

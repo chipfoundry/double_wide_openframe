@@ -112,10 +112,8 @@ padframe:
 	PYTHONPATH=$(abspath librelane/padframe):$$PYTHONPATH \
 		python3 librelane/padframe/run_padframe.py \
 		--pdk-root $(PDK_ROOT) --pdk $(PDK) --manual-pdk \
-		librelane/padframe/config.yaml --save-views-to build/padframe/
-	@if [ -f build/padframe/gds/double_wide_chip_io.gds ]; then \
-		mkdir -p gds && cp -f build/padframe/gds/double_wide_chip_io.gds gds/; \
-	fi
+		librelane/padframe/config.yaml \
+		--ef-save-views-to . --overwrite
 
 padframe-klayout:
 	$(LIBRELANE) librelane/padframe/config.yaml --last-run --flow OpenInKLayout

@@ -87,7 +87,7 @@ SIDE_OUTWARD = {"S": (0.0, -1.0), "N": (0.0, 1.0), "W": (-1.0, 0.0), "E": (1.0, 
 # Additional per-side fine placement adjustments (um), applied on top of the
 # outward shift, to line the power straps up precisely with the ring rails.
 SIDE_FINE_ADJUST_UM = {
-    "S": (0.0, 0.67),      # bottom: north +1.02 for 1.27um nwell clearance (was -0.35)
+    "S": (0.75, -0.35),    # bottom: south 1.02 + east 0.75 for nwell.SP.1 clearance
     "N": (0.0, -3.74),     # top blocks: move south (-3.465 fit + 0.16 + 0.115 DRC)
     "W": (-0.58, 0.0),     # left blocks: move left (-0.065 + 0.515 DRC)
     "E": (-4.94, 0.0),     # right: west -0.61 more for 1.27um nwell clearance (was -4.33)
@@ -1738,19 +1738,18 @@ def gen_pin_template_def(inv):
 
     # POR pins (west met3): openframe geometry, Y shifted with our POR place so
     # they abut the simple_por pin band. Order porb_h / por_l / porb_l.
-    # Openframe pin: LAYER met3 (-1.150,-0.175)-(1.150,0.175) PLACED (-0.850, y)
-    # → absolute box (-2.000, y-0.175)-(0.300, y+0.175).
+    # Preserve the openframe -2um overhang for padframe abutment, but extend
+    # 1um into the wrapper so a hardened user design reaches a met3 track.
     dy = POR_LOCATION_UM[1] - OF_POR_LOCATION_Y_UM
     for sig, y_of in zip(WRAPPER_POR_PINS_WEST, OF_WRAP_POR_Y_UM):
         y = snap(nm(y_of + dy))
-        pins.append((sig, "INPUT", HLAYER, -2000, y - 175, 300, y + 175))
+        pins.append((sig, "INPUT", HLAYER, -2000, y - 175, PL, y + 175))
 
     # Reset pins (south met2): openframe X facing the south xres pad / xres_buf.
-    # Openframe: LAYER met2 (-0.140,-1.140)-(0.140,1.140) PLACED (x, -0.860)
-    # → absolute box (x-0.140, -2.000)-(x+0.140, 0.280).
+    # Preserve the -2um overhang and extend 1um into the wrapper for met2 access.
     for sig, x_of in zip(WRAPPER_RESET_PINS_SOUTH, OF_WRAP_RESET_X_UM):
         x = snap(nm(x_of))
-        pins.append((sig, "INPUT", VLAYER, x - 140, -2000, x + 140, 280))
+        pins.append((sig, "INPUT", VLAYER, x - 140, -2000, x + 140, PL))
 
     # Power / ground edge ports: one SPECIAL multi-PORT pin per rail, with a
     # met3 rectangle facing every clamp met3 stub (openframe dual-~24um pattern).

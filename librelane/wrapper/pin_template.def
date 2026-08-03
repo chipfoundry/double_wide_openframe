@@ -2400,15 +2400,15 @@ PINS 1216 ;
 - gpio_loopback_zero[62] + NET gpio_loopback_zero[62] + DIRECTION INPUT + USE SIGNAL
   + LAYER met2 ( 6045195 0 ) ( 6045595 1000 ) + PLACED ( 0 0 ) N ;
 - porb_h + NET porb_h + DIRECTION INPUT + USE SIGNAL
-  + LAYER met3 ( -2000 527055 ) ( 300 527405 ) + PLACED ( 0 0 ) N ;
+  + LAYER met3 ( -2000 527055 ) ( 1000 527405 ) + PLACED ( 0 0 ) N ;
 - por_l + NET por_l + DIRECTION INPUT + USE SIGNAL
-  + LAYER met3 ( -2000 528180 ) ( 300 528530 ) + PLACED ( 0 0 ) N ;
+  + LAYER met3 ( -2000 528180 ) ( 1000 528530 ) + PLACED ( 0 0 ) N ;
 - porb_l + NET porb_l + DIRECTION INPUT + USE SIGNAL
-  + LAYER met3 ( -2000 529295 ) ( 300 529645 ) + PLACED ( 0 0 ) N ;
+  + LAYER met3 ( -2000 529295 ) ( 1000 529645 ) + PLACED ( 0 0 ) N ;
 - resetb_h + NET resetb_h + DIRECTION INPUT + USE SIGNAL
-  + LAYER met2 ( 497880 -2000 ) ( 498160 280 ) + PLACED ( 0 0 ) N ;
+  + LAYER met2 ( 497880 -2000 ) ( 498160 1000 ) + PLACED ( 0 0 ) N ;
 - resetb_l + NET resetb_l + DIRECTION INPUT + USE SIGNAL
-  + LAYER met2 ( 550820 -2000 ) ( 551100 280 ) + PLACED ( 0 0 ) N ;
+  + LAYER met2 ( 550820 -2000 ) ( 551100 1000 ) + PLACED ( 0 0 ) N ;
 - vddio + NET vddio + SPECIAL + DIRECTION INOUT + USE POWER
   + PORT
     + LAYER met3 ( -2000 390920 ) ( 300 414820 ) + PLACED ( 0 0 ) N

@@ -1049,46 +1049,46 @@ MACROS:
         location: [6680.175, 4976.760]
         orientation: N
       gpio_s[0].const_val:
-        location: [1015.080, 199.380]
+        location: [1015.830, 198.360]
         orientation: S
       gpio_s[1].const_val:
-        location: [1563.080, 199.380]
+        location: [1563.830, 198.360]
         orientation: S
       gpio_s[2].const_val:
-        location: [1837.080, 199.380]
+        location: [1837.830, 198.360]
         orientation: S
       gpio_s[3].const_val:
-        location: [2111.080, 199.380]
+        location: [2111.830, 198.360]
         orientation: S
       gpio_s[4].const_val:
-        location: [2385.080, 199.380]
+        location: [2385.830, 198.360]
         orientation: S
       gpio_s[5].const_val:
-        location: [2659.080, 199.380]
+        location: [2659.830, 198.360]
         orientation: S
       gpio_s[6].const_val:
-        location: [3468.557, 199.380]
+        location: [3469.307, 198.360]
         orientation: S
       gpio_s[7].const_val:
-        location: [3742.557, 199.380]
+        location: [3743.307, 198.360]
         orientation: S
       gpio_s[8].const_val:
-        location: [4603.080, 199.380]
+        location: [4603.830, 198.360]
         orientation: S
       gpio_s[9].const_val:
-        location: [5151.080, 199.380]
+        location: [5151.830, 198.360]
         orientation: S
       gpio_s[10].const_val:
-        location: [5425.080, 199.380]
+        location: [5425.830, 198.360]
         orientation: S
       gpio_s[11].const_val:
-        location: [5699.080, 199.380]
+        location: [5699.830, 198.360]
         orientation: S
       gpio_s[12].const_val:
-        location: [5973.080, 199.380]
+        location: [5973.830, 198.360]
         orientation: S
       gpio_s[13].const_val:
-        location: [6247.080, 199.380]
+        location: [6247.830, 198.360]
         orientation: S
 
   # North left gap between gpio_n[5] (cell ends ~2002) and gpio_n[6] (starts ~2367).

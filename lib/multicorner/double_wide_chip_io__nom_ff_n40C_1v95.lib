@@ -28,63 +28,15 @@ library (double_wide_chip_io) {
   type ("gpio_pad") {
     base_type : array;
     data_type : bit;
-    bit_width : 59;
-    bit_from : 58;
-    bit_to : 0;
-  }
-  type ("vdda1_pad") {
-    base_type : array;
-    data_type : bit;
-    bit_width : 2;
-    bit_from : 1;
-    bit_to : 0;
-  }
-  type ("vdda_pad") {
-    base_type : array;
-    data_type : bit;
-    bit_width : 2;
-    bit_from : 1;
-    bit_to : 0;
-  }
-  type ("vssa1_pad") {
-    base_type : array;
-    data_type : bit;
-    bit_width : 3;
-    bit_from : 2;
-    bit_to : 0;
-  }
-  type ("vssa_pad") {
-    base_type : array;
-    data_type : bit;
-    bit_width : 2;
-    bit_from : 1;
+    bit_width : 63;
+    bit_from : 62;
     bit_to : 0;
   }
 
   cell ("double_wide_chip_io") {
-    area : 1259700.000 
+    area : 1319700.000 
     is_macro_cell : true;
-    pin("vccd1_pad") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    pin("vccd2_pad") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    pin("vdda2_pad") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    pin("vssa2_pad") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    pin("vssd1_pad") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    pin("vssd2_pad") {
+    pin("resetb_pad") {
       direction : inout;
       capacitance : 0.0000;
     }
@@ -92,6 +44,22 @@ library (double_wide_chip_io) {
       bus_type : gpio_pad;
       direction : inout;
       capacitance : 0.0000;
+    pin("gpio_pad[62]") {
+      direction : inout;
+      capacitance : 1.0478;
+    }
+    pin("gpio_pad[61]") {
+      direction : inout;
+      capacitance : 1.0478;
+    }
+    pin("gpio_pad[60]") {
+      direction : inout;
+      capacitance : 1.0478;
+    }
+    pin("gpio_pad[59]") {
+      direction : inout;
+      capacitance : 1.0478;
+    }
     pin("gpio_pad[58]") {
       direction : inout;
       capacitance : 1.0478;
@@ -327,62 +295,6 @@ library (double_wide_chip_io) {
     pin("gpio_pad[0]") {
       direction : inout;
       capacitance : 1.0478;
-    }
-    }
-    bus("vdda1_pad") {
-      bus_type : vdda1_pad;
-      direction : inout;
-      capacitance : 0.0000;
-    pin("vdda1_pad[1]") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    pin("vdda1_pad[0]") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    }
-    bus("vdda_pad") {
-      bus_type : vdda_pad;
-      direction : inout;
-      capacitance : 0.0000;
-    pin("vdda_pad[1]") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    pin("vdda_pad[0]") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    }
-    bus("vssa1_pad") {
-      bus_type : vssa1_pad;
-      direction : inout;
-      capacitance : 0.0000;
-    pin("vssa1_pad[2]") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    pin("vssa1_pad[1]") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    pin("vssa1_pad[0]") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    }
-    bus("vssa_pad") {
-      bus_type : vssa_pad;
-      direction : inout;
-      capacitance : 0.0000;
-    pin("vssa_pad[1]") {
-      direction : inout;
-      capacitance : 0.0000;
-    }
-    pin("vssa_pad[0]") {
-      direction : inout;
-      capacitance : 0.0000;
     }
     }
   }
