@@ -745,6 +745,9 @@ def gen_padframe_rtl(inv):
     # / netgen agree with Magic abstract extract of the LEF view.
     body.append("""
     // ---- power-domain bridge slices ----
+    // The sky130_ef_io.v functional model of this slice only has the 4 bridged
+    // rail pins (already tied together here), so it is omitted in simulation.
+`ifndef FUNCTIONAL
     generate for (genvar i = 0; i < 8; i = i + 1) begin : vcchib_vccd_and_vswitch_vddio_slices
         (* keep *)
         sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um u (
@@ -764,6 +767,7 @@ def gen_padframe_rtl(inv):
 `endif
         );
     end endgenerate
+`endif
 """)
 
     # user-area wrapper instance
@@ -821,8 +825,6 @@ def gen_padframe_rtl(inv):
 // {n} signal GPIOs total + resetb_pad.
 
 `default_nettype none
-
-`include "dw_defines.vh"
 
 module double_wide_chip_io (
 {ports}
