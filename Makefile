@@ -65,11 +65,11 @@ pads:
 		--out-def-template librelane/wrapper/pin_template.def
 
 ## Harden the empty user-area wrapper (produces the LEF/DEF/GDS pin template).
-## run_wrapper.py imports wrapper_steps so Wrapper.AddPowerEdgePorts is registered.
+## LibreLane 3's native PDN_ENABLE_PINS promotes the PDN grid straight to the
+## pin_template.def pin locations (see librelane/wrapper/config.json), so no
+## custom step registration is needed here anymore.
 wrapper-empty:
-	PYTHONPATH=$(abspath librelane/wrapper):$$PYTHONPATH \
-		python3 librelane/wrapper/run_wrapper.py \
-		--pdk-root $(PDK_ROOT) --pdk $(PDK) --manual-pdk \
+	$(LIBRELANE) \
 		librelane/wrapper/config.json --save-views-to build/wrapper/
 	python3 scripts/patch_wrapper_lef_power_ports.py \
 		--lef build/wrapper/lef/double_wide_openframe_project_wrapper.lef \

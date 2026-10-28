@@ -10,8 +10,6 @@
 
 `default_nettype none
 
-`include "dw_defines.vh"
-
 module double_wide_chip_io (
     inout [62:0] gpio_pad,
     inout resetb_pad,
@@ -680,6 +678,9 @@ module double_wide_chip_io (
     // ---- corner cells: placed physically by pad_cfg.tcl (place_corners), not instantiated here ----
 
     // ---- power-domain bridge slices ----
+    // The sky130_ef_io.v functional model of this slice only has the 4 bridged
+    // rail pins (already tied together here), so it is omitted in simulation.
+`ifndef FUNCTIONAL
     generate for (genvar i = 0; i < 8; i = i + 1) begin : vcchib_vccd_and_vswitch_vddio_slices
         (* keep *)
         sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um u (
@@ -699,6 +700,7 @@ module double_wide_chip_io (
 `endif
         );
     end endgenerate
+`endif
 
 
     // ---- user-area wrapper (the double-wide openframe user project) ----

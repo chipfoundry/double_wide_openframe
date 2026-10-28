@@ -3,20 +3,20 @@ module double_wide_openframe_project_wrapper (por_l,
     porb_l,
     resetb_h,
     resetb_l,
-    vssa2,
-    vdda2,
-    vssa1,
-    vdda1,
-    vssa,
-    vdda,
-    vssio,
-    vddio,
-    vssd,
-    vccd,
-    vssd2,
-    vccd2,
-    vssd1,
     vccd1,
+    vssd1,
+    vccd2,
+    vssd2,
+    vccd,
+    vssd,
+    vddio,
+    vssio,
+    vdda,
+    vssa,
+    vdda1,
+    vssa1,
+    vdda2,
+    vssa2,
     analog_io,
     analog_noesd_io,
     gpio_analog_en,
@@ -41,20 +41,20 @@ module double_wide_openframe_project_wrapper (por_l,
  input porb_l;
  input resetb_h;
  input resetb_l;
- inout vssa2;
- inout vdda2;
- inout vssa1;
- inout vdda1;
- inout vssa;
- inout vdda;
- inout vssio;
- inout vddio;
- inout vssd;
- inout vccd;
- inout vssd2;
- inout vccd2;
- inout vssd1;
  inout vccd1;
+ inout vssd1;
+ inout vccd2;
+ inout vssd2;
+ inout vccd;
+ inout vssd;
+ inout vddio;
+ inout vssio;
+ inout vdda;
+ inout vssa;
+ inout vdda1;
+ inout vssa1;
+ inout vdda2;
+ inout vssa2;
  inout [62:0] analog_io;
  inout [62:0] analog_noesd_io;
  output [62:0] gpio_analog_en;
