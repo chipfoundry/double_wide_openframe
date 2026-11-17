@@ -1,7 +1,7 @@
 magic
 tech sky130A
 magscale 1 2
-timestamp 1785767298
+timestamp 1794943076
 << metal1 >>
 rect 80274 997404 80302 997662
 rect 81802 997404 81808 997416
@@ -21847,99 +21847,99 @@ rect 1233640 6598 1246160 19088
 rect 1288022 6811 1300190 18976
 rect 1341822 6811 1353990 18976
 use sky130_ef_io__vccd_lvc_clamped3_pad  clamp_vccd1_0
-timestamp 1686240195
+timestamp 1686214995
 transform 0 1 1395607 -1 0 921600
 box 0 -2177 17187 39593
 use sky130_ef_io__vccd_lvc_clamped3_pad  clamp_vccd2_0
-timestamp 1686240195
+timestamp 1686214995
 transform 0 -1 39593 -1 0 928000
 box 0 -2177 17187 39593
 use sky130_ef_io__vccd_lvc_clamped_pad  clamp_vccd_0
-timestamp 1617131149
+timestamp 1617105949
 transform 0 -1 39593 -1 0 84200
 box 0 -2107 17239 39593
 use sky130_ef_io__vdda_hvc_clamped_pad  clamp_vdda1_0
-timestamp 1617131149
+timestamp 1617105949
 transform 0 1 1395607 -1 0 518800
 box 0 -407 15000 39593
 use sky130_ef_io__vdda_hvc_clamped_pad  clamp_vdda1_1
-timestamp 1617131149
+timestamp 1617105949
 transform 0 1 1395607 -1 0 833400
 box 0 -407 15000 39593
 use sky130_ef_io__vdda_hvc_clamped_pad  clamp_vdda2_0
-timestamp 1617131149
+timestamp 1617105949
 transform 0 -1 39593 -1 0 498000
 box 0 -407 15000 39593
 use sky130_ef_io__vdda_hvc_clamped_pad  clamp_vdda_0
-timestamp 1617131149
+timestamp 1617105949
 transform -1 0 637800 0 -1 39593
 box 0 -407 15000 39593
 use sky130_ef_io__vdda_hvc_clamped_pad  clamp_vdda_1
-timestamp 1617131149
+timestamp 1617105949
 transform -1 0 1355400 0 -1 39593
 box 0 -407 15000 39593
 use sky130_ef_io__vddio_hvc_clamped_pad  clamp_vddio_0
-timestamp 1617131149
+timestamp 1617105949
 transform 0 -1 39593 -1 0 125200
 box 0 -407 15000 39593
 use sky130_ef_io__vddio_hvc_clamped_pad  clamp_vddio_1
-timestamp 1617131149
+timestamp 1617105949
 transform 0 -1 39593 -1 0 884800
 box 0 -407 15000 39593
 use sky130_ef_io__vssa_hvc_clamped_pad  clamp_vssa1_0
-timestamp 1617131149
+timestamp 1617105949
 transform 0 1 1395607 -1 0 430600
 box 0 -407 15000 39593
 use sky130_ef_io__vssa_hvc_clamped_pad  clamp_vssa1_1
-timestamp 1617131149
+timestamp 1617105949
 transform -1 0 590600 0 1 998007
 box 0 -407 15000 39593
 use sky130_ef_io__vssa_hvc_clamped_pad  clamp_vssa1_2
-timestamp 1617131149
+timestamp 1617105949
 transform -1 0 1308200 0 1 998007
 box 0 -407 15000 39593
 use sky130_ef_io__vssa_hvc_clamped_pad  clamp_vssa2_0
-timestamp 1617131149
+timestamp 1617105949
 transform 0 -1 39593 -1 0 842600
 box 0 -407 15000 39593
 use sky130_ef_io__vssa_hvc_clamped_pad  clamp_vssa_0
-timestamp 1617131149
+timestamp 1617105949
 transform -1 0 93800 0 -1 39593
 box 0 -407 15000 39593
 use sky130_ef_io__vssa_hvc_clamped_pad  clamp_vssa_1
-timestamp 1617131149
+timestamp 1617105949
 transform -1 0 811400 0 -1 39593
 box 0 -407 15000 39593
 use sky130_ef_io__vssd_lvc_clamped3_pad  clamp_vssd1_0
-timestamp 1686240300
+timestamp 1686215100
 transform 0 1 1395607 -1 0 473800
 box 0 -2177 17187 39593
 use sky130_ef_io__vssd_lvc_clamped3_pad  clamp_vssd2_0
-timestamp 1686240300
+timestamp 1686215100
 transform 0 -1 39593 -1 0 456800
 box 0 -2177 17187 39593
 use sky130_ef_io__vssd_lvc_clamped_pad  clamp_vssd_0
-timestamp 1617131149
+timestamp 1617105949
 transform -1 0 255000 0 -1 39593
 box 0 -2107 17239 39593
 use sky130_ef_io__vssd_lvc_clamped_pad  clamp_vssd_1
-timestamp 1617131149
+timestamp 1617105949
 transform -1 0 972600 0 -1 39593
 box 0 -2107 17239 39593
 use sky130_ef_io__vssio_hvc_clamped_pad  clamp_vssio_0
-timestamp 1617131149
+timestamp 1617105949
 transform -1 0 348400 0 1 998007
 box 0 -407 15000 39593
 use sky130_ef_io__vssio_hvc_clamped_pad  clamp_vssio_1
-timestamp 1617131149
+timestamp 1617105949
 transform -1 0 1066000 0 1 998007
 box 0 -407 15000 39593
 use sky130_ef_io__vssio_hvc_clamped_pad  clamp_vssio_2
-timestamp 1617131149
+timestamp 1617105949
 transform -1 0 584000 0 -1 39593
 box 0 -407 15000 39593
 use sky130_ef_io__vssio_hvc_clamped_pad  clamp_vssio_3
-timestamp 1617131149
+timestamp 1617105949
 transform -1 0 1301600 0 -1 39593
 box 0 -407 15000 39593
 use constant_block  constant_value_xres_inst
@@ -21951,7 +21951,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 120205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[0\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 116600
 box -143 -407 16134 39593
 use constant_block  gpio_e\[1\].const_val
@@ -21959,7 +21959,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 165205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[1\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 161800
 box -143 -407 16134 39593
 use constant_block  gpio_e\[2\].const_val
@@ -21967,7 +21967,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 210205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[2\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 206800
 box -143 -407 16134 39593
 use constant_block  gpio_e\[3\].const_val
@@ -21975,7 +21975,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 255205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[3\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 252000
 box -143 -407 16134 39593
 use constant_block  gpio_e\[4\].const_val
@@ -21983,7 +21983,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 300205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[4\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 297000
 box -143 -407 16134 39593
 use constant_block  gpio_e\[5\].const_val
@@ -21991,7 +21991,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 345205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[5\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 342000
 box -143 -407 16134 39593
 use constant_block  gpio_e\[6\].const_val
@@ -21999,7 +21999,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 390205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[6\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 387200
 box -143 -407 16134 39593
 use constant_block  gpio_e\[7\].const_val
@@ -22007,7 +22007,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 567205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[7\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 564400
 box -143 -407 16134 39593
 use constant_block  gpio_e\[8\].const_val
@@ -22015,7 +22015,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 612205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[8\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 609600
 box -143 -407 16134 39593
 use constant_block  gpio_e\[9\].const_val
@@ -22023,7 +22023,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 657205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[9\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 654600
 box -143 -407 16134 39593
 use constant_block  gpio_e\[10\].const_val
@@ -22031,7 +22031,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 702205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[10\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 699800
 box -143 -407 16134 39593
 use constant_block  gpio_e\[11\].const_val
@@ -22039,7 +22039,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 747205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[11\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 744800
 box -143 -407 16134 39593
 use constant_block  gpio_e\[12\].const_val
@@ -22047,7 +22047,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 792205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[12\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 789800
 box -143 -407 16134 39593
 use constant_block  gpio_e\[13\].const_val
@@ -22055,7 +22055,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 882405
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[13\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 879000
 box -143 -407 16134 39593
 use constant_block  gpio_e\[14\].const_val
@@ -22063,7 +22063,7 @@ timestamp 0
 transform 0 1 1392723 -1 0 971205
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_e\[14\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 1 1395607 -1 0 968200
 box -143 -407 16134 39593
 use constant_block  gpio_n\[0\].const_val
@@ -22071,7 +22071,7 @@ timestamp 0
 transform 1 0 69635 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[0\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 92800 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[1\].const_val
@@ -22079,7 +22079,7 @@ timestamp 0
 transform 1 0 120835 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[1\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 144200 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[2\].const_val
@@ -22087,7 +22087,7 @@ timestamp 0
 transform 1 0 172035 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[2\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 195600 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[3\].const_val
@@ -22095,7 +22095,7 @@ timestamp 0
 transform 1 0 223235 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[3\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 247000 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[4\].const_val
@@ -22103,7 +22103,7 @@ timestamp 0
 transform 1 0 274435 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[4\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 298600 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[5\].const_val
@@ -22111,7 +22111,7 @@ timestamp 0
 transform 1 0 378835 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[5\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 400400 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[6\].const_val
@@ -22119,7 +22119,7 @@ timestamp 0
 transform 1 0 467835 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[6\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 489400 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[7\].const_val
@@ -22127,7 +22127,7 @@ timestamp 0
 transform 1 0 519035 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[7\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 540800 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[8\].const_val
@@ -22135,7 +22135,7 @@ timestamp 0
 transform 1 0 618435 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[8\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 642600 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[9\].const_val
@@ -22143,7 +22143,7 @@ timestamp 0
 transform 1 0 670835 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[9\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 694000 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[10\].const_val
@@ -22151,7 +22151,7 @@ timestamp 0
 transform 1 0 722235 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[10\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 745400 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[11\].const_val
@@ -22159,7 +22159,7 @@ timestamp 0
 transform 1 0 787235 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[11\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 810400 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[12\].const_val
@@ -22167,7 +22167,7 @@ timestamp 0
 transform 1 0 838435 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[12\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 861800 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[13\].const_val
@@ -22175,7 +22175,7 @@ timestamp 0
 transform 1 0 889635 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[13\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 913200 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[14\].const_val
@@ -22183,7 +22183,7 @@ timestamp 0
 transform 1 0 940835 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[14\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 964600 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[15\].const_val
@@ -22191,7 +22191,7 @@ timestamp 0
 transform 1 0 992035 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[15\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 1016200 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[16\].const_val
@@ -22199,7 +22199,7 @@ timestamp 0
 transform 1 0 1096435 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[16\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 1118000 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[17\].const_val
@@ -22207,7 +22207,7 @@ timestamp 0
 transform 1 0 1185435 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[17\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 1207000 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[18\].const_val
@@ -22215,7 +22215,7 @@ timestamp 0
 transform 1 0 1236635 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[18\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 1258400 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_n\[19\].const_val
@@ -22223,7 +22223,7 @@ timestamp 0
 transform 1 0 1336035 0 1 995352
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_n\[19\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 1360200 0 1 998007
 box -143 -407 16134 39593
 use constant_block  gpio_s\[0\].const_val
@@ -22231,7 +22231,7 @@ timestamp 0
 transform -1 0 205966 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[0\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 203000 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[1\].const_val
@@ -22239,7 +22239,7 @@ timestamp 0
 transform -1 0 315566 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[1\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 311600 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[2\].const_val
@@ -22247,7 +22247,7 @@ timestamp 0
 transform -1 0 370366 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[2\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 366400 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[3\].const_val
@@ -22255,7 +22255,7 @@ timestamp 0
 transform -1 0 425166 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[3\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 421200 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[4\].const_val
@@ -22263,7 +22263,7 @@ timestamp 0
 transform -1 0 479966 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[4\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 476000 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[5\].const_val
@@ -22271,7 +22271,7 @@ timestamp 0
 transform -1 0 534766 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[5\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 530800 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[6\].const_val
@@ -22279,7 +22279,7 @@ timestamp 0
 transform -1 0 696661 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[6\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 693600 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[7\].const_val
@@ -22287,7 +22287,7 @@ timestamp 0
 transform -1 0 751461 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[7\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 748400 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[8\].const_val
@@ -22295,7 +22295,7 @@ timestamp 0
 transform -1 0 923566 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[8\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 920600 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[9\].const_val
@@ -22303,7 +22303,7 @@ timestamp 0
 transform -1 0 1033166 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[9\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 1029200 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[10\].const_val
@@ -22311,7 +22311,7 @@ timestamp 0
 transform -1 0 1087966 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[10\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 1084000 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[11\].const_val
@@ -22319,7 +22319,7 @@ timestamp 0
 transform -1 0 1142766 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[11\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 1138800 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[12\].const_val
@@ -22327,7 +22327,7 @@ timestamp 0
 transform -1 0 1197566 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[12\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 1193600 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_s\[13\].const_val
@@ -22335,7 +22335,7 @@ timestamp 0
 transform -1 0 1252366 0 -1 42272
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_s\[13\].u
-timestamp 1602608184
+timestamp 1602582984
 transform -1 0 1248400 0 -1 39593
 box -143 -407 16134 39593
 use constant_block  gpio_w\[0\].const_val
@@ -22343,7 +22343,7 @@ timestamp 0
 transform 0 -1 42252 1 0 174781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[0\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 198200
 box -143 -407 16134 39593
 use constant_block  gpio_w\[1\].const_val
@@ -22351,7 +22351,7 @@ timestamp 0
 transform 0 -1 42252 1 0 217781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[1\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 241400
 box -143 -407 16134 39593
 use constant_block  gpio_w\[2\].const_val
@@ -22359,7 +22359,7 @@ timestamp 0
 transform 0 -1 42252 1 0 260781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[2\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 284600
 box -143 -407 16134 39593
 use constant_block  gpio_w\[3\].const_val
@@ -22367,7 +22367,7 @@ timestamp 0
 transform 0 -1 42252 1 0 303781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[3\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 327800
 box -143 -407 16134 39593
 use constant_block  gpio_w\[4\].const_val
@@ -22375,7 +22375,7 @@ timestamp 0
 transform 0 -1 42252 1 0 346781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[4\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 371000
 box -143 -407 16134 39593
 use constant_block  gpio_w\[5\].const_val
@@ -22383,7 +22383,7 @@ timestamp 0
 transform 0 -1 42252 1 0 389781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[5\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 414200
 box -143 -407 16134 39593
 use constant_block  gpio_w\[6\].const_val
@@ -22391,7 +22391,7 @@ timestamp 0
 transform 0 -1 42252 1 0 518781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[6\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 541800
 box -143 -407 16134 39593
 use constant_block  gpio_w\[7\].const_val
@@ -22399,7 +22399,7 @@ timestamp 0
 transform 0 -1 42252 1 0 561781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[7\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 585000
 box -143 -407 16134 39593
 use constant_block  gpio_w\[8\].const_val
@@ -22407,7 +22407,7 @@ timestamp 0
 transform 0 -1 42252 1 0 604781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[8\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 628200
 box -143 -407 16134 39593
 use constant_block  gpio_w\[9\].const_val
@@ -22415,7 +22415,7 @@ timestamp 0
 transform 0 -1 42252 1 0 647781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[9\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 671400
 box -143 -407 16134 39593
 use constant_block  gpio_w\[10\].const_val
@@ -22423,7 +22423,7 @@ timestamp 0
 transform 0 -1 42252 1 0 690781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[10\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 714600
 box -143 -407 16134 39593
 use constant_block  gpio_w\[11\].const_val
@@ -22431,7 +22431,7 @@ timestamp 0
 transform 0 -1 42252 1 0 733781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[11\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 757800
 box -143 -407 16134 39593
 use constant_block  gpio_w\[12\].const_val
@@ -22439,7 +22439,7 @@ timestamp 0
 transform 0 -1 42252 1 0 776781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[12\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 801000
 box -143 -407 16134 39593
 use constant_block  gpio_w\[13\].const_val
@@ -22447,4175 +22447,4175 @@ timestamp 0
 transform 0 -1 42252 1 0 946781
 box 0 0 1 1
 use sky130_ef_io__gpiov2_pad  gpio_w\[13\].u
-timestamp 1602608184
+timestamp 1602582984
 transform 0 -1 39593 -1 0 970800
 box -143 -407 16134 39593
 use sky130_ef_io__corner_pad  IO_CORNER_NORTH_EAST_INST
-timestamp 1609354539
+timestamp 1609325739
 transform 1 0 1395200 0 1 996800
 box 0 0 40000 40800
 use sky130_ef_io__corner_pad  IO_CORNER_NORTH_WEST_INST
-timestamp 1609354539
+timestamp 1609325739
 transform -1 0 40000 0 1 996800
 box 0 0 40000 40800
 use sky130_ef_io__corner_pad  IO_CORNER_SOUTH_EAST_INST
-timestamp 1609354539
+timestamp 1609325739
 transform 1 0 1395200 0 -1 40800
 box 0 0 40000 40800
 use sky130_ef_io__corner_pad  IO_CORNER_SOUTH_WEST_INST
-timestamp 1609354539
+timestamp 1609325739
 transform -1 0 40000 0 -1 40800
 box 0 0 40000 40800
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 48800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 52800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 56800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 60800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 64800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 68800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 72800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_140
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 76800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_160
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 80800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_180
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 84800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_200
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 88800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_220
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 92800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_0_240
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 96800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_EAST_0_260
-timestamp 1602620291
+timestamp 1602595091
 transform 0 1 1395607 -1 0 98800
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_0_270
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 99800
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_0_275
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 100000
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_0_276
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 100200
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_0_277
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 100400
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_0_278
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 100600
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_1_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 120600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_1_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 124600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_1_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 128600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_1_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 132600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_1_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 136600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_1_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 140600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_1_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 144600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_1_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 145600
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_1_145
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 145800
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_2_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 165800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_2_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 169800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_2_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 173800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_2_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 177800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_2_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 181800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_2_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 185800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_2_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 189800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_2_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 190800
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_3_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 210800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_3_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 214800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_3_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 218800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_3_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 222800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_3_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 226800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_3_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 230800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_3_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 234800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_3_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 235800
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_3_145
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 236000
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_4_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 256000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_4_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 260000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_4_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 264000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_4_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 268000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_4_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 272000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_4_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 276000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_4_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 280000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_4_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 281000
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_5_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 301000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_5_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 305000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_5_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 309000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_5_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 313000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_5_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 317000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_5_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 321000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_5_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 325000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_5_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 326000
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_6_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 346000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_6_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 350000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_6_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 354000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_6_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 358000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_6_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 362000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_6_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 366000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_6_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 370000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_6_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 371000
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_6_145
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 371200
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_7_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 391200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_7_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 395200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_7_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 399200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_7_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 403200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_7_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 407200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_7_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 411200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_7_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 415200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_7_140
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 415400
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_7_141
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 415600
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_8_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 434600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_8_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 438600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_8_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 442600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_8_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 446600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_8_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 450600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_8_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 454600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_8_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 458600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_8_140
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 458800
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_9_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 477800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_9_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 481800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_9_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 485800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_9_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 489800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_9_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 493800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_9_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 497800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_9_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 501800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_EAST_9_140
-timestamp 1602620291
+timestamp 1602595091
 transform 0 1 1395607 -1 0 503800
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_10_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 522800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_10_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 526800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_10_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 530800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_10_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 534800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_10_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 538800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_10_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 542800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_10_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 546800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_10_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 547800
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_10_145
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 548000
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_10_146
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 548200
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_10_147
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 548400
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_11_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 568400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_11_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 572400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_11_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 576400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_11_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 580400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_11_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 584400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_11_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 588400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_11_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 592400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_11_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 593400
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_11_145
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 593600
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_12_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 613600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_12_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 617600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_12_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 621600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_12_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 625600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_12_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 629600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_12_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 633600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_12_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 637600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_12_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 638600
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_13_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 658600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_13_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 662600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_13_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 666600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_13_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 670600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_13_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 674600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_13_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 678600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_13_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 682600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_13_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 683600
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_13_145
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 683800
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_14_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 703800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_14_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 707800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_14_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 711800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_14_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 715800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_14_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 719800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_14_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 723800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_14_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 727800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_14_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 728800
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_15_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 748800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_15_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 752800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_15_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 756800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_15_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 760800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_15_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 764800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_15_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 768800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_15_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 772800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_15_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 773800
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_16_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 793800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_16_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 797800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_16_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 801800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_16_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 805800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_16_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 809800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_16_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 813800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_16_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 817800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_16_140
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 818000
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_16_141
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 818200
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_16_142
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 818400
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_17_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 837400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_17_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 841400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_17_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 845400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_17_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 849400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_17_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 853400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_17_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 857400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_17_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 861400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_17_140
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 862400
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_17_145
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 862600
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_17_146
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 862800
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_17_147
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 863000
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_18_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 883000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_18_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 887000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_18_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 891000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_18_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 895000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_18_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 899000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_18_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 903000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_EAST_18_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 1 1395607 -1 0 905000
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_EAST_18_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 1 1395607 -1 0 906000
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_18_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 906200
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_18_136
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 906400
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_18_137
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 906600
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_19_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 925600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_19_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 929600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_19_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 933600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_19_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 937600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_19_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 941600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_19_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 945600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_19_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 949600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_EAST_19_140
-timestamp 1602620291
+timestamp 1602595091
 transform 0 1 1395607 -1 0 951600
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_19_150
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 951800
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_19_151
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 952000
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_19_152
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 952200
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_20_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 972200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_20_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 976200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_20_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 980200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_20_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 984200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_20_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 988200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_EAST_20_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 1 1395607 -1 0 992200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_20_120
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 992400
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_20_121
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 992600
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_EAST_20_122
-timestamp 1576694934
+timestamp 1576666134
 transform 0 1 1395607 -1 0 992800
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_0_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 48000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_0_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 52000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_0_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 56000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_0_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 60000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_0_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 64000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_0_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 68000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_0_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 72000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_0_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 76000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_0_160
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 76200 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_0_161
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 76400 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_0_162
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 76600 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_0_163
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 76800 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_1_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 96800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_1_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 100800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_1_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 104800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_1_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 108800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_1_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 112800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_1_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 116800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_1_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 120800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_1_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 124800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_1_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 126800 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_1_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 127800 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_1_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 128000 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_1_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 128200 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_2_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 148200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_2_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 152200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_2_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 156200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_2_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 160200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_2_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 164200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_2_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 168200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_2_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 172200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_2_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 176200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_2_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 178200 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_2_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 179200 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_2_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 179400 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_2_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 179600 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_3_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 199600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_3_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 203600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_3_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 207600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_3_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 211600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_3_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 215600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_3_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 219600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_3_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 223600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_3_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 227600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_3_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 229600 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_3_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 230600 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_3_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 230800 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_3_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 231000 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_4_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 251000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_4_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 255000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_4_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 259000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_4_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 263000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_4_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 267000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_4_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 271000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_4_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 275000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_4_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 279000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_4_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 281000 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_4_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 282000 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_4_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 282200 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_4_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 282400 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_4_177
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 282600 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_5_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 302600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_5_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 306600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_5_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 310600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_5_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 314600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_5_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 318600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_5_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 322600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_5_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 326600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_5_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 330600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_5_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 332600 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_5_170
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 332800 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_5_171
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 333000 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_5_172
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 333200 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_5_173
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 333400 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_6_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 352400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_6_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 356400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_6_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 360400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_6_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 364400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_6_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 368400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_6_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 372400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_6_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 376400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_6_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 380400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_6_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 384400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 404400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 408400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 412400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 416400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 420400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 424400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 428400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 432400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 436400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_180
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 440400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_200
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 444400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_220
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 448400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_240
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 452400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_260
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 456400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_280
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 460400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_300
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 464400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_320
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 468400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_7_340
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 472400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_7_360
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 473400 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_8_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 493400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_8_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 497400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_8_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 501400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_8_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 505400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_8_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 509400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_8_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 513400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_8_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 517400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_8_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 521400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_8_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 523400 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_8_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 524400 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_8_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 524600 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_8_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 524800 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_9_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 544800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_9_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 548800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_9_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 552800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_9_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 556800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_9_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 560800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_9_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 564800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_9_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 568800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_9_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 572800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_9_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 574800 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_9_170
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 575000 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_9_171
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 575200 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_9_172
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 575400 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_9_173
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 575600 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_10_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 594600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_10_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 598600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_10_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 602600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_10_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 606600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_10_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 610600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_10_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 614600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_10_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 618600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_10_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 622600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_10_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 626600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_11_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 646600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_11_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 650600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_11_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 654600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_11_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 658600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_11_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 662600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_11_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 666600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_11_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 670600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_11_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 674600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_11_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 676600 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_11_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 677600 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_11_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 677800 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_11_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 678000 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_12_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 698000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_12_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 702000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_12_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 706000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_12_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 710000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_12_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 714000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_12_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 718000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_12_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 722000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_12_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 726000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_12_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 728000 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_12_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 729000 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_12_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 729200 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_12_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 729400 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_13_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 749400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_13_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 753400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_13_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 757400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_13_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 761400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_13_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 765400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_13_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 769400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_13_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 773400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_13_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 777400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_13_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 781400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_13_180
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 785400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_13_200
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 789400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_13_220
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 793400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_13_240
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 794400 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_14_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 814400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_14_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 818400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_14_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 822400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_14_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 826400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_14_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 830400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_14_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 834400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_14_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 838400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_14_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 842400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_14_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 844400 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_14_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 845400 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_14_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 845600 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_14_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 845800 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_15_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 865800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_15_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 869800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_15_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 873800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_15_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 877800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_15_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 881800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_15_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 885800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_15_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 889800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_15_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 893800 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_15_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 895800 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_15_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 896800 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_15_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 897000 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_15_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 897200 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_16_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 917200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_16_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 921200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_16_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 925200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_16_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 929200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_16_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 933200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_16_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 937200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_16_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 941200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_16_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 945200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_16_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 947200 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_16_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 948200 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_16_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 948400 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_16_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 948600 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_17_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 968600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_17_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 972600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_17_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 976600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_17_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 980600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_17_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 984600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_17_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 988600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_17_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 992600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_17_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 996600 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_17_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 998600 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_17_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 999600 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_17_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 999800 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_17_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1000000 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_17_177
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1000200 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_18_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1020200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_18_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1024200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_18_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1028200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_18_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1032200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_18_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1036200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_18_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1040200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_18_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1044200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_18_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1048200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_18_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 1050200 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_18_170
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1050400 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_18_171
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1050600 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_18_172
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1050800 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_18_173
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1051000 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_19_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1070000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_19_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1074000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_19_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1078000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_19_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1082000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_19_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1086000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_19_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1090000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_19_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1094000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_19_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1098000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_19_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1102000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1122000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1126000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1130000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1134000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1138000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1142000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1146000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1150000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1154000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_180
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1158000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_200
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1162000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_220
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1166000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_240
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1170000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_260
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1174000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_280
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1178000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_300
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1182000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_320
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1186000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_20_340
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1190000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_20_360
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 1191000 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_21_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1211000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_21_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1215000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_21_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1219000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_21_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1223000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_21_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1227000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_21_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1231000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_21_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1235000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_21_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1239000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_21_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 1241000 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_21_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 1242000 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_21_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1242200 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_21_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1242400 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_22_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1262400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_22_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1266400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_22_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1270400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_22_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1274400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_22_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1278400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_22_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1282400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_22_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1286400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_22_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1290400 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_22_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 1292400 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_22_170
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1292600 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_22_171
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1292800 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_22_172
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1293000 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_NORTH_22_173
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1293200 0 1 998007
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_23_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1312200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_23_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1316200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_23_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1320200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_23_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1324200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_23_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1328200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_23_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1332200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_23_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1336200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_23_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1340200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_23_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1344200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_24_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1364200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_24_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1368200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_24_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1372200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_24_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1376200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_24_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1380200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_24_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1384200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_NORTH_24_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1388200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_NORTH_24_140
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 1390200 0 1 998007
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_NORTH_24_150
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 1391200 0 1 998007
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_0_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 48000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_0_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 52000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_0_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 56000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_0_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 60000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_0_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 64000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_0_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 68000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_0_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 72000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_0_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 76000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_0_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 78000 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_0_170
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 78200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_0_171
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 78400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_0_172
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 78600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_0_173
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 78800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_1_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 97800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_1_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 101800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_1_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 105800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_1_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 109800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_1_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 113800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_1_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 117800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_1_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 121800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_1_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 125800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_1_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 129800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_1_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 131800 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_1_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 132000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_1_191
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 132200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_2_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 151200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_2_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 155200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_2_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 159200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_2_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 163200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_2_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 167200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_2_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 171200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_2_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 175200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_2_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 179200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_2_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 183200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_2_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 185200 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_SOUTH_2_190
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 186200 0 -1 39593
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_2_195
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 186400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_2_196
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 186600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_2_197
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 186800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_2_198
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 187000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_3_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 207000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_3_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 211000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_3_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 215000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_3_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 219000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_3_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 223000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_3_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 227000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_3_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 231000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_3_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 235000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_3_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 239000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_SOUTH_3_180
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 240000 0 -1 39593
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_4_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 259000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_4_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 263000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_4_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 267000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_4_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 271000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_4_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 275000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_4_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 279000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_4_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 283000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_4_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 287000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_4_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 291000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_4_180
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 295000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_4_200
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 295200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_4_201
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 295400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_4_202
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 295600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_5_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 315600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_5_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 319600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_5_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 323600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_5_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 327600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_5_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 331600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_5_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 335600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_5_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 339600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_5_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 343600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_5_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 347600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_5_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 349600 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_5_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 349800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_5_191
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 350000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_5_192
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 350200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_5_193
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 350400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_6_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 370400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_6_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 374400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_6_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 378400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_6_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 382400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_6_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 386400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_6_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 390400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_6_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 394400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_6_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 398400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_6_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 402400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_6_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 404400 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_6_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 404600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_6_191
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 404800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_6_192
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 405000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_6_193
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 405200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_7_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 425200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_7_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 429200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_7_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 433200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_7_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 437200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_7_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 441200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_7_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 445200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_7_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 449200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_7_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 453200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_7_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 457200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_7_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 459200 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_7_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 459400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_7_191
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 459600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_7_192
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 459800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_7_193
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 460000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_8_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 480000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_8_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 484000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_8_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 488000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_8_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 492000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_8_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 496000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_8_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 500000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_8_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 504000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_8_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 508000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_8_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 512000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_8_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 514000 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_8_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 514200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_8_191
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 514400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_8_192
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 514600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_8_193
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 514800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_9_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 534800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_9_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 538800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_9_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 542800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_9_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 546800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_9_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 550800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_9_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 554800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_9_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 558800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_9_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 562800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_9_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 566800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_9_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 568800 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_9_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 569000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_10_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 588000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_10_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 592000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_10_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 596000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_10_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 600000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_10_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 604000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_10_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 608000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_10_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 612000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_10_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 616000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_10_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 620000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_10_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 622000 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_10_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 622200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_10_191
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 622400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_10_192
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 622600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_10_193
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 622800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_11_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 641800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_11_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 645800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_11_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 649800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_11_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 653800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_11_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 657800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_11_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 661800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_11_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 665800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_11_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 669800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_11_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 673800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_11_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 675800 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_SOUTH_11_190
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 676800 0 -1 39593
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_11_195
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 677000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_11_196
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 677200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_11_197
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 677400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_11_198
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 677600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_12_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 697600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_12_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 701600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_12_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 705600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_12_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 709600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_12_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 713600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_12_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 717600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_12_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 721600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_12_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 725600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_12_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 729600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_12_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 731600 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_12_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 731800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_12_191
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 732000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_12_192
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 732200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_12_193
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 732400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_13_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 752400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_13_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 756400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_13_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 760400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_13_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 764400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_13_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 768400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_13_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 772400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_13_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 776400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_13_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 780400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_13_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 784400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_13_180
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 788400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_13_200
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 792400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_13_220
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 796400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 815400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 819400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 823400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 827400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 831400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 835400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 839400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 843400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 847400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_180
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 851400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_200
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 855400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_220
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 859400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_240
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 863400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_260
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 867400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_280
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 871400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_300
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 875400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_320
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 879400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_340
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 883400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_360
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 887400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_380
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 891400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_400
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 895400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_420
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 899400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_14_440
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 903400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_SOUTH_14_460
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 904400 0 -1 39593
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_14_465
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 904600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_15_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 924600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_15_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 928600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_15_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 932600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_15_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 936600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_15_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 940600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_15_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 944600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_15_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 948600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_15_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 952600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_15_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 956600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_SOUTH_15_180
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 957600 0 -1 39593
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_16_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 976600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_16_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 980600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_16_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 984600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_16_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 988600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_16_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 992600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_16_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 996600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_16_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1000600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_16_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1004600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_16_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1008600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_16_180
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1012600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_16_200
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1012800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_16_201
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1013000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_16_202
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1013200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_17_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1033200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_17_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1037200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_17_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1041200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_17_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1045200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_17_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1049200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_17_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1053200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_17_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1057200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_17_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1061200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_17_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1065200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_17_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 1067200 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_17_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1067400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_17_191
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1067600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_17_192
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1067800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_17_193
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1068000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_18_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1088000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_18_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1092000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_18_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1096000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_18_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1100000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_18_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1104000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_18_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1108000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_18_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1112000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_18_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1116000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_18_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1120000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_18_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 1122000 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_18_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1122200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_18_191
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1122400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_18_192
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1122600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_18_193
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1122800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_19_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1142800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_19_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1146800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_19_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1150800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_19_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1154800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_19_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1158800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_19_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1162800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_19_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1166800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_19_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1170800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_19_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1174800 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_19_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 1176800 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_19_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1177000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_19_191
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1177200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_19_192
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1177400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_19_193
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1177600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_20_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1197600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_20_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1201600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_20_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1205600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_20_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1209600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_20_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1213600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_20_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1217600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_20_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1221600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_20_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1225600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_20_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1229600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_20_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 1231600 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_20_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1231800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_20_191
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1232000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_20_192
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1232200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_20_193
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1232400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_21_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1252400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_21_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1256400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_21_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1260400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_21_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1264400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_21_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1268400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_21_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1272400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_21_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1276400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_21_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1280400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_21_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1284400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_21_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 1286400 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_21_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1286600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_22_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1305600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_22_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1309600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_22_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1313600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_22_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1317600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_22_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1321600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_22_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1325600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_22_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1329600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_22_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1333600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_22_160
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1337600 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_22_180
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 1339600 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_22_190
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1339800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_22_191
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1340000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_22_192
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1340200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_22_193
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1340400 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_23_0
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1359400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_23_20
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1363400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_23_40
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1367400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_23_60
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1371400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_23_80
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1375400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_23_100
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1379400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_23_120
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1383400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_SOUTH_23_140
-timestamp 1602620370
+timestamp 1602595170
 transform -1 0 1387400 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_SOUTH_23_160
-timestamp 1602620291
+timestamp 1602595091
 transform -1 0 1389400 0 -1 39593
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_SOUTH_23_170
-timestamp 1602620216
+timestamp 1602595016
 transform -1 0 1390400 0 -1 39593
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_23_175
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1390600 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_23_176
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1390800 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_23_177
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1391000 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_SOUTH_23_178
-timestamp 1576694934
+timestamp 1576666134
 transform -1 0 1391200 0 -1 39593
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_0_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 48800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_0_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 52800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_0_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 56800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_0_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 60800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_0_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 64800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_0_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 68800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_0_120
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 69000
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_0_121
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 69200
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_1_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 88200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_1_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 92200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_1_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 96200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_1_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 100200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_1_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 104200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_1_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 108200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_1_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 110200
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 129200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 133200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 137200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 141200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 145200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 149200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 153200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_140
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 157200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_160
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 161200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_180
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 165200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_200
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 169200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_220
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 173200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_240
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 177200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_2_260
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 181200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_2_280
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 182200
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_3_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 202200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_3_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 206200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_3_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 210200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_3_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 214200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_3_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 218200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_3_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 222200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_3_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 224200
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_3_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 225200
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_3_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 225400
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_4_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 245400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_4_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 249400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_4_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 253400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_4_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 257400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_4_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 261400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_4_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 265400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_4_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 267400
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_4_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 268400
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_4_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 268600
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_5_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 288600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_5_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 292600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_5_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 296600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_5_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 300600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_5_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 304600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_5_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 308600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_5_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 310600
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_5_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 311600
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_5_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 311800
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_6_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 331800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_6_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 335800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_6_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 339800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_6_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 343800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_6_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 347800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_6_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 351800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_6_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 353800
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_6_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 354800
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_6_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 355000
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_7_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 375000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_7_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 379000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_7_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 383000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_7_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 387000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_7_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 391000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_7_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 395000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_7_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 397000
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_7_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 398000
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_7_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 398200
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_8_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 418200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_8_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 422200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_8_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 426200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_8_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 430200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_8_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 434200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_8_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 438200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_8_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 440200
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_8_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 441200
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_8_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 441400
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_8_136
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 441600
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_8_137
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 441800
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_9_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 460800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_9_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 464800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_9_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 468800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_9_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 472800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_9_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 476800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_9_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 480800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_9_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 482800
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_9_130
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 483000
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_10_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 502000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_10_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 506000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_10_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 510000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_10_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 514000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_10_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 518000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_10_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 522000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_10_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 524000
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_10_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 525000
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_10_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 525200
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_10_136
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 525400
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_10_137
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 525600
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_10_138
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 525800
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_11_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 545800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_11_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 549800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_11_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 553800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_11_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 557800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_11_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 561800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_11_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 565800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_11_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 567800
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_11_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 568800
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_11_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 569000
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_12_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 589000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_12_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 593000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_12_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 597000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_12_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 601000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_12_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 605000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_12_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 609000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_12_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 611000
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_12_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 612000
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_12_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 612200
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_13_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 632200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_13_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 636200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_13_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 640200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_13_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 644200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_13_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 648200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_13_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 652200
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_13_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 654200
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_13_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 655200
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_13_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 655400
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_14_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 675400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_14_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 679400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_14_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 683400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_14_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 687400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_14_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 691400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_14_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 695400
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_14_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 697400
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_14_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 698400
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_14_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 698600
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_15_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 718600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_15_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 722600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_15_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 726600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_15_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 730600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_15_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 734600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_15_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 738600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_15_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 740600
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_15_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 741600
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_15_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 741800
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_16_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 761800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_16_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 765800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_16_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 769800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_16_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 773800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_16_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 777800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_16_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 781800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_16_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 783800
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_16_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 784800
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_16_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 785000
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_17_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 805000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_17_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 809000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_17_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 813000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_17_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 817000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_17_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 821000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_17_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 825000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_17_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 827000
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_17_130
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 827200
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_17_131
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 827400
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_17_132
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 827600
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_18_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 846600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_18_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 850600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_18_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 854600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_18_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 858600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_18_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 862600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_18_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 866600
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_18_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 868600
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_5um  IO_FILL_IO_WEST_18_130
-timestamp 1602620216
+timestamp 1602595016
 transform 0 -1 39593 -1 0 869600
 box 0 0 1000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_18_135
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 869800
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_19_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 888800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_19_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 892800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_19_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 896800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_19_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 900800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_19_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 904800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_19_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 908800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_19_120
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 912800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_19_140
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 913000
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_20_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 932000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_20_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 936000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_20_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 940000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_20_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 944000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_20_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 948000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_20_100
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 952000
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_20_120
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 954000
 box 0 0 2000 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_20_130
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 954200
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_20_131
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 954400
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_20_132
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 954600
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_1um  IO_FILL_IO_WEST_20_133
-timestamp 1576694934
+timestamp 1576666134
 transform 0 -1 39593 -1 0 954800
 box 0 0 200 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_21_0
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 974800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_21_20
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 978800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_21_40
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 982800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_21_60
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 986800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_20um  IO_FILL_IO_WEST_21_80
-timestamp 1602620370
+timestamp 1602595170
 transform 0 -1 39593 -1 0 990800
 box 0 0 4000 39593
 use sky130_ef_io__com_bus_slice_10um  IO_FILL_IO_WEST_21_100
-timestamp 1602620291
+timestamp 1602595091
 transform 0 -1 39593 -1 0 992800
 box 0 0 2000 39593
 use logo_dw_openframe  logo_dw_openframe
@@ -26642,72 +26642,80 @@ use xres_buf  rstb_level
 timestamp 0
 transform 1 0 148583 0 1 16471
 box 0 0 1 1
+use user_id_textblock  user_id_textblock
+timestamp 0
+transform 1 0 877600 0 1 8000
+box 0 0 1 1
+use user_id_programming  user_id_value
+timestamp 0
+transform 1 0 878000 0 1 16000
+box 0 0 1 1
 use double_wide_openframe_project_wrapper  user_project
 timestamp 0
 transform 1 0 42137 0 1 42137
 box 0 0 1 1
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices[0].u
-timestamp 1606209980
+timestamp 1606181180
 transform -1 0 44000 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices[1].u
-timestamp 1606209980
+timestamp 1606181180
 transform -1 0 1395200 0 -1 39593
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices[2].u
-timestamp 1606209980
+timestamp 1606181180
 transform 0 1 1395607 -1 0 44800
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices[3].u
-timestamp 1606209980
+timestamp 1606181180
 transform 0 1 1395607 -1 0 996800
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices[4].u
-timestamp 1606209980
+timestamp 1606181180
 transform -1 0 1395200 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices[5].u
-timestamp 1606209980
+timestamp 1606181180
 transform -1 0 44000 0 1 998007
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices[6].u
-timestamp 1606209980
+timestamp 1606181180
 transform 0 -1 39593 -1 0 996800
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices[7].u
-timestamp 1606209980
+timestamp 1606181180
 transform 0 -1 39593 -1 0 44800
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices\[0\].u
-timestamp 1606209980
+timestamp 1606181180
 transform 1 0 0 0 1 0
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices\[1\].u
-timestamp 1606209980
+timestamp 1606181180
 transform 1 0 0 0 1 0
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices\[2\].u
-timestamp 1606209980
+timestamp 1606181180
 transform 1 0 0 0 1 0
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices\[3\].u
-timestamp 1606209980
+timestamp 1606181180
 transform 1 0 0 0 1 0
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices\[4\].u
-timestamp 1606209980
+timestamp 1606181180
 transform 1 0 0 0 1 0
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices\[5\].u
-timestamp 1606209980
+timestamp 1606181180
 transform 1 0 0 0 1 0
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices\[6\].u
-timestamp 1606209980
+timestamp 1606181180
 transform 1 0 0 0 1 0
 box 0 0 4000 39593
 use sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um  vcchib_vccd_and_vswitch_vddio_slices\[7\].u
-timestamp 1606209980
+timestamp 1606181180
 transform 1 0 0 0 1 0
 box 0 0 4000 39593
 << labels >>

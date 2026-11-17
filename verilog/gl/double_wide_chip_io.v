@@ -1356,6 +1356,38 @@ module double_wide_chip_io (resetb_pad,
  wire \gpio_w[8].tie_lo ;
  wire \gpio_w[9].tie_hi ;
  wire \gpio_w[9].tie_lo ;
+ wire \mask_rev[0] ;
+ wire \mask_rev[10] ;
+ wire \mask_rev[11] ;
+ wire \mask_rev[12] ;
+ wire \mask_rev[13] ;
+ wire \mask_rev[14] ;
+ wire \mask_rev[15] ;
+ wire \mask_rev[16] ;
+ wire \mask_rev[17] ;
+ wire \mask_rev[18] ;
+ wire \mask_rev[19] ;
+ wire \mask_rev[1] ;
+ wire \mask_rev[20] ;
+ wire \mask_rev[21] ;
+ wire \mask_rev[22] ;
+ wire \mask_rev[23] ;
+ wire \mask_rev[24] ;
+ wire \mask_rev[25] ;
+ wire \mask_rev[26] ;
+ wire \mask_rev[27] ;
+ wire \mask_rev[28] ;
+ wire \mask_rev[29] ;
+ wire \mask_rev[2] ;
+ wire \mask_rev[30] ;
+ wire \mask_rev[31] ;
+ wire \mask_rev[3] ;
+ wire \mask_rev[4] ;
+ wire \mask_rev[5] ;
+ wire \mask_rev[6] ;
+ wire \mask_rev[7] ;
+ wire \mask_rev[8] ;
+ wire \mask_rev[9] ;
  wire por_l;
  wire porb_h;
  wire porb_l;
@@ -16898,6 +16930,41 @@ module double_wide_chip_io (resetb_pad,
     .VGND(vssio),
     .LVPWR(vccd),
     .LVGND(vssd));
+ user_id_textblock user_id_textblock ();
+ user_id_programming user_id_value (.VPWR(vccd),
+    .VGND(vssd),
+    .mask_rev({\mask_rev[31] ,
+    \mask_rev[30] ,
+    \mask_rev[29] ,
+    \mask_rev[28] ,
+    \mask_rev[27] ,
+    \mask_rev[26] ,
+    \mask_rev[25] ,
+    \mask_rev[24] ,
+    \mask_rev[23] ,
+    \mask_rev[22] ,
+    \mask_rev[21] ,
+    \mask_rev[20] ,
+    \mask_rev[19] ,
+    \mask_rev[18] ,
+    \mask_rev[17] ,
+    \mask_rev[16] ,
+    \mask_rev[15] ,
+    \mask_rev[14] ,
+    \mask_rev[13] ,
+    \mask_rev[12] ,
+    \mask_rev[11] ,
+    \mask_rev[10] ,
+    \mask_rev[9] ,
+    \mask_rev[8] ,
+    \mask_rev[7] ,
+    \mask_rev[6] ,
+    \mask_rev[5] ,
+    \mask_rev[4] ,
+    \mask_rev[3] ,
+    \mask_rev[2] ,
+    \mask_rev[1] ,
+    \mask_rev[0] }));
  double_wide_openframe_project_wrapper user_project (.por_l(por_l),
     .porb_h(porb_h),
     .porb_l(porb_l),
