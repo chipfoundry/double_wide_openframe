@@ -743,6 +743,19 @@ module double_wide_chip_io (
     (* keep *) project_id_textblock project_id_textblock ();
     (* keep *) logo_dw_openframe logo_dw_openframe ();
 
+    // Openframe user-id cells. The shadow tapeout path replaces these by
+    // cell name (user_id_programming, user_id_textblock). mask_rev stays
+    // inside the padframe; the user wrapper has no mask_rev port.
+    wire [31:0] mask_rev;
+    (* keep *) user_id_programming user_id_value (
+`ifdef USE_POWER_PINS
+        .VPWR(vccd),
+        .VGND(vssd),
+`endif
+        .mask_rev(mask_rev)
+    );
+    (* keep *) user_id_textblock user_id_textblock ();
+
 endmodule
 
 `default_nettype wire

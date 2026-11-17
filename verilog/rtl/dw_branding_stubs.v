@@ -11,6 +11,9 @@ endmodule
 module project_id_textblock;
 endmodule
 
+module user_id_textblock;
+endmodule
+
 module logo_dw_openframe;
 endmodule
 

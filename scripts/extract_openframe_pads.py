@@ -811,6 +811,19 @@ def gen_padframe_rtl(inv):
     (* keep *) open_source open_source ();
     (* keep *) project_id_textblock project_id_textblock ();
     (* keep *) logo_dw_openframe logo_dw_openframe ();
+
+    // Openframe user-id cells. The shadow tapeout path replaces these by
+    // cell name (user_id_programming, user_id_textblock). mask_rev stays
+    // inside the padframe; the user wrapper has no mask_rev port.
+    wire [31:0] mask_rev;
+    (* keep *) user_id_programming user_id_value (
+`ifdef USE_POWER_PINS
+        .VPWR(vccd),
+        .VGND(vssd),
+`endif
+        .mask_rev(mask_rev)
+    );
+    (* keep *) user_id_textblock user_id_textblock ();
 """)
 
     ports = ",\n".join(pad_ports)
@@ -1538,6 +1551,8 @@ IGNORE_DISCONNECTED_MODULES:
 - open_source
 - project_id_textblock
 - logo_dw_openframe
+- user_id_programming
+- user_id_textblock
 
 # Multiple power pads share one domain net.
 MAGIC_EXT_UNIQUE: notopports
@@ -1632,6 +1647,33 @@ MACROS:
     instances:
       project_id_textblock:
         location: [4203.100, 44.020]
+        orientation: N
+
+  # Same sky130 cells as caravel openframe. Stacked in the south gap just
+  # east of project_id_textblock (ends ~4377) and west of the pad whose bond
+  # is at 4560 (cell starts ~4461). 40um textblock over the 35.5um programming
+  # block, both inside the pad ring.
+  user_id_textblock:
+    gds:
+    - dir::../../ip/user_id_textblock/gds/user_id_textblock.gds.gz
+    lef:
+    - dir::../../ip/user_id_textblock/lef/user_id_textblock.lef
+    vh:
+    - dir::../../ip/user_id_textblock/vh/user_id_textblock.vh
+    instances:
+      user_id_textblock:
+        location: [4388.000, 40.000]
+        orientation: N
+  user_id_programming:
+    gds:
+    - dir::../../ip/user_id_programming/gds/user_id_programming.gds.gz
+    lef:
+    - dir::../../ip/user_id_programming/lef/user_id_programming.lef
+    vh:
+    - dir::../../ip/user_id_programming/vh/user_id_programming.vh
+    instances:
+      user_id_value:
+        location: [4390.000, 80.000]
         orientation: N
 
 GRT_ALLOW_CONGESTION: true
