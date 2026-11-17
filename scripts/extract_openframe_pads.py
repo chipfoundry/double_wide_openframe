@@ -142,6 +142,18 @@ DM0_CX_UM = 49.985             # DM[0] pin along-edge center (LEF local x)
 DM0_WALL_D0_UM = 199.0         # deep pin-tip band start (fan-out above stays open)
 DM0_WALL_LEFT_UM = 3.0         # wall span toward DM[1] (open gap, no met2 pin near)
 DM0_WALL_RIGHT_UM = 4.1        # wall span toward INP_DIS (stops ~0.5um short of it)
+# ENABLE_INP_H pocket wall. Inside the pad (sky130_fd_io__gpiov2_ctl) the
+# ENABLE_INP_H wire runs through the pin-tip band on the high-cx side of the pin,
+# at ~198.87-199.13um depth, and meets the pin with a 45-degree chamfer that
+# reaches ~199.32um. A route that enters the pin from that side, just past the
+# chamfer, leaves a 0.02um same-net met2 notch (KLayout m2.2). TritonRoute did
+# exactly that on one pad once the tie nets had to hop over the porb_h ENABLE_H
+# stub. Wall the pocket so the pin is reached from the core side, or along the
+# edge >= 0.4um clear of the chamfer.
+ENINP_CX_UM = 38.52            # ENABLE_INP_H pin along-edge centre (LEF local x)
+ENINP_PIN_HALF_UM = 0.13       # half pin width (RECT 38.39..38.65)
+ENINP_WALL_SPAN_UM = 2.85      # pin edge (38.65) to past the internal wire (~41.27)
+ENINP_WALL_DEPTH_UM = (199.0, 199.6)
 # The pad-ring placer aligns each pad's *bond* center (pad_pos.tcl, == Signal.coord)
 # ~3um inboard of the cell center; the cell's cx=0 edge lands 43.0um from the bond
 # center along the edge (offset 37.0um bond->cell-LL, +80um cell width - see the DEF
@@ -495,13 +507,13 @@ def emit_signal_loop(side, sigs):
             .OUT(gpio_out[{base} + i]),
             .OE_N(gpio_oeb[{base} + i]),
             .HLD_H_N(tie_hi),
-            // ENABLE_H/VDDA_H: openframe ties these to porb_h. Automated DRT
-            // cannot fan porb_h out from simple_por's tiny met3 nub to every
-            // pad, so keep local tie-offs here (the south reset pad's ENABLE_H
-            // is tied locally the same way).
-            .ENABLE_H(tie_hi),
+            // ENABLE_H/VDDA_H follow the power-on reset, exactly as in
+            // chip_io_openframe.v: the pad is held in its safe state until
+            // porb_h releases. porb_h reaches every pad over the hand-drawn
+            // met1 loop (Padframe.PorbRing), not through the router.
+            .ENABLE_H(porb_h),
             .ENABLE_INP_H(tie_lo),
-            .ENABLE_VDDA_H(tie_hi),
+            .ENABLE_VDDA_H(porb_h),
             .ENABLE_VSWITCH_H(tie_lo),
             .ENABLE_VDDIO(gpio_loopback_one[{base} + i]),
             .INP_DIS(gpio_inp_dis[{base} + i]),
@@ -617,8 +629,9 @@ def emit_por():
     return f"""
     // ---- power-on-reset (simple_por; fixed MACROS placement) ----
     // All three POR outputs (porb_h, porb_l, por_l) go to the user wrapper
-    // (west-edge pins abutting the POR Y-band). porb_h no longer crosses to the
-    // south reset pad -- that pad's ENABLE_H is tied locally (see master reset).
+    // (west-edge pins abutting the POR Y-band). As in the openframe, porb_h
+    // also drives ENABLE_H / ENABLE_VDDA_H of every GPIO pad and ENABLE_H of
+    // the reset pad, over the porb_h met1 loop drawn by Padframe.PorbRing.
     wire porb_h, porb_l, por_l;
 
     simple_por {POR_INST} (
@@ -640,7 +653,7 @@ def emit_reset_subsystem():
     return f"""
     // ---- master reset (south xres4v2; openframe connectivity) ----
     wire xres_loopback_one, xres_loopback_zero;
-    wire xresloop, xres_vss_loop, xres_tie_hi;
+    wire xresloop, xres_vss_loop;
     wire resetb_h, resetb_l;
 
     constant_block {CONSTANT_INST} (
@@ -658,16 +671,13 @@ def emit_reset_subsystem():
         .PAD(resetb_pad),
 `endif
         .TIE_WEAK_HI_H(xresloop),
-        .TIE_HI_ESD(xres_tie_hi),
+        .TIE_HI_ESD(),
         .TIE_LO_ESD(xres_vss_loop),
         .PAD_A_ESD_H(xresloop),
         .XRES_H_N(resetb_h),
         .DISABLE_PULLUP_H(xres_vss_loop),
-        // ENABLE_H: openframe ties this to porb_h, but porb_h lives on the west
-        // POR and cannot be auto-routed across the die to this south pad. Tie it
-        // locally to the pad's own ESD-safe high (same pattern as the GPIO pads);
-        // a reset input pad is fine always-enabled. porb_h now only feeds the wrapper.
-        .ENABLE_H(xres_tie_hi),
+        // ENABLE_H: power-on reset, as in the openframe (porb_h met1 loop).
+        .ENABLE_H(porb_h),
         .EN_VDDIO_SIG_H(xres_vss_loop),
         .INP_SEL_H(xres_vss_loop),
         .FILT_IN_H(xres_vss_loop),
@@ -1172,6 +1182,7 @@ def _routing_obstructions_yaml(inv):
     # notched per pin) shorts DRT (72 shorts) -- the strip carries the dense 25-pin
     # fan-out. Use the minimal DM[0]-only version instead.
     lines.extend(_pad_dm0_wall_lines(inv))
+    lines.extend(_pad_enable_inp_wall_lines(inv))
     lines.extend(_xres_const_obstruction_lines())
     return "\n".join(lines)
 
@@ -1222,6 +1233,26 @@ def _pad_dm0_wall_lines(inv):
                     lines.append(f"- [met2, {d0}, {wlo:.3f}, {d1}, {whi:.3f}]")
                 else:  # E
                     lines.append(f'- [met2, "expr::$DIE_AREA[2] - {d1}", {wlo:.3f}, "expr::$DIE_AREA[2] - {d0}", {whi:.3f}]')
+    return lines
+
+
+def _pad_enable_inp_wall_lines(inv):
+    """met2 wall over the ENABLE_INP_H pocket of each gpio pad (see ENINP_*)."""
+    d0, d1 = ENINP_WALL_DEPTH_UM
+    lines = ["# Per-pad ENABLE_INP_H pocket walls (keep routes off the pad-internal chamfer)."]
+    for s in "WENS":
+        for o in inv["sig"][s]:
+            # along = coord + GPIO_BOND_TO_EDGE_UM - cx: higher local cx -> lower along
+            whi = o.coord + GPIO_BOND_TO_EDGE_UM - (ENINP_CX_UM + ENINP_PIN_HALF_UM)
+            wlo = whi - ENINP_WALL_SPAN_UM
+            if s == "S":
+                lines.append(f"- [met2, {wlo:.3f}, {d0}, {whi:.3f}, {d1}]")
+            elif s == "N":
+                lines.append(f'- [met2, {wlo:.3f}, "expr::$DIE_AREA[3] - {d1}", {whi:.3f}, "expr::$DIE_AREA[3] - {d0}"]')
+            elif s == "W":
+                lines.append(f"- [met2, {d0}, {wlo:.3f}, {d1}, {whi:.3f}]")
+            else:  # E
+                lines.append(f'- [met2, "expr::$DIE_AREA[2] - {d1}", {wlo:.3f}, "expr::$DIE_AREA[2] - {d0}", {whi:.3f}]')
     return lines
 
 
@@ -1428,13 +1459,21 @@ meta:
     OpenROAD.IRDropReport: null
     OpenROAD.CheckAntennas*: null
 
-    # Most of the reset/POR cluster (porb_h, resetb_h, resetb_l, xres*) is routed
-    # by TritonRoute through the west/south obstruction windows (see
-    # ROUTING_OBSTRUCTIONS). The two simple_por level-shifter outputs por_l/porb_l
-    # sit on thin met3 pins ~113um from the wrapper that never get a routing
-    # access point (DRT-0419 -> crash), so Padframe.ResetSpecialNets marks just
-    # those two SPECIAL; DRT leaves them alone and they connect at integrate.
+    # resetb_h / resetb_l are routed by TritonRoute through the south obstruction
+    # window (see ROUTING_OBSTRUCTIONS). The simple_por outputs por_l/porb_l/
+    # porb_h sit on thin met3 pins ~113um from the wrapper that never get a
+    # routing access point (DRT-0419 -> crash), and the xres tie/loopback nets
+    # are pad-local, so Padframe.ResetSpecialNets marks them SPECIAL; DRT leaves
+    # them alone. The POR outputs reach the wrapper through the simple_por GDS
+    # collar.
     -OpenROAD.GlobalRouting: Padframe.ResetSpecialNets
+    # porb_h drives ENABLE_H / ENABLE_VDDA_H on every GPIO pad and ENABLE_H on
+    # the reset pad, as in the openframe. Like the openframe, that fan-out is
+    # hand-drawn rather than routed: a met1 loop around the user area at the
+    # openframe offset, with a via1 + met2 stub to each enable pin and a tap on
+    # the simple_por porb_h collar. Drawn before global routing so GRT and DRT
+    # both see it as fixed metal.
+    +Padframe.ResetSpecialNets: Padframe.PorbRing
     +OpenROAD.GlobalRouting: Odb.InsertECODiodes
     # Power nets are SPECIAL (VDD_NETS/GND_NETS) so DRT will not bridge clamp
     # met3 stubs to the wrapper. Draw wide special met3 straps from each clamp

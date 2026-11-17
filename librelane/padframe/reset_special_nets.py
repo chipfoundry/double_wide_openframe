@@ -26,11 +26,15 @@ SPECIAL_NETS = [
     # (pad.XRES_H_N -> rstb_level.A -> wrapper.resetb_h) are NOT listed here --
     # both are routed by TritonRoute (their pins get DRT access points), per
     # request.
-    # simple_por high-side output: abut to the wrapper porb_h pin, not routed.
+    # simple_por high-side output. Reaches the wrapper porb_h pin through the
+    # simple_por GDS collar, and every pad ENABLE_H / ENABLE_VDDA_H through the
+    # hand-drawn met1 loop of Padframe.PorbRing (openframe-style). Must stay
+    # SPECIAL so TritonRoute neither routes it nor rips that wiring up.
     "porb_h",
 ]
-# NOTE: all wrapper-facing reset/POR nets now connect by abutment at integrate;
-# none are routed by DRT.
+# NOTE: none of the POR outputs are routed by DRT; por_l/porb_l/porb_h reach
+# the wrapper through the simple_por collar, porb_h reaches the pads via
+# Padframe.PorbRing.
 
 
 @click.command()

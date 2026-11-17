@@ -3,6 +3,9 @@
 Registers:
   * ``Padframe.ResetSpecialNets`` -- before GlobalRouting; marks POR/reset nets
     SPECIAL so TritonRoute leaves them alone.
+  * ``Padframe.PorbRing`` -- right after ResetSpecialNets; draws the openframe
+    porb_h met1 loop around the user area plus a via1/met2 tap to every pad
+    ENABLE_H / ENABLE_VDDA_H pin and to simple_por.
   * ``Padframe.BridgePowerPads`` -- after InsertECODiodes / before DRT; draws
     wide special met3 straps from each clamp domain pin to the wrapper edge.
   * ``Padframe.BridgeDM0`` -- after DetailedRouting; same-net met2 patch for
@@ -22,6 +25,15 @@ class ResetSpecialNets(OdbpyStep):
 
     def get_script_path(self):
         return os.path.join(os.path.dirname(__file__), "reset_special_nets.py")
+
+
+@Step.factory.register()
+class PorbRing(OdbpyStep):
+    id = "Padframe.PorbRing"
+    name = "Hand-drawn porb_h met1 loop + pad enable taps (openframe-style)"
+
+    def get_script_path(self):
+        return os.path.join(os.path.dirname(__file__), "porb_ring.py")
 
 
 @Step.factory.register()

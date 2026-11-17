@@ -55,8 +55,12 @@ block): each GPIO pad's control signals route straight to the user-area
 boundary (openframe-style `gpio_in/out/oeb/inp_dis/ib_mode_sel/vtrip_sel/
 slow_sel/holdover/analog_en/sel/pol/dm0-2/analog_io/analog_noesd_io/in_h`).
 Openframe-style **POR / reset** is retained (`simple_por`, south `xres4v2`,
-`xres_buf`, `constant_block`). GPIO pad enables use local
-`TIE_HI_ESD`/`TIE_LO_ESD` (the reset pad still uses `porb_h`). Power is the
+`xres_buf`, `constant_block`). As in the openframe, every GPIO pad's
+`ENABLE_H` / `ENABLE_VDDA_H` and the reset pad's `ENABLE_H` follow `porb_h`, so
+the pads stay in their safe state until the POR releases; `porb_h` reaches them
+over a hand-drawn met1 loop around the user area (`Padframe.PorbRing`). The
+other pad controls (`HLD_H_N`, `ENABLE_INP_H`, `ENABLE_VSWITCH_H`) use the pad's
+local `TIE_HI_ESD`/`TIE_LO_ESD`, also as in the openframe. Power is the
 **preserved openframe multi-domain** structure (user0 bottom, user1
 right/top, user2 left), with top/bottom clamps duplicated across the doubled
 width.
@@ -117,6 +121,27 @@ item: **38× metal2 spacing (m2.2)** on the north edge from KLayout BEOL.
 
 LVS config: [`lvs/double_wide_chip_io/lvs_config.json`](lvs/double_wide_chip_io/lvs_config.json).
 
+## Pad enables (`porb_h`)
+
+As in `chip_io_openframe.v`, `porb_h` drives `ENABLE_H` and `ENABLE_VDDA_H` on
+all 63 GPIO pads and `ENABLE_H` on the reset pad. The router does not do this
+fan-out: `Padframe.PorbRing` ([`librelane/padframe/porb_ring.py`](librelane/padframe/porb_ring.py))
+draws it before global routing, the same way the openframe layout does. It
+draws a closed 0.26 um met1 loop around the user area at the openframe offset
+(209.33 um from the die edge, pushed just far enough inward on a side where a
+fixed cell is in the way). Each enable pin gets a via1 plus a met2 stub to the
+loop, and a met1 patch joins the loop to the `porb_h` metal that `simple_por`
+already brings out to the wrapper pin. `porb_h` stays SPECIAL, so TritonRoute
+routes around this wiring. The step checks every shape against the fixed
+met1/met2 around it and stops instead of drawing a short.
+
+```bash
+make check-pad-enables  # RTL: pad control pins driven exactly as in the openframe
+make check-porb-net     # GDS: porb_h is one net over simple_por, the wrapper pin
+                        #      and all 127 enable pins; no TIE_HI_ESD on it
+make sim-power-up       # sim: pads stay undriven until porb_h releases
+```
+
 ## Building a user project
 
 The user design lives in **`../dw_openframe_user_project`** (the
@@ -142,11 +167,16 @@ scripts/   extract_openframe_pads.py   generator (source of truth)
            integrate_openframe.tcl     Magic cell-swap
            run_padframe_drc.py         cf-precheck Magic/KLayout DRC
            run_padframe_lvs.py         cf-precheck LVS wrapper
+           check_pad_enables.py        pad enable drivers vs chip_io_openframe.v
+           porb_probe_points.py        pin probe points for check_porb_net.py
+           check_porb_net.py           KLayout porb_h connectivity check on GDS
 verilog/rtl/  double_wide_chip_io.v                       generated padframe (chip top)
               double_wide_openframe_project_wrapper.v      generated empty wrapper
               __double_wide_openframe_project_wrapper.v    precheck port golden
               dw_defines.vh                                generated pad-count define
+verilog/dv/pad_power_up/  pad power-up (porb_h) testbench, iverilog
 librelane/padframe/  config.yaml pad_cfg.tcl pad_pos.tcl pdn_cfg.tcl chip.sdc
+                     padframe_steps.py + porb_ring.py, bridge_*.py, reset_special_nets.py
 librelane/wrapper/   config.json pin_template.def         empty-wrapper harden
 lvs/                 padframe LVS config for cf-precheck
 signoff/             DRC/LVS reports

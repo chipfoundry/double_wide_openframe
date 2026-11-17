@@ -41,7 +41,8 @@ export PYTHONPATH := $(abspath $(KLAYOUT_PYMOD)):$(abspath $(CF_PRECHECK)/src):$
 
 .PHONY: all pads wrapper-empty padframe integrate clean \
         padframe-klayout padframe-openroad enable-pdk \
-        publish-golden drc drc-magic drc-klayout lvs-padframe
+        publish-golden drc drc-magic drc-klayout lvs-padframe \
+        check-pad-enables check-porb-net sim-power-up
 
 all: pads wrapper-empty padframe publish-golden
 
@@ -154,6 +155,23 @@ lvs-padframe:
 		--design-dir $(CURDIR) \
 		--pdk-path $(PDK_ROOT)/$(PDK) \
 		--out $(LVS_OUT)
+
+## Pad enables (porb_h), see librelane/padframe/porb_ring.py:
+##  check-pad-enables  RTL: every pad control pin driven as in chip_io_openframe.v
+##  check-porb-net     GDS: porb_h is one net over simple_por, the wrapper pin and
+##                     all 127 pad enable pins, with no TIE_HI_ESD on it
+##  sim-power-up       sim: pads stay undriven until porb_h releases
+check-pad-enables:
+	python3 scripts/check_pad_enables.py --caravel $(dir $(CARAVEL_MAG))..
+
+check-porb-net:
+	openroad -python -exit scripts/porb_probe_points.py \
+		def/double_wide_chip_io.def build/porb_probes.json
+	klayout -b -r scripts/check_porb_net.py \
+		-rd gds=$(abspath $(PADFRAME_GDS)) -rd probes=$(abspath build/porb_probes.json)
+
+sim-power-up:
+	$(MAKE) -C verilog/dv/pad_power_up PDK_ROOT=$(PDK_ROOT) PDK=$(PDK)
 
 clean:
 	rm -rf build runs
