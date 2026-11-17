@@ -15,10 +15,10 @@ Fanout         Cap        Slew       Delay        Time   Description
      1    1.047768    0.000000    0.000000    0.000000 ^ gpio_pad[11] (inout)
                                                          gpio_pad[11] (net)
                       0.000000    0.000000    0.000000 ^ gpio_w[11].u/PAD (sky130_ef_io__gpiov2_pad)
-     1    0.002511    0.074263    1.301149    1.301149 ^ gpio_w[11].u/IN_H (sky130_ef_io__gpiov2_pad)
+     1    0.002422    0.074233    1.301113    1.301113 ^ gpio_w[11].u/IN_H (sky130_ef_io__gpiov2_pad)
                                                          gpio_in_h[11] (net)
-                      0.074263    0.000000    1.301149 ^ user_project/gpio_in_h[51] (double_wide_openframe_project_wrapper)
-                                              1.301149   data arrival time
+                      0.074233    0.000000    1.301113 ^ user_project/gpio_in_h[51] (double_wide_openframe_project_wrapper)
+                                              1.301113   data arrival time
 ---------------------------------------------------------------------------------------------
 (Path is unconstrained)
 
