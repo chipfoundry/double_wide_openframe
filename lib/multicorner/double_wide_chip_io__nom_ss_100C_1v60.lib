@@ -34,7 +34,7 @@ library (double_wide_chip_io) {
   }
 
   cell ("double_wide_chip_io") {
-    area : 1319700.000 
+    area : 1199700.000 
     is_macro_cell : true;
     pin("resetb_pad") {
       direction : inout;

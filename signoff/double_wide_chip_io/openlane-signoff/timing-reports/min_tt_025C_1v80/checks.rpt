@@ -4,21 +4,21 @@ report_checks -unconstrained
 ===========================================================================
 ======================= min_tt_025C_1v80 Corner ===================================
 
-Startpoint: gpio_pad[31] (input port)
-Endpoint: user_project/gpio_in_h[31] (internal pin)
+Startpoint: gpio_pad[39] (input port)
+Endpoint: user_project/gpio_in_h[23] (internal pin)
 Path Group: unconstrained
 Path Type: max
 
 Fanout         Cap        Slew       Delay        Time   Description
 ---------------------------------------------------------------------------------------------
                                   0.000000    0.000000 ^ input external delay
-     1    1.117215    0.000000    0.000000    0.000000 ^ gpio_pad[31] (inout)
-                                                         gpio_pad[31] (net)
-                      0.000000    0.000000    0.000000 ^ gpio_n[2].u/PAD (sky130_ef_io__gpiov2_pad)
-     1    0.002137    0.121045    2.034945    2.034945 ^ gpio_n[2].u/IN_H (sky130_ef_io__gpiov2_pad)
-                                                         gpio_in_h[31] (net)
-                      0.121045    0.000012    2.034956 ^ user_project/gpio_in_h[31] (double_wide_openframe_project_wrapper)
-                                              2.034956   data arrival time
+     1    1.117215    0.000000    0.000000    0.000000 ^ gpio_pad[39] (inout)
+                                                         gpio_pad[39] (net)
+                      0.000000    0.000000    0.000000 ^ gpio_w[4].u/PAD (sky130_ef_io__gpiov2_pad)
+     1    0.002620    0.121346    2.035285    2.035285 ^ gpio_w[4].u/IN_H (sky130_ef_io__gpiov2_pad)
+                                                         gpio_in_h[39] (net)
+                      0.121346    0.000000    2.035285 ^ user_project/gpio_in_h[23] (double_wide_openframe_project_wrapper)
+                                              2.035285   data arrival time
 ---------------------------------------------------------------------------------------------
 (Path is unconstrained)
 
@@ -43,7 +43,7 @@ No paths found.
 ===========================================================================
 report_parasitic_annotation -report_unannotated
 ============================================================================
-Found 375 unannotated drivers.
+Found 359 unannotated drivers.
  gpio_pad[0]
  gpio_pad[10]
  gpio_pad[11]
@@ -219,26 +219,6 @@ Found 375 unannotated drivers.
  gpio_n\[14\].u/AMUXBUS_B
  gpio_n\[14\].u/PAD
  gpio_n\[14\].u/PAD_A_ESD_1_H
- gpio_n\[15\].u/AMUXBUS_A
- gpio_n\[15\].u/AMUXBUS_B
- gpio_n\[15\].u/PAD
- gpio_n\[15\].u/PAD_A_ESD_1_H
- gpio_n\[16\].u/AMUXBUS_A
- gpio_n\[16\].u/AMUXBUS_B
- gpio_n\[16\].u/PAD
- gpio_n\[16\].u/PAD_A_ESD_1_H
- gpio_n\[17\].u/AMUXBUS_A
- gpio_n\[17\].u/AMUXBUS_B
- gpio_n\[17\].u/PAD
- gpio_n\[17\].u/PAD_A_ESD_1_H
- gpio_n\[18\].u/AMUXBUS_A
- gpio_n\[18\].u/AMUXBUS_B
- gpio_n\[18\].u/PAD
- gpio_n\[18\].u/PAD_A_ESD_1_H
- gpio_n\[19\].u/AMUXBUS_A
- gpio_n\[19\].u/AMUXBUS_B
- gpio_n\[19\].u/PAD
- gpio_n\[19\].u/PAD_A_ESD_1_H
  gpio_n\[1\].u/AMUXBUS_A
  gpio_n\[1\].u/AMUXBUS_B
  gpio_n\[1\].u/PAD
@@ -275,6 +255,26 @@ Found 375 unannotated drivers.
  gpio_n\[9\].u/AMUXBUS_B
  gpio_n\[9\].u/PAD
  gpio_n\[9\].u/PAD_A_ESD_1_H
+ gpio_n_user2\[0\].u/AMUXBUS_A
+ gpio_n_user2\[0\].u/AMUXBUS_B
+ gpio_n_user2\[0\].u/PAD
+ gpio_n_user2\[0\].u/PAD_A_ESD_1_H
+ gpio_n_user2\[1\].u/AMUXBUS_A
+ gpio_n_user2\[1\].u/AMUXBUS_B
+ gpio_n_user2\[1\].u/PAD
+ gpio_n_user2\[1\].u/PAD_A_ESD_1_H
+ gpio_n_user2\[2\].u/AMUXBUS_A
+ gpio_n_user2\[2\].u/AMUXBUS_B
+ gpio_n_user2\[2\].u/PAD
+ gpio_n_user2\[2\].u/PAD_A_ESD_1_H
+ gpio_n_user2\[3\].u/AMUXBUS_A
+ gpio_n_user2\[3\].u/AMUXBUS_B
+ gpio_n_user2\[3\].u/PAD
+ gpio_n_user2\[3\].u/PAD_A_ESD_1_H
+ gpio_n_user2\[4\].u/AMUXBUS_A
+ gpio_n_user2\[4\].u/AMUXBUS_B
+ gpio_n_user2\[4\].u/PAD
+ gpio_n_user2\[4\].u/PAD_A_ESD_1_H
  gpio_s\[0\].u/AMUXBUS_A
  gpio_s\[0\].u/AMUXBUS_B
  gpio_s\[0\].u/PAD
@@ -389,309 +389,293 @@ Found 375 unannotated drivers.
  gpio_w\[9\].u/PAD_A_ESD_1_H
  vcchib_vccd_and_vswitch_vddio_slices\[0\].u/AMUXBUS_A
  vcchib_vccd_and_vswitch_vddio_slices\[0\].u/AMUXBUS_B
- vcchib_vccd_and_vswitch_vddio_slices\[0\].u_1/AMUXBUS_A
- vcchib_vccd_and_vswitch_vddio_slices\[0\].u_1/AMUXBUS_B
  vcchib_vccd_and_vswitch_vddio_slices\[1\].u/AMUXBUS_A
  vcchib_vccd_and_vswitch_vddio_slices\[1\].u/AMUXBUS_B
- vcchib_vccd_and_vswitch_vddio_slices\[1\].u_1/AMUXBUS_A
- vcchib_vccd_and_vswitch_vddio_slices\[1\].u_1/AMUXBUS_B
  vcchib_vccd_and_vswitch_vddio_slices\[2\].u/AMUXBUS_A
  vcchib_vccd_and_vswitch_vddio_slices\[2\].u/AMUXBUS_B
- vcchib_vccd_and_vswitch_vddio_slices\[2\].u_1/AMUXBUS_A
- vcchib_vccd_and_vswitch_vddio_slices\[2\].u_1/AMUXBUS_B
  vcchib_vccd_and_vswitch_vddio_slices\[3\].u/AMUXBUS_A
  vcchib_vccd_and_vswitch_vddio_slices\[3\].u/AMUXBUS_B
- vcchib_vccd_and_vswitch_vddio_slices\[3\].u_1/AMUXBUS_A
- vcchib_vccd_and_vswitch_vddio_slices\[3\].u_1/AMUXBUS_B
  vcchib_vccd_and_vswitch_vddio_slices\[4\].u/AMUXBUS_A
  vcchib_vccd_and_vswitch_vddio_slices\[4\].u/AMUXBUS_B
- vcchib_vccd_and_vswitch_vddio_slices\[4\].u_1/AMUXBUS_A
- vcchib_vccd_and_vswitch_vddio_slices\[4\].u_1/AMUXBUS_B
  vcchib_vccd_and_vswitch_vddio_slices\[5\].u/AMUXBUS_A
  vcchib_vccd_and_vswitch_vddio_slices\[5\].u/AMUXBUS_B
- vcchib_vccd_and_vswitch_vddio_slices\[5\].u_1/AMUXBUS_A
- vcchib_vccd_and_vswitch_vddio_slices\[5\].u_1/AMUXBUS_B
  vcchib_vccd_and_vswitch_vddio_slices\[6\].u/AMUXBUS_A
  vcchib_vccd_and_vswitch_vddio_slices\[6\].u/AMUXBUS_B
- vcchib_vccd_and_vswitch_vddio_slices\[6\].u_1/AMUXBUS_A
- vcchib_vccd_and_vswitch_vddio_slices\[6\].u_1/AMUXBUS_B
  vcchib_vccd_and_vswitch_vddio_slices\[7\].u/AMUXBUS_A
  vcchib_vccd_and_vswitch_vddio_slices\[7\].u/AMUXBUS_B
- vcchib_vccd_and_vswitch_vddio_slices\[7\].u_1/AMUXBUS_A
- vcchib_vccd_and_vswitch_vddio_slices\[7\].u_1/AMUXBUS_B
 Found 248 partially unannotated drivers.
  gpio_e\[0\].u/IN
-  user_project/gpio_in[48]
+  user_project/gpio_in[62]
  gpio_e\[0\].u/IN_H
-  user_project/gpio_in_h[48]
+  user_project/gpio_in_h[62]
  gpio_e\[0\].u/PAD_A_ESD_0_H
-  user_project/analog_io[48]
+  user_project/analog_io[62]
  gpio_e\[0\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[48]
+  user_project/analog_noesd_io[62]
  gpio_e\[10\].u/IN
-  user_project/gpio_in[38]
+  user_project/gpio_in[52]
  gpio_e\[10\].u/IN_H
-  user_project/gpio_in_h[38]
+  user_project/gpio_in_h[52]
  gpio_e\[10\].u/PAD_A_ESD_0_H
-  user_project/analog_io[38]
+  user_project/analog_io[52]
  gpio_e\[10\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[38]
+  user_project/analog_noesd_io[52]
  gpio_e\[11\].u/IN
-  user_project/gpio_in[37]
+  user_project/gpio_in[51]
  gpio_e\[11\].u/IN_H
-  user_project/gpio_in_h[37]
+  user_project/gpio_in_h[51]
  gpio_e\[11\].u/PAD_A_ESD_0_H
-  user_project/analog_io[37]
+  user_project/analog_io[51]
  gpio_e\[11\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[37]
+  user_project/analog_noesd_io[51]
  gpio_e\[12\].u/IN
-  user_project/gpio_in[36]
+  user_project/gpio_in[50]
  gpio_e\[12\].u/IN_H
-  user_project/gpio_in_h[36]
+  user_project/gpio_in_h[50]
  gpio_e\[12\].u/PAD_A_ESD_0_H
-  user_project/analog_io[36]
+  user_project/analog_io[50]
  gpio_e\[12\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[36]
+  user_project/analog_noesd_io[50]
  gpio_e\[13\].u/IN
-  user_project/gpio_in[35]
+  user_project/gpio_in[49]
  gpio_e\[13\].u/IN_H
-  user_project/gpio_in_h[35]
+  user_project/gpio_in_h[49]
  gpio_e\[13\].u/PAD_A_ESD_0_H
-  user_project/analog_io[35]
+  user_project/analog_io[49]
  gpio_e\[13\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[35]
+  user_project/analog_noesd_io[49]
  gpio_e\[14\].u/IN
-  user_project/gpio_in[34]
+  user_project/gpio_in[48]
  gpio_e\[14\].u/IN_H
-  user_project/gpio_in_h[34]
+  user_project/gpio_in_h[48]
  gpio_e\[14\].u/PAD_A_ESD_0_H
-  user_project/analog_io[34]
+  user_project/analog_io[48]
  gpio_e\[14\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[34]
+  user_project/analog_noesd_io[48]
  gpio_e\[1\].u/IN
-  user_project/gpio_in[47]
+  user_project/gpio_in[61]
  gpio_e\[1\].u/IN_H
-  user_project/gpio_in_h[47]
+  user_project/gpio_in_h[61]
  gpio_e\[1\].u/PAD_A_ESD_0_H
-  user_project/analog_io[47]
+  user_project/analog_io[61]
  gpio_e\[1\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[47]
+  user_project/analog_noesd_io[61]
  gpio_e\[2\].u/IN
-  user_project/gpio_in[46]
+  user_project/gpio_in[60]
  gpio_e\[2\].u/IN_H
-  user_project/gpio_in_h[46]
+  user_project/gpio_in_h[60]
  gpio_e\[2\].u/PAD_A_ESD_0_H
-  user_project/analog_io[46]
+  user_project/analog_io[60]
  gpio_e\[2\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[46]
+  user_project/analog_noesd_io[60]
  gpio_e\[3\].u/IN
-  user_project/gpio_in[45]
+  user_project/gpio_in[59]
  gpio_e\[3\].u/IN_H
-  user_project/gpio_in_h[45]
+  user_project/gpio_in_h[59]
  gpio_e\[3\].u/PAD_A_ESD_0_H
-  user_project/analog_io[45]
+  user_project/analog_io[59]
  gpio_e\[3\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[45]
+  user_project/analog_noesd_io[59]
  gpio_e\[4\].u/IN
-  user_project/gpio_in[44]
+  user_project/gpio_in[58]
  gpio_e\[4\].u/IN_H
-  user_project/gpio_in_h[44]
+  user_project/gpio_in_h[58]
  gpio_e\[4\].u/PAD_A_ESD_0_H
-  user_project/analog_io[44]
+  user_project/analog_io[58]
  gpio_e\[4\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[44]
+  user_project/analog_noesd_io[58]
  gpio_e\[5\].u/IN
-  user_project/gpio_in[43]
+  user_project/gpio_in[57]
  gpio_e\[5\].u/IN_H
-  user_project/gpio_in_h[43]
+  user_project/gpio_in_h[57]
  gpio_e\[5\].u/PAD_A_ESD_0_H
-  user_project/analog_io[43]
+  user_project/analog_io[57]
  gpio_e\[5\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[43]
+  user_project/analog_noesd_io[57]
  gpio_e\[6\].u/IN
-  user_project/gpio_in[42]
+  user_project/gpio_in[56]
  gpio_e\[6\].u/IN_H
-  user_project/gpio_in_h[42]
+  user_project/gpio_in_h[56]
  gpio_e\[6\].u/PAD_A_ESD_0_H
-  user_project/analog_io[42]
+  user_project/analog_io[56]
  gpio_e\[6\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[42]
+  user_project/analog_noesd_io[56]
  gpio_e\[7\].u/IN
-  user_project/gpio_in[41]
+  user_project/gpio_in[55]
  gpio_e\[7\].u/IN_H
-  user_project/gpio_in_h[41]
+  user_project/gpio_in_h[55]
  gpio_e\[7\].u/PAD_A_ESD_0_H
-  user_project/analog_io[41]
+  user_project/analog_io[55]
  gpio_e\[7\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[41]
+  user_project/analog_noesd_io[55]
  gpio_e\[8\].u/IN
-  user_project/gpio_in[40]
+  user_project/gpio_in[54]
  gpio_e\[8\].u/IN_H
-  user_project/gpio_in_h[40]
+  user_project/gpio_in_h[54]
  gpio_e\[8\].u/PAD_A_ESD_0_H
-  user_project/analog_io[40]
+  user_project/analog_io[54]
  gpio_e\[8\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[40]
+  user_project/analog_noesd_io[54]
  gpio_e\[9\].u/IN
-  user_project/gpio_in[39]
+  user_project/gpio_in[53]
  gpio_e\[9\].u/IN_H
-  user_project/gpio_in_h[39]
+  user_project/gpio_in_h[53]
  gpio_e\[9\].u/PAD_A_ESD_0_H
-  user_project/analog_io[39]
+  user_project/analog_io[53]
  gpio_e\[9\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[39]
+  user_project/analog_noesd_io[53]
  gpio_n\[0\].u/IN
-  user_project/gpio_in[33]
+  user_project/gpio_in[47]
  gpio_n\[0\].u/IN_H
-  user_project/gpio_in_h[33]
+  user_project/gpio_in_h[47]
  gpio_n\[0\].u/PAD_A_ESD_0_H
-  user_project/analog_io[33]
+  user_project/analog_io[47]
  gpio_n\[0\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[33]
+  user_project/analog_noesd_io[47]
  gpio_n\[10\].u/IN
-  user_project/gpio_in[23]
+  user_project/gpio_in[37]
  gpio_n\[10\].u/IN_H
-  user_project/gpio_in_h[23]
+  user_project/gpio_in_h[37]
  gpio_n\[10\].u/PAD_A_ESD_0_H
-  user_project/analog_io[23]
+  user_project/analog_io[37]
  gpio_n\[10\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[23]
+  user_project/analog_noesd_io[37]
  gpio_n\[11\].u/IN
-  user_project/gpio_in[22]
+  user_project/gpio_in[36]
  gpio_n\[11\].u/IN_H
-  user_project/gpio_in_h[22]
+  user_project/gpio_in_h[36]
  gpio_n\[11\].u/PAD_A_ESD_0_H
-  user_project/analog_io[22]
+  user_project/analog_io[36]
  gpio_n\[11\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[22]
+  user_project/analog_noesd_io[36]
  gpio_n\[12\].u/IN
-  user_project/gpio_in[21]
+  user_project/gpio_in[35]
  gpio_n\[12\].u/IN_H
-  user_project/gpio_in_h[21]
+  user_project/gpio_in_h[35]
  gpio_n\[12\].u/PAD_A_ESD_0_H
-  user_project/analog_io[21]
+  user_project/analog_io[35]
  gpio_n\[12\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[21]
+  user_project/analog_noesd_io[35]
  gpio_n\[13\].u/IN
-  user_project/gpio_in[20]
+  user_project/gpio_in[34]
  gpio_n\[13\].u/IN_H
-  user_project/gpio_in_h[20]
+  user_project/gpio_in_h[34]
  gpio_n\[13\].u/PAD_A_ESD_0_H
-  user_project/analog_io[20]
+  user_project/analog_io[34]
  gpio_n\[13\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[20]
+  user_project/analog_noesd_io[34]
  gpio_n\[14\].u/IN
-  user_project/gpio_in[19]
+  user_project/gpio_in[33]
  gpio_n\[14\].u/IN_H
-  user_project/gpio_in_h[19]
+  user_project/gpio_in_h[33]
  gpio_n\[14\].u/PAD_A_ESD_0_H
-  user_project/analog_io[19]
+  user_project/analog_io[33]
  gpio_n\[14\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[19]
- gpio_n\[15\].u/IN
-  user_project/gpio_in[18]
- gpio_n\[15\].u/IN_H
-  user_project/gpio_in_h[18]
- gpio_n\[15\].u/PAD_A_ESD_0_H
-  user_project/analog_io[18]
- gpio_n\[15\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[18]
- gpio_n\[16\].u/IN
-  user_project/gpio_in[17]
- gpio_n\[16\].u/IN_H
-  user_project/gpio_in_h[17]
- gpio_n\[16\].u/PAD_A_ESD_0_H
-  user_project/analog_io[17]
- gpio_n\[16\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[17]
- gpio_n\[17\].u/IN
-  user_project/gpio_in[16]
- gpio_n\[17\].u/IN_H
-  user_project/gpio_in_h[16]
- gpio_n\[17\].u/PAD_A_ESD_0_H
-  user_project/analog_io[16]
- gpio_n\[17\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[16]
- gpio_n\[18\].u/IN
-  user_project/gpio_in[15]
- gpio_n\[18\].u/IN_H
-  user_project/gpio_in_h[15]
- gpio_n\[18\].u/PAD_A_ESD_0_H
-  user_project/analog_io[15]
- gpio_n\[18\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[15]
- gpio_n\[19\].u/IN
-  user_project/gpio_in[14]
- gpio_n\[19\].u/IN_H
-  user_project/gpio_in_h[14]
- gpio_n\[19\].u/PAD_A_ESD_0_H
-  user_project/analog_io[14]
- gpio_n\[19\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[14]
+  user_project/analog_noesd_io[33]
  gpio_n\[1\].u/IN
-  user_project/gpio_in[32]
+  user_project/gpio_in[46]
  gpio_n\[1\].u/IN_H
-  user_project/gpio_in_h[32]
+  user_project/gpio_in_h[46]
  gpio_n\[1\].u/PAD_A_ESD_0_H
-  user_project/analog_io[32]
+  user_project/analog_io[46]
  gpio_n\[1\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[32]
+  user_project/analog_noesd_io[46]
+ gpio_n\[2\].u/IN
+  user_project/gpio_in[45]
+ gpio_n\[2\].u/IN_H
+  user_project/gpio_in_h[45]
+ gpio_n\[2\].u/PAD_A_ESD_0_H
+  user_project/analog_io[45]
+ gpio_n\[2\].u/PAD_A_NOESD_H
+  user_project/analog_noesd_io[45]
  gpio_n\[3\].u/IN
-  user_project/gpio_in[30]
+  user_project/gpio_in[44]
  gpio_n\[3\].u/IN_H
-  user_project/gpio_in_h[30]
+  user_project/gpio_in_h[44]
  gpio_n\[3\].u/PAD_A_ESD_0_H
-  user_project/analog_io[30]
+  user_project/analog_io[44]
  gpio_n\[3\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[30]
+  user_project/analog_noesd_io[44]
  gpio_n\[4\].u/IN
-  user_project/gpio_in[29]
+  user_project/gpio_in[43]
  gpio_n\[4\].u/IN_H
-  user_project/gpio_in_h[29]
+  user_project/gpio_in_h[43]
  gpio_n\[4\].u/PAD_A_ESD_0_H
-  user_project/analog_io[29]
+  user_project/analog_io[43]
  gpio_n\[4\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[29]
+  user_project/analog_noesd_io[43]
  gpio_n\[5\].u/IN
-  user_project/gpio_in[28]
+  user_project/gpio_in[42]
  gpio_n\[5\].u/IN_H
-  user_project/gpio_in_h[28]
+  user_project/gpio_in_h[42]
  gpio_n\[5\].u/PAD_A_ESD_0_H
-  user_project/analog_io[28]
+  user_project/analog_io[42]
  gpio_n\[5\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[28]
+  user_project/analog_noesd_io[42]
  gpio_n\[6\].u/IN
-  user_project/gpio_in[27]
+  user_project/gpio_in[41]
  gpio_n\[6\].u/IN_H
-  user_project/gpio_in_h[27]
+  user_project/gpio_in_h[41]
  gpio_n\[6\].u/PAD_A_ESD_0_H
-  user_project/analog_io[27]
+  user_project/analog_io[41]
  gpio_n\[6\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[27]
+  user_project/analog_noesd_io[41]
  gpio_n\[7\].u/IN
-  user_project/gpio_in[26]
+  user_project/gpio_in[40]
  gpio_n\[7\].u/IN_H
-  user_project/gpio_in_h[26]
+  user_project/gpio_in_h[40]
  gpio_n\[7\].u/PAD_A_ESD_0_H
-  user_project/analog_io[26]
+  user_project/analog_io[40]
  gpio_n\[7\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[26]
+  user_project/analog_noesd_io[40]
  gpio_n\[8\].u/IN
-  user_project/gpio_in[25]
+  user_project/gpio_in[39]
  gpio_n\[8\].u/IN_H
-  user_project/gpio_in_h[25]
+  user_project/gpio_in_h[39]
  gpio_n\[8\].u/PAD_A_ESD_0_H
-  user_project/analog_io[25]
+  user_project/analog_io[39]
  gpio_n\[8\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[25]
+  user_project/analog_noesd_io[39]
  gpio_n\[9\].u/IN
-  user_project/gpio_in[24]
+  user_project/gpio_in[38]
  gpio_n\[9\].u/IN_H
-  user_project/gpio_in_h[24]
+  user_project/gpio_in_h[38]
  gpio_n\[9\].u/PAD_A_ESD_0_H
-  user_project/analog_io[24]
+  user_project/analog_io[38]
  gpio_n\[9\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[24]
+  user_project/analog_noesd_io[38]
+ gpio_n_user2\[0\].u/IN
+  user_project/gpio_in[32]
+ gpio_n_user2\[0\].u/IN_H
+  user_project/gpio_in_h[32]
+ gpio_n_user2\[0\].u/PAD_A_ESD_0_H
+  user_project/analog_io[32]
+ gpio_n_user2\[0\].u/PAD_A_NOESD_H
+  user_project/analog_noesd_io[32]
+ gpio_n_user2\[2\].u/IN
+  user_project/gpio_in[30]
+ gpio_n_user2\[2\].u/IN_H
+  user_project/gpio_in_h[30]
+ gpio_n_user2\[2\].u/PAD_A_ESD_0_H
+  user_project/analog_io[30]
+ gpio_n_user2\[2\].u/PAD_A_NOESD_H
+  user_project/analog_noesd_io[30]
+ gpio_n_user2\[3\].u/IN
+  user_project/gpio_in[29]
+ gpio_n_user2\[3\].u/IN_H
+  user_project/gpio_in_h[29]
+ gpio_n_user2\[3\].u/PAD_A_ESD_0_H
+  user_project/analog_io[29]
+ gpio_n_user2\[3\].u/PAD_A_NOESD_H
+  user_project/analog_noesd_io[29]
+ gpio_n_user2\[4\].u/IN
+  user_project/gpio_in[28]
+ gpio_n_user2\[4\].u/IN_H
+  user_project/gpio_in_h[28]
+ gpio_n_user2\[4\].u/PAD_A_ESD_0_H
+  user_project/analog_io[28]
+ gpio_n_user2\[4\].u/PAD_A_NOESD_H
+  user_project/analog_noesd_io[28]
  gpio_s\[0\].u/IN
   user_project/gpio_in[13]
  gpio_s\[0\].u/IN_H
@@ -805,117 +789,117 @@ Found 248 partially unannotated drivers.
  gpio_s\[9\].u/PAD_A_NOESD_H
   user_project/analog_noesd_io[4]
  gpio_w\[0\].u/IN
-  user_project/gpio_in[62]
+  user_project/gpio_in[27]
  gpio_w\[0\].u/IN_H
-  user_project/gpio_in_h[62]
+  user_project/gpio_in_h[27]
  gpio_w\[0\].u/PAD_A_ESD_0_H
-  user_project/analog_io[62]
+  user_project/analog_io[27]
  gpio_w\[0\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[62]
+  user_project/analog_noesd_io[27]
  gpio_w\[10\].u/IN
-  user_project/gpio_in[52]
+  user_project/gpio_in[17]
  gpio_w\[10\].u/IN_H
-  user_project/gpio_in_h[52]
+  user_project/gpio_in_h[17]
  gpio_w\[10\].u/PAD_A_ESD_0_H
-  user_project/analog_io[52]
+  user_project/analog_io[17]
  gpio_w\[10\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[52]
+  user_project/analog_noesd_io[17]
  gpio_w\[11\].u/IN
-  user_project/gpio_in[51]
+  user_project/gpio_in[16]
  gpio_w\[11\].u/IN_H
-  user_project/gpio_in_h[51]
+  user_project/gpio_in_h[16]
  gpio_w\[11\].u/PAD_A_ESD_0_H
-  user_project/analog_io[51]
+  user_project/analog_io[16]
  gpio_w\[11\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[51]
+  user_project/analog_noesd_io[16]
  gpio_w\[12\].u/IN
-  user_project/gpio_in[50]
+  user_project/gpio_in[15]
  gpio_w\[12\].u/IN_H
-  user_project/gpio_in_h[50]
+  user_project/gpio_in_h[15]
  gpio_w\[12\].u/PAD_A_ESD_0_H
-  user_project/analog_io[50]
+  user_project/analog_io[15]
  gpio_w\[12\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[50]
+  user_project/analog_noesd_io[15]
  gpio_w\[13\].u/IN
-  user_project/gpio_in[49]
+  user_project/gpio_in[14]
  gpio_w\[13\].u/IN_H
-  user_project/gpio_in_h[49]
+  user_project/gpio_in_h[14]
  gpio_w\[13\].u/PAD_A_ESD_0_H
-  user_project/analog_io[49]
+  user_project/analog_io[14]
  gpio_w\[13\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[49]
+  user_project/analog_noesd_io[14]
  gpio_w\[1\].u/IN
-  user_project/gpio_in[61]
+  user_project/gpio_in[26]
  gpio_w\[1\].u/IN_H
-  user_project/gpio_in_h[61]
+  user_project/gpio_in_h[26]
  gpio_w\[1\].u/PAD_A_ESD_0_H
-  user_project/analog_io[61]
+  user_project/analog_io[26]
  gpio_w\[1\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[61]
+  user_project/analog_noesd_io[26]
  gpio_w\[2\].u/IN
-  user_project/gpio_in[60]
+  user_project/gpio_in[25]
  gpio_w\[2\].u/IN_H
-  user_project/gpio_in_h[60]
+  user_project/gpio_in_h[25]
  gpio_w\[2\].u/PAD_A_ESD_0_H
-  user_project/analog_io[60]
+  user_project/analog_io[25]
  gpio_w\[2\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[60]
+  user_project/analog_noesd_io[25]
  gpio_w\[3\].u/IN
-  user_project/gpio_in[59]
+  user_project/gpio_in[24]
  gpio_w\[3\].u/IN_H
-  user_project/gpio_in_h[59]
+  user_project/gpio_in_h[24]
  gpio_w\[3\].u/PAD_A_ESD_0_H
-  user_project/analog_io[59]
+  user_project/analog_io[24]
  gpio_w\[3\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[59]
+  user_project/analog_noesd_io[24]
  gpio_w\[4\].u/IN
-  user_project/gpio_in[58]
+  user_project/gpio_in[23]
  gpio_w\[4\].u/IN_H
-  user_project/gpio_in_h[58]
+  user_project/gpio_in_h[23]
  gpio_w\[4\].u/PAD_A_ESD_0_H
-  user_project/analog_io[58]
+  user_project/analog_io[23]
  gpio_w\[4\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[58]
+  user_project/analog_noesd_io[23]
  gpio_w\[5\].u/IN
-  user_project/gpio_in[57]
+  user_project/gpio_in[22]
  gpio_w\[5\].u/IN_H
-  user_project/gpio_in_h[57]
+  user_project/gpio_in_h[22]
  gpio_w\[5\].u/PAD_A_ESD_0_H
-  user_project/analog_io[57]
+  user_project/analog_io[22]
  gpio_w\[5\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[57]
+  user_project/analog_noesd_io[22]
  gpio_w\[6\].u/IN
-  user_project/gpio_in[56]
+  user_project/gpio_in[21]
  gpio_w\[6\].u/IN_H
-  user_project/gpio_in_h[56]
+  user_project/gpio_in_h[21]
  gpio_w\[6\].u/PAD_A_ESD_0_H
-  user_project/analog_io[56]
+  user_project/analog_io[21]
  gpio_w\[6\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[56]
+  user_project/analog_noesd_io[21]
  gpio_w\[7\].u/IN
-  user_project/gpio_in[55]
+  user_project/gpio_in[20]
  gpio_w\[7\].u/IN_H
-  user_project/gpio_in_h[55]
+  user_project/gpio_in_h[20]
  gpio_w\[7\].u/PAD_A_ESD_0_H
-  user_project/analog_io[55]
+  user_project/analog_io[20]
  gpio_w\[7\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[55]
+  user_project/analog_noesd_io[20]
  gpio_w\[8\].u/IN
-  user_project/gpio_in[54]
+  user_project/gpio_in[19]
  gpio_w\[8\].u/IN_H
-  user_project/gpio_in_h[54]
+  user_project/gpio_in_h[19]
  gpio_w\[8\].u/PAD_A_ESD_0_H
-  user_project/analog_io[54]
+  user_project/analog_io[19]
  gpio_w\[8\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[54]
+  user_project/analog_noesd_io[19]
  gpio_w\[9\].u/IN
-  user_project/gpio_in[53]
+  user_project/gpio_in[18]
  gpio_w\[9\].u/IN_H
-  user_project/gpio_in_h[53]
+  user_project/gpio_in_h[18]
  gpio_w\[9\].u/PAD_A_ESD_0_H
-  user_project/analog_io[53]
+  user_project/analog_io[18]
  gpio_w\[9\].u/PAD_A_NOESD_H
-  user_project/analog_noesd_io[53]
+  user_project/analog_noesd_io[18]
 
 ===========================================================================
 max slew violation count 0
