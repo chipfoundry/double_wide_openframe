@@ -39,7 +39,7 @@ CF_PRECHECK ?= ../cf-precheck
 KLAYOUT_PYMOD ?= /usr/lib/klayout/pymod
 export PYTHONPATH := $(abspath $(KLAYOUT_PYMOD)):$(abspath $(CF_PRECHECK)/src):$(PYTHONPATH)
 
-.PHONY: all pads wrapper-empty padframe integrate clean \
+.PHONY: all pads wrapper-empty padframe integrate clean compress uncompress \
         padframe-klayout padframe-openroad enable-pdk \
         publish-golden drc drc-magic drc-klayout lvs-padframe
 
@@ -154,6 +154,23 @@ lvs-padframe:
 		--design-dir $(CURDIR) \
 		--pdk-path $(PDK_ROOT)/$(PDK) \
 		--out $(LVS_OUT)
+
+## Gzip / expand the large views of the project in the CURRENT directory.
+## cf-precheck runs `make -f <this Makefile> uncompress` from the user project
+## before its checks, the same contract as the caravel Makefile. `compress`
+## covers the top-level wrapper GDS and any .mag over COMPRESS_MIN_MB; macro
+## GDS files stay plain because the wrapper's config.json reads them.
+COMPRESS_MIN_MB ?= 10
+WRAPPER_GDS ?= gds/double_wide_openframe_project_wrapper.gds
+compress:
+	@for f in $(WRAPPER_GDS) $$(find mag -maxdepth 1 -type f -name '*.mag' -size +$(COMPRESS_MIN_MB)M 2>/dev/null); do \
+		if [ -f "$$f" ]; then gzip -n -9 -k -f "$$f" && echo "$$f -> $$f.gz"; fi; \
+	done
+
+uncompress:
+	@for f in $$(find gds mag -maxdepth 1 -type f -name '*.gz' 2>/dev/null); do \
+		gzip -d -k -f "$$f" && echo "$$f -> $${f%.gz}"; \
+	done
 
 clean:
 	rm -rf build runs
