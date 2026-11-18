@@ -1,7 +1,7 @@
 (DELAYFILE
  (SDFVERSION "3.0")
  (DESIGN "double_wide_chip_io")
- (DATE "Wed Nov 18 13:03:50 2026")
+ (DATE "Wed Nov 18 13:50:44 2026")
  (VENDOR "Parallax")
  (PROGRAM "STA")
  (VERSION "2.7.0")
