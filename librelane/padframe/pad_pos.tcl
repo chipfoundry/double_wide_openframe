@@ -100,3 +100,10 @@ dict set caravel_pad_pos PAD_WEST "\
     4602.967 \
     4810.977 \
 "
+
+# Analog power cuts: row, low coordinate along the edge (um), instance.
+set analog_cuts {
+    {IO_NORTH 1742.000 disconnect_vdda_n}
+    {IO_WEST 831.000 disconnect_vdda_w}
+    {IO_EAST 349.000 disconnect_vdda_e}
+}

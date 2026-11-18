@@ -90,6 +90,15 @@ place_pad -row IO_WEST -location $pad_corner_site_height \
 place_pad -row IO_WEST -location [expr $DIE_HEIGHT - $pad_corner_site_height - 20] \
     {vcchib_vccd_and_vswitch_vddio_slices\[6\].u} -master $slice_master
 
+# Analog power cuts (analog_cuts, from pad_pos.tcl): a disconnect slice ends
+# the VDDA/VSSA rails on either side of it. Placed before the fillers, which
+# then close the gaps around it.
+set cut_master sky130_ef_io__disconnect_vdda_slice_5um
+foreach cut $analog_cuts {
+    lassign $cut cut_row cut_location cut_inst
+    place_pad -row $cut_row -location $cut_location $cut_inst -master $cut_master
+}
+
 puts "\[INFO\] Placing corner cells..."
 place_corners $::env(PAD_CORNER)
 

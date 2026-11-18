@@ -16,7 +16,7 @@ block into the frame. There is no management processor — every pad is yours.
 | **GPIOs** | **63** configurable I/O (`gpio[62:0]`) |
 | **Dedicated reset pad** | 1 — external `resetb`, 3.3 V, level-shifted to 1.8 V |
 | **Power-on reset (POR)** | On-chip, delivered to your design (`porb_h`, `porb_l`, `por_l`) |
-| **Power / analog domains** | Multi-domain: `user0`, `user1`, `user2` + shared IO/analog rails |
+| **Power / analog domains** | Multi-domain: `user0`, `user1`, `user2`, each with its own analog rails, + shared IO rails |
 | **Process** | SkyWater sky130A (open PDK) |
 | **I/O cells** | `sky130_ef_io` GPIOv2 (digital + analog capable, built-in ESD) |
 | **Management SoC** | None — full pad control exposed to the user area |
@@ -58,9 +58,14 @@ any domain, but **digital standard-cell logic should connect to `vccd1` /
 | Domain | GPIO sides | Core / analog rails |
 |--------|------------|----------------------|
 | **user0** | South (49–62) | `vccd1` / `vssd1`, `vdda` / `vssa` |
-| **user1** | East (0–14), North (15–34) | `vccd1` / `vssd1`, `vdda1` / `vssa1` |
-| **user2** | West (35–48) | `vccd2` / `vssd2`, `vdda2` / `vssa2` |
-| Shared ring | all | `vddio` / `vssio` (3.3 V I/O), `vccd` / `vssd`, `vdda` / `vssa` |
+| **user1** | East (0–14), North (15–29) | `vccd1` / `vssd1`, `vdda1` / `vssa1` |
+| **user2** | North (30–34), West (35–48) | `vccd2` / `vssd2`, `vdda2` / `vssa2` |
+| Shared ring | all | `vddio` / `vssio` (3.3 V I/O), `vccd` / `vssd` |
+
+The analog rails are not shared. Three disconnect cells cut the pad ring's
+`VDDA` / `VSSA` into the three segments above, so each domain's analog supply is
+isolated from the other two and is fed only by its own `vdda<n>` / `vssa<n>`
+pads. The five north pads left of the cut (GPIO 30–34) are in user2.
 
 Power is delivered through **24 clamped power bond pads** (per-net counts in
 [pinout.md](pinout.md)). Bring your own in-area power distribution (PDN) when you

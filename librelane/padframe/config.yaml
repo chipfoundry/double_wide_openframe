@@ -69,7 +69,7 @@ meta:
     # routing access point (DRT-0419 -> crash), and the xres tie/loopback nets
     # are pad-local, so Padframe.ResetSpecialNets marks them SPECIAL; DRT leaves
     # them alone. The POR outputs reach the wrapper through the simple_por GDS
-    # collar.
+    # collar; the xres nets are drawn by Padframe.XresLoops.
     -OpenROAD.GlobalRouting: Padframe.ResetSpecialNets
     # porb_h drives ENABLE_H / ENABLE_VDDA_H on every GPIO pad and ENABLE_H on
     # the reset pad, as in the openframe. Like the openframe, that fan-out is
@@ -78,6 +78,19 @@ meta:
     # the simple_por porb_h collar. Drawn before global routing so GRT and DRT
     # both see it as fixed metal.
     +Padframe.ResetSpecialNets: Padframe.PorbRing
+    # The reset pad's tie-off and loopback nets (xres_vss_loop, xresloop,
+    # xres_loopback_one) never leave the pad's core edge and get no router
+    # access. The openframe draws them by hand; Padframe.XresLoops places the
+    # same wiring relative to the pad.
+    +Padframe.PorbRing: Padframe.XresLoops
+    # Each clamped3 pad's middle core stub is the other rail of its clamp and
+    # goes nowhere on its own. Padframe.ClampLinks joins the vccd<n> and
+    # vssd<n> pads of a domain with two met5 straps in the pad-ring gap.
+    +Padframe.XresLoops: Padframe.ClampLinks
+    # user_id_programming sits in the pad ring with no power grid around it.
+    # Padframe.UserIdPower draws the openframe's hookup from its met5 rails to
+    # the ring's own vccd / vssd rails, so mask_rev is driven.
+    +Padframe.ClampLinks: Padframe.UserIdPower
     +OpenROAD.GlobalRouting: Odb.InsertECODiodes
     # Power nets are SPECIAL (VDD_NETS/GND_NETS) so DRT will not bridge clamp
     # met3 stubs to the wrapper. Draw wide special met3 straps from each clamp
@@ -127,6 +140,11 @@ PAD_CFG: dir::pad_cfg.tcl
 # sky130_fd_io.lef (sky130_fd_io__top_xres4v2).
 EXTRA_LEFS:
 - pdk_dir::libs.ref/sky130_fd_io/lef/sky130_fd_io.lef
+
+# PDK PAD_GDS has the pads and the two connect slices but not the disconnect
+# slice that cuts the analog rails; without it the cell is streamed out empty.
+EXTRA_GDS:
+- pdk_dir::libs.ref/sky130_fd_io/gds/sky130_ef_io__disconnect_vdda_slice_5um.gds
 
 # Macro-only padframe (no std-cell rows); keep SCL global-connects off.
 PDN_ENABLE_GLOBAL_CONNECTIONS: false
@@ -193,11 +211,11 @@ PAD_EAST: [
   "gpio_e\\[14\\].u"
 ]
 PAD_NORTH: [
-  "gpio_n\\[19\\].u",
-  "gpio_n\\[18\\].u",
-  "gpio_n\\[17\\].u",
-  "gpio_n\\[16\\].u",
-  "gpio_n\\[15\\].u",
+  "gpio_n_user2\\[4\\].u",
+  "gpio_n_user2\\[3\\].u",
+  "gpio_n_user2\\[2\\].u",
+  "gpio_n_user2\\[1\\].u",
+  "gpio_n_user2\\[0\\].u",
   "clamp_vssio_0",
   "gpio_n\\[14\\].u",
   "gpio_n\\[13\\].u",
@@ -2367,19 +2385,19 @@ MACROS:
       gpio_n[14].const_val:
         location: [1893.375, 4976.760]
         orientation: N
-      gpio_n[15].const_val:
+      gpio_n_user2[0].const_val:
         location: [1371.375, 4976.760]
         orientation: N
-      gpio_n[16].const_val:
+      gpio_n_user2[1].const_val:
         location: [1115.375, 4976.760]
         orientation: N
-      gpio_n[17].const_val:
+      gpio_n_user2[2].const_val:
         location: [859.375, 4976.760]
         orientation: N
-      gpio_n[18].const_val:
+      gpio_n_user2[3].const_val:
         location: [603.375, 4976.760]
         orientation: N
-      gpio_n[19].const_val:
+      gpio_n_user2[4].const_val:
         location: [347.375, 4976.760]
         orientation: N
       gpio_s[0].const_val:

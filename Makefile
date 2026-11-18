@@ -42,7 +42,8 @@ export PYTHONPATH := $(abspath $(KLAYOUT_PYMOD)):$(abspath $(CF_PRECHECK)/src):$
 .PHONY: all pads wrapper-empty padframe integrate clean compress uncompress \
         padframe-klayout padframe-openroad enable-pdk \
         publish-golden drc drc-magic drc-klayout lvs-padframe \
-        check-pad-enables check-porb-net sim-power-up
+        check-pad-enables check-porb-net sim-power-up \
+        check-xres-loops check-analog-domains check-clamp-links
 
 all: pads wrapper-empty padframe publish-golden
 
@@ -179,6 +180,29 @@ check-porb-net:
 
 sim-power-up:
 	$(MAKE) -C verilog/dv/pad_power_up PDK_ROOT=$(PDK_ROOT) PDK=$(PDK)
+
+## GDS-level net checks (scripts/check_gds_nets.py): every pin of each named net
+## is on one net in the streamed GDS, and the named nets are not shorted to each
+## other.
+##  check-xres-loops      the reset pad's hand-drawn tie-off / loopback wiring
+##  check-analog-domains  the three VDDA/VSSA ring segments cut by the
+##                        disconnect slices
+##  check-clamp-links     each user domain's vccd / vssd clamp pads, joined in met5
+define gds_net_check
+	openroad -python -exit scripts/net_probe_points.py \
+		def/double_wide_chip_io.def build/$(1)_probes.json $(2)
+	klayout -b -r scripts/check_gds_nets.py \
+		-rd gds=$(abspath $(PADFRAME_GDS)) -rd probes=$(abspath build/$(1)_probes.json)
+endef
+
+check-xres-loops:
+	$(call gds_net_check,xres,xres_vss_loop xresloop xres_loopback_one)
+
+check-analog-domains:
+	$(call gds_net_check,analog,vdda vdda1 vdda2 vssa vssa1 vssa2)
+
+check-clamp-links:
+	$(call gds_net_check,clamp,vccd vccd1 vccd2 vssd vssd1 vssd2)
 
 ## Gzip / expand the large views of the project in the CURRENT directory.
 ## cf-precheck runs `make -f <this Makefile> uncompress` from the user project

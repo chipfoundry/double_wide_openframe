@@ -47,11 +47,11 @@ PAD_EAST: [
     "gpio_e\\[14\\].u"
 ]
 PAD_NORTH: [
-    "gpio_n\\[19\\].u",
-    "gpio_n\\[18\\].u",
-    "gpio_n\\[17\\].u",
-    "gpio_n\\[16\\].u",
-    "gpio_n\\[15\\].u",
+    "gpio_n_user2\\[4\\].u",
+    "gpio_n_user2\\[3\\].u",
+    "gpio_n_user2\\[2\\].u",
+    "gpio_n_user2\\[1\\].u",
+    "gpio_n_user2\\[0\\].u",
     "clamp_vssio_0",
     "gpio_n\\[14\\].u",
     "gpio_n\\[13\\].u",

@@ -9,9 +9,8 @@
 # reaches the pad enables through Padframe.PorbRing. resetb_h / resetb_l get
 # access points and are routed normally by TritonRoute, so they are NOT listed.
 #
-# KNOWN GAP: the three xres* nets below are SPECIAL but nothing draws them, so in
-# the GDS they are open (the reset pad's TIE_LO_ESD, TIE_WEAK_HI_H and
-# ENABLE_VDDIO loops float). The openframe hand-draws them in met1.
+# The three xres* nets below are drawn by Padframe.XresLoops, the way the
+# openframe hand-draws them.
 from reader import click_odb, click
 
 SPECIAL_NETS = [
@@ -22,7 +21,7 @@ SPECIAL_NETS = [
     "porb_l",
     # xres-pad-internal tie / loopback nets (master_resetb_pad ESD/tie pins and
     # the xres constant_block .one), clustered in the tight south ring with no
-    # DRT access. Nothing abuts or draws them: see KNOWN GAP above.
+    # DRT access. Drawn by Padframe.XresLoops.
     "xresloop",
     "xres_vss_loop",
     "xres_loopback_one",

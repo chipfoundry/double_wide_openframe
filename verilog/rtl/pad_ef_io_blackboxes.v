@@ -94,6 +94,19 @@ module sky130_ef_io__corner_pad (AMUXBUS_A, AMUXBUS_B, VSSA, VDDA, VSWITCH, VDDI
   inout VSSIO_Q;
 endmodule
 
+module sky130_ef_io__disconnect_vdda_slice_5um (AMUXBUS_A, AMUXBUS_B, VSWITCH, VDDIO_Q, VCCHIB, VDDIO, VCCD, VSSIO, VSSD, VSSIO_Q);
+  inout AMUXBUS_A;
+  inout AMUXBUS_B;
+  inout VSWITCH;
+  inout VDDIO_Q;
+  inout VCCHIB;
+  inout VDDIO;
+  inout VCCD;
+  inout VSSIO;
+  inout VSSD;
+  inout VSSIO_Q;
+endmodule
+
 module sky130_ef_io__gpiov2_pad (IN_H, PAD_A_NOESD_H, PAD_A_ESD_0_H, PAD_A_ESD_1_H, PAD, DM, HLD_H_N, IN, INP_DIS, IB_MODE_SEL, ENABLE_H, ENABLE_VDDA_H, ENABLE_INP_H, OE_N, TIE_HI_ESD, TIE_LO_ESD, SLOW, VTRIP_SEL, HLD_OVR, ANALOG_EN, ANALOG_SEL, ENABLE_VDDIO, ENABLE_VSWITCH_H, ANALOG_POL, OUT, AMUXBUS_A, AMUXBUS_B, VSSA, VDDA, VSWITCH, VDDIO_Q, VCCHIB, VDDIO, VCCD, VSSIO, VSSD, VSSIO_Q);
   inout IN_H;
   inout PAD_A_NOESD_H;

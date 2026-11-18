@@ -317,9 +317,39 @@ def classify(uses):
 # --------------------------------------------------------------------------- #
 # Inventory model
 # --------------------------------------------------------------------------- #
-GPIO_DOMAIN_BY_SIDE = {"W": "user2", "E": "user1", "N": "user1", "S": "user0"}
 # analog rail suffix per domain
 DOM_SUF = {"user0": "", "user1": "1", "user2": "2"}
+
+# Analog power cuts. The pad ring's VDDA/VSSA rails are split into three
+# segments by sky130_ef_io__disconnect_vdda_slice_5um cells, which carry every
+# ring rail except VDDA and VSSA (as the three in chip_io_openframe.mag do).
+# Each entry is the cell's low coordinate along its edge and the domain on
+# either side of it. Positions are D. Mitch Bailey's (lvs-fix-2612):
+#   south segment (west below the cut, south, east below the cut)  vdda /vssa
+#   east above the cut and north right of the cut                  vdda1/vssa1
+#   north left of the cut and west above the cut                   vdda2/vssa2
+DISCONNECT_MASTER = "sky130_ef_io__disconnect_vdda_slice_5um"
+DISCONNECT_W_UM = 5.0
+ANALOG_CUTS = {
+    # side: (low coord um, domain below, domain above, instance)
+    "N": (1742.0, "user2", "user1", "disconnect_vdda_n"),
+    "W": (831.0, "user0", "user2", "disconnect_vdda_w"),
+    "E": (349.0, "user0", "user1", "disconnect_vdda_e"),
+}
+
+
+def ring_domain(side, lo, hi=None):
+    """Analog domain of the ring segment a cell spanning [lo, hi] sits in."""
+    if side not in ANALOG_CUTS:
+        return "user0"
+    hi = lo if hi is None else hi
+    cut, below, above, _ = ANALOG_CUTS[side]
+    if hi <= cut:
+        return below
+    if lo >= cut + DISCONNECT_W_UM:
+        return above
+    raise RuntimeError(
+        f"{side} cell at {lo:.3f}..{hi:.3f} overlaps the analog cut at {cut:.3f}")
 
 
 def clamp_info(u):
@@ -383,7 +413,7 @@ def build_inventory(uses):
 
     for u in gpio:
         axis = u.cx if u.side in "NS" else u.cy
-        sig_by_side[u.side].append(Signal(u.side, GPIO_DOMAIN_BY_SIDE[u.side], axis))
+        sig_by_side[u.side].append(Signal(u.side, None, axis))
     for u in clamps:
         axis = u.cx if u.side in "NS" else u.cy
         clp_by_side[u.side].append(Clamp(u.side, axis, clamp_info(u)))
@@ -447,9 +477,9 @@ def build_inventory(uses):
     # North: after left-half gpio @ 3169.977, pitch 257 -> 3426.977, 3683.977
     # South: after left-half clamp_vdda @ 3151.500, pitch 274 -> 3425.500, 3699.500
     for coord in (3426.977, 3683.977):
-        sig_by_side["N"].append(Signal("N", GPIO_DOMAIN_BY_SIDE["N"], coord))
+        sig_by_side["N"].append(Signal("N", None, coord))
     for coord in (3425.500, 3699.500):
-        sig_by_side["S"].append(Signal("S", GPIO_DOMAIN_BY_SIDE["S"], coord))
+        sig_by_side["S"].append(Signal("S", None, coord))
     sig_by_side["N"].sort(key=lambda o: o.coord)
     sig_by_side["S"].sort(key=lambda o: o.coord)
 
@@ -470,12 +500,17 @@ def build_inventory(uses):
     # walk order so the generate loops' `base + i` follows it.
     for s in "NW":
         sig_by_side[s].reverse()
+    # Each pad's analog domain is the ring segment it sits in (ANALOG_CUTS).
+    for s in "ENWS":
+        for o in sig_by_side[s]:
+            o.domain = ring_domain(s, o.coord)
     g = 0
     for s in "ENWS":
-        for i, o in enumerate(sig_by_side[s]):
-            o.g = g
-            o.inst = f"gpio_{s.lower()}[{i}].u"
-            g += 1
+        for label, run in signal_runs(s, sig_by_side[s]):
+            for i, o in enumerate(run):
+                o.g = g
+                o.inst = f"{label}[{i}].u"
+                g += 1
     n_gpio = g
     pad0 = next(o for s in "ENWS" for o in sig_by_side[s] if o.g == 0)
     east_bottom = min(sig_by_side["E"], key=lambda o: o.coord)
@@ -490,6 +525,17 @@ def build_inventory(uses):
         if got != want:
             raise RuntimeError(f"{s} GPIO indices {got} are not the walk {want}")
         expect += len(got)
+
+    # ---- clamp ring segments --------------------------------------------- #
+    # An analog clamp bonds its pad straight onto the VDDA/VSSA rail it abuts,
+    # so it must sit in the segment of its own domain.
+    for s in "WENS":
+        for c in clp_by_side[s]:
+            c.ring = ring_domain(s, c.coord)
+            if c.base in ("vdda", "vssa") and c.ring != c.domain:
+                raise RuntimeError(
+                    f"{c.pkg} clamp on {s} @ {c.coord:.3f} is in the "
+                    f"{c.ring} analog segment")
 
     # ---- assign clamp package-net vector indices ------------------------- #
     pkg_counts = {}
@@ -513,41 +559,56 @@ def build_inventory(uses):
 # RTL emission helpers
 # --------------------------------------------------------------------------- #
 def abut(domain):
-    """Inline gpiov2/clamp/corner abutment power pins.
+    """Inline gpiov2/clamp/xres abutment power pins.
 
-    The analog rails (VSSA/VDDA), like the rest of the sky130 IO ring
-    (AMUXBUS/VDDIO_Q/VSSIO_Q/VCCHIB/VSWITCH/VDDIO/VCCD/VSSIO/VSSD), run
-    continuously through every pad, corner and filler cell. They therefore
-    form a single ring net each and are wired to the global vssa/vdda nodes.
-    The per-domain analog grounds (vssa1/vssa2/vdda1/vdda2) are simply extra
-    bond pads onto this same ring, and the isolated multi-domain power that the
-    openframe preserves is the *core* power (vccd/vssd/vccd1/... ), which is not
-    on the abutment ring but carried by the clamped3 cells and the user wrapper.
-    The `domain` argument is retained for call-site clarity but no longer alters
-    the ring nets (doing so made connect_by_abutment reject the domain seams).
+    AMUXBUS/VDDIO_Q/VSSIO_Q/VCCHIB/VSWITCH/VDDIO/VCCD/VSSIO/VSSD run through
+    every pad, corner and filler cell, so each is one ring net. The analog
+    rails are not: VDDA and VSSA are cut into three segments by the disconnect
+    slices (ANALOG_CUTS), and `domain` is the segment the pad sits in. Each
+    segment is the net its own analog clamps bond to: vdda/vssa, vdda1/vssa1,
+    vdda2/vssa2. This is chip_io_openframe.v's MGMT/USER1/USER2_ABUTMENT_PINS.
     """
-    del domain
+    suf = DOM_SUF[domain]
     return (
         "        .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),\n"
         "`ifdef USE_POWER_PINS\n"
-        "        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),\n"
+        f"        .VSSA(vssa{suf}), .VDDA(vdda{suf}), .VSWITCH(vddio), .VDDIO_Q(vddio_q),\n"
         "        .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),\n"
         "        .VSSD(vssd), .VSSIO_Q(vssio_q),\n"
         "`endif\n"
     )
 
 
-def emit_signal_loop(side, sigs):
-    """Emit one generate loop of gpiov2 pass-through pads for a side."""
+def signal_runs(side, sigs):
+    """Split a side's pads (walk order) into runs sharing an analog domain.
+
+    Returns [(generate label, [Signal, ...]), ...]. A side with one domain keeps
+    the plain `gpio_<side>` label; on a side an analog cut crosses, the run in
+    the side's own domain keeps it and the other is `gpio_<side>_<domain>`.
+    """
+    runs = []
+    for o in sigs:
+        if runs and runs[-1][0].domain == o.domain:
+            runs[-1].append(o)
+        else:
+            runs.append([o])
+    sl = side.lower()
+    if len(runs) <= 1:
+        return [(f"gpio_{sl}", r) for r in runs]
+    return [(f"gpio_{sl}" if n == 0 else f"gpio_{sl}_{r[0].domain}", r)
+            for n, r in enumerate(runs)]
+
+
+def emit_signal_loop(side, sigs, label):
+    """Emit one generate loop of gpiov2 pass-through pads (one analog domain)."""
     if not sigs:
         return ""
     dom = sigs[0].domain
     n = len(sigs)
     base = sigs[0].g
-    sl = side.lower()
     return f"""
     // ---- {side} side signal pads ({n}) : domain {dom} ----
-    generate for (genvar i = 0; i < {n}; i = i + 1) begin : gpio_{sl}
+    generate for (genvar i = 0; i < {n}; i = i + 1) begin : {label}
         wire tie_hi, tie_lo;
         // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
         // pad ENABLE_VDDIO; both are exported to the user wrapper for loopback.
@@ -623,20 +684,92 @@ def emit_clamp(c):
                      f"        .VCCD1(vccd{DOM_SUF[d]}), .VSSD1(vssd{DOM_SUF[d]}),\n"
                      f"`endif\n")
         padport_line = f"        .{fn}({c.pkg}_pad[{c.k}])\n"
-    # The analog ESD/ground abutment rail (VSSA/VDDA) is continuous within a
-    # side, so its domain must follow the pad's physical side, not the clamp's
-    # instance name. Domain-agnostic clamps (vssio/vddio) would otherwise inject
-    # an isolated foreign-domain net between same-domain neighbours, which the
-    # padring's connect_by_abutment rejects.
+    # The analog abutment rails (VSSA/VDDA) follow the ring segment the clamp
+    # sits in (c.ring), not the clamp's own supply: a vssio or vccd2 clamp just
+    # passes its neighbours' analog rails through.
     return f"""
     sky130_ef_io__{c.master.split('__')[1]} {c.inst} (
-{abut(GPIO_DOMAIN_BY_SIDE[c.side])}\
+{abut(c.ring)}\
 {extra}\
 `ifndef TOP_ROUTING
 {padport_line}\
 `endif
     );
 """
+
+
+# Ring segment of each power-domain bridge slice, by its pad_cfg.tcl position:
+# [0] south, west end   [1] south, east end   [2] east, south end
+# [3] east, north end   [4] north, east end   [5] north, west end
+# [6] west, north end   [7] west, south end
+BRIDGE_SLICE_DOMAIN = ["user0", "user0", "user0", "user1",
+                       "user1", "user2", "user2", "user0"]
+
+
+def emit_bridge_slices():
+    """Power-domain bridge slices (VCCHIB<->VCCD, VSWITCH<->VDDIO), 2 per side.
+
+    Each passes its ring segment's VDDA/VSSA through, so the eight differ in
+    those two pins. They are written out one by one under the names a generate
+    loop would give them, which pad_cfg.tcl and earlier netlists use. The full
+    LEF pin list is wired (not the 4-pin sky130_ef_io.v stub) so LibreLane and
+    netgen agree with Magic's abstract extract of the LEF view.
+    """
+    out = ["""
+    // ---- power-domain bridge slices ----
+    // The sky130_ef_io.v functional model of this slice only has the 4 bridged
+    // rail pins (already tied together here), so it is omitted in simulation.
+`ifndef FUNCTIONAL"""]
+    for i, dom in enumerate(BRIDGE_SLICE_DOMAIN):
+        suf = DOM_SUF[dom]
+        out.append(f"""    (* keep *)
+    {SLICE_MASTER} \\vcchib_vccd_and_vswitch_vddio_slices[{i}].u  (
+        .AMUXBUS_A(analog_a),
+        .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+        .VSSA(vssa{suf}),
+        .VDDA(vdda{suf}),
+        .VSWITCH(vddio),
+        .VDDIO_Q(vddio_q),
+        .VCCHIB(vccd),
+        .VDDIO(vddio),
+        .VCCD(vccd),
+        .VSSIO(vssio),
+        .VSSD(vssd),
+        .VSSIO_Q(vssio_q)
+`endif
+    );""")
+    out.append("`endif\n")
+    return "\n".join(out)
+
+
+def emit_analog_cuts():
+    """The three disconnect slices that end the VDDA/VSSA segments."""
+    out = ["""
+    // ---- analog power cuts ----
+    // Each carries every ring rail except VDDA and VSSA, so it separates
+    // vdda/vdda1/vdda2 and vssa/vssa1/vssa2 (see ANALOG_CUTS in
+    // scripts/extract_openframe_pads.py). The PDK has no verilog model of it.
+`ifndef FUNCTIONAL"""]
+    for side in "NWE":
+        inst = ANALOG_CUTS[side][3]
+        out.append(f"""    (* keep *)
+    {DISCONNECT_MASTER} {inst} (
+        .AMUXBUS_A(analog_a),
+        .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+        .VSWITCH(vddio),
+        .VDDIO_Q(vddio_q),
+        .VCCHIB(vccd),
+        .VDDIO(vddio),
+        .VCCD(vccd),
+        .VSSIO(vssio),
+        .VSSD(vssd),
+        .VSSIO_Q(vssio_q)
+`endif
+    );""")
+    out.append("`endif\n")
+    return "\n".join(out)
 
 
 def emit_corner(idx):
@@ -796,7 +929,8 @@ def gen_padframe_rtl(inv):
 
     # signal pad loops
     for s in "WENS":
-        body.append(emit_signal_loop(s, inv["sig"][s]))
+        for label, run in signal_runs(s, inv["sig"][s]):
+            body.append(emit_signal_loop(s, run, label))
 
     # clamp pads
     body.append("    // ---- power clamp pads (preserved multi-domain) ----")
@@ -814,32 +948,8 @@ def gen_padframe_rtl(inv):
     # power-domain bridge slices (VCCHIB<->VCCD, VSWITCH<->VDDIO), 2 per side.
     # Wire the full LEF pin list (not the 4-pin sky130_ef_io.v stub) so LibreLane
     # / netgen agree with Magic abstract extract of the LEF view.
-    body.append("""
-    // ---- power-domain bridge slices ----
-    // The sky130_ef_io.v functional model of this slice only has the 4 bridged
-    // rail pins (already tied together here), so it is omitted in simulation.
-`ifndef FUNCTIONAL
-    generate for (genvar i = 0; i < 8; i = i + 1) begin : vcchib_vccd_and_vswitch_vddio_slices
-        (* keep *)
-        sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um u (
-            .AMUXBUS_A(analog_a),
-            .AMUXBUS_B(analog_b),
-`ifdef USE_POWER_PINS
-            .VSSA(vssa),
-            .VDDA(vdda),
-            .VSWITCH(vddio),
-            .VDDIO_Q(vddio_q),
-            .VCCHIB(vccd),
-            .VDDIO(vddio),
-            .VCCD(vccd),
-            .VSSIO(vssio),
-            .VSSD(vssd),
-            .VSSIO_Q(vssio_q)
-`endif
-        );
-    end endgenerate
-`endif
-""")
+    body.append(emit_bridge_slices())
+    body.append(emit_analog_cuts())
 
     # user-area wrapper instance
     conn = []
@@ -853,11 +963,10 @@ def gen_padframe_rtl(inv):
     # netlist). Wiring e.g. pin `vdda1` to net `vdda` makes 0 connections -> error.
     #
     # The multi-domain *core* supplies (vccd/vccd1/vccd2, vssd/vssd1/vssd2) are
-    # genuinely isolated and sourced by the clamped3 pads. The per-domain analog
-    # rails (vdda1/vdda2/vssa1/vssa2) are their own nets here; the sky130 corner
-    # cell bridges VSSA/VDDA across sides, so the *abutment* ESD ring is a single
-    # vdda/vssa net (see abut()), and these per-domain analog pins terminate on
-    # the user wrapper (their PDN ring is built from PDN_MACRO_CONNECTIONS).
+    # genuinely isolated and sourced by the clamped3 pads. The analog supplies
+    # (vdda/vdda1/vdda2, vssa/vssa1/vssa2) are isolated too: each is one segment
+    # of the pad ring's VDDA/VSSA rails between two disconnect slices (see
+    # abut() and ANALOG_CUTS), fed by its own analog clamps.
     conn.append("        .vdda(vdda), .vssa(vssa),")
     conn.append("        .vdda1(vdda1), .vssa1(vssa1), .vccd1(vccd1), .vssd1(vssd1),")
     conn.append("        .vdda2(vdda2), .vssa2(vssa2), .vccd2(vccd2), .vssd2(vssd2),")
@@ -976,6 +1085,7 @@ def gen_wrapper_rtl(inv, empty=True):
 # LibreLane pad tables
 # --------------------------------------------------------------------------- #
 SIDE_NAME = {"S": "PAD_SOUTH", "E": "PAD_EAST", "N": "PAD_NORTH", "W": "PAD_WEST"}
+ROW_NAME = {"S": "IO_SOUTH", "E": "IO_EAST", "N": "IO_NORTH", "W": "IO_WEST"}
 
 
 def side_ordered(inv, s):
@@ -1007,6 +1117,13 @@ def gen_pad_pos_tcl(inv):
             lines.append(f"    {c} \\")
         lines.append("\"")
         lines.append("")
+    lines.append("# Analog power cuts: row, low coordinate along the edge (um), instance.")
+    lines.append("set analog_cuts {")
+    for s in "NWE":
+        cut, _, _, inst = ANALOG_CUTS[s]
+        lines.append(f"    {{{ROW_NAME[s]} {cut:.3f} {inst}}}")
+    lines.append("}")
+    lines.append("")
     return "\n".join(lines)
 
 
@@ -1169,6 +1286,11 @@ def _parse_ef_io_module_port_widths(ef_io_v, module_name):
 # LEF pin order for cells whose sky130_ef_io.v stub is incomplete (connect has
 # only 4 ports in verilog but 12 in LEF). Prefer LEF so PnR + abstract LVS match.
 _LEF_PIN_OVERRIDES = {
+    # No VDDA/VSSA: this is the cell that cuts them. Not in sky130_ef_io.v.
+    DISCONNECT_MASTER: [
+        "AMUXBUS_A", "AMUXBUS_B", "VSWITCH", "VDDIO_Q",
+        "VCCHIB", "VDDIO", "VCCD", "VSSIO", "VSSD", "VSSIO_Q",
+    ],
     "sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um": [
         "AMUXBUS_A", "AMUXBUS_B", "VSSA", "VDDA", "VSWITCH", "VDDIO_Q",
         "VCCHIB", "VDDIO", "VCCD", "VSSIO", "VSSD", "VSSIO_Q",
@@ -1630,7 +1752,7 @@ meta:
     # routing access point (DRT-0419 -> crash), and the xres tie/loopback nets
     # are pad-local, so Padframe.ResetSpecialNets marks them SPECIAL; DRT leaves
     # them alone. The POR outputs reach the wrapper through the simple_por GDS
-    # collar.
+    # collar; the xres nets are drawn by Padframe.XresLoops.
     -OpenROAD.GlobalRouting: Padframe.ResetSpecialNets
     # porb_h drives ENABLE_H / ENABLE_VDDA_H on every GPIO pad and ENABLE_H on
     # the reset pad, as in the openframe. Like the openframe, that fan-out is
@@ -1639,6 +1761,19 @@ meta:
     # the simple_por porb_h collar. Drawn before global routing so GRT and DRT
     # both see it as fixed metal.
     +Padframe.ResetSpecialNets: Padframe.PorbRing
+    # The reset pad's tie-off and loopback nets (xres_vss_loop, xresloop,
+    # xres_loopback_one) never leave the pad's core edge and get no router
+    # access. The openframe draws them by hand; Padframe.XresLoops places the
+    # same wiring relative to the pad.
+    +Padframe.PorbRing: Padframe.XresLoops
+    # Each clamped3 pad's middle core stub is the other rail of its clamp and
+    # goes nowhere on its own. Padframe.ClampLinks joins the vccd<n> and
+    # vssd<n> pads of a domain with two met5 straps in the pad-ring gap.
+    +Padframe.XresLoops: Padframe.ClampLinks
+    # user_id_programming sits in the pad ring with no power grid around it.
+    # Padframe.UserIdPower draws the openframe's hookup from its met5 rails to
+    # the ring's own vccd / vssd rails, so mask_rev is driven.
+    +Padframe.ClampLinks: Padframe.UserIdPower
     +OpenROAD.GlobalRouting: Odb.InsertECODiodes
     # Power nets are SPECIAL (VDD_NETS/GND_NETS) so DRT will not bridge clamp
     # met3 stubs to the wrapper. Draw wide special met3 straps from each clamp
@@ -1683,6 +1818,11 @@ PAD_CFG: dir::pad_cfg.tcl
 # sky130_fd_io.lef (sky130_fd_io__top_xres4v2).
 EXTRA_LEFS:
 - pdk_dir::libs.ref/sky130_fd_io/lef/sky130_fd_io.lef
+
+# PDK PAD_GDS has the pads and the two connect slices but not the disconnect
+# slice that cuts the analog rails; without it the cell is streamed out empty.
+EXTRA_GDS:
+- pdk_dir::libs.ref/sky130_fd_io/gds/sky130_ef_io__disconnect_vdda_slice_5um.gds
 
 # Macro-only padframe (no std-cell rows); keep SCL global-connects off.
 PDN_ENABLE_GLOBAL_CONNECTIONS: false

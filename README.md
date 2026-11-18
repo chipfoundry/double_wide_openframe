@@ -60,10 +60,26 @@ Openframe-style **POR / reset** is retained (`simple_por`, south `xres4v2`,
 the pads stay in their safe state until the POR releases; `porb_h` reaches them
 over a hand-drawn met1 loop around the user area (`Padframe.PorbRing`). The
 other pad controls (`HLD_H_N`, `ENABLE_INP_H`, `ENABLE_VSWITCH_H`) use the pad's
-local `TIE_HI_ESD`/`TIE_LO_ESD`, also as in the openframe. Power is the
-**preserved openframe multi-domain** structure (user0 bottom, user1
-right/top, user2 left), with top/bottom clamps duplicated across the doubled
-width.
+local `TIE_HI_ESD`/`TIE_LO_ESD`, also as in the openframe. The reset pad's own
+tie-off and loopback nets (`xres_vss_loop`, `xresloop`, `xres_loopback_one`) are
+hand-drawn at the pad, again as in the openframe (`Padframe.XresLoops`).
+
+Power is the **preserved openframe multi-domain** structure (user0 bottom,
+user1 right/top, user2 left), with top/bottom clamps duplicated across the
+doubled width. Three `sky130_ef_io__disconnect_vdda_slice_5um` cells cut the pad
+ring's `VDDA`/`VSSA` rails into one segment per domain, so `vdda`/`vssa`,
+`vdda1`/`vssa1` and `vdda2`/`vssa2` are separate nets in the layout as well as in
+the netlist:
+
+| Segment | Extent | Rails |
+|---|---|---|
+| user0 | west below y = 831, south, east below y = 349 | `vdda` / `vssa` |
+| user1 | east above y = 354, north right of x = 1747 | `vdda1` / `vssa1` |
+| user2 | north left of x = 1742, west above y = 836 | `vdda2` / `vssa2` |
+
+Each user domain's `vccd<n>` and `vssd<n>` clamp pads are joined by two met5
+straps in the gap between the pad ring and the user area
+(`Padframe.ClampLinks`), which gives each clamp both of its terminals.
 
 Technical datasheet (catalog): [`docs/`](docs/).
 

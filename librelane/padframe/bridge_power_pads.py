@@ -8,9 +8,13 @@
 #
 # Straps are attributed to the clamp's *package* net (clamp_vdda1_0 -> vdda1)
 # so they land on the matching wrapper edge PORT. For HVC analog clamps the
-# met3 stubs live on the abutment pin (VDDA/VSSA -> global vdda/vssa); the
-# stripe still overlaps that stub metal, intentionally shorting the domain
-# rail to the shared analog ring the same way the clamp does internally.
+# met3 stubs live on the abutment pin (VDDA/VSSA). That pin is the pad ring's
+# analog rail, which the disconnect slices cut into one segment per domain, and
+# an analog clamp always sits in its own domain's segment (the pad generator
+# checks this), so the stub is on the package net too.
+#
+# A clamped3 pad's middle stub, the other rail of its clamp, is not strapped to
+# the wrapper here; Padframe.ClampLinks joins it to the domain's other pad.
 from reader import click_odb, click
 import odb
 import re
