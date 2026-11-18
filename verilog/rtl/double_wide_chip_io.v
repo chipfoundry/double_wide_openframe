@@ -56,6 +56,21 @@ module double_wide_chip_io (
     wire [62:0] gpio_loopback_one;
     wire [62:0] gpio_loopback_zero;
     wire [31:0] mask_rev;
+    // GPIO 0 pad controls. CF_owire_id drives bit 0; the
+    // generate loops below select these only for i == 0.
+    wire gpio_out_owire;
+    wire gpio_oeb_owire;
+    wire gpio_inp_dis_owire;
+    wire gpio_ib_mode_sel_owire;
+    wire gpio_vtrip_sel_owire;
+    wire gpio_slow_sel_owire;
+    wire gpio_holdover_owire;
+    wire gpio_analog_en_owire;
+    wire gpio_analog_sel_owire;
+    wire gpio_analog_pol_owire;
+    wire gpio_dm0_owire;
+    wire gpio_dm1_owire;
+    wire gpio_dm2_owire;
 
 
     // ---- power-on-reset (simple_por; fixed MACROS placement) ----
@@ -208,8 +223,8 @@ module double_wide_chip_io (
 `ifndef TOP_ROUTING
             .PAD(gpio_pad[0 + i]),
 `endif
-            .OUT(gpio_out[0 + i]),
-            .OE_N(gpio_oeb[0 + i]),
+            .OUT((i == 0 ? gpio_out_owire : gpio_out[0 + i])),
+            .OE_N((i == 0 ? gpio_oeb_owire : gpio_oeb[0 + i])),
             .HLD_H_N(tie_hi),
             // ENABLE_H/VDDA_H follow the power-on reset, exactly as in
             // chip_io_openframe.v: the pad is held in its safe state until
@@ -220,15 +235,15 @@ module double_wide_chip_io (
             .ENABLE_VDDA_H(porb_h),
             .ENABLE_VSWITCH_H(tie_lo),
             .ENABLE_VDDIO(gpio_loopback_one[0 + i]),
-            .INP_DIS(gpio_inp_dis[0 + i]),
-            .IB_MODE_SEL(gpio_ib_mode_sel[0 + i]),
-            .VTRIP_SEL(gpio_vtrip_sel[0 + i]),
-            .SLOW(gpio_slow_sel[0 + i]),
-            .HLD_OVR(gpio_holdover[0 + i]),
-            .ANALOG_EN(gpio_analog_en[0 + i]),
-            .ANALOG_SEL(gpio_analog_sel[0 + i]),
-            .ANALOG_POL(gpio_analog_pol[0 + i]),
-            .DM({gpio_dm2[0 + i], gpio_dm1[0 + i], gpio_dm0[0 + i]}),
+            .INP_DIS((i == 0 ? gpio_inp_dis_owire : gpio_inp_dis[0 + i])),
+            .IB_MODE_SEL((i == 0 ? gpio_ib_mode_sel_owire : gpio_ib_mode_sel[0 + i])),
+            .VTRIP_SEL((i == 0 ? gpio_vtrip_sel_owire : gpio_vtrip_sel[0 + i])),
+            .SLOW((i == 0 ? gpio_slow_sel_owire : gpio_slow_sel[0 + i])),
+            .HLD_OVR((i == 0 ? gpio_holdover_owire : gpio_holdover[0 + i])),
+            .ANALOG_EN((i == 0 ? gpio_analog_en_owire : gpio_analog_en[0 + i])),
+            .ANALOG_SEL((i == 0 ? gpio_analog_sel_owire : gpio_analog_sel[0 + i])),
+            .ANALOG_POL((i == 0 ? gpio_analog_pol_owire : gpio_analog_pol[0 + i])),
+            .DM({(i == 0 ? gpio_dm2_owire : gpio_dm2[0 + i]), (i == 0 ? gpio_dm1_owire : gpio_dm1[0 + i]), (i == 0 ? gpio_dm0_owire : gpio_dm0[0 + i])}),
             .PAD_A_NOESD_H(analog_noesd_io[0 + i]),
             .PAD_A_ESD_0_H(analog_io[0 + i]),
             .PAD_A_ESD_1_H(),
@@ -978,6 +993,47 @@ module double_wide_chip_io (
         .mask_rev(mask_rev)
     );
     (* keep *) user_id_textblock user_id_textblock ();
+
+    // GPIO 0 pad controls pass through CF_owire_id. Wrapper pins are
+    // unchanged from the openframe (mask_rev is the only id port).
+    // analog_io[0] and analog_noesd_io[0] stay on the pad. The default
+    // cell shorts each user pin to its pad pin; the tapeout GDS swap
+    // replaces those shorts with the reset mux.
+    (* keep *) CF_owire_id CF_owire_id (
+`ifdef USE_POWER_PINS
+        .VPWR(vccd),
+        .VGND(vssd),
+`endif
+        .chip_reset_n(resetb_l),
+        .mask_rev(mask_rev),
+        .gpio_in_pin(gpio_in[0]),
+        .gpio_out_user(gpio_out[0]),
+        .gpio_out_pin(gpio_out_owire),
+        .gpio_oeb_user(gpio_oeb[0]),
+        .gpio_oeb_pin(gpio_oeb_owire),
+        .gpio_inp_dis_user(gpio_inp_dis[0]),
+        .gpio_inp_dis_pin(gpio_inp_dis_owire),
+        .gpio_ib_mode_sel_user(gpio_ib_mode_sel[0]),
+        .gpio_ib_mode_sel_pin(gpio_ib_mode_sel_owire),
+        .gpio_vtrip_sel_user(gpio_vtrip_sel[0]),
+        .gpio_vtrip_sel_pin(gpio_vtrip_sel_owire),
+        .gpio_slow_sel_user(gpio_slow_sel[0]),
+        .gpio_slow_sel_pin(gpio_slow_sel_owire),
+        .gpio_holdover_user(gpio_holdover[0]),
+        .gpio_holdover_pin(gpio_holdover_owire),
+        .gpio_analog_en_user(gpio_analog_en[0]),
+        .gpio_analog_en_pin(gpio_analog_en_owire),
+        .gpio_analog_sel_user(gpio_analog_sel[0]),
+        .gpio_analog_sel_pin(gpio_analog_sel_owire),
+        .gpio_analog_pol_user(gpio_analog_pol[0]),
+        .gpio_analog_pol_pin(gpio_analog_pol_owire),
+        .gpio_dm0_user(gpio_dm0[0]),
+        .gpio_dm0_pin(gpio_dm0_owire),
+        .gpio_dm1_user(gpio_dm1[0]),
+        .gpio_dm1_pin(gpio_dm1_owire),
+        .gpio_dm2_user(gpio_dm2[0]),
+        .gpio_dm2_pin(gpio_dm2_owire)
+    );
 
 endmodule
 

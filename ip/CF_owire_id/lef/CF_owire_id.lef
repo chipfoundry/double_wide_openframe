@@ -1,0 +1,507 @@
+VERSION 5.7 ;
+  NOWIREEXTENSIONATPIN ON ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+MACRO CF_owire_id
+  CLASS BLOCK ;
+  FOREIGN CF_owire_id ;
+  ORIGIN 0.000 0.000 ;
+  SIZE 155.000 BY 240.000 ;
+  PIN gpio_out_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 8.000 2.000 8.300 ;
+    END
+  END gpio_out_user
+  PIN gpio_out_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 9.500 2.000 9.800 ;
+    END
+  END gpio_out_pin
+  PIN gpio_oeb_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 14.000 2.000 14.300 ;
+    END
+  END gpio_oeb_user
+  PIN gpio_oeb_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 15.500 2.000 15.800 ;
+    END
+  END gpio_oeb_pin
+  PIN gpio_inp_dis_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 20.000 2.000 20.300 ;
+    END
+  END gpio_inp_dis_user
+  PIN gpio_inp_dis_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 21.500 2.000 21.800 ;
+    END
+  END gpio_inp_dis_pin
+  PIN gpio_ib_mode_sel_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 26.000 2.000 26.300 ;
+    END
+  END gpio_ib_mode_sel_user
+  PIN gpio_ib_mode_sel_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 27.500 2.000 27.800 ;
+    END
+  END gpio_ib_mode_sel_pin
+  PIN gpio_vtrip_sel_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 32.000 2.000 32.300 ;
+    END
+  END gpio_vtrip_sel_user
+  PIN gpio_vtrip_sel_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 33.500 2.000 33.800 ;
+    END
+  END gpio_vtrip_sel_pin
+  PIN gpio_slow_sel_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 38.000 2.000 38.300 ;
+    END
+  END gpio_slow_sel_user
+  PIN gpio_slow_sel_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 39.500 2.000 39.800 ;
+    END
+  END gpio_slow_sel_pin
+  PIN gpio_holdover_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 44.000 2.000 44.300 ;
+    END
+  END gpio_holdover_user
+  PIN gpio_holdover_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 45.500 2.000 45.800 ;
+    END
+  END gpio_holdover_pin
+  PIN gpio_analog_en_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 50.000 2.000 50.300 ;
+    END
+  END gpio_analog_en_user
+  PIN gpio_analog_en_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 51.500 2.000 51.800 ;
+    END
+  END gpio_analog_en_pin
+  PIN gpio_analog_sel_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 56.000 2.000 56.300 ;
+    END
+  END gpio_analog_sel_user
+  PIN gpio_analog_sel_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 57.500 2.000 57.800 ;
+    END
+  END gpio_analog_sel_pin
+  PIN gpio_analog_pol_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 62.000 2.000 62.300 ;
+    END
+  END gpio_analog_pol_user
+  PIN gpio_analog_pol_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 63.500 2.000 63.800 ;
+    END
+  END gpio_analog_pol_pin
+  PIN gpio_dm0_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 68.000 2.000 68.300 ;
+    END
+  END gpio_dm0_user
+  PIN gpio_dm0_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 69.500 2.000 69.800 ;
+    END
+  END gpio_dm0_pin
+  PIN gpio_dm1_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 74.000 2.000 74.300 ;
+    END
+  END gpio_dm1_user
+  PIN gpio_dm1_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 75.500 2.000 75.800 ;
+    END
+  END gpio_dm1_pin
+  PIN gpio_dm2_user
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 80.000 2.000 80.300 ;
+    END
+  END gpio_dm2_user
+  PIN gpio_dm2_pin
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 81.500 2.000 81.800 ;
+    END
+  END gpio_dm2_pin
+  PIN chip_reset_n
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 90.000 2.000 90.300 ;
+    END
+  END chip_reset_n
+  PIN gpio_in_pin
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 94.000 2.000 94.300 ;
+    END
+  END gpio_in_pin
+  PIN mask_rev[0]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 98.000 2.000 98.300 ;
+    END
+  END mask_rev[0]
+  PIN mask_rev[1]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 102.000 2.000 102.300 ;
+    END
+  END mask_rev[1]
+  PIN mask_rev[2]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 106.000 2.000 106.300 ;
+    END
+  END mask_rev[2]
+  PIN mask_rev[3]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 110.000 2.000 110.300 ;
+    END
+  END mask_rev[3]
+  PIN mask_rev[4]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 114.000 2.000 114.300 ;
+    END
+  END mask_rev[4]
+  PIN mask_rev[5]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 118.000 2.000 118.300 ;
+    END
+  END mask_rev[5]
+  PIN mask_rev[6]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 122.000 2.000 122.300 ;
+    END
+  END mask_rev[6]
+  PIN mask_rev[7]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 126.000 2.000 126.300 ;
+    END
+  END mask_rev[7]
+  PIN mask_rev[8]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 130.000 2.000 130.300 ;
+    END
+  END mask_rev[8]
+  PIN mask_rev[9]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 134.000 2.000 134.300 ;
+    END
+  END mask_rev[9]
+  PIN mask_rev[10]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 138.000 2.000 138.300 ;
+    END
+  END mask_rev[10]
+  PIN mask_rev[11]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 142.000 2.000 142.300 ;
+    END
+  END mask_rev[11]
+  PIN mask_rev[12]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 146.000 2.000 146.300 ;
+    END
+  END mask_rev[12]
+  PIN mask_rev[13]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 150.000 2.000 150.300 ;
+    END
+  END mask_rev[13]
+  PIN mask_rev[14]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 154.000 2.000 154.300 ;
+    END
+  END mask_rev[14]
+  PIN mask_rev[15]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 158.000 2.000 158.300 ;
+    END
+  END mask_rev[15]
+  PIN mask_rev[16]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 162.000 2.000 162.300 ;
+    END
+  END mask_rev[16]
+  PIN mask_rev[17]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 166.000 2.000 166.300 ;
+    END
+  END mask_rev[17]
+  PIN mask_rev[18]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 170.000 2.000 170.300 ;
+    END
+  END mask_rev[18]
+  PIN mask_rev[19]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 174.000 2.000 174.300 ;
+    END
+  END mask_rev[19]
+  PIN mask_rev[20]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 178.000 2.000 178.300 ;
+    END
+  END mask_rev[20]
+  PIN mask_rev[21]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 182.000 2.000 182.300 ;
+    END
+  END mask_rev[21]
+  PIN mask_rev[22]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 186.000 2.000 186.300 ;
+    END
+  END mask_rev[22]
+  PIN mask_rev[23]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 190.000 2.000 190.300 ;
+    END
+  END mask_rev[23]
+  PIN mask_rev[24]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 194.000 2.000 194.300 ;
+    END
+  END mask_rev[24]
+  PIN mask_rev[25]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 198.000 2.000 198.300 ;
+    END
+  END mask_rev[25]
+  PIN mask_rev[26]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 202.000 2.000 202.300 ;
+    END
+  END mask_rev[26]
+  PIN mask_rev[27]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 206.000 2.000 206.300 ;
+    END
+  END mask_rev[27]
+  PIN mask_rev[28]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 210.000 2.000 210.300 ;
+    END
+  END mask_rev[28]
+  PIN mask_rev[29]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 214.000 2.000 214.300 ;
+    END
+  END mask_rev[29]
+  PIN mask_rev[30]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 218.000 2.000 218.300 ;
+    END
+  END mask_rev[30]
+  PIN mask_rev[31]
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER met3 ;
+        RECT 0.000 222.000 2.000 222.300 ;
+    END
+  END mask_rev[31]
+  PIN VPWR
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER met1 ;
+        RECT 0.000 228.000 2.000 229.500 ;
+    END
+  END VPWR
+  PIN VGND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER met1 ;
+        RECT 0.000 232.500 2.000 234.000 ;
+    END
+  END VGND
+END CF_owire_id
+END LIBRARY
