@@ -203,6 +203,33 @@ XRES_MASTER = "sky130_fd_io__top_xres4v2"
 SLICE_MASTER = "sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um"
 CLAMP_RE = re.compile(r"sky130_ef_io__(vddio|vssio|vdda|vssa|vccd|vssd)_(hvc|lvc)_clamped(3)?_pad")
 CORNER_MASTER = "sky130_ef_io__corner_pad"
+
+# --------------------------------------------------------------------------- #
+# Analog domain cuts (vdda/vssa split of the pad ring)
+# --------------------------------------------------------------------------- #
+# One sky130_ef_io__disconnect_vdda_slice_5um per cut. It has no VDDA/VSSA pins,
+# so the analog abutment ring stops there and the pads on each side take their
+# own rail: vdda/vssa (no suffix), vdda1/vssa1 or vdda2/vssa2. Cut positions are
+# the lower-left along-edge coordinate of the 5 um slice, in die um. The north
+# cut matches OpenFrame's disconnect_vdda_0 (chip_io.mag, x = 348400 / 200).
+DISCONNECT_MASTER = "sky130_ef_io__disconnect_vdda_slice_5um"
+DISCONNECT_W_UM = 5.0
+ANALOG_CUTS = {
+    # side: (instance, lower-left along-edge um)
+    "N": ("analog_disconnect_north", 1742.0),
+    "E": ("analog_disconnect_east", 349.0),
+    "W": ("analog_disconnect_west", 831.0),
+}
+# Rail suffix of the ring below / above each cut, walking the side in
+# increasing along-edge coordinate. South is one rail (no cut).
+CUT_RAILS = {"N": ("2", "1"), "E": ("", "1"), "W": ("", "2")}
+# Pad half-widths along the edge (bond-centre coords): gpiov2 80 um, clamp 75 um.
+GPIO_HALF_UM = 40.0
+CLAMP_HALF_UM = 37.5
+# Bridge slices (VCCHIB/VCCD and VSWITCH/VDDIO), in the index order pad_cfg.tcl
+# places them: S-left, S-right, E-bottom, E-top, N-right, N-left, W-top, W-bottom.
+# Each sits 20 um from its corner, so it lies on the ring segment of that corner.
+BRIDGE_RAILS = ("", "", "", "1", "1", "2", "2", "")
 DEFAULT_EF_IO_V = os.path.expanduser(
     "~/.ciel/sky130A/libs.ref/sky130_fd_io/verilog/sky130_ef_io.v"
 )
@@ -263,6 +290,36 @@ def classify(uses):
 GPIO_DOMAIN_BY_SIDE = {"W": "user2", "E": "user1", "N": "user1", "S": "user0"}
 # analog rail suffix per domain
 DOM_SUF = {"user0": "", "user1": "1", "user2": "2"}
+
+
+def ring_rail(side, coord):
+    """Analog rail suffix ("", "1" or "2") of the ring at (side, coord).
+
+    coord is the pad's along-edge bond centre. A pad that sits inside a cut
+    is an error: the cut slice would overlap it.
+    """
+    if side == "S":
+        return ""
+    if side not in ANALOG_CUTS:
+        raise ValueError(f"no analog cut defined for side {side}")
+    _, lo = ANALOG_CUTS[side]
+    hi = lo + DISCONNECT_W_UM
+    if lo <= coord <= hi:
+        raise ValueError(f"{side} pad at {coord:.3f} sits inside the analog cut "
+                         f"[{lo:.3f}, {hi:.3f}]")
+    below, above = CUT_RAILS[side]
+    return below if coord < lo else above
+
+
+def check_cut_clear(side, coord, half):
+    """Raise if a pad of half-width `half` centred at coord overlaps its cut."""
+    if side not in ANALOG_CUTS:
+        return
+    _, lo = ANALOG_CUTS[side]
+    hi = lo + DISCONNECT_W_UM
+    if coord - half < hi and coord + half > lo:
+        raise ValueError(f"{side} pad at {coord:.3f} (half {half}) overlaps the "
+                         f"analog cut [{lo:.3f}, {hi:.3f}]")
 
 
 def clamp_info(u):
@@ -413,10 +470,32 @@ def build_inventory(uses):
             o.g = g
             o.inst = f"gpio_{s.lower()}[{sum(1 for x in sig_by_side[s][:sig_by_side[s].index(o)])}].u"
             g += 1
-    # re-do per-side local index cleanly
+    # ---- split each side into analog-rail runs -------------------------- #
+    # A run is a contiguous block of pads on one rail; each run is one generate
+    # loop in the RTL. Only north has a cut in the middle of its pads, so it
+    # yields two loops; every other side keeps its single gpio_<side> loop.
+    sig_runs = {}
     for s in "WENS":
-        for i, o in enumerate(sig_by_side[s]):
-            o.inst = f"gpio_{s.lower()}[{i}].u"
+        for o in sig_by_side[s]:
+            check_cut_clear(s, o.coord, GPIO_HALF_UM)
+        runs = []
+        for o in sig_by_side[s]:
+            rail = ring_rail(s, o.coord)
+            if runs and runs[-1][0] == rail:
+                runs[-1][1].append(o)
+            else:
+                runs.append((rail, [o]))
+        if len(runs) == 1:
+            sig_runs[s] = [(f"gpio_{s.lower()}", runs[0][1])]
+        else:
+            sig_runs[s] = [(f"gpio_{s.lower()}_vdda{rail}", objs)
+                           for rail, objs in runs]
+        for loop, objs in sig_runs[s]:
+            for i, o in enumerate(objs):
+                o.inst = f"{loop}[{i}].u"
+    for s in "WENS":
+        for c in clp_by_side[s]:
+            check_cut_clear(s, c.coord, CLAMP_HALF_UM)
     n_gpio = g
 
     # ---- assign clamp package-net vector indices ------------------------- #
@@ -430,6 +509,7 @@ def build_inventory(uses):
 
     return dict(
         sig=sig_by_side,
+        sig_runs=sig_runs,
         clp=clp_by_side,
         n_gpio=n_gpio,
         pkg_counts=pkg_counts,
@@ -440,42 +520,38 @@ def build_inventory(uses):
 # --------------------------------------------------------------------------- #
 # RTL emission helpers
 # --------------------------------------------------------------------------- #
-def abut(domain):
+def abut(rail):
     """Inline gpiov2/clamp/corner abutment power pins.
 
-    The analog rails (VSSA/VDDA), like the rest of the sky130 IO ring
-    (AMUXBUS/VDDIO_Q/VSSIO_Q/VCCHIB/VSWITCH/VDDIO/VCCD/VSSIO/VSSD), run
-    continuously through every pad, corner and filler cell. They therefore
-    form a single ring net each and are wired to the global vssa/vdda nodes.
-    The per-domain analog grounds (vssa1/vssa2/vdda1/vdda2) are simply extra
-    bond pads onto this same ring, and the isolated multi-domain power that the
-    openframe preserves is the *core* power (vccd/vssd/vccd1/... ), which is not
-    on the abutment ring but carried by the clamped3 cells and the user wrapper.
-    The `domain` argument is retained for call-site clarity but no longer alters
-    the ring nets (doing so made connect_by_abutment reject the domain seams).
+    The core-side IO ring (AMUXBUS/VDDIO_Q/VSSIO_Q/VCCHIB/VSWITCH/VDDIO/VCCD/
+    VSSIO/VSSD) runs through every pad, corner and filler cell as one net each.
+    The analog rails (VSSA/VDDA) run the same way, but only between analog
+    cuts: a disconnect_vdda slice breaks them. So each pad takes the rail of the
+    ring segment it sits on, given by `rail` ("", "1" or "2"). Corners and
+    fillers carry no rail of their own; abutment joins them to their neighbours.
     """
-    del domain
     return (
         "        .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),\n"
         "`ifdef USE_POWER_PINS\n"
-        "        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),\n"
+        f"        .VSSA(vssa{rail}), .VDDA(vdda{rail}), .VSWITCH(vddio), .VDDIO_Q(vddio_q),\n"
         "        .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),\n"
         "        .VSSD(vssd), .VSSIO_Q(vssio_q),\n"
         "`endif\n"
     )
 
 
-def emit_signal_loop(side, sigs):
-    """Emit one generate loop of gpiov2 pass-through pads for a side."""
+def emit_signal_loop(loop, sigs):
+    """Emit one generate loop of gpiov2 pass-through pads on one analog rail."""
     if not sigs:
         return ""
-    dom = sigs[0].domain
+    rail = ring_rail(sigs[0].side, sigs[0].coord)
+    if any(ring_rail(o.side, o.coord) != rail for o in sigs):
+        raise ValueError(f"loop {loop} mixes analog rails")
     n = len(sigs)
     base = sigs[0].g
-    sl = side.lower()
     return f"""
-    // ---- {side} side signal pads ({n}) : domain {dom} ----
-    generate for (genvar i = 0; i < {n}; i = i + 1) begin : gpio_{sl}
+    // ---- {loop} ({n} pads) : analog rail vdda{rail} ----
+    generate for (genvar i = 0; i < {n}; i = i + 1) begin : {loop}
         wire tie_hi, tie_lo;
         // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
         // pad ENABLE_VDDIO; both are exported to the user wrapper for loopback.
@@ -488,7 +564,7 @@ def emit_signal_loop(side, sigs):
             .zero(gpio_loopback_zero[{base} + i])
         );
         sky130_ef_io__gpiov2_pad u (
-{abut(dom)}\
+{abut(rail)}\
 `ifndef TOP_ROUTING
             .PAD(gpio_pad[{base} + i]),
 `endif
@@ -551,14 +627,12 @@ def emit_clamp(c):
                      f"        .VCCD1(vccd{DOM_SUF[d]}), .VSSD1(vssd{DOM_SUF[d]}),\n"
                      f"`endif\n")
         padport_line = f"        .{fn}({c.pkg}_pad[{c.k}])\n"
-    # The analog ESD/ground abutment rail (VSSA/VDDA) is continuous within a
-    # side, so its domain must follow the pad's physical side, not the clamp's
-    # instance name. Domain-agnostic clamps (vssio/vddio) would otherwise inject
-    # an isolated foreign-domain net between same-domain neighbours, which the
-    # padring's connect_by_abutment rejects.
+    # The analog ESD/ground abutment rail (VSSA/VDDA) follows the clamp's place on
+    # the ring (its side and along-edge coord), not its instance name: a vssio
+    # clamp on the NW segment carries vssa2, whatever its name says.
     return f"""
     sky130_ef_io__{c.master.split('__')[1]} {c.inst} (
-{abut(GPIO_DOMAIN_BY_SIDE[c.side])}\
+{abut(ring_rail(c.side, c.coord))}\
 {extra}\
 `ifndef TOP_ROUTING
 {padport_line}\
@@ -653,7 +727,7 @@ def emit_reset_subsystem():
     );
 
     {XRES_MASTER} {RESET_INST} (
-{abut("user0")}\
+{abut(ring_rail(RESET_SIDE, RESET_BOND_UM))}\
 `ifndef TOP_ROUTING
         .PAD(resetb_pad),
 `endif
@@ -725,7 +799,8 @@ def gen_padframe_rtl(inv):
 
     # signal pad loops
     for s in "WENS":
-        body.append(emit_signal_loop(s, inv["sig"][s]))
+        for loop, objs in inv["sig_runs"][s]:
+            body.append(emit_signal_loop(loop, objs))
 
     # clamp pads
     body.append("    // ---- power clamp pads (preserved multi-domain) ----")
@@ -743,19 +818,20 @@ def gen_padframe_rtl(inv):
     # power-domain bridge slices (VCCHIB<->VCCD, VSWITCH<->VDDIO), 2 per side.
     # Wire the full LEF pin list (not the 4-pin sky130_ef_io.v stub) so LibreLane
     # / netgen agree with Magic abstract extract of the LEF view.
-    body.append("""
-    // ---- power-domain bridge slices ----
-    // The sky130_ef_io.v functional model of this slice only has the 4 bridged
-    // rail pins (already tied together here), so it is omitted in simulation.
-`ifndef FUNCTIONAL
-    generate for (genvar i = 0; i < 8; i = i + 1) begin : vcchib_vccd_and_vswitch_vddio_slices
-        (* keep *)
-        sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um u (
+    # Bridge slices keep their generate-loop instance names
+    # (vcchib_vccd_and_vswitch_vddio_slices[i].u) but are written out one by one,
+    # because each one takes the analog rail of its corner segment (BRIDGE_RAILS).
+    # The sky130_ef_io.v functional model of this slice only has the 4 bridged
+    # rail pins (already tied together here), so it is omitted in simulation.
+    bridges = []
+    for i, rail in enumerate(BRIDGE_RAILS):
+        bridges.append(f"""        (* keep *)
+        {SLICE_MASTER} \\vcchib_vccd_and_vswitch_vddio_slices[{i}].u (
             .AMUXBUS_A(analog_a),
             .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-            .VSSA(vssa),
-            .VDDA(vdda),
+            .VSSA(vssa{rail}),
+            .VDDA(vdda{rail}),
             .VSWITCH(vddio),
             .VDDIO_Q(vddio_q),
             .VCCHIB(vccd),
@@ -766,8 +842,32 @@ def gen_padframe_rtl(inv):
             .VSSIO_Q(vssio_q)
 `endif
         );
-    end endgenerate
+""")
+    # Analog cuts: the disconnect slice has the same rails as the bridge slice
+    # but no VSSA/VDDA pins, which is what breaks the ring. Like the bridges it
+    # is left out of simulation (no functional model in sky130_ef_io.v).
+    cuts = []
+    for side, (inst, _) in ANALOG_CUTS.items():
+        cuts.append(f"""        (* keep *)
+        {DISCONNECT_MASTER} {inst} (
+            .AMUXBUS_A(analog_a),
+            .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+            .VSWITCH(vddio),
+            .VDDIO_Q(vddio_q),
+            .VCCHIB(vccd),
+            .VDDIO(vddio),
+            .VCCD(vccd),
+            .VSSIO(vssio),
+            .VSSD(vssd),
+            .VSSIO_Q(vssio_q)
 `endif
+        );
+""")
+    body.append("""
+    // ---- power-domain bridge slices and analog domain cuts ----
+`ifndef FUNCTIONAL
+""" + "".join(bridges) + "\n" + "".join(cuts) + """`endif
 """)
 
     # user-area wrapper instance
@@ -924,6 +1024,15 @@ def gen_pad_pos_tcl(inv):
         lines.append("\"")
         lines.append("")
     return "\n".join(lines)
+
+
+def gen_analog_cuts_tcl():
+    """Cut positions for pad_cfg.tcl (same table as the RTL rail split)."""
+    lines = ["# AUTO-GENERATED by scripts/extract_openframe_pads.py -- do not edit by hand.",
+             "# Lower-left along-edge position (um) of each analog-cut disconnect slice."]
+    for side, (inst, lo) in ANALOG_CUTS.items():
+        lines.append(f"set ANALOG_CUT_{side} {lo:.3f}")
+    return "\n".join(lines) + "\n"
 
 
 def gen_pad_lists_yaml(inv):
@@ -1103,6 +1212,12 @@ _LEF_PIN_OVERRIDES = {
     ],
     "sky130_ef_io__com_bus_slice_20um": [
         "AMUXBUS_A", "AMUXBUS_B", "VSSA", "VDDA", "VSWITCH", "VDDIO_Q",
+        "VCCHIB", "VDDIO", "VCCD", "VSSIO", "VSSD", "VSSIO_Q",
+    ],
+    # Analog cut: the LEF pins are the bus rails without VSSA/VDDA, which is
+    # what breaks the analog abutment ring at the cut.
+    "sky130_ef_io__disconnect_vdda_slice_5um": [
+        "AMUXBUS_A", "AMUXBUS_B", "VSWITCH", "VDDIO_Q",
         "VCCHIB", "VDDIO", "VCCD", "VSSIO", "VSSD", "VSSIO_Q",
     ],
     "sky130_ef_io__corner_pad": [
@@ -1337,7 +1452,8 @@ def _gpio_const_block_instances(inv):
     Placed exactly like the caravel openframe (each just inside the pad ring at
     its pad, extended metal reaching inward toward the wrapper), transformed to
     the double-wide ring (east +HALF, north/south duplicated, mid-seam
-    synthesized). Instance names match the RTL generate blocks: gpio_<s>[i].const_val.
+    synthesized). Instance names match the RTL generate blocks: <loop>[i].const_val,
+    where loop is gpio_<s> or, on a side split by an analog cut, gpio_<s>_vdda<rail>.
     A few instances carry a small along-edge nudge (CONST_BLOCK_NUDGE_UM) to
     clear localized detailed-routing DRCs.
     """
@@ -1591,7 +1707,7 @@ MACROS:
         orientation: {CONSTANT_ORIENT}
 {gpio_const_insts}
 
-  # North left gap between gpio_n[5] (cell ends ~2002) and gpio_n[6] (starts ~2367).
+  # North left gap between gpio_n_vdda1[0] (cell ends ~2002) and gpio_n_vdda1[1] (starts ~2367).
   # Logo only (198.4 x 54), centered in the clear filler span with margin from both
   # pad cells; com_bus_slice filler underneath (artwork met4/met5 OBS).
   logo_dw_openframe:
@@ -1854,6 +1970,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mag", required=True)
     ap.add_argument("--out-tcl")
+    ap.add_argument("--out-cuts")
     ap.add_argument("--out-yaml")
     ap.add_argument("--out-json")
     ap.add_argument("--out-rtl")
@@ -1880,6 +1997,8 @@ def main():
         return 0
     if args.out_tcl:
         write(args.out_tcl, gen_pad_pos_tcl(inv))
+    if args.out_cuts:
+        write(args.out_cuts, gen_analog_cuts_tcl())
     if args.out_yaml:
         write(args.out_yaml, gen_pad_lists_yaml(inv))
     if args.out_json:

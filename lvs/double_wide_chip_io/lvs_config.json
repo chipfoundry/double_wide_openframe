@@ -11,7 +11,9 @@
 	],
 	"EXTRACT_ABSTRACT": [
 		"double_wide_openframe_project_wrapper",
-		"*sky130_ef_io__*",
+		"*sky130_ef_io__*_pad*",
+		"*sky130_ef_io__connect_vcchib*",
+		"*sky130_ef_io__*_overlay*",
 		"*__fill_*",
 		"*__decap_*",
 		"*__tapvpwrvgnd_*"
@@ -20,7 +22,8 @@
 		""
 	],
 	"LVS_FLATTEN": [
-		""
+		"*sky130_ef_io__com_bus_slice*",
+		"*sky130_ef_io__disconnect_vdda_slice*"
 	],
 	"LVS_NOFLATTEN": [
 		""
