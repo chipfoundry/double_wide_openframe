@@ -4,21 +4,21 @@ report_checks -unconstrained
 ===========================================================================
 ======================= max_tt_025C_1v80 Corner ===================================
 
-Startpoint: gpio_pad[39] (input port)
-Endpoint: user_project/gpio_in_h[23] (internal pin)
+Startpoint: gpio_pad[60] (input port)
+Endpoint: user_project/gpio_in_h[2] (internal pin)
 Path Group: unconstrained
 Path Type: max
 
 Fanout         Cap        Slew       Delay        Time   Description
 ---------------------------------------------------------------------------------------------
                                   0.000000    0.000000 ^ input external delay
-     1    1.117215    0.000000    0.000000    0.000000 ^ gpio_pad[39] (inout)
-                                                         gpio_pad[39] (net)
-                      0.000000    0.000000    0.000000 ^ gpio_w[4].u/PAD (sky130_ef_io__gpiov2_pad)
-     1    0.003116    0.121654    2.035632    2.035632 ^ gpio_w[4].u/IN_H (sky130_ef_io__gpiov2_pad)
-                                                         gpio_in_h[39] (net)
-                      0.121654    0.000000    2.035632 ^ user_project/gpio_in_h[23] (double_wide_openframe_project_wrapper)
-                                              2.035632   data arrival time
+     1    1.117215    0.000000    0.000000    0.000000 ^ gpio_pad[60] (inout)
+                                                         gpio_pad[60] (net)
+                      0.000000    0.000000    0.000000 ^ gpio_s[11].u/PAD (sky130_ef_io__gpiov2_pad)
+     1    0.001206    0.120465    2.034291    2.034291 ^ gpio_s[11].u/IN_H (sky130_ef_io__gpiov2_pad)
+                                                         gpio_in_h[60] (net)
+                      0.120465    0.000000    2.034291 ^ user_project/gpio_in_h[2] (double_wide_openframe_project_wrapper)
+                                              2.034291   data arrival time
 ---------------------------------------------------------------------------------------------
 (Path is unconstrained)
 
