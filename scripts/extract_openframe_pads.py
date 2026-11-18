@@ -1184,7 +1184,85 @@ def _routing_obstructions_yaml(inv):
     lines.extend(_pad_dm0_wall_lines(inv))
     lines.extend(_pad_enable_inp_wall_lines(inv))
     lines.extend(_xres_const_obstruction_lines())
+    lines.extend(_user_area_keepout_lines(inv))
     return "\n".join(lines)
+
+
+# User-area keep-out. The empty wrapper's LEF has no obstructions, so without
+# these TritonRoute treats the whole user area as free and jogs padframe nets
+# along the inside of the wrapper edge. With a hardened user design swapped in,
+# that metal shorts to the user's own edge routing (seen: a pad tie_hi landing on
+# a user strap 0.3um inside the east edge). Block met1..met5 over the wrapper,
+# except an opening around each pin the router must reach. Signal pins sit
+# PIN_DEPTH_UM deep inside the edge; the opening keeps one layer spacing on
+# either side so the router can land on the pin. POR pins and power ports are
+# not routed (SPECIAL), so they get no opening.
+KEEPOUT_LAYERS = ("met1", "met2", "met3", "met4", "met5")
+KEEPOUT_SPACING_UM = {"met1": 0.14, "met2": 0.14, "met3": 0.3, "met4": 0.3, "met5": 1.6}
+ENINP_EAST_CB_MARGIN_UM = 1.5   # met3 band opening margin around each east constant_block (track phase varies per pad)
+
+
+def _user_area_keepout_lines(inv):
+    """Routing obstructions over the user area, open only at routed wrapper pins."""
+    pins, WW, HH, OFF = _wrapper_pins(inv)
+    um = 1000.0
+    def inside(x1, y1, x2, y2):
+        # how far the pin reaches into the wrapper from the edge it sits on
+        return max(min(x2, WW) if x1 <= 0 else 0, WW - max(x1, 0) if x2 >= WW else 0,
+                   min(y2, HH) if y1 <= 0 else 0, HH - max(y1, 0) if y2 >= HH else 0)
+
+    depth = max(inside(*p[3:]) for p in pins) / um
+    X0, Y0 = OFF / um, OFF / um
+    X1, Y1 = (OFF + WW) / um, (OFF + HH) / um
+    # openings: (side, layer) -> [(lo, hi)] along the edge, die coordinates
+    opens = {}
+    for name, _d, layer, x1, y1, x2, y2 in pins:
+        if name in WRAPPER_POR_PINS_WEST:
+            continue
+        if x1 <= 0:
+            side, lo, hi = "W", y1, y2
+        elif x2 >= WW:
+            side, lo, hi = "E", y1, y2
+        elif y1 <= 0:
+            side, lo, hi = "S", x1, x2
+        else:
+            side, lo, hi = "N", x1, x2
+        sp = KEEPOUT_SPACING_UM[layer]
+        opens.setdefault((side, layer), []).append(((lo + OFF) / um - sp, (hi + OFF) / um + sp))
+    # East constant_blocks sit right in front of their two loopback pins, and
+    # their met3 obstruction leaves only 0.855um between it and the wrapper edge,
+    # less than a met3 jog needs (0.9um). The router has to make that short met3
+    # jog inside the pin band, as main always did, so open the met3 band over
+    # each east constant_block's along-edge span. met2 stays blocked under the
+    # pins (a user may legally run a different-net met2 there).
+    for o in inv["sig"]["E"]:
+        lly = o.cb["lly"]
+        opens.setdefault(("E", "met3"), []).append((lly - ENINP_EAST_CB_MARGIN_UM,
+                                                    lly + 14.0 + ENINP_EAST_CB_MARGIN_UM))
+
+    def gaps(span_lo, span_hi, holes):
+        out, cur = [], span_lo
+        for lo, hi in sorted(holes):
+            if lo > cur:
+                out.append((cur, lo))
+            cur = max(cur, hi)
+        if cur < span_hi:
+            out.append((cur, span_hi))
+        return out
+
+    lines = [f"# User-area keep-out (open only at routed wrapper pins); band depth {depth:.3f} um."]
+    for L in KEEPOUT_LAYERS:
+        lines.append(f"- [{L}, {X0 + depth:.3f}, {Y0 + depth:.3f}, {X1 - depth:.3f}, {Y1 - depth:.3f}]")
+        for side in "WESN":
+            if side in "WE":
+                x_lo, x_hi = (X0, X0 + depth) if side == "W" else (X1 - depth, X1)
+                for lo, hi in gaps(Y0, Y1, opens.get((side, L), [])):
+                    lines.append(f"- [{L}, {x_lo:.3f}, {lo:.3f}, {x_hi:.3f}, {hi:.3f}]")
+            else:
+                y_lo, y_hi = (Y0, Y0 + depth) if side == "S" else (Y1 - depth, Y1)
+                for lo, hi in gaps(X0, X1, opens.get((side, L), [])):
+                    lines.append(f"- [{L}, {lo:.3f}, {y_lo:.3f}, {hi:.3f}, {y_hi:.3f}]")
+    return lines
 
 
 def _xres_const_obstruction_lines():
@@ -1678,22 +1756,14 @@ PL_TARGET_DENSITY_PCT: 40
 """
 
 
-def gen_pin_template_def(inv):
-    """Emit a pins-only DEF template for the user-area wrapper.
+def _wrapper_pins(inv):
+    """Signal, loopback, POR and reset pins of the user-area wrapper template.
 
-    Each GPIO owns 17 pad signals (13 control outputs, 2 inputs, 2 analog
-    inouts) plus 2 buffered-constant inputs (gpio_loopback_one/zero from its
-    constant_block).  We pin every one of them on the die edge *directly facing*
-    that GPIO's pad, clustered around the pad's along-edge coordinate.  Consumed via
-    FP_DEF_TEMPLATE + Odb.ApplyDEFTemplate when hardening the wrapper, this
-    replaces the pin-placement algorithm with exact, pad-aligned locations so
-    the padframe's pad<->wrapper nets are short straight hops instead of long
-    detours across a congested channel.
-
-    N/S pins sit on a vertical routing layer (met2), E/W on the horizontal
-    layer (met3): sky130 preferred directions are vertical for met2/met4 and
-    horizontal for met3, so each edge's pins align with the axis the padframe
-    router uses to reach them.
+    Returns (pins, WW, HH, OFF): pins are (name, direction, layer, x1, y1, x2,
+    y2) in wrapper-local DEF units (nm); WW/HH are the wrapper size and OFF its
+    offset inside the die, also in nm. Shared by gen_pin_template_def (which
+    writes them) and _user_area_keepout_lines (which keeps the padframe router
+    out of the user area except where it has to reach these pins).
     """
     UPM = 1000                       # DEF database units per micron
     GRID = 5                         # sky130 manufacturing grid (nm)
@@ -1791,6 +1861,37 @@ def gen_pin_template_def(inv):
     for sig, x_of in zip(WRAPPER_RESET_PINS_SOUTH, OF_WRAP_RESET_X_UM):
         x = snap(nm(x_of))
         pins.append((sig, "INPUT", VLAYER, x - 140, -2000, x + 140, PL))
+
+    return pins, WW, HH, OFF
+
+
+def gen_pin_template_def(inv):
+    """Emit a pins-only DEF template for the user-area wrapper.
+
+    Each GPIO owns 17 pad signals (13 control outputs, 2 inputs, 2 analog
+    inouts) plus 2 buffered-constant inputs (gpio_loopback_one/zero from its
+    constant_block).  We pin every one of them on the die edge *directly facing*
+    that GPIO's pad, clustered around the pad's along-edge coordinate.  Consumed via
+    FP_DEF_TEMPLATE + Odb.ApplyDEFTemplate when hardening the wrapper, this
+    replaces the pin-placement algorithm with exact, pad-aligned locations so
+    the padframe's pad<->wrapper nets are short straight hops instead of long
+    detours across a congested channel.
+
+    N/S pins sit on a vertical routing layer (met2), E/W on the horizontal
+    layer (met3): sky130 preferred directions are vertical for met2/met4 and
+    horizontal for met3, so each edge's pins align with the axis the padframe
+    router uses to reach them.
+    """
+    UPM = 1000                       # DEF database units per micron
+    GRID = 5                         # sky130 manufacturing grid (nm)
+
+    def nm(um):
+        return int(round(um * UPM))
+
+    def snap(v):
+        return int(round(v / GRID)) * GRID
+
+    pins, WW, HH, OFF = _wrapper_pins(inv)
 
     # Power / ground edge ports: one SPECIAL multi-PORT pin per rail, with a
     # met3 rectangle facing every clamp met3 stub (openframe dual-~24um pattern).

@@ -116,8 +116,9 @@ make drc-magic            # Magic drc(full) (slow; noisy on IO macros)
 make lvs-padframe         # needs netgen + magic on PATH
 ```
 
-See [`signoff/README.md`](signoff/README.md) for the latest results. Known open
-item: **38× metal2 spacing (m2.2)** on the north edge from KLayout BEOL.
+With the cf-precheck decks, all six KLayout checks (FEOL, BEOL, offgrid,
+metal/CA density, pin-label purposes, zero-area) pass on the current padframe
+GDS.
 
 LVS config: [`lvs/double_wide_chip_io/lvs_config.json`](lvs/double_wide_chip_io/lvs_config.json).
 
@@ -134,6 +135,15 @@ loop, and a met1 patch joins the loop to the `porb_h` metal that `simple_por`
 already brings out to the wrapper pin. `porb_h` stays SPECIAL, so TritonRoute
 routes around this wiring. The step checks every shape against the fixed
 met1/met2 around it and stops instead of drawing a short.
+
+The padframe router is also kept out of the user area. The empty wrapper's LEF
+has no obstructions, so without this TritonRoute jogs padframe nets along the
+inside of the wrapper edge, where they short to a hardened user design's own
+edge routing. `ROUTING_OBSTRUCTIONS` blocks met1-met5 over the wrapper, open only
+around each wrapper pin the router has to reach. The one exception is a met3
+opening in the 1 um pin band in front of each east `constant_block`: its met3
+obstruction leaves no legal path to the two loopback pins behind it, so those
+30 pins are reached by a short met3 jog inside the band, as before.
 
 ```bash
 make check-pad-enables  # RTL: pad control pins driven exactly as in the openframe
