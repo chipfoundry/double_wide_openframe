@@ -54,6 +54,7 @@ pads:
 	python3 scripts/extract_openframe_pads.py \
 		--mag $(CARAVEL_MAG) \
 		--out-tcl librelane/padframe/pad_pos.tcl \
+		--out-cuts librelane/padframe/analog_cuts.tcl \
 		--out-yaml librelane/padframe/pad_lists.yaml \
 		--out-json pad_summary.json \
 		--out-rtl verilog/rtl/double_wide_chip_io.v \

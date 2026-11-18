@@ -131,7 +131,7 @@ module double_wide_chip_io (
     );
 
 
-    // ---- W side signal pads (14) : domain user2 ----
+    // ---- gpio_w (14 pads) : analog rail vdda2 ----
     generate for (genvar i = 0; i < 14; i = i + 1) begin : gpio_w
         wire tie_hi, tie_lo;
         // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
@@ -147,7 +147,7 @@ module double_wide_chip_io (
         sky130_ef_io__gpiov2_pad u (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa2), .VDDA(vdda2), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -186,7 +186,7 @@ module double_wide_chip_io (
     end endgenerate
 
 
-    // ---- E side signal pads (15) : domain user1 ----
+    // ---- gpio_e (15 pads) : analog rail vdda1 ----
     generate for (genvar i = 0; i < 15; i = i + 1) begin : gpio_e
         wire tie_hi, tie_lo;
         // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
@@ -202,7 +202,7 @@ module double_wide_chip_io (
         sky130_ef_io__gpiov2_pad u (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa1), .VDDA(vdda1), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -241,8 +241,8 @@ module double_wide_chip_io (
     end endgenerate
 
 
-    // ---- N side signal pads (20) : domain user1 ----
-    generate for (genvar i = 0; i < 20; i = i + 1) begin : gpio_n
+    // ---- gpio_n_vdda2 (5 pads) : analog rail vdda2 ----
+    generate for (genvar i = 0; i < 5; i = i + 1) begin : gpio_n_vdda2
         wire tie_hi, tie_lo;
         // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
         // pad ENABLE_VDDIO; both are exported to the user wrapper for loopback.
@@ -257,7 +257,7 @@ module double_wide_chip_io (
         sky130_ef_io__gpiov2_pad u (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa2), .VDDA(vdda2), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -296,7 +296,62 @@ module double_wide_chip_io (
     end endgenerate
 
 
-    // ---- S side signal pads (14) : domain user0 ----
+    // ---- gpio_n_vdda1 (15 pads) : analog rail vdda1 ----
+    generate for (genvar i = 0; i < 15; i = i + 1) begin : gpio_n_vdda1
+        wire tie_hi, tie_lo;
+        // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
+        // pad ENABLE_VDDIO; both are exported to the user wrapper for loopback.
+        constant_block const_val (
+`ifdef USE_POWER_PINS
+            .vccd(vccd),
+            .vssd(vssd),
+`endif
+            .one(gpio_loopback_one[34 + i]),
+            .zero(gpio_loopback_zero[34 + i])
+        );
+        sky130_ef_io__gpiov2_pad u (
+        .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+        .VSSA(vssa1), .VDDA(vdda1), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
+        .VSSD(vssd), .VSSIO_Q(vssio_q),
+`endif
+`ifndef TOP_ROUTING
+            .PAD(gpio_pad[34 + i]),
+`endif
+            .OUT(gpio_out[34 + i]),
+            .OE_N(gpio_oeb[34 + i]),
+            .HLD_H_N(tie_hi),
+            // ENABLE_H/VDDA_H: openframe ties these to porb_h. Automated DRT
+            // cannot fan porb_h out from simple_por's tiny met3 nub to every
+            // pad, so keep local tie-offs here (the south reset pad's ENABLE_H
+            // is tied locally the same way).
+            .ENABLE_H(tie_hi),
+            .ENABLE_INP_H(tie_lo),
+            .ENABLE_VDDA_H(tie_hi),
+            .ENABLE_VSWITCH_H(tie_lo),
+            .ENABLE_VDDIO(gpio_loopback_one[34 + i]),
+            .INP_DIS(gpio_inp_dis[34 + i]),
+            .IB_MODE_SEL(gpio_ib_mode_sel[34 + i]),
+            .VTRIP_SEL(gpio_vtrip_sel[34 + i]),
+            .SLOW(gpio_slow_sel[34 + i]),
+            .HLD_OVR(gpio_holdover[34 + i]),
+            .ANALOG_EN(gpio_analog_en[34 + i]),
+            .ANALOG_SEL(gpio_analog_sel[34 + i]),
+            .ANALOG_POL(gpio_analog_pol[34 + i]),
+            .DM({gpio_dm2[34 + i], gpio_dm1[34 + i], gpio_dm0[34 + i]}),
+            .PAD_A_NOESD_H(analog_noesd_io[34 + i]),
+            .PAD_A_ESD_0_H(analog_io[34 + i]),
+            .PAD_A_ESD_1_H(),
+            .IN(gpio_in[34 + i]),
+            .IN_H(gpio_in_h[34 + i]),
+            .TIE_HI_ESD(tie_hi),
+            .TIE_LO_ESD(tie_lo)
+        );
+    end endgenerate
+
+
+    // ---- gpio_s (14 pads) : analog rail vdda ----
     generate for (genvar i = 0; i < 14; i = i + 1) begin : gpio_s
         wire tie_hi, tie_lo;
         // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
@@ -381,7 +436,7 @@ module double_wide_chip_io (
     sky130_ef_io__vssd_lvc_clamped3_pad clamp_vssd2_0 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa2), .VDDA(vdda2), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -397,7 +452,7 @@ module double_wide_chip_io (
     sky130_ef_io__vdda_hvc_clamped_pad clamp_vdda2_0 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa2), .VDDA(vdda2), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -410,7 +465,7 @@ module double_wide_chip_io (
     sky130_ef_io__vssa_hvc_clamped_pad clamp_vssa2_0 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa2), .VDDA(vdda2), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -423,7 +478,7 @@ module double_wide_chip_io (
     sky130_ef_io__vddio_hvc_clamped_pad clamp_vddio_1 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa2), .VDDA(vdda2), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -436,7 +491,7 @@ module double_wide_chip_io (
     sky130_ef_io__vccd_lvc_clamped3_pad clamp_vccd2_0 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa2), .VDDA(vdda2), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -452,7 +507,7 @@ module double_wide_chip_io (
     sky130_ef_io__vssa_hvc_clamped_pad clamp_vssa1_0 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa1), .VDDA(vdda1), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -465,7 +520,7 @@ module double_wide_chip_io (
     sky130_ef_io__vssd_lvc_clamped3_pad clamp_vssd1_0 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa1), .VDDA(vdda1), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -481,7 +536,7 @@ module double_wide_chip_io (
     sky130_ef_io__vdda_hvc_clamped_pad clamp_vdda1_0 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa1), .VDDA(vdda1), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -494,7 +549,7 @@ module double_wide_chip_io (
     sky130_ef_io__vdda_hvc_clamped_pad clamp_vdda1_1 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa1), .VDDA(vdda1), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -507,7 +562,7 @@ module double_wide_chip_io (
     sky130_ef_io__vccd_lvc_clamped3_pad clamp_vccd1_0 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa1), .VDDA(vdda1), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -523,7 +578,7 @@ module double_wide_chip_io (
     sky130_ef_io__vssio_hvc_clamped_pad clamp_vssio_0 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa2), .VDDA(vdda2), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -536,7 +591,7 @@ module double_wide_chip_io (
     sky130_ef_io__vssa_hvc_clamped_pad clamp_vssa1_1 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa1), .VDDA(vdda1), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -549,7 +604,7 @@ module double_wide_chip_io (
     sky130_ef_io__vssio_hvc_clamped_pad clamp_vssio_1 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa1), .VDDA(vdda1), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -562,7 +617,7 @@ module double_wide_chip_io (
     sky130_ef_io__vssa_hvc_clamped_pad clamp_vssa1_2 (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VSSA(vssa1), .VDDA(vdda1), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
         .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
@@ -677,13 +732,10 @@ module double_wide_chip_io (
 
     // ---- corner cells: placed physically by pad_cfg.tcl (place_corners), not instantiated here ----
 
-    // ---- power-domain bridge slices ----
-    // The sky130_ef_io.v functional model of this slice only has the 4 bridged
-    // rail pins (already tied together here), so it is omitted in simulation.
+    // ---- power-domain bridge slices and analog domain cuts ----
 `ifndef FUNCTIONAL
-    generate for (genvar i = 0; i < 8; i = i + 1) begin : vcchib_vccd_and_vswitch_vddio_slices
         (* keep *)
-        sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um u (
+        sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[0].u (
             .AMUXBUS_A(analog_a),
             .AMUXBUS_B(analog_b),
 `ifdef USE_POWER_PINS
@@ -699,7 +751,171 @@ module double_wide_chip_io (
             .VSSIO_Q(vssio_q)
 `endif
         );
-    end endgenerate
+        (* keep *)
+        sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[1].u (
+            .AMUXBUS_A(analog_a),
+            .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+            .VSSA(vssa),
+            .VDDA(vdda),
+            .VSWITCH(vddio),
+            .VDDIO_Q(vddio_q),
+            .VCCHIB(vccd),
+            .VDDIO(vddio),
+            .VCCD(vccd),
+            .VSSIO(vssio),
+            .VSSD(vssd),
+            .VSSIO_Q(vssio_q)
+`endif
+        );
+        (* keep *)
+        sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[2].u (
+            .AMUXBUS_A(analog_a),
+            .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+            .VSSA(vssa),
+            .VDDA(vdda),
+            .VSWITCH(vddio),
+            .VDDIO_Q(vddio_q),
+            .VCCHIB(vccd),
+            .VDDIO(vddio),
+            .VCCD(vccd),
+            .VSSIO(vssio),
+            .VSSD(vssd),
+            .VSSIO_Q(vssio_q)
+`endif
+        );
+        (* keep *)
+        sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[3].u (
+            .AMUXBUS_A(analog_a),
+            .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+            .VSSA(vssa1),
+            .VDDA(vdda1),
+            .VSWITCH(vddio),
+            .VDDIO_Q(vddio_q),
+            .VCCHIB(vccd),
+            .VDDIO(vddio),
+            .VCCD(vccd),
+            .VSSIO(vssio),
+            .VSSD(vssd),
+            .VSSIO_Q(vssio_q)
+`endif
+        );
+        (* keep *)
+        sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[4].u (
+            .AMUXBUS_A(analog_a),
+            .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+            .VSSA(vssa1),
+            .VDDA(vdda1),
+            .VSWITCH(vddio),
+            .VDDIO_Q(vddio_q),
+            .VCCHIB(vccd),
+            .VDDIO(vddio),
+            .VCCD(vccd),
+            .VSSIO(vssio),
+            .VSSD(vssd),
+            .VSSIO_Q(vssio_q)
+`endif
+        );
+        (* keep *)
+        sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[5].u (
+            .AMUXBUS_A(analog_a),
+            .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+            .VSSA(vssa2),
+            .VDDA(vdda2),
+            .VSWITCH(vddio),
+            .VDDIO_Q(vddio_q),
+            .VCCHIB(vccd),
+            .VDDIO(vddio),
+            .VCCD(vccd),
+            .VSSIO(vssio),
+            .VSSD(vssd),
+            .VSSIO_Q(vssio_q)
+`endif
+        );
+        (* keep *)
+        sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[6].u (
+            .AMUXBUS_A(analog_a),
+            .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+            .VSSA(vssa2),
+            .VDDA(vdda2),
+            .VSWITCH(vddio),
+            .VDDIO_Q(vddio_q),
+            .VCCHIB(vccd),
+            .VDDIO(vddio),
+            .VCCD(vccd),
+            .VSSIO(vssio),
+            .VSSD(vssd),
+            .VSSIO_Q(vssio_q)
+`endif
+        );
+        (* keep *)
+        sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um \vcchib_vccd_and_vswitch_vddio_slices[7].u (
+            .AMUXBUS_A(analog_a),
+            .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+            .VSSA(vssa),
+            .VDDA(vdda),
+            .VSWITCH(vddio),
+            .VDDIO_Q(vddio_q),
+            .VCCHIB(vccd),
+            .VDDIO(vddio),
+            .VCCD(vccd),
+            .VSSIO(vssio),
+            .VSSD(vssd),
+            .VSSIO_Q(vssio_q)
+`endif
+        );
+
+        (* keep *)
+        sky130_ef_io__disconnect_vdda_slice_5um analog_disconnect_north (
+            .AMUXBUS_A(analog_a),
+            .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+            .VSWITCH(vddio),
+            .VDDIO_Q(vddio_q),
+            .VCCHIB(vccd),
+            .VDDIO(vddio),
+            .VCCD(vccd),
+            .VSSIO(vssio),
+            .VSSD(vssd),
+            .VSSIO_Q(vssio_q)
+`endif
+        );
+        (* keep *)
+        sky130_ef_io__disconnect_vdda_slice_5um analog_disconnect_east (
+            .AMUXBUS_A(analog_a),
+            .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+            .VSWITCH(vddio),
+            .VDDIO_Q(vddio_q),
+            .VCCHIB(vccd),
+            .VDDIO(vddio),
+            .VCCD(vccd),
+            .VSSIO(vssio),
+            .VSSD(vssd),
+            .VSSIO_Q(vssio_q)
+`endif
+        );
+        (* keep *)
+        sky130_ef_io__disconnect_vdda_slice_5um analog_disconnect_west (
+            .AMUXBUS_A(analog_a),
+            .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+            .VSWITCH(vddio),
+            .VDDIO_Q(vddio_q),
+            .VCCHIB(vccd),
+            .VDDIO(vddio),
+            .VCCD(vccd),
+            .VSSIO(vssio),
+            .VSSD(vssd),
+            .VSSIO_Q(vssio_q)
+`endif
+        );
 `endif
 
 

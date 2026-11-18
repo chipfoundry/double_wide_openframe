@@ -86,6 +86,15 @@ place_pad -row IO_WEST -location $pad_corner_site_height \
 place_pad -row IO_WEST -location [expr $DIE_HEIGHT - $pad_corner_site_height - 20] \
     "vcchib_vccd_and_vswitch_vddio_slices\[6\].u" -master $slice_master
 
+# Analog domain cuts: one 5 um disconnect slice per cut, in the filler gaps the
+# generator leaves (positions from analog_cuts.tcl, the same table as the RTL
+# vdda/vssa rail split). Placed before the fillers so the fill closes around them.
+source [file join [file dirname [info script]] analog_cuts.tcl]
+set disconnect_master sky130_ef_io__disconnect_vdda_slice_5um
+place_pad -row IO_NORTH -location $ANALOG_CUT_N analog_disconnect_north -master $disconnect_master
+place_pad -row IO_EAST -location $ANALOG_CUT_E analog_disconnect_east -master $disconnect_master
+place_pad -row IO_WEST -location $ANALOG_CUT_W analog_disconnect_west -master $disconnect_master
+
 puts "\[INFO\] Placing corner cells..."
 place_corners $::env(PAD_CORNER)
 
