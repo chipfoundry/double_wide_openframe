@@ -39,7 +39,7 @@ CF_PRECHECK ?= ../cf-precheck
 KLAYOUT_PYMOD ?= /usr/lib/klayout/pymod
 export PYTHONPATH := $(abspath $(KLAYOUT_PYMOD)):$(abspath $(CF_PRECHECK)/src):$(PYTHONPATH)
 
-.PHONY: all pads wrapper-empty padframe integrate clean \
+.PHONY: all pads wrapper-empty padframe integrate clean compress uncompress \
         padframe-klayout padframe-openroad enable-pdk \
         publish-golden drc drc-magic drc-klayout lvs-padframe \
         check-pad-enables check-porb-net sim-power-up
@@ -66,9 +66,9 @@ pads:
 		--out-def-template librelane/wrapper/pin_template.def
 
 ## Harden the empty user-area wrapper (produces the LEF/DEF/GDS pin template).
-## LibreLane 3's native PDN_ENABLE_PINS promotes the PDN grid straight to the
-## pin_template.def pin locations (see librelane/wrapper/config.json), so no
-## custom step registration is needed here anymore.
+## FP_TEMPLATE_COPY_POWER_PINS puts the pad-aligned power ports of
+## pin_template.def on the die edge, so plain librelane is enough here; no
+## custom step registration is needed.
 wrapper-empty:
 	$(LIBRELANE) \
 		librelane/wrapper/config.json --save-views-to build/wrapper/
@@ -172,6 +172,23 @@ check-porb-net:
 
 sim-power-up:
 	$(MAKE) -C verilog/dv/pad_power_up PDK_ROOT=$(PDK_ROOT) PDK=$(PDK)
+
+## Gzip / expand the large views of the project in the CURRENT directory.
+## cf-precheck runs `make -f <this Makefile> uncompress` from the user project
+## before its checks, the same contract as the caravel Makefile. `compress`
+## covers the top-level wrapper GDS and any .mag over COMPRESS_MIN_MB; macro
+## GDS files stay plain because the wrapper's config.json reads them.
+COMPRESS_MIN_MB ?= 10
+WRAPPER_GDS ?= gds/double_wide_openframe_project_wrapper.gds
+compress:
+	@for f in $(WRAPPER_GDS) $$(find mag -maxdepth 1 -type f -name '*.mag' -size +$(COMPRESS_MIN_MB)M 2>/dev/null); do \
+		if [ -f "$$f" ]; then gzip -n -9 -k -f "$$f" && echo "$$f -> $$f.gz"; fi; \
+	done
+
+uncompress:
+	@for f in $$(find gds mag -maxdepth 1 -type f -name '*.gz' 2>/dev/null); do \
+		gzip -d -k -f "$$f" && echo "$$f -> $${f%.gz}"; \
+	done
 
 clean:
 	rm -rf build runs
