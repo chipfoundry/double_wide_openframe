@@ -42,6 +42,7 @@ can never drift:
 ```
 scripts/extract_openframe_pads.py
   parses ../caravel/mag/chip_io_openframe.mag
+     and ../caravel/def/openframe_project_wrapper.def
   -> verilog/rtl/double_wide_chip_io.v                    (padframe RTL)
   -> verilog/rtl/double_wide_openframe_project_wrapper.v  (empty user wrapper)
   -> verilog/rtl/dw_defines.vh                            (DW_OPENFRAME_IO_PADS = 63)
@@ -49,6 +50,21 @@ scripts/extract_openframe_pads.py
   -> librelane/wrapper/pin_template.def                   (wrapper pin template)
   -> pad_summary.json                                     (per-pad index/side/domain map)
 ```
+
+**Pads and wrapper pins are the openframe's own.** Every pad and clamp cell
+sits at the openframe's position and orientation (rotated only, never mirrored);
+the right-hand copies of the north and south rows are 3588 um to the right, and
+the four mid-seam pads are the only cells without an openframe counterpart. The
+wrapper pin template is read from `../caravel/def/openframe_project_wrapper.def`
+and copied pad by pad: same layer, width, depth (2.0 um outside the boundary,
+0.28 um inside on met2, 0.30 um on met3) and offset from the pad, for signals
+and for the power ports, including the three ports of each
+`vccd`/`vssd` `clamped3` pad. The padframe draws its own metal over every pin
+footprint (`Padframe.WrapperPinLanding`, `Padframe.BridgePowerPads`), so the
+pins are part of the frame, as in the openframe. `make check-wrapper-pins`
+checks all three against the caravel sources. The corner cells are the one
+difference left: their orientation and footprint are still LibreLane's, not the
+openframe's.
 
 The padframe is a **pass-through GPIO ring** (no management SoC / user-id
 block): each GPIO pad's control signals route straight to the user-area
@@ -137,6 +153,23 @@ metal/CA density, pin-label purposes, zero-area) pass on the current padframe
 GDS.
 
 LVS config: [`lvs/double_wide_chip_io/lvs_config.json`](lvs/double_wide_chip_io/lvs_config.json).
+It uses published references only: the PDK's `sky130_fd_io` spice and
+`sky130_ef_io` verilog, plus caravel's gate-level netlists of `constant_block`,
+`xres_buf` and `user_id_programming` and its `simple_por` netlist, copied into
+this repo. The run completes, and the standard cells, the other clamp pads,
+`constant_block`, `xres_buf`, `simple_por` and `user_id_programming` match.
+It does **not** pass: `sky130_ef_io__gpiov2_pad`,
+`sky130_ef_io__vccd_lvc_clamped3_pad`, `sky130_fd_io__top_xres4v2` and
+`sky130_fd_sc_hvl__lsbufhv2lv_1` do not match the PDK's own spice (parasitic
+metal resistors and split supply nets inside the cells), so they are flattened
+and the top level inherits their mismatches. Until corrected pad references are
+published, the hand-drawn wiring is covered by the GDS net checks below
+(`check-porb-net`, `check-xres-loops`, `check-analog-domains`,
+`check-clamp-links`, `check-wrapper-pins`).
+
+`gds/double_wide_chip_io.gds` is stored gzipped (it is over GitHub's 50 MB
+advisory limit). `make uncompress`, or any target that reads it, expands it;
+`make compress` regenerates the `.gz` after a re-harden.
 
 ## Pad enables (`porb_h`)
 

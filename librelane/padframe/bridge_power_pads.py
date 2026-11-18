@@ -13,8 +13,16 @@
 # an analog clamp always sits in its own domain's segment (the pad generator
 # checks this), so the stub is on the package net too.
 #
-# A clamped3 pad's middle stub, the other rail of its clamp, is not strapped to
-# the wrapper here; Padframe.ClampLinks joins it to the domain's other pad.
+# A clamped3 pad has three stubs: its own supply twice (VCCD1 on a vccd pad) and
+# between them the other rail of its clamp (VSSD1). As in the openframe, the
+# wrapper has a port for each, so all three are strapped, each on the net its
+# pin carries. Padframe.ClampLinks also joins the domain's two pads in met5.
+#
+# A strap is written to DEF as a centre line and a width, so a strap whose width
+# and length are both an odd number of manufacturing-grid steps cannot be
+# written and is silently left out (this dropped three straps: the vccd pad's
+# and both vssd pads' 23.945 um stubs). Such a strap is drawn one grid step
+# narrower.
 from reader import click_odb, click
 import odb
 import re
@@ -32,6 +40,8 @@ WRAP_OVERLAP_UM = 0.0
 CORE_FACE_PINS = {
     "VCCD", "VSSD", "VDDIO", "VSSIO", "VDDA", "VSSA", "VCCD1", "VSSD1",
 }
+GRID = 5        # manufacturing grid, database units
+CLAMP3_PINS = ("VCCD1", "VSSD1")
 CLAMP_RE = re.compile(
     r"^clamp_(vddio|vssio|vdda|vssa|vccd|vssd)(\d*)_(\d+)$"
 )
@@ -109,22 +119,31 @@ def bridge_power_pads(reader):
         master = inst.getMaster().getName()
         if "clamped" not in master:
             continue
-        accept = PINS_FOR_BASE.get(base, set())
-        rects = []
+        clamped3 = master.endswith("clamped3_pad")
+        accept = set(CLAMP3_PINS) if clamped3 else PINS_FOR_BASE.get(base, set())
+        found = 0
         for it in inst.getITerms():
             pin_name = it.getMTerm().getName()
             if pin_name not in accept:
                 continue
-            rects.extend(_met3_rects(it))
-        if not rects:
+            # clamped3: the pin's own net (the middle stub is the other rail);
+            # otherwise the clamp's package net.
+            net_name = pkg
+            if clamped3:
+                if it.getNet() is None:
+                    skipped.append((iname, f"{pin_name} has no net"))
+                    continue
+                net_name = it.getNet().getName()
+            for r in _met3_rects(it):
+                work.append((net_name, r))
+                found += 1
+        if not found:
             skipped.append((iname, f"no met3 stubs on {sorted(accept)}"))
-            continue
-        for r in rects:
-            work.append((pkg, r))
 
     # One swire per net; create nets if needed.
     swires = {}
     bridged = 0
+    narrowed = 0
     for net_name, r in work:
         net = block.findNet(net_name)
         if net is None:
@@ -151,14 +170,22 @@ def bridge_power_pads(reader):
             x0, x1 = x1, x0
         if y1 < y0:
             y0, y1 = y1, y0
+        if (x1 - x0) % (2 * GRID) and (y1 - y0) % (2 * GRID):
+            # both odd: narrow the strap (its along-edge dimension) by one step
+            if side in "WE":
+                y1 -= GRID
+            else:
+                x1 -= GRID
+            narrowed += 1
         odb.dbSBox.create(swire, met3, x0, y0, x1, y1, "STRIPE")
         bridged += 1
 
     if skipped:
-        print(f"[bridge_power_pads] WARNING skipped {len(skipped)}: {skipped[:8]}")
+        raise SystemExit(f"[bridge_power_pads] ERROR: no strap for {skipped[:8]}")
     print(
         f"[bridge_power_pads] drew {bridged} met3 clamp->wrapper straps "
-        f"across {len(swires)} nets"
+        f"across {len(swires)} nets ({narrowed} narrowed by one grid step so "
+        f"DEF can carry them)"
     )
 
 

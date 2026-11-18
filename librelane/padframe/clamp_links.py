@@ -13,8 +13,9 @@
 # user area, from one clamp pad to the other, the outer one on vssd<n> and the
 # inner one on vccd<n>. Every stub of both pads drops onto the strap of its net
 # through a met3 landing, a via3 array, a met4 plate and a via4 array.
-# D. Mitch Bailey drew these in the double-wide GDS (lvs-fix-2612); the strap
-# positions and widths are his.
+# D. Mitch Bailey drew these in the double-wide GDS (lvs-fix-2612). The straps
+# here sit where the openframe's own do (mag/chip_io_openframe.mag), measured
+# from the pad ring's core-facing edge on each side, 0.7 um from his.
 #
 # The step runs before global routing so the router sees the straps as fixed
 # metal. It fails if a shape comes within minimum spacing of another net's
@@ -33,9 +34,14 @@ CLAMP3_SUFFIX = "_lvc_clamped3_pad"
 CORE_PINS = ("VCCD1", "VSSD1")
 
 STRAP_WIDTH_UM = 4.0
-# Strap near edge, measured from the pad ring's core-facing edge.
-OUTER_OFFSET_UM = 2.325       # vssd<n>
-INNER_OFFSET_UM = 7.925       # vccd<n>; 1.6 um (m5.2) from the outer strap
+# Strap near edge, measured from the pad ring's core-facing edge: the
+# openframe's west straps are at x = 199.59 and 205.19, its east ones at
+# 3384.53 and 3378.93 (ring edges 197.965 and 3390.035).
+STRAP_OFFSET_UM = {
+    # side: (outer strap, vssd<n>; inner strap, vccd<n>)
+    "W": (1.625, 7.225),
+    "E": (1.505, 7.105),
+}
 WRAP_CLEAR_UM = 0.3           # inner strap stays this far outside the user area
 
 # Minimum spacing to another net's metal. These shapes are wide (over 3 um),
@@ -122,7 +128,8 @@ def clamp_links(reader):
         y0 = min(r[1] for _, r, _ in items)
         y1 = max(r[3] for _, r, _ in items)
         strap = {}
-        for net, off in ((vss[0], OUTER_OFFSET_UM), (vcc[0], INNER_OFFSET_UM)):
+        outer, inner_off = STRAP_OFFSET_UM[side]
+        for net, off in ((vss[0], outer), (vcc[0], inner_off)):
             if side == "W":
                 strap[net] = (edge + um(off), y0, edge + um(off) + width, y1)
             else:

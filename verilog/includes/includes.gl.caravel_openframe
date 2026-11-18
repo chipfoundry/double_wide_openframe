@@ -16,4 +16,5 @@
 -v $(CARAVEL_VERILOG_PATH)/rtl/constant_block.v
 -v $(CARAVEL_VERILOG_PATH)/rtl/xres_buf.v
 -v $(CARAVEL_VERILOG_PATH)/rtl/dw_branding_stubs.v
+-v $(CARAVEL_VERILOG_PATH)/rtl/user_id_programming.v
 -v $(CARAVEL_VERILOG_PATH)/rtl/double_wide_chip_io.v

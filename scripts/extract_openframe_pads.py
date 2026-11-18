@@ -54,6 +54,8 @@ POR_ORIENT = "E"
 RESET_INST = "master_resetb_pad"
 RESET_SIDE = "S"
 RESET_BOND_UM = 700.447
+# Low end of the xres4v2 cell along the south edge, as in the openframe.
+RESET_CELL_LO_UM = 663.0
 
 # Level-shifter + constant one for ENABLE_VDDIO (openframe Mag / Jul-14 places).
 XRES_BUF_INST = "rstb_level"
@@ -142,6 +144,23 @@ if UID_ROUTE_WINDOW_S_UM[1] >= DW_W_UM - ROUTE_OBS_DEPTH_UM:
 PAD_WIDTH_GPIO_UM = 80.0
 PAD_WIDTH_CLAMP_UM = 75.0
 PAD_WIDTH_RESET_UM = 75.0
+PAD_CELL_HEIGHT_UM = 197.965
+PAD_CELL_WIDTH_UM = {
+    "sky130_ef_io__gpiov2_pad": PAD_WIDTH_GPIO_UM,
+    "sky130_fd_io__top_xres4v2": PAD_WIDTH_RESET_UM,
+}
+# Bond pad centre along the cell (LEF local x of the PAD / *_PAD met5 opening).
+BOND_CX_UM = {"gpio": 42.5, "clamp": 37.47, "reset": 35.8425}
+# Pads are placed as in the caravel openframe: rotated round the ring, never
+# mirrored. A cell's local x then runs down the south and east edges and up
+# the north and west edges.
+SIDE_ORIENT = {"S": "S", "E": "E", "N": "N", "W": "W"}
+LOCAL_X_ASCENDS = {"S": False, "E": False, "N": True, "W": True}
+
+
+def along_of(side, lo, width, cx):
+    """Along-edge position of a pad's LEF-local x coordinate cx."""
+    return lo + cx if LOCAL_X_ASCENDS[side] else lo + width - cx
 PAD_OBS_MARGIN_UM = 4.0
 
 # gpiov2 core-facing signal pins protrude ~2.035um past the pad body into the
@@ -182,12 +201,6 @@ ENINP_CX_UM = 38.52            # ENABLE_INP_H pin along-edge centre (LEF local x
 ENINP_PIN_HALF_UM = 0.13       # half pin width (RECT 38.39..38.65)
 ENINP_WALL_SPAN_UM = 2.85      # pin edge (38.65) to past the internal wire (~41.27)
 ENINP_WALL_DEPTH_UM = (199.0, 199.6)
-# The pad-ring placer aligns each pad's *bond* center (pad_pos.tcl, == Signal.coord)
-# ~3um inboard of the cell center; the cell's cx=0 edge lands 43.0um from the bond
-# center along the edge (offset 37.0um bond->cell-LL, +80um cell width - see the DEF
-# calibration). Every side maps along = cell_LL + (80 - cx), so a pin at LEF-local
-# cx sits at (coord + GPIO_BOND_TO_EDGE_UM - cx) along the edge.
-GPIO_BOND_TO_EDGE_UM = 43.0
 # gpiov2 core-facing signal-pin along-edge centers (LEF local x, um), every pin
 # that reaches the pin-tip strip and gets routed. Walls between these notches keep
 # adjacent nets' met2 apart.
@@ -198,37 +211,20 @@ GPIO_PIN_CX_UM = (
 )
 GPIO_PAD_WIDTH_UM = 80.0       # gpiov2 LEF SIZE width (along-edge span of the pins)
 
-# Clamp pads: SIZE 75um along-edge, bondpad_offset 0 -> cell_LL = bond - 37.5.
-# Same local-x flip as GPIO (ascending cx -> descending die along-edge):
-#   along = bond + CLAMP_BOND_TO_EDGE_UM - cx
-CLAMP_BOND_TO_EDGE_UM = 37.5
-# Core-facing domain-pin met3 stubs from sky130_ef_io clamp LEFs:
-# (local_cx_center_um, width_um). Regular clamps use pin BASE.upper();
-# clamped3 domain rails use VCCD1/VSSD1 with the same x spans as LVC vccd/vssd.
-CLAMP_MET3_STUBS = {
-    # LVC: RECT 0.500..24.500 and 50.755..74.700
-    "vccd": ((12.500, 24.000), (62.7275, 23.945)),
-    "vssd": ((12.500, 24.000), (62.7275, 23.945)),
-    # HVC: RECT 0.495..24.395 and 50.390..74.290
-    "vddio": ((12.445, 23.900), (62.340, 23.900)),
-    "vssio": ((12.445, 23.900), (62.340, 23.900)),
-    "vdda": ((12.445, 23.900), (62.340, 23.900)),
-    "vssa": ((12.445, 23.900), (62.340, 23.900)),
-}
 # Openframe-style wrapper power edge ports: met3, ~24um along-edge, 2.3um deep
 # with a small overhang past the die edge (LAYER (-1.15,-w/2)-(1.15,w/2) at
 # PLACED (-0.85, y) -> absolute x in [-2.0, 0.3]).
 POWER_PIN_LAYER = "met3"
 POWER_PIN_OUT_NM = 2000          # overhang outside the wrapper die edge
 POWER_PIN_IN_NM = 300            # into the die
-# Openframe signal pins are 0.64 um along the edge and use the same
-# perpendicular split as the power ports (2.0 um outside, 0.3 um inside).
-SIG_PIN_WIDTH_NM = 640
-SIG_PIN_OUT_NM = POWER_PIN_OUT_NM
-SIG_PIN_IN_NM = POWER_PIN_IN_NM
-# Along-edge clearance from a die corner to a pin center. Independent of
-# how far the pin crosses the prBoundary.
-PIN_CORNER_CLEAR_NM = 1000
+# GPIO, loopback and power pins are copied from the caravel openframe wrapper
+# (see openframe_pins / _wrapper_pins): this is its DEF and its size.
+DEFAULT_OPENFRAME_DEF = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "caravel", "def",
+    "openframe_project_wrapper.def")
+OPENFRAME_DEF = {"path": DEFAULT_OPENFRAME_DEF, "pins": None}
+OF_WRAP_W_NM = 3166630
+OF_WRAP_H_NM = 4766630
 # Openframe POR: met3, 0.35 um along the edge, -2.0 .. +0.3.
 POR_PIN_HALF_NM = 175
 POR_PIN_IN_NM = POWER_PIN_IN_NM
@@ -269,7 +265,7 @@ DEFAULT_EF_IO_V = os.path.expanduser(
 # Magic parsing
 # --------------------------------------------------------------------------- #
 class Use:
-    __slots__ = ("master", "inst", "xf", "box", "cx", "cy", "side", "domain")
+    __slots__ = ("master", "inst", "xf", "box", "cx", "cy", "side", "domain", "lo")
 
     def __init__(self, master, inst):
         self.master, self.inst = master, inst
@@ -312,6 +308,18 @@ def classify(uses):
         u.cy = (miny + maxy) / 2.0 * UNIT_UM
         d = {"S": miny, "N": H - maxy, "W": minx, "E": W - maxx}
         u.side = min(d, key=d.get)
+        # Where the cell itself sits along its edge: the low end of its LEF
+        # abutment box. (The Magic bounding box above also covers metal that
+        # overhangs the cell, by a different amount per pad type, so its centre
+        # is not the cell's.)
+        u.lo = None
+        width = PAD_CELL_WIDTH_UM.get(u.master)
+        if width is None and CLAMP_RE.match(u.master):
+            width = PAD_WIDTH_CLAMP_UM
+        if width is not None:
+            ax0, ay0, _, _ = xform_bbox(
+                u.xf, [0, 0, int(round(width / UNIT_UM)), int(round(PAD_CELL_HEIGHT_UM / UNIT_UM))])
+            u.lo = (ax0 if u.side in "NS" else ay0) * UNIT_UM
 
 
 # --------------------------------------------------------------------------- #
@@ -383,8 +391,12 @@ def _orient(xf):
 
 
 class Signal:
-    def __init__(self, side, domain, coord):
+    def __init__(self, side, domain, coord, src=None, lo=None):
         self.side, self.domain, self.coord = side, domain, coord
+        self.lo = lo        # low end of the pad cell along its edge (um)
+        # (side, along-edge coordinate) of the openframe pad this one copies;
+        # its wrapper pins come from that pad's (see _wrapper_pins).
+        self.src = src
         self.g = None
         self.inst = None
         # openframe per-pad constant_block placement: dict(llx, lly, orient).
@@ -392,8 +404,10 @@ class Signal:
 
 
 class Clamp:
-    def __init__(self, side, coord, ci):
+    def __init__(self, side, coord, ci, src=None, lo=None):
         self.side, self.coord = side, coord
+        self.lo = lo        # low end of the pad cell along its edge (um)
+        self.src = src      # (side, coordinate) of the openframe clamp it copies
         self.__dict__.update(ci)
         self.k = None       # index within its package-net vector
         self.inst = None
@@ -413,10 +427,10 @@ def build_inventory(uses):
 
     for u in gpio:
         axis = u.cx if u.side in "NS" else u.cy
-        sig_by_side[u.side].append(Signal(u.side, None, axis))
+        sig_by_side[u.side].append(Signal(u.side, None, axis, src=(u.side, axis), lo=u.lo))
     for u in clamps:
         axis = u.cx if u.side in "NS" else u.cy
-        clp_by_side[u.side].append(Clamp(u.side, axis, clamp_info(u)))
+        clp_by_side[u.side].append(Clamp(u.side, axis, clamp_info(u), src=(u.side, axis), lo=u.lo))
     for u in cblk:
         minx, miny, _, _ = xform_bbox(u.xf, u.box)
         axis = u.cx if u.side in "NS" else u.cy
@@ -445,7 +459,8 @@ def build_inventory(uses):
     for s in "NS":
         r = sig_by_side[s][0]
         seam_cb[s] = dict(dalong=r.cb["llx"] - r.coord,
-                          perp=r.cb["lly"], orient=r.cb["orient"])
+                          perp=r.cb["lly"], orient=r.cb["orient"], src=r.src,
+                          cell=r.lo - r.coord)
 
     # ---- duplicate north/south ------------------------------------------- #
     def dup(objs, cls_axis_only=False):
@@ -454,14 +469,16 @@ def build_inventory(uses):
             out.append(o)
         for o in objs:                      # right copy (+HALF)
             if isinstance(o, Signal):
-                n = Signal(o.side, o.domain, o.coord + HALF_UM)
+                n = Signal(o.side, o.domain, o.coord + HALF_UM, src=o.src,
+                           lo=o.lo + HALF_UM)
                 if o.cb:
                     n.cb = dict(o.cb)
                     n.cb["llx"] += HALF_UM
             else:
                 n = Clamp(o.side, o.coord + HALF_UM,
                           dict(base=o.base, domain=o.domain, pkg=o.pkg,
-                               clamped3=o.clamped3, master=o.master))
+                               clamped3=o.clamped3, master=o.master), src=o.src,
+                          lo=o.lo + HALF_UM)
             out.append(n)
         out.sort(key=lambda o: o.coord)
         return out
@@ -476,10 +493,14 @@ def build_inventory(uses):
     # X=3588. Branding moves into left-half gaps; these pads occupy the seam.
     # North: after left-half gpio @ 3169.977, pitch 257 -> 3426.977, 3683.977
     # South: after left-half clamp_vdda @ 3151.500, pitch 274 -> 3425.500, 3699.500
+    # A seam pad's constant_block copies the side's reference pad (seam_cb), so
+    # its wrapper pins copy that pad's too.
     for coord in (3426.977, 3683.977):
-        sig_by_side["N"].append(Signal("N", None, coord))
+        sig_by_side["N"].append(Signal("N", None, coord, src=seam_cb["N"]["src"],
+                                       lo=float(round(coord + seam_cb["N"]["cell"]))))
     for coord in (3425.500, 3699.500):
-        sig_by_side["S"].append(Signal("S", None, coord))
+        sig_by_side["S"].append(Signal("S", None, coord, src=seam_cb["S"]["src"],
+                                       lo=float(round(coord + seam_cb["S"]["cell"]))))
     sig_by_side["N"].sort(key=lambda o: o.coord)
     sig_by_side["S"].sort(key=lambda o: o.coord)
 
@@ -551,7 +572,8 @@ def build_inventory(uses):
         clp=clp_by_side,
         n_gpio=n_gpio,
         pkg_counts=pkg_counts,
-        reset=dict(side=RESET_SIDE, coord=RESET_BOND_UM, inst=RESET_INST),
+        reset=dict(side=RESET_SIDE, coord=RESET_BOND_UM, lo=RESET_CELL_LO_UM,
+                   inst=RESET_INST),
     )
 
 
@@ -1089,15 +1111,16 @@ ROW_NAME = {"S": "IO_SOUTH", "E": "IO_EAST", "N": "IO_NORTH", "W": "IO_WEST"}
 
 
 def side_ordered(inv, s):
-    """Return list of (coord, inst_name) for all real pads on side s, sorted."""
+    """Return list of (cell low coordinate, inst_name) for all real pads on
+    side s, sorted along the edge."""
     items = []
     for o in inv["sig"][s]:
-        items.append((o.coord, o.inst))
+        items.append((o.lo, o.inst))
     for c in inv["clp"][s]:
-        items.append((c.coord, c.inst))
+        items.append((c.lo, c.inst))
     rst = inv.get("reset")
     if rst and rst["side"] == s:
-        items.append((rst["coord"], rst["inst"]))
+        items.append((rst["lo"], rst["inst"]))
     items.sort(key=lambda t: t[0])
     return items
 
@@ -1108,7 +1131,9 @@ def tcl_escape(inst):
 
 
 def gen_pad_pos_tcl(inv):
-    lines = ["# AUTO-GENERATED bond-pad-center coordinates (um) for the double-wide ring.",
+    lines = ["# AUTO-GENERATED pad cell positions (um) for the double-wide ring: the low",
+             "# end of each pad cell along its row, taken from the caravel openframe",
+             "# layout (north and south twice, the right-hand copy 3588 um on).",
              "set caravel_pad_pos [dict create]", ""]
     for s in "SENW":
         coords = [f"{c:.3f}" for (c, _) in side_ordered(inv, s)]
@@ -1492,7 +1517,7 @@ def _pad_dm0_wall_lines(inv):
     for s in "WENS":
         nhw = DM0_NOTCH_HALF_BY_SIDE.get(s, PIN_NOTCH_HALF_UM)
         for o in inv["sig"][s]:
-            dm0 = o.coord + GPIO_BOND_TO_EDGE_UM - DM0_CX_UM
+            dm0 = along_of(s, o.lo, GPIO_PAD_WIDTH_UM, DM0_CX_UM)
             # two flank walls, notch [dm0-nhw, dm0+nhw] left open
             for wlo, whi in ((dm0 - DM0_WALL_LEFT_UM, dm0 - nhw),
                              (dm0 + nhw, dm0 + DM0_WALL_RIGHT_UM)):
@@ -1513,9 +1538,12 @@ def _pad_enable_inp_wall_lines(inv):
     lines = ["# Per-pad ENABLE_INP_H pocket walls (keep routes off the pad-internal chamfer)."]
     for s in "WENS":
         for o in inv["sig"][s]:
-            # along = coord + GPIO_BOND_TO_EDGE_UM - cx: higher local cx -> lower along
-            whi = o.coord + GPIO_BOND_TO_EDGE_UM - (ENINP_CX_UM + ENINP_PIN_HALF_UM)
-            wlo = whi - ENINP_WALL_SPAN_UM
+            # The wall runs from the pin's high-local-x edge on past the pad's
+            # internal wire, i.e. towards higher local x.
+            a = along_of(s, o.lo, GPIO_PAD_WIDTH_UM, ENINP_CX_UM + ENINP_PIN_HALF_UM)
+            b = along_of(s, o.lo, GPIO_PAD_WIDTH_UM,
+                         ENINP_CX_UM + ENINP_PIN_HALF_UM + ENINP_WALL_SPAN_UM)
+            wlo, whi = min(a, b), max(a, b)
             if s == "S":
                 lines.append(f"- [met2, {wlo:.3f}, {d0}, {whi:.3f}, {d1}]")
             elif s == "N":
@@ -1542,10 +1570,10 @@ def _pad_pin_notch_lines(inv):
     lines = ["# Per-pad pin-strip met2 walls, notched at each pin (fix m2.2 at DM[0])."]
     for s in "WENS":
         for o in inv["sig"][s]:
-            c = o.coord
+            c = o.lo + GPIO_PAD_WIDTH_UM / 2.0
             # notch intervals (merged) in along-edge coords, within [c-half, c+half].
-            # Every side: pin along-edge = coord + (GPIO_BOND_TO_EDGE_UM - cx).
-            centers = sorted(c + GPIO_BOND_TO_EDGE_UM - cx for cx in GPIO_PIN_CX_UM)
+            centers = sorted(along_of(s, o.lo, GPIO_PAD_WIDTH_UM, cx)
+                             for cx in GPIO_PIN_CX_UM)
             notches = []
             for ct in centers:
                 lo, hi = ct - nhw, ct + nhw
@@ -1585,12 +1613,13 @@ def _pad_footprints(inv):
     pads = []
     for s in "WENS":
         for o in inv["sig"][s]:
-            pads.append((s, o.coord, PAD_WIDTH_GPIO_UM, "gpio"))
+            pads.append((s, o.lo + PAD_WIDTH_GPIO_UM / 2.0, PAD_WIDTH_GPIO_UM, "gpio"))
         for c in inv["clp"][s]:
-            pads.append((s, c.coord, PAD_WIDTH_CLAMP_UM, "clamp"))
+            pads.append((s, c.lo + PAD_WIDTH_CLAMP_UM / 2.0, PAD_WIDTH_CLAMP_UM, "clamp"))
     rst = inv.get("reset")
     if rst:
-        pads.append((rst["side"], rst["coord"], PAD_WIDTH_RESET_UM, "reset"))
+        pads.append((rst["side"], rst["lo"] + PAD_WIDTH_RESET_UM / 2.0,
+                     PAD_WIDTH_RESET_UM, "reset"))
     return pads
 
 
@@ -1632,20 +1661,6 @@ CONST_BLOCK_NUDGE_UM = {
     "gpio_e[13].const_val": (0.0, 6.0),
 }
 
-# Along-edge shift of every per-pad constant_block on a side (um), so the
-# block's own met2/met3 clears the wrapper's two loopback pins. Those pins reach
-# 2.0 um outside the user area (openframe pin geometry) and stay centred on the
-# block's unshifted position; without the shift the first row of the block's
-# power via pads lies on or within minimum spacing of one of them at every pad
-# (east: 0.33 um of overlap; north and west: 0.02 um; south: under spacing).
-# Each value is the smallest shift that clears both pins, rounded up.
-CONST_BLOCK_PIN_CLEAR_UM = {
-    "E": (0.0, 1.0),
-    "N": (-0.8, 0.0),
-    "W": (0.0, -1.0),
-    "S": (0.05, 0.0),
-}
-
 
 def _gpio_const_block_instances(inv):
     """YAML instance entries for the 63 per-gpio constant_block placements.
@@ -1654,9 +1669,10 @@ def _gpio_const_block_instances(inv):
     its pad, extended metal reaching inward toward the wrapper), transformed to
     the double-wide ring (east +HALF, north/south duplicated, mid-seam
     synthesized). Instance names match the RTL generate blocks: gpio_<s>[i].const_val.
-    Every block is shifted along its edge to clear the wrapper's loopback pins
-    (CONST_BLOCK_PIN_CLEAR_UM), and a few instances carry a further along-edge
-    nudge (CONST_BLOCK_NUDGE_UM) to clear localized detailed-routing DRCs.
+    A few instances carry a small along-edge nudge (CONST_BLOCK_NUDGE_UM) to
+    clear localized detailed-routing DRCs. The blocks' own metal has to stay
+    clear of the wrapper pins, which reach 2 um outside the user area:
+    scripts/check_const_block_pins.py (run by `make pads`) checks that.
     """
     lines = []
     for s in "WENS":
@@ -1668,9 +1684,8 @@ def _gpio_const_block_instances(inv):
             name = o.inst.replace("].u", "].const_val")
             cb = o.cb
             dx, dy = CONST_BLOCK_NUDGE_UM.get(name, (0.0, 0.0))
-            px, py = CONST_BLOCK_PIN_CLEAR_UM[s]
-            llx = cb["llx"] + ox + dx + px
-            lly = cb["lly"] + oy + dy + py
+            llx = cb["llx"] + ox + dx
+            lly = cb["lly"] + oy + dy
             lines.append(f"      {name}:")
             lines.append(f"        location: [{llx:.3f}, {lly:.3f}]")
             lines.append(f"        orientation: {SIDE_CONST_ORIENT[s]}")
@@ -1787,6 +1802,10 @@ meta:
     # same-net met2 patch (electrically a no-op; only gpio_dm0 metal is present
     # there) so the shapes merge and the gap disappears.
     +OpenROAD.DetailedRouting: Padframe.BridgeDM0
+    # The router only touches the tip of each wrapper pin. As in the openframe,
+    # the padframe carries its own metal over the whole pin footprint (2.0 um
+    # outside the user area, 0.28 / 0.30 um inside), for signals and power.
+    +Padframe.BridgeDM0: Padframe.WrapperPinLanding
 
 DESIGN_NAME: double_wide_chip_io
 {_verilog_files_block()}
@@ -2000,6 +2019,50 @@ PL_TARGET_DENSITY_PCT: 40
 """
 
 
+def openframe_pins():
+    """Pin shapes of the caravel openframe wrapper, from its DEF.
+
+    Returns a list of dicts: base name, bus index (None for scalars), side,
+    layer, lo/hi along the edge and out/inn across it, all in nm, with lo/hi in
+    openframe *chip* coordinates (the wrapper sits WRAP_MARGIN_UM inside the
+    openframe die, as it does here). A shape the DEF lists twice (four GPIO 38
+    pins are) is returned once.
+    """
+    if OPENFRAME_DEF["pins"] is not None:
+        return OPENFRAME_DEF["pins"]
+    text = open(OPENFRAME_DEF["path"]).read()
+    body = text[text.index("\nPINS "):text.index("END PINS")]
+    off = int(round(WRAP_MARGIN_UM * 1000))
+    W, H = OF_WRAP_W_NM, OF_WRAP_H_NM
+    pins = []
+    for stmt in re.split(r"\n\s*- ", body)[1:]:
+        name = stmt.split()[0]
+        m = re.match(r"(\w+)\[(\d+)\]$", name)
+        base, index = (m.group(1), int(m.group(2))) if m else (name, None)
+        for b in re.finditer(
+                r"\+ LAYER (\w+) \( (-?\d+) (-?\d+) \) \( (-?\d+) (-?\d+) \)"
+                r"\s*\+ (?:PLACED|FIXED) \( (-?\d+) (-?\d+) \)", stmt):
+            layer = b.group(1)
+            x1, y1, x2, y2, px, py = (int(v) for v in b.groups()[1:])
+            x1, x2, y1, y2 = px + x1, px + x2, py + y1, py + y2
+            if x1 < 0:
+                side, lo, hi, out, inn = "W", y1, y2, -x1, x2
+            elif x2 > W:
+                side, lo, hi, out, inn = "E", y1, y2, x2 - W, W - x1
+            elif y1 < 0:
+                side, lo, hi, out, inn = "S", x1, x2, -y1, y2
+            elif y2 > H:
+                side, lo, hi, out, inn = "N", x1, x2, y2 - H, H - y1
+            else:
+                raise RuntimeError(f"openframe pin {name} does not cross the boundary")
+            pin = dict(base=base, index=index, side=side, layer=layer,
+                       lo=lo + off, hi=hi + off, out=out, inn=inn)
+            if pin not in pins:
+                pins.append(pin)
+    OPENFRAME_DEF["pins"] = pins
+    return pins
+
+
 def _wrapper_pins(inv):
     """Signal, loopback, POR and reset pins of the user-area wrapper template.
 
@@ -2008,6 +2071,11 @@ def _wrapper_pins(inv):
     offset inside the die, also in nm. Shared by gen_pin_template_def (which
     writes them) and _user_area_keepout_lines (which keeps the padframe router
     out of the user area except where it has to reach these pins).
+
+    Every GPIO pad's pins are the caravel openframe's: the pad copies an
+    openframe pad (Signal.src), and each of that pad's wrapper pins is placed
+    at the same offset from the pad, on the same layer, with the same width and
+    the same reach either side of the boundary. Only the bus index changes.
     """
     UPM = 1000                       # DEF database units per micron
     GRID = 5                         # sky130 manufacturing grid (nm)
@@ -2020,31 +2088,10 @@ def _wrapper_pins(inv):
 
     WW, HH = nm(WRAP_W_UM), nm(WRAP_H_UM)
     OFF = nm(WRAP_MARGIN_UM)          # wrapper origin offset inside the die
-    PW = SIG_PIN_WIDTH_NM             # along the edge                  (0.64 um)
-    POUT = SIG_PIN_OUT_NM             # past the prBoundary             (2.00 um)
-    PIN = SIG_PIN_IN_NM               # inside the prBoundary           (0.30 um)
-    CLEAR = PIN_CORNER_CLEAR_NM
-    PITCH = 4000                      # spacing between a gpio's pins    (4.00 um)
     HLAYER, VLAYER = "met3", "met2"
 
-    def edge_box(side, c, half, out_nm, in_nm):
-        """Pin rectangle that crosses the prBoundary the way openframe does."""
-        if side == "S":
-            return VLAYER, (c - half, -out_nm, c + half, in_nm)
-        if side == "N":
-            return VLAYER, (c - half, HH - in_nm, c + half, HH + out_nm)
-        if side == "W":
-            return HLAYER, (-out_nm, c - half, in_nm, c + half)
-        return HLAYER, (WW - in_nm, c - half, WW + out_nm, c + half)
-
-    # Order each GPIO's 17 pins to mirror the gpiov2 pad's physical core-pin
-    # layout so the pad->wrapper nets run as a clean parallel bundle instead of
-    # a crossing fan. Every pad side (R180/R270/MY/MYR90) maps ascending pad-
-    # local-x to *descending* die along-edge coordinate (verified by probing the
-    # routed padframe), so along the increasing wrapper coordinate we emit the
-    # reverse of GPIO_PAD_PIN_ORDER -- identical for all four sides.
     _inout = set(GPIO_VEC_SIGS_INOUT)
-    _wr_in = set(GPIO_VEC_SIGS_OUT)   # pad -> wrapper == wrapper INPUT
+    _wr_in = set(GPIO_VEC_SIGS_OUT) | set(GPIO_VEC_SIGS_LOOPBACK)   # wrapper INPUT
 
     def _pin_dir(sig):
         if sig in _inout:
@@ -2053,41 +2100,43 @@ def _wrapper_pins(inv):
             return "INPUT"
         return "OUTPUT"
 
-    sig_dirs = [(s, _pin_dir(s)) for s in reversed(GPIO_PAD_PIN_ORDER)]
-    halfspan = (len(sig_dirs) - 1) * PITCH // 2
+    per_pad = set(GPIO_PAD_PIN_ORDER) | set(GPIO_VEC_SIGS_LOOPBACK)
+    of_sig = [p for p in openframe_pins() if p["base"] in per_pad]
+    of_by_index = {}
+    for p in of_sig:
+        of_by_index.setdefault(p["index"], []).append(p)
+    # openframe GPIO index of the pad at (side, coordinate): the one whose
+    # gpio_in pin is on that side and nearest (pads are over 200 um apart).
+    of_gpio_in = [p for p in of_sig if p["base"] == "gpio_in"]
+
+    def of_index(src):
+        side, coord = src
+        best = min((p for p in of_gpio_in if p["side"] == side),
+                   key=lambda p: abs((p["lo"] + p["hi"]) / 2 - nm(coord)))
+        if abs((best["lo"] + best["hi"]) / 2 - nm(coord)) > 60000:
+            raise RuntimeError(f"no openframe GPIO pins at {side} {coord}")
+        return best["index"]
 
     pins = []   # (name, direction, layer, x1, y1, x2, y2)
     for s in "WENS":
-        edge_len = WW if s in "NS" else HH
-        lo = halfspan + CLEAR + GRID
-        hi = edge_len - halfspan - CLEAR - GRID
         for o in inv["sig"][s]:
-            center = snap(nm(o.coord) - OFF)
-            center = max(lo, min(hi, center))
-            start = center - halfspan
-            for j, (sig, direction) in enumerate(sig_dirs):
-                c = snap(start + j * PITCH)
-                name = f"{sig}[{o.g}]"
-                layer, box = edge_box(s, c, PW // 2, POUT, PIN)
-                pins.append((name, direction, layer) + box)
-
-    # Per-gpio buffered-constant pins (gpio_loopback_one / gpio_loopback_zero).
-    # Each gpio's constant_block is placed just inside the ring at that pad with
-    # its one/zero metal extended inward; land a wrapper input pin on the same
-    # edge, centered on the constant_block (its drawn box is 14um along the edge,
-    # so the along-edge center is LL_along + 7). The two pins straddle the center
-    # by one pitch. Layer follows the side, matching the padframe approach axis.
-    for s in "WENS":
-        edge_len = WW if s in "NS" else HH
-        for o in inv["sig"][s]:
-            along_um = (o.cb["llx"] if s in "NS" else o.cb["lly"]) + 7.0
-            center = snap(nm(along_um) - OFF)
-            center = max(CLEAR + GRID + PITCH, min(edge_len - CLEAR - GRID - PITCH, center))
-            for j, sig in enumerate(GPIO_VEC_SIGS_LOOPBACK):
-                c = snap(center + j * PITCH - PITCH // 2)
-                name = f"{sig}[{o.g}]"
-                layer, box = edge_box(s, c, PW // 2, POUT, PIN)
-                pins.append((name, "INPUT", layer) + box)
+            shapes = of_by_index[of_index(o.src)]
+            if {p["base"] for p in shapes} != per_pad or len(shapes) != len(per_pad):
+                raise RuntimeError(f"openframe pad at {o.src} lacks some GPIO pins")
+            delta = snap(nm(o.coord) - nm(o.src[1])) - OFF
+            for p in shapes:
+                if p["side"] != s:
+                    raise RuntimeError(f"{p['base']}[{o.g}] is on another edge in the openframe")
+                lo, hi = p["lo"] + delta, p["hi"] + delta
+                if s == "S":
+                    box = (lo, -p["out"], hi, p["inn"])
+                elif s == "N":
+                    box = (lo, HH - p["inn"], hi, HH + p["out"])
+                elif s == "W":
+                    box = (-p["out"], lo, p["inn"], hi)
+                else:
+                    box = (WW - p["inn"], lo, WW + p["out"], hi)
+                pins.append((f"{p['base']}[{o.g}]", _pin_dir(p["base"]), p["layer"]) + box)
 
     # POR pins (west met3): openframe geometry, Y shifted with our POR place so
     # they abut the simple_por pin band. Order porb_h / por_l / porb_l.
@@ -2156,29 +2205,46 @@ def gen_pin_template_def(inv):
 
     pins, WW, HH, OFF = _wrapper_pins(inv)
 
-    # Power / ground edge ports: one SPECIAL multi-PORT pin per rail, with a
-    # met3 rectangle facing every clamp met3 stub (openframe dual-~24um pattern).
-    # These coexist with the wrapper PDN ring pins (FP_TEMPLATE_MATCH_MODE
-    # permissive); the edge ports are the padframe landing sites.
+    # Power / ground edge ports: one SPECIAL multi-PORT pin per rail. Each
+    # clamp pad copies an openframe clamp (Clamp.src) and gets that clamp's
+    # ports at the same offsets and widths, on the same nets. A clamped3 pad
+    # has three: its own supply twice and, between them, the other rail of its
+    # clamp. These coexist with the wrapper PDN ring pins
+    # (FP_TEMPLATE_MATCH_MODE permissive); the edge ports are the padframe
+    # landing sites.
+    of_power = [p for p in openframe_pins() if p["base"] in CORE_RAILS]
+    half_pad = nm(75.0) // 2          # clamp cells are 75 um along the edge
     power_ports = {rail: [] for rail in CORE_RAILS}  # rail -> [(x1,y1,x2,y2)]
+    used = set()
     for s in "WENS":
         for c in inv["clp"][s]:
-            stubs = CLAMP_MET3_STUBS.get(c.base)
-            if not stubs:
-                continue
-            for cx, width in stubs:
-                along = snap(nm(c.coord + CLAMP_BOND_TO_EDGE_UM - cx) - OFF)
-                half = snap(nm(width / 2.0))
-                lo, hi = along - half, along + half
+            src_side, src_coord = c.src
+            centre = nm(src_coord)
+            mine = [(i, p) for i, p in enumerate(of_power)
+                    if p["side"] == src_side
+                    and abs((p["lo"] + p["hi"]) // 2 - centre) <= half_pad]
+            if c.pkg not in {p["base"] for _, p in mine}:
+                raise RuntimeError(
+                    f"openframe has no {c.pkg} port at its {src_side} clamp @ {src_coord}")
+            delta = snap(nm(c.coord) - centre) - OFF
+            for i, p in mine:
+                used.add(i)
+                if p["layer"] != POWER_PIN_LAYER or (p["out"], p["inn"]) != (
+                        POWER_PIN_OUT_NM, POWER_PIN_IN_NM):
+                    raise RuntimeError(f"unexpected openframe {p['base']} port shape")
+                lo, hi = p["lo"] + delta, p["hi"] + delta
                 if s == "S":
-                    box = (lo, -POWER_PIN_OUT_NM, hi, POWER_PIN_IN_NM)
+                    box = (lo, -p["out"], hi, p["inn"])
                 elif s == "N":
-                    box = (lo, HH - POWER_PIN_IN_NM, hi, HH + POWER_PIN_OUT_NM)
+                    box = (lo, HH - p["inn"], hi, HH + p["out"])
                 elif s == "W":
-                    box = (-POWER_PIN_OUT_NM, lo, POWER_PIN_IN_NM, hi)
+                    box = (-p["out"], lo, p["inn"], hi)
                 else:  # E
-                    box = (WW - POWER_PIN_IN_NM, lo, WW + POWER_PIN_OUT_NM, hi)
-                power_ports[c.pkg].append(box)
+                    box = (WW - p["inn"], lo, WW + p["out"], hi)
+                power_ports[p["base"]].append(box)
+    if len(used) != len(of_power):
+        raise RuntimeError(
+            f"{len(of_power) - len(used)} openframe power ports belong to no clamp")
 
     for name, _direction, _layer, x1, y1, x2, y2 in pins:
         outside = min(x1, x2) < 0 or min(y1, y2) < 0 or max(x1, x2) > WW or max(y1, y2) > HH
@@ -2226,8 +2292,9 @@ def gen_summary(inv):
     gmap = []
     for s in "WENS":
         for o in inv["sig"][s]:
+            bond = along_of(s, o.lo, PAD_WIDTH_GPIO_UM, BOND_CX_UM["gpio"])
             gmap.append(dict(g=o.g, side=s, domain=o.domain,
-                             coord=round(o.coord, 3), inst=o.inst))
+                             coord=round(bond, 3), inst=o.inst))
     gmap.sort(key=lambda d: d["g"])
     counts = {s: dict(gpio=len(inv["sig"][s]), clamp=len(inv["clp"][s])) for s in "WENS"}
     return dict(
@@ -2280,8 +2347,14 @@ def main():
         default=DEFAULT_EF_IO_V,
         help="PDK sky130_ef_io.v (used to copy ef_io composite pad port lists)",
     )
+    ap.add_argument(
+        "--openframe-def",
+        default=DEFAULT_OPENFRAME_DEF,
+        help="caravel openframe_project_wrapper.def (the wrapper pins are copied from it)",
+    )
     ap.add_argument("--analyze", action="store_true")
     args = ap.parse_args()
+    OPENFRAME_DEF["path"] = args.openframe_def
 
     uses = parse_mag(args.mag)
     classify(uses)

@@ -16,6 +16,8 @@ Registers:
     wide special met3 straps from each clamp domain pin to the wrapper edge.
   * ``Padframe.BridgeDM0`` -- after DetailedRouting; same-net met2 patch for
     gpio_dm0 tip stubs.
+  * ``Padframe.WrapperPinLanding`` -- after BridgeDM0; padframe metal over
+    every wrapper pin footprint, as in the openframe.
 """
 
 import os
@@ -85,3 +87,12 @@ class BridgeDM0(OdbpyStep):
 
     def get_script_path(self):
         return os.path.join(os.path.dirname(__file__), "bridge_dm0.py")
+
+
+@Step.factory.register()
+class WrapperPinLanding(OdbpyStep):
+    id = "Padframe.WrapperPinLanding"
+    name = "Padframe metal over every wrapper pin footprint (openframe-style)"
+
+    def get_script_path(self):
+        return os.path.join(os.path.dirname(__file__), "wrapper_pin_landing.py")
