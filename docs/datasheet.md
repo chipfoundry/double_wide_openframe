@@ -16,7 +16,7 @@ block into the frame. There is no management processor — every pad is yours.
 | **GPIOs** | **63** configurable I/O (`gpio[62:0]`) |
 | **Dedicated reset pad** | 1 — external `resetb`, 3.3 V, level-shifted to 1.8 V |
 | **Power-on reset (POR)** | On-chip, delivered to your design (`porb_h`, `porb_l`, `por_l`) |
-| **Power / analog domains** | Multi-domain: `user0`, `user1`, `user2` + shared IO/analog rails |
+| **Power / analog domains** | Multi-domain: `user0`, `user1`, `user2`, each with its own analog rails, + shared IO rails |
 | **Process** | SkyWater sky130A (open PDK) |
 | **I/O cells** | `sky130_ef_io` GPIOv2 (digital + analog capable, built-in ESD) |
 | **Management SoC** | None — full pad control exposed to the user area |
@@ -37,9 +37,9 @@ the south edge.
 
 | Edge | GPIO indices | Count | Domain | Order |
 |------|--------------|------:|:------:|-------|
-| West | `gpio[0]`–`gpio[13]` | 14 | user2 | bottom → top |
-| East | `gpio[14]`–`gpio[28]` | 15 | user1 | bottom → top |
-| North | `gpio[29]`–`gpio[48]` | 20 | user1 | left → right |
+| East | `gpio[0]`–`gpio[14]` | 15 | user1 | bottom → top |
+| North | `gpio[15]`–`gpio[34]` | 20 | user1 | right → left |
+| West | `gpio[35]`–`gpio[48]` | 14 | user2 | top → bottom |
 | South | `gpio[49]`–`gpio[62]` | 14 | user0 | left → right |
 
 Exact bond-pad coordinates for every index are in [pinout.md](pinout.md) and
@@ -58,9 +58,14 @@ any domain, but **digital standard-cell logic should connect to `vccd1` /
 | Domain | GPIO sides | Core / analog rails |
 |--------|------------|----------------------|
 | **user0** | South (49–62) | `vccd1` / `vssd1`, `vdda` / `vssa` |
-| **user1** | East (14–28), North (29–48) | `vccd1` / `vssd1`, `vdda1` / `vssa1` |
-| **user2** | West (0–13) | `vccd2` / `vssd2`, `vdda2` / `vssa2` |
-| Shared ring | all | `vddio` / `vssio` (3.3 V I/O), `vccd` / `vssd`, `vdda` / `vssa` |
+| **user1** | East (0–14), North (15–29) | `vccd1` / `vssd1`, `vdda1` / `vssa1` |
+| **user2** | North (30–34), West (35–48) | `vccd2` / `vssd2`, `vdda2` / `vssa2` |
+| Shared ring | all | `vddio` / `vssio` (3.3 V I/O), `vccd` / `vssd` |
+
+The analog rails are not shared. Three disconnect cells cut the pad ring's
+`VDDA` / `VSSA` into the three segments above, so each domain's analog supply is
+isolated from the other two and is fed only by its own `vdda<n>` / `vssa<n>`
+pads. The five north pads left of the cut (GPIO 30–34) are in user2.
 
 Power is delivered through **24 clamped power bond pads** (per-net counts in
 [pinout.md](pinout.md)). Bring your own in-area power distribution (PDN) when you
@@ -113,9 +118,33 @@ known state without extra circuitry.
 | `por_l` | in | Power-on-reset, 1.8 V core side |
 | `resetb_h` | in | External reset bar from `resetb` pad, 3.3 V |
 | `resetb_l` | in | External reset bar, level-shifted to 1.8 V |
+| `mask_rev[31:0]` | in | User id from the pad-ring programming block, 1.8 V |
 
 `resetb_l` is the recommended reset for 1.8 V digital logic. `resetb` is a
 dedicated bond pad on the south edge (it is not one of the 63 GPIOs).
+`mask_rev` is driven by `user_id_programming`, placed in the south-east pad
+ring beside GPIO 0, and brought out on the wrapper's south edge.
+
+### Pad behaviour at power-up
+
+As in the standard openframe, the frame drives `ENABLE_H` and `ENABLE_VDDA_H`
+of every GPIO pad, and `ENABLE_H` of the `resetb` pad, from the on-chip
+power-on reset `porb_h`. While `porb_h` is low each pad is held in its safe
+state with the output driver off, so pads do not drive the board while the
+1.8 V controls from your design are not yet valid. Once `porb_h` goes high the
+pads follow `gpio_oeb` / `gpio_out` / `gpio_dm*` from the user area. These
+enables are internal to the frame and are not on the wrapper boundary.
+
+`porb_h` watches only the 3.3 V supply (`vddio`) and releases after a fixed
+delay (about 15 ms in the `simple_por` design). It protects the pads during
+that power-up window only:
+
+- Bring up the 1.8 V supplies (`vccd`, `vccd1`, `vccd2`) before, with, or within
+  the POR delay after 3.3 V.
+- If 1.8 V comes up later than that, is switched off while 3.3 V stays up, or
+  browns out, the pad controls are undefined for that time: pads may drive
+  high or low and draw extra `vddio` current. The standard openframe behaves
+  the same way.
 
 ---
 

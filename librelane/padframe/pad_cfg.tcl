@@ -1,9 +1,9 @@
 # Double-wide openframe pad ring placement.
 #
 # Adapted from LibreLane's default padring script and the sky130-fabulous-testchip
-# pad_cfg.tcl. Bond-pad-center coordinates come from the AUTO-GENERATED
-# pad_pos.tcl (extracted from the caravel openframe layout, left/right kept
-# exact, top/bottom duplicated). Only 4 outer corners are placed; the top and
+# pad_cfg.tcl. Pad cell positions come from the AUTO-GENERATED pad_pos.tcl
+# (extracted from the caravel openframe layout, left/right kept exact,
+# top/bottom duplicated). Only 4 outer corners are placed; the top and
 # bottom rows are continuous (filler bridges the middle seam).
 
 source $::env(SCRIPTS_DIR)/openroad/common/set_global_connections.tcl
@@ -35,19 +35,25 @@ make_io_sites \
 set sides {PAD_SOUTH PAD_EAST PAD_NORTH PAD_WEST}
 set row_names [dict create PAD_SOUTH IO_SOUTH PAD_EAST IO_EAST PAD_NORTH IO_NORTH PAD_WEST IO_WEST]
 
-# AUTO-GENERATED bond-pad-center coordinates (defines caravel_pad_pos).
+# AUTO-GENERATED pad cell positions (defines caravel_pad_pos).
 source [file join [file dirname [info script]] pad_pos.tcl]
 
-# gpiov2 / xres pads have a small bondpad offset from the cell center.
-set bondpad_offsets [dict create]
-dict set bondpad_offsets sky130_ef_io__gpiov2_pad 2.885
-dict set bondpad_offsets sky130_fd_io__top_xres4v2 -1.658
+# Pads go exactly where the caravel openframe has them: pad_pos.tcl gives the
+# low end of each pad cell along its row. The openframe rotates its pads round
+# the ring and never mirrors them (south R180, east R270, north R0, west R90).
+# OpenROAD's north and west rows are the mirror image of that, so pads on those
+# two rows are placed with -mirror.
+set mirrored_rows {PAD_NORTH PAD_WEST}
 
 foreach side $sides {
     set positions [dict get $caravel_pad_pos $side]
     if {[llength $positions] != [llength $::env($side)]} {
         puts stderr "\[ERROR\] $side: [llength $positions] positions vs [llength $::env($side)] instances"
         exit 1
+    }
+    set mirror {}
+    if {[lsearch -exact $mirrored_rows $side] >= 0} {
+        set mirror -mirror
     }
     for {set i 0} {$i < [llength $positions]} {incr i} {
         set pad_position [lindex $positions $i]
@@ -57,34 +63,42 @@ foreach side $sides {
             exit 1
         }
         set master_name [[$inst getMaster] getName]
-        set bondpad_offset 0
-        if {[dict exists $bondpad_offsets $master_name]} {
-            set bondpad_offset [dict get $bondpad_offsets $master_name]
-        }
-        set width [expr [[$inst getMaster] getWidth] / $units]
-        set final_pad_position [expr $pad_position + $bondpad_offset - double($width)/2]
-        place_pad -row [dict get $row_names $side] -location $final_pad_position $inst_name -master $master_name
+        place_pad -row [dict get $row_names $side] -location $pad_position \
+            {*}$mirror $inst_name -master $master_name
     }
 }
 
 # Power-domain bridge slices (VCCHIB<->VCCD, VSWITCH<->VDDIO): 2 per side, near corners.
+# The names are braced so the backslashes stay in them: the netlist instances
+# are named `...slices\[i\].u`, backslashes included. Without them place_pad
+# finds no such instance and creates a second, unconnected one, leaving the
+# netlist's own slice unplaced.
 set slice_master sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um
 place_pad -row IO_SOUTH -location $pad_corner_site_width \
-    "vcchib_vccd_and_vswitch_vddio_slices\[0\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[0\].u} -master $slice_master
 place_pad -row IO_SOUTH -location [expr $DIE_WIDTH - $pad_corner_site_width - 20] \
-    "vcchib_vccd_and_vswitch_vddio_slices\[1\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[1\].u} -master $slice_master
 place_pad -row IO_EAST -location $pad_corner_site_height \
-    "vcchib_vccd_and_vswitch_vddio_slices\[2\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[2\].u} -master $slice_master
 place_pad -row IO_EAST -location [expr $DIE_HEIGHT - $pad_corner_site_height - 20] \
-    "vcchib_vccd_and_vswitch_vddio_slices\[3\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[3\].u} -master $slice_master
 place_pad -row IO_NORTH -location $pad_corner_site_width \
-    "vcchib_vccd_and_vswitch_vddio_slices\[5\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[5\].u} -master $slice_master
 place_pad -row IO_NORTH -location [expr $DIE_WIDTH - $pad_corner_site_width - 20] \
-    "vcchib_vccd_and_vswitch_vddio_slices\[4\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[4\].u} -master $slice_master
 place_pad -row IO_WEST -location $pad_corner_site_height \
-    "vcchib_vccd_and_vswitch_vddio_slices\[7\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[7\].u} -master $slice_master
 place_pad -row IO_WEST -location [expr $DIE_HEIGHT - $pad_corner_site_height - 20] \
-    "vcchib_vccd_and_vswitch_vddio_slices\[6\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[6\].u} -master $slice_master
+
+# Analog power cuts (analog_cuts, from pad_pos.tcl): a disconnect slice ends
+# the VDDA/VSSA rails on either side of it. Placed before the fillers, which
+# then close the gaps around it.
+set cut_master sky130_ef_io__disconnect_vdda_slice_5um
+foreach cut $analog_cuts {
+    lassign $cut cut_row cut_location cut_inst
+    place_pad -row $cut_row -location $cut_location $cut_inst -master $cut_master
+}
 
 puts "\[INFO\] Placing corner cells..."
 place_corners $::env(PAD_CORNER)

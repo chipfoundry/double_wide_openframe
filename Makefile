@@ -19,6 +19,8 @@ export PDK_ROOT
 export PDK
 
 CARAVEL_MAG ?= ../caravel/mag/chip_io_openframe.mag
+# The wrapper's pins are copied from the openframe wrapper, pad by pad.
+CARAVEL_DEF ?= ../caravel/def/openframe_project_wrapper.def
 
 # RAM notes (this box has only ~15 GiB):
 #  * We do NOT wrap librelane in a `systemd-run --scope` / cgroup memory cap:
@@ -39,9 +41,12 @@ CF_PRECHECK ?= ../cf-precheck
 KLAYOUT_PYMOD ?= /usr/lib/klayout/pymod
 export PYTHONPATH := $(abspath $(KLAYOUT_PYMOD)):$(abspath $(CF_PRECHECK)/src):$(PYTHONPATH)
 
-.PHONY: all pads wrapper-empty padframe integrate clean \
+.PHONY: all pads wrapper-empty padframe integrate clean compress uncompress \
         padframe-klayout padframe-openroad enable-pdk \
-        publish-golden drc drc-magic drc-klayout lvs-padframe
+        publish-golden drc drc-magic drc-klayout lvs-padframe \
+        check-pad-enables check-porb-net sim-power-up \
+        check-xres-loops check-analog-domains check-clamp-links \
+        check-wrapper-pins
 
 all: pads wrapper-empty padframe publish-golden
 
@@ -53,6 +58,7 @@ enable-pdk:
 pads:
 	python3 scripts/extract_openframe_pads.py \
 		--mag $(CARAVEL_MAG) \
+		--openframe-def $(CARAVEL_DEF) \
 		--out-tcl librelane/padframe/pad_pos.tcl \
 		--out-yaml librelane/padframe/pad_lists.yaml \
 		--out-json pad_summary.json \
@@ -63,11 +69,12 @@ pads:
 		--out-pad-blackboxes verilog/rtl/pad_ef_io_blackboxes.v \
 		--out-por-reset-blackboxes verilog/rtl/por_reset_blackboxes.v \
 		--out-def-template librelane/wrapper/pin_template.def
+	python3 scripts/check_const_block_pins.py
 
 ## Harden the empty user-area wrapper (produces the LEF/DEF/GDS pin template).
-## LibreLane 3's native PDN_ENABLE_PINS promotes the PDN grid straight to the
-## pin_template.def pin locations (see librelane/wrapper/config.json), so no
-## custom step registration is needed here anymore.
+## FP_TEMPLATE_COPY_POWER_PINS puts the pad-aligned power ports of
+## pin_template.def on the die edge, so plain librelane is enough here; no
+## custom step registration is needed.
 wrapper-empty:
 	$(LIBRELANE) \
 		librelane/wrapper/config.json --save-views-to build/wrapper/
@@ -76,7 +83,9 @@ wrapper-empty:
 		--def $$(ls -td librelane/wrapper/runs/*/final/def/double_wide_openframe_project_wrapper.def | head -1)
 	$(MAKE) publish-golden
 
-## Copy empty wrapper GDS/RTL into the golden names expected by cf-precheck (-c).
+## Copy empty wrapper GDS/RTL into the golden names expected by cf-precheck (-c),
+## and its LEF (with the patched power ports) into lef/, where the padframe
+## check scripts read it.
 publish-golden:
 	mkdir -p gds verilog/gl
 	@if [ -f build/wrapper/gds/double_wide_openframe_project_wrapper.gds ]; then \
@@ -93,6 +102,11 @@ publish-golden:
 	@if [ -f build/wrapper/pnl/double_wide_openframe_project_wrapper.pnl.v ]; then \
 		cp -f build/wrapper/pnl/double_wide_openframe_project_wrapper.pnl.v \
 			verilog/gl/double_wide_openframe_project_wrapper.v; \
+	fi
+	@if [ -f build/wrapper/lef/double_wide_openframe_project_wrapper.lef ]; then \
+		mkdir -p lef; \
+		cp -f build/wrapper/lef/double_wide_openframe_project_wrapper.lef \
+			lef/double_wide_openframe_project_wrapper.lef; \
 	fi
 	@cp -f verilog/rtl/double_wide_openframe_project_wrapper.v \
 		verilog/rtl/__double_wide_openframe_project_wrapper.v.tmp && \
@@ -138,7 +152,14 @@ integrate:
 PADFRAME_GDS ?= gds/double_wide_chip_io.gds
 DRC_OUT ?= $(CURDIR)/signoff/padframe_drc
 drc: drc-magic drc-klayout
-drc-magic:
+# The padframe GDS is stored gzipped (it is over GitHub's 50 MB advisory limit);
+# the targets that read it expand it on first use.
+$(PADFRAME_GDS):
+	gzip -d -k $@.gz
+drc-klayout lvs-padframe: $(PADFRAME_GDS)
+check-porb-net check-xres-loops check-analog-domains check-clamp-links: $(PADFRAME_GDS)
+check-wrapper-pins: $(PADFRAME_GDS)
+drc-magic: $(PADFRAME_GDS)
 	python3 scripts/run_padframe_drc.py \
 		--gds $(abspath $(PADFRAME_GDS)) --design double_wide_chip_io \
 		--pdk-path $(PDK_ROOT)/$(PDK) --out $(DRC_OUT) --mode magic
@@ -154,6 +175,71 @@ lvs-padframe:
 		--design-dir $(CURDIR) \
 		--pdk-path $(PDK_ROOT)/$(PDK) \
 		--out $(LVS_OUT)
+
+## Pad enables (porb_h), see librelane/padframe/porb_ring.py:
+##  check-pad-enables  RTL: every pad control pin driven as in chip_io_openframe.v
+##  check-porb-net     GDS: porb_h is one net over simple_por, the wrapper pin and
+##                     all 127 pad enable pins, with no TIE_HI_ESD on it
+##  sim-power-up       sim: pads stay undriven until porb_h releases
+check-pad-enables:
+	python3 scripts/check_pad_enables.py --caravel $(dir $(CARAVEL_MAG))..
+
+check-porb-net:
+	openroad -python -exit scripts/porb_probe_points.py \
+		def/double_wide_chip_io.def build/porb_probes.json
+	klayout -b -r scripts/check_porb_net.py \
+		-rd gds=$(abspath $(PADFRAME_GDS)) -rd probes=$(abspath build/porb_probes.json)
+
+sim-power-up:
+	$(MAKE) -C verilog/dv/pad_power_up PDK_ROOT=$(PDK_ROOT) PDK=$(PDK)
+
+## GDS-level net checks (scripts/check_gds_nets.py): every pin of each named net
+## is on one net in the streamed GDS, and the named nets are not shorted to each
+## other.
+##  check-xres-loops      the reset pad's hand-drawn tie-off / loopback wiring
+##  check-analog-domains  the three VDDA/VSSA ring segments cut by the
+##                        disconnect slices
+##  check-clamp-links     each user domain's vccd / vssd clamp pads, joined in met5
+define gds_net_check
+	openroad -python -exit scripts/net_probe_points.py \
+		def/double_wide_chip_io.def build/$(1)_probes.json $(2)
+	klayout -b -r scripts/check_gds_nets.py \
+		-rd gds=$(abspath $(PADFRAME_GDS)) -rd probes=$(abspath build/$(1)_probes.json)
+endef
+
+check-xres-loops:
+	$(call gds_net_check,xres,xres_vss_loop xresloop xres_loopback_one)
+
+check-analog-domains:
+	$(call gds_net_check,analog,vdda vdda1 vdda2 vssa vssa1 vssa2)
+
+check-clamp-links:
+	$(call gds_net_check,clamp,vccd vccd1 vccd2 vssd vssd1 vssd2)
+
+## Wrapper pins and pads: the pin template is the openframe's, pad by pad; the
+## padframe's own metal covers every wrapper pin footprint (signals and power);
+## every pad cell sits where the openframe has it, never mirrored.
+check-wrapper-pins:
+	python3 scripts/check_wrapper_pins.py --caravel-def $(CARAVEL_DEF) \
+		--caravel-mag $(CARAVEL_MAG) --gds $(abspath $(PADFRAME_GDS))
+
+## Gzip / expand the large views of the project in the CURRENT directory.
+## cf-precheck runs `make -f <this Makefile> uncompress` from the user project
+## before its checks, the same contract as the caravel Makefile. `compress`
+## covers the top-level wrapper GDS, the padframe GDS and any .mag over
+## COMPRESS_MIN_MB; macro GDS files stay plain because the wrapper's config.json
+## reads them.
+COMPRESS_MIN_MB ?= 10
+WRAPPER_GDS ?= gds/double_wide_openframe_project_wrapper.gds
+compress:
+	@for f in $(WRAPPER_GDS) $(PADFRAME_GDS) $$(find mag -maxdepth 1 -type f -name '*.mag' -size +$(COMPRESS_MIN_MB)M 2>/dev/null); do \
+		if [ -f "$$f" ]; then gzip -n -9 -k -f "$$f" && echo "$$f -> $$f.gz"; fi; \
+	done
+
+uncompress:
+	@for f in $$(find gds mag -maxdepth 1 -type f -name '*.gz' 2>/dev/null); do \
+		gzip -d -k -f "$$f" && echo "$$f -> $${f%.gz}"; \
+	done
 
 clean:
 	rm -rf build runs

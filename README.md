@@ -42,6 +42,7 @@ can never drift:
 ```
 scripts/extract_openframe_pads.py
   parses ../caravel/mag/chip_io_openframe.mag
+     and ../caravel/def/openframe_project_wrapper.def
   -> verilog/rtl/double_wide_chip_io.v                    (padframe RTL)
   -> verilog/rtl/double_wide_openframe_project_wrapper.v  (empty user wrapper)
   -> verilog/rtl/dw_defines.vh                            (DW_OPENFRAME_IO_PADS = 63)
@@ -50,16 +51,51 @@ scripts/extract_openframe_pads.py
   -> pad_summary.json                                     (per-pad index/side/domain map)
 ```
 
+**Pads and wrapper pins are the openframe's own.** Every pad and clamp cell
+sits at the openframe's position and orientation (rotated only, never mirrored);
+the right-hand copies of the north and south rows are 3588 um to the right, and
+the four mid-seam pads are the only cells without an openframe counterpart. The
+wrapper pin template is read from `../caravel/def/openframe_project_wrapper.def`
+and copied pad by pad: same layer, width, depth (2.0 um outside the boundary,
+0.28 um inside on met2, 0.30 um on met3) and offset from the pad, for signals
+and for the power ports, including the three ports of each
+`vccd`/`vssd` `clamped3` pad. The padframe draws its own metal over every pin
+footprint (`Padframe.WrapperPinLanding`, `Padframe.BridgePowerPads`), so the
+pins are part of the frame, as in the openframe. `make check-wrapper-pins`
+checks all three against the caravel sources. The corner cells are the one
+difference left: their orientation and footprint are still LibreLane's, not the
+openframe's.
+
 The padframe is a **pass-through GPIO ring** (no management SoC / user-id
 block): each GPIO pad's control signals route straight to the user-area
 boundary (openframe-style `gpio_in/out/oeb/inp_dis/ib_mode_sel/vtrip_sel/
 slow_sel/holdover/analog_en/sel/pol/dm0-2/analog_io/analog_noesd_io/in_h`).
 Openframe-style **POR / reset** is retained (`simple_por`, south `xres4v2`,
-`xres_buf`, `constant_block`). GPIO pad enables use local
-`TIE_HI_ESD`/`TIE_LO_ESD` (the reset pad still uses `porb_h`). Power is the
-**preserved openframe multi-domain** structure (user0 bottom, user1
-right/top, user2 left), with top/bottom clamps duplicated across the doubled
-width.
+`xres_buf`, `constant_block`). As in the openframe, every GPIO pad's
+`ENABLE_H` / `ENABLE_VDDA_H` and the reset pad's `ENABLE_H` follow `porb_h`, so
+the pads stay in their safe state until the POR releases; `porb_h` reaches them
+over a hand-drawn met1 loop around the user area (`Padframe.PorbRing`). The
+other pad controls (`HLD_H_N`, `ENABLE_INP_H`, `ENABLE_VSWITCH_H`) use the pad's
+local `TIE_HI_ESD`/`TIE_LO_ESD`, also as in the openframe. The reset pad's own
+tie-off and loopback nets (`xres_vss_loop`, `xresloop`, `xres_loopback_one`) are
+hand-drawn at the pad, again as in the openframe (`Padframe.XresLoops`).
+
+Power is the **preserved openframe multi-domain** structure (user0 bottom,
+user1 right/top, user2 left), with top/bottom clamps duplicated across the
+doubled width. Three `sky130_ef_io__disconnect_vdda_slice_5um` cells cut the pad
+ring's `VDDA`/`VSSA` rails into one segment per domain, so `vdda`/`vssa`,
+`vdda1`/`vssa1` and `vdda2`/`vssa2` are separate nets in the layout as well as in
+the netlist:
+
+| Segment | Extent | Rails |
+|---|---|---|
+| user0 | west below y = 831, south, east below y = 349 | `vdda` / `vssa` |
+| user1 | east above y = 354, north right of x = 1747 | `vdda1` / `vssa1` |
+| user2 | north left of x = 1742, west above y = 836 | `vdda2` / `vssa2` |
+
+Each user domain's `vccd<n>` and `vssd<n>` clamp pads are joined by two met5
+straps in the gap between the pad ring and the user area
+(`Padframe.ClampLinks`), which gives each clamp both of its terminals.
 
 Technical datasheet (catalog): [`docs/`](docs/).
 
@@ -112,10 +148,62 @@ make drc-magic            # Magic drc(full) (slow; noisy on IO macros)
 make lvs-padframe         # needs netgen + magic on PATH
 ```
 
-See [`signoff/README.md`](signoff/README.md) for the latest results. Known open
-item: **38× metal2 spacing (m2.2)** on the north edge from KLayout BEOL.
+With the cf-precheck decks, all six KLayout checks (FEOL, BEOL, offgrid,
+metal/CA density, pin-label purposes, zero-area) pass on the current padframe
+GDS.
 
 LVS config: [`lvs/double_wide_chip_io/lvs_config.json`](lvs/double_wide_chip_io/lvs_config.json).
+It uses published references only: the PDK's `sky130_fd_io` spice and
+`sky130_ef_io` verilog, plus caravel's gate-level netlists of `constant_block`,
+`xres_buf` and `user_id_programming` and its `simple_por` netlist, copied into
+this repo. The run completes, and the standard cells, the other clamp pads,
+`constant_block`, `xres_buf`, `simple_por` and `user_id_programming` match.
+It does **not** pass: `sky130_ef_io__gpiov2_pad`,
+`sky130_ef_io__vccd_lvc_clamped3_pad`, `sky130_fd_io__top_xres4v2` and
+`sky130_fd_sc_hvl__lsbufhv2lv_1` do not match the PDK's own spice (parasitic
+metal resistors and split supply nets inside the cells), so they are flattened
+and the top level inherits their mismatches. Until corrected pad references are
+published, the hand-drawn wiring is covered by the GDS net checks below
+(`check-porb-net`, `check-xres-loops`, `check-analog-domains`,
+`check-clamp-links`, `check-wrapper-pins`).
+
+`gds/double_wide_chip_io.gds` is stored gzipped (it is over GitHub's 50 MB
+advisory limit). `make uncompress`, or any target that reads it, expands it;
+`make compress` regenerates the `.gz` after a re-harden.
+
+## Pad enables (`porb_h`)
+
+As in `chip_io_openframe.v`, `porb_h` drives `ENABLE_H` and `ENABLE_VDDA_H` on
+all 63 GPIO pads and `ENABLE_H` on the reset pad. The router does not do this
+fan-out: `Padframe.PorbRing` ([`librelane/padframe/porb_ring.py`](librelane/padframe/porb_ring.py))
+draws it before global routing, the same way the openframe layout does. It
+draws a closed 0.26 um met1 loop around the user area at the openframe offset
+(209.33 um from the die edge, pushed just far enough inward on a side where a
+fixed cell is in the way). Each enable pin gets a via1 plus a met2 stub to the
+loop, and a met1 patch joins the loop to the `porb_h` metal that `simple_por`
+already brings out to the wrapper pin. `porb_h` stays SPECIAL, so TritonRoute
+routes around this wiring. The step checks every shape against the fixed
+met1/met2 around it and stops instead of drawing a short.
+
+The padframe router is also kept out of the user area. The empty wrapper's LEF
+has no obstructions, so without this TritonRoute jogs padframe nets along the
+inside of the wrapper edge, where they short to a hardened user design's own
+edge routing. `ROUTING_OBSTRUCTIONS` blocks met1-met5 over the wrapper, open only
+around each wrapper pin the router has to reach. There are no exceptions:
+`lef/constant_block.lef` lists the block's real met2/met3 shapes
+(`scripts/exact_macro_obs.py`) instead of solid obstructions, so the router has
+a straight lane from each `constant_block` to its two loopback pins and does
+not need to jog inside the user area.
+
+```bash
+make check-pad-enables  # RTL: pad control pins driven exactly as in the openframe
+make check-porb-net     # GDS: porb_h is one net over simple_por, the wrapper pin
+                        #      and all 127 enable pins; no TIE_HI_ESD on it
+make sim-power-up       # sim: pads stay undriven until porb_h releases
+make check-xres-loops      # GDS: the reset pad's three local nets are whole and separate
+make check-analog-domains  # GDS: vdda/vdda1/vdda2 and vssa/vssa1/vssa2 are six nets
+make check-clamp-links     # GDS: vccd/vccd1/vccd2 and vssd/vssd1/vssd2 are whole and separate
+```
 
 ## Building a user project
 
@@ -142,11 +230,16 @@ scripts/   extract_openframe_pads.py   generator (source of truth)
            integrate_openframe.tcl     Magic cell-swap
            run_padframe_drc.py         cf-precheck Magic/KLayout DRC
            run_padframe_lvs.py         cf-precheck LVS wrapper
+           check_pad_enables.py        pad enable drivers vs chip_io_openframe.v
+           porb_probe_points.py        pin probe points for check_porb_net.py
+           check_porb_net.py           KLayout porb_h connectivity check on GDS
 verilog/rtl/  double_wide_chip_io.v                       generated padframe (chip top)
               double_wide_openframe_project_wrapper.v      generated empty wrapper
               __double_wide_openframe_project_wrapper.v    precheck port golden
               dw_defines.vh                                generated pad-count define
+verilog/dv/pad_power_up/  pad power-up (porb_h) testbench, iverilog
 librelane/padframe/  config.yaml pad_cfg.tcl pad_pos.tcl pdn_cfg.tcl chip.sdc
+                     padframe_steps.py + porb_ring.py, bridge_*.py, reset_special_nets.py
 librelane/wrapper/   config.json pin_template.def         empty-wrapper harden
 lvs/                 padframe LVS config for cf-precheck
 signoff/             DRC/LVS reports

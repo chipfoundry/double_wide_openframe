@@ -168,20 +168,20 @@ def write_io_map_svg(path: Path, summary: dict) -> None:
         f'<path d="M0 0 L10 5 L0 10 z" fill="{BLUE}"/></marker></defs>'
     )
     P.append(f'<g stroke="{BLUE}" stroke-width="1.4" fill="none" stroke-dasharray="3 3">')
-    # West: bottom -> top
+    # West: top -> bottom (index increases downward)
     P.append(
-        f'<line x1="{px(0)-16:g}" y1="{py(by_side["W"][0]["coord"]):g}" '
-        f'x2="{px(0)-16:g}" y2="{py(by_side["W"][-1]["coord"]):g}" marker-end="url(#ar)"/>'
+        f'<line x1="{px(0)-16:g}" y1="{py(by_side["W"][-1]["coord"]):g}" '
+        f'x2="{px(0)-16:g}" y2="{py(by_side["W"][0]["coord"]):g}" marker-end="url(#ar)"/>'
     )
     # East: bottom -> top
     P.append(
         f'<line x1="{px(DIE_W)+16:g}" y1="{py(by_side["E"][0]["coord"]):g}" '
         f'x2="{px(DIE_W)+16:g}" y2="{py(by_side["E"][-1]["coord"]):g}" marker-end="url(#ar)"/>'
     )
-    # North: left -> right
+    # North: right -> left
     P.append(
-        f'<line x1="{px(by_side["N"][0]["coord"]):g}" y1="{py(DIE_H)-18:g}" '
-        f'x2="{px(by_side["N"][-1]["coord"]):g}" y2="{py(DIE_H)-18:g}" marker-end="url(#ar)"/>'
+        f'<line x1="{px(by_side["N"][-1]["coord"]):g}" y1="{py(DIE_H)-18:g}" '
+        f'x2="{px(by_side["N"][0]["coord"]):g}" y2="{py(DIE_H)-18:g}" marker-end="url(#ar)"/>'
     )
     # South: left -> right
     P.append(
@@ -215,14 +215,17 @@ def write_io_map_svg(path: Path, summary: dict) -> None:
             if sub:
                 P.append(f'<text x="{x:g}" y="{ly+25:g}" text-anchor="middle" font-size="9.5" fill="{BLUE}">{sub}</text>')
 
-    endpoint(0, by_side["W"][0]["coord"], "W", "GPIO[0]", "start")
-    endpoint(0, by_side["W"][-1]["coord"], "W", "GPIO[13]")
-    endpoint(DIE_W, by_side["E"][0]["coord"], "E", "GPIO[14]")
-    endpoint(DIE_W, by_side["E"][-1]["coord"], "E", "GPIO[28]")
-    endpoint(by_side["N"][0]["coord"], DIE_H, "N", "GPIO[29]")
-    endpoint(by_side["N"][-1]["coord"], DIE_H, "N", "GPIO[48]")
-    endpoint(by_side["S"][0]["coord"], 0, "S", "GPIO[49]")
-    endpoint(by_side["S"][-1]["coord"], 0, "S", "GPIO[62]", "last GPIO")
+    def glabel(e: dict) -> str:
+        return f"GPIO[{e['g']}]"
+
+    endpoint(0, by_side["W"][0]["coord"], "W", glabel(by_side["W"][0]))
+    endpoint(0, by_side["W"][-1]["coord"], "W", glabel(by_side["W"][-1]))
+    endpoint(DIE_W, by_side["E"][0]["coord"], "E", glabel(by_side["E"][0]), "start")
+    endpoint(DIE_W, by_side["E"][-1]["coord"], "E", glabel(by_side["E"][-1]))
+    endpoint(by_side["N"][0]["coord"], DIE_H, "N", glabel(by_side["N"][0]))
+    endpoint(by_side["N"][-1]["coord"], DIE_H, "N", glabel(by_side["N"][-1]))
+    endpoint(by_side["S"][0]["coord"], 0, "S", glabel(by_side["S"][0]))
+    endpoint(by_side["S"][-1]["coord"], 0, "S", glabel(by_side["S"][-1]), "last GPIO")
 
     # POR (west gap) + reset (south) markers
     por = summary.get("por", {})
@@ -241,15 +244,29 @@ def write_io_map_svg(path: Path, summary: dict) -> None:
     P.append(f'<text x="{rx-28:g}" y="{ryc+52:g}" text-anchor="end" font-size="12" font-weight="600" fill="{ORANGE}">reset pad</text>')
     P.append(f'<text x="{rx-28:g}" y="{ryc+65:g}" text-anchor="end" font-size="9.5" fill="{MUTE}">resetb_h · resetb_l</text>')
 
+    def span(side: str) -> tuple[int, int]:
+        gs = [e["g"] for e in by_side[side]]
+        return min(gs), max(gs)
+
+    def walk(side: str) -> str:
+        lo, hi = by_side[side][0], by_side[side][-1]
+        if side in "WE":
+            return "bottom→top" if lo["g"] < hi["g"] else "top→bottom"
+        return "left→right" if lo["g"] < hi["g"] else "right→left"
+
+    w0, w1 = span("W")
+    e0, e1 = span("E")
+    n0, n1 = span("N")
+    s0, s1 = span("S")
     # Edge callouts (range + count + domain), each near its own edge.
     P.append(f'<text x="{px(0)-96:g}" y="{cy-30:g}" text-anchor="end" font-size="11" font-weight="600" fill="{INK}">West edge</text>')
-    P.append(f'<text x="{px(0)-96:g}" y="{cy-15:g}" text-anchor="end" font-size="11" fill="{MUTE}">GPIO[0]–[13] · user2</text>')
-    P.append(f'<text x="{px(0)-96:g}" y="{cy-1:g}" text-anchor="end" font-size="11" fill="{MUTE}">14 GPIOs, bottom→top</text>')
+    P.append(f'<text x="{px(0)-96:g}" y="{cy-15:g}" text-anchor="end" font-size="11" fill="{MUTE}">GPIO[{w0}]–[{w1}] · user2</text>')
+    P.append(f'<text x="{px(0)-96:g}" y="{cy-1:g}" text-anchor="end" font-size="11" fill="{MUTE}">{len(by_side["W"])} GPIOs, {walk("W")}</text>')
     P.append(f'<text x="{px(DIE_W)+96:g}" y="{cy-30:g}" font-size="11" font-weight="600" fill="{INK}">East edge</text>')
-    P.append(f'<text x="{px(DIE_W)+96:g}" y="{cy-15:g}" font-size="11" fill="{MUTE}">GPIO[14]–[28] · user1</text>')
-    P.append(f'<text x="{px(DIE_W)+96:g}" y="{cy-1:g}" font-size="11" fill="{MUTE}">15 GPIOs, bottom→top</text>')
-    P.append(f'<text x="{VW/2:g}" y="108" text-anchor="middle" font-size="11" fill="{MUTE}">North edge — GPIO[29]–[48] — 20 GPIOs — user1 — left→right</text>')
-    P.append(f'<text x="{VW/2:g}" y="{VH-24:g}" text-anchor="middle" font-size="11" fill="{MUTE}">South edge — GPIO[49]–[62] — 14 GPIOs — user0 — left→right</text>')
+    P.append(f'<text x="{px(DIE_W)+96:g}" y="{cy-15:g}" font-size="11" fill="{MUTE}">GPIO[{e0}]–[{e1}] · user1</text>')
+    P.append(f'<text x="{px(DIE_W)+96:g}" y="{cy-1:g}" font-size="11" fill="{MUTE}">{len(by_side["E"])} GPIOs, {walk("E")}</text>')
+    P.append(f'<text x="{VW/2:g}" y="108" text-anchor="middle" font-size="11" fill="{MUTE}">North edge — GPIO[{n0}]–[{n1}] — {len(by_side["N"])} GPIOs — user1 — {walk("N")}</text>')
+    P.append(f'<text x="{VW/2:g}" y="{VH-24:g}" text-anchor="middle" font-size="11" fill="{MUTE}">South edge — GPIO[{s0}]–[{s1}] — {len(by_side["S"])} GPIOs — user0 — {walk("S")}</text>')
 
     # Legend
     P.append(f'<g transform="translate(40,{VH-42:g})">')
@@ -275,18 +292,17 @@ horizontal-gap: 60
 vertical-gap: 50
 
 shared: Shared pad-ring rails {
-  grid-columns: 3
+  grid-columns: 2
   style.fill: "#eef2f7"
   a: "vddio / vssio\\n3.3 V I/O" { style.fill: "#ffffff" }
   b: "vccd / vssd\\n1.8 V" { style.fill: "#ffffff" }
-  c: "vdda / vssa\\nanalog" { style.fill: "#ffffff" }
 }
 
 domains: Per-side user domains {
   grid-columns: 3
   style.fill: "#fbfbfd"
-  user2: "user2 — West\\nGPIO 0–13\\nvccd2 / vssd2\\nvdda2 / vssa2" { style.fill: "#f7e2c8" }
-  user1: "user1 — East + North\\nGPIO 14–48\\nvccd1 / vssd1\\nvdda1 / vssa1" { style.fill: "#d6e4f7" }
+  user2: "user2 — West + North-west\\nGPIO 30–48\\nvccd2 / vssd2\\nvdda2 / vssa2" { style.fill: "#f7e2c8" }
+  user1: "user1 — East + North\\nGPIO 0–29\\nvccd1 / vssd1\\nvdda1 / vssa1" { style.fill: "#d6e4f7" }
   user0: "user0 — South\\nGPIO 49–62\\nvccd1 / vssd1\\nvdda / vssa" { style.fill: "#d8ecd8" }
 }
 
@@ -311,7 +327,7 @@ user: "Your design — user project wrapper" {
   data: "gpio_in / gpio_in_h [62:0]\\ngpio_out / gpio_oeb [62:0]" { style.fill: "#ffffff" }
   cfg: "gpio_dm0/1/2, vtrip, slow,\\nanalog_en/sel/pol … [62:0]" { style.fill: "#ffffff" }
   ana: "analog_io / analog_noesd_io [62:0]" { style.fill: "#ffffff" }
-  por: "porb_h, porb_l, por_l\\nresetb_h, resetb_l" { style.fill: "#ffffff" }
+  por: "porb_h, porb_l, por_l\\nresetb_h, resetb_l\\nmask_rev[31:0]" { style.fill: "#ffffff" }
   pwr: "14 power pins" { style.fill: "#ffffff" }
 }
 

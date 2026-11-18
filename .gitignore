@@ -16,3 +16,7 @@ __pycache__/
 # Nix
 result
 result-*
+
+# Stored gzipped (over the 50 MB advisory limit of GitHub); make uncompress, or
+# any target that reads it, expands it.
+/gds/double_wide_chip_io.gds

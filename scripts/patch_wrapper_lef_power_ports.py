@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Rewrite wrapper LEF power/ground PIN blocks from the final DEF.
 
-Magic.WriteLEF collapses multi-PORT power pins (keeps one met3 rect, drops the
-PDN ring ports). The DEF still has every BPin. Rebuild each power PIN in the
-LEF from the DEF so padframe routing sees the full clamp-aligned edge ports
-plus the met4/met5 ring ports.
+Magic.WriteLEF does not reproduce multi-PORT power pins faithfully: it writes
+one PIN block per port and grows each rect into the connected strap. The DEF
+still has every port exactly as placed, plus any interior PDN shapes promoted to
+pins. Openframe publishes only the edge ports that cross the prBoundary, so this
+rebuild writes one PIN block per supply holding those ports and drops the rest.
 """
 from __future__ import annotations
 
@@ -28,6 +29,28 @@ def _upm(def_text: str) -> int:
     return int(m.group(1))
 
 
+def _die_area(def_text: str, upm: int):
+    m = re.search(
+        r"DIEAREA \( ([-\d]+) ([-\d]+) \) \( ([-\d]+) ([-\d]+) \)",
+        def_text,
+    )
+    if not m:
+        raise SystemExit("DEF missing DIEAREA")
+    return tuple(int(v) / upm for v in m.groups())
+
+
+def _crosses_boundary(rect, die) -> bool:
+    """True when a rectangle is partly outside and partly inside the die."""
+    x1, y1, x2, y2 = rect
+    dx1, dy1, dx2, dy2 = die
+    xa, xb = min(x1, x2), max(x1, x2)
+    ya, yb = min(y1, y2), max(y1, y2)
+    eps = 1e-6
+    outside = xa < dx1 - eps or ya < dy1 - eps or xb > dx2 + eps or yb > dy2 + eps
+    inside = xb > dx1 + eps and yb > dy1 + eps and xa < dx2 - eps and ya < dy2 - eps
+    return outside and inside
+
+
 def _parse_def_power_ports(def_text: str, upm: int):
     """Return {name: [(layer, x1, y1, x2, y2_um), ...]} absolute microns."""
     out = {n: [] for n in POWER_NETS}
@@ -47,7 +70,9 @@ def _parse_def_power_ports(def_text: str, upm: int):
             re.S,
         ):
             pbody = port.group(1)
-            placed = re.search(r"\+ FIXED \( ([-\d]+) ([-\d]+) \) \w+", pbody)
+            placed = re.search(
+                r"\+ (?:FIXED|PLACED|COVER) \( ([-\d]+) ([-\d]+) \) \w+", pbody
+            )
             if placed:
                 px, py = int(placed.group(1)), int(placed.group(2))
             else:
@@ -88,20 +113,37 @@ def patch_lef(lef_path: str, def_path: str) -> None:
     def_text = open(def_path).read()
     lef_text = open(lef_path).read()
     upm = _upm(def_text)
+    die = _die_area(def_text, upm)
     ports = _parse_def_power_ports(def_text, upm)
     missing = [n for n, p in ports.items() if not p]
     if missing:
         print(f"[patch_wrapper_lef] WARNING no DEF ports for: {missing}", file=sys.stderr)
 
-    for name, plist in ports.items():
+    for name, plist in list(ports.items()):
         if not plist:
             continue
+        edge = [p for p in plist if _crosses_boundary(p[1:], die)]
+        if not edge:
+            raise SystemExit(
+                f"[patch_wrapper_lef] {name} has {len(plist)} DEF ports and "
+                "none cross the prBoundary"
+            )
+        dropped = len(plist) - len(edge)
+        if dropped:
+            print(f"[patch_wrapper_lef] {name}: dropped {dropped} interior ports")
+        ports[name] = edge
+        plist = edge
         block = _lef_pin_block(name, plist)
         pat = re.compile(rf"  PIN {name}\n.*?  END {name}", re.S)
         if not pat.search(lef_text):
             print(f"[patch_wrapper_lef] WARNING PIN {name} not in LEF", file=sys.stderr)
             continue
-        lef_text = pat.sub(block, lef_text, count=1)
+        # Magic writes one PIN block per port; keep a single multi-port block.
+        blocks = [block]
+        lef_text = pat.sub(
+            lambda _m: blocks.pop() if blocks else "", lef_text
+        )
+        lef_text = re.sub(r"\n[ \t]*\n(?=  PIN |END )", "\n", lef_text)
         print(f"[patch_wrapper_lef] {name}: {len(plist)} ports")
 
     with open(lef_path, "w") as f:

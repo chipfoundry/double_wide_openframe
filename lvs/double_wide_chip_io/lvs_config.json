@@ -1,4 +1,12 @@
 {
+	"//": "Device-level LVS of the double-wide padframe against published references only:",
+	"//2": "the PDK's sky130_fd_io spice and sky130_ef_io verilog, plus caravel's gate-level",
+	"//3": "netlists of the three small macros and its simple_por schematic netlist, copied",
+	"//4": "into this repo. The fd_io building blocks are flattened at extraction so each pad",
+	"//5": "cell compares flat. The user wrapper and the corner cells are compared as black",
+	"//6": "boxes. The ring's metal-only slices (bus, bridge, disconnect) are extracted as",
+	"//7": "metal and flattened; the bridge and disconnect slices have no complete model in",
+	"//8": "the PDK verilog, so their netlist instances are ignored.",
 	"STD_CELL_LIBRARY": "sky130_fd_sc_hd",
 	"INCLUDE_CONFIGS": [
 		"$LVS_ROOT/tech/$PDK/lvs_config.base.json"
@@ -7,31 +15,73 @@
 	"TOP_LAYOUT": "$TOP_SOURCE",
 	"EXTRACT_FLATGLOB": [
 		"*_CDNS_*",
-		"*sky130_fd_pr__*example*"
+		"*sky130_fd_pr__*example*",
+		"*sky130_ef_io__*_overlay",
+		"*sky130_fd_io__amux*",
+		"*sky130_fd_io__amx_inv1",
+		"*sky130_fd_io__com*",
+		"*sky130_fd_io__corner*",
+		"*sky130_fd_io__esd*",
+		"*sky130_fd_io__feas*",
+		"*sky130_fd_io__gpio*",
+		"*sky130_fd_io__gnd2gnd*",
+		"*sky130_fd_io__hvc*",
+		"*sky130_fd_io__hvsbt*",
+		"*sky130_fd_io__inv*",
+		"*sky130_fd_io__nand*",
+		"*sky130_fd_io__nfet_con*",
+		"*sky130_fd_io__nor*",
+		"*sky130_fd_io__overlay*",
+		"*sky130_fd_io__pad_esd",
+		"*sky130_fd_io__pfet_con*",
+		"*sky130_fd_io__res250*",
+		"*sky130_fd_io__res75*",
+		"*sky130_fd_io__signal*",
+		"*sky130_fd_io__sio*",
+		"*sky130_fd_io__simple_pad_*",
+		"*sky130_fd_io__tap*",
+		"*sky130_fd_io__tk_tie*",
+		"*sky130_fd_io__top_gpio*",
+		"*sky130_fd_io__top_ground*",
+		"*sky130_fd_io__top_power*",
+		"*sky130_fd_io__xor*",
+		"*sky130_fd_io__xres*"
 	],
 	"EXTRACT_ABSTRACT": [
 		"double_wide_openframe_project_wrapper",
-		"*sky130_ef_io__*",
-		"*__fill_*",
-		"*__decap_*",
-		"*__tapvpwrvgnd_*"
+		"sky130_ef_io__corner_pad"
 	],
 	"EXTRACT_CREATE_SUBCUT": [
 		""
 	],
 	"LVS_FLATTEN": [
-		""
+		"*sky130_ef_io__com_bus_slice*",
+		"*sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice*",
+		"*sky130_ef_io__disconnect_vdda_slice*"
 	],
 	"LVS_NOFLATTEN": [
 		""
 	],
 	"LVS_IGNORE": [
-		""
+		"sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um",
+		"sky130_ef_io__disconnect_vdda_slice_5um",
+		"dw_openframe_motto",
+		"logo_dw_openframe",
+		"open_source",
+		"user_id_textblock"
 	],
 	"LVS_SPICE_FILES": [
-		""
+		"$PDK_ROOT/$PDK/libs.ref/sky130_fd_io/spice/sky130_fd_io.spice",
+		"$PDK_ROOT/$PDK/libs.ref/sky130_fd_io/spice/sky130_ef_io__analog.spice",
+		"$PDK_ROOT/$PDK/libs.ref/sky130_fd_sc_hvl/spice/sky130_fd_sc_hvl.spice",
+		"$UPRJ_ROOT/lvs/double_wide_chip_io/simple_por.spice"
 	],
 	"LVS_VERILOG_FILES": [
+		"$UPRJ_ROOT/lvs/use_power_pins.v",
+		"$PDK_ROOT/$PDK/libs.ref/sky130_fd_io/verilog/sky130_ef_io.v",
+		"$UPRJ_ROOT/verilog/gl/constant_block.v",
+		"$UPRJ_ROOT/verilog/gl/xres_buf.v",
+		"$UPRJ_ROOT/verilog/gl/user_id_programming.v",
 		"$UPRJ_ROOT/verilog/gl/double_wide_chip_io.v"
 	],
 	"LAYOUT_FILE": "$UPRJ_ROOT/gds/double_wide_chip_io.gds"

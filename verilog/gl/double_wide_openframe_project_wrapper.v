@@ -35,7 +35,8 @@ module double_wide_openframe_project_wrapper (por_l,
     gpio_oeb,
     gpio_out,
     gpio_slow_sel,
-    gpio_vtrip_sel);
+    gpio_vtrip_sel,
+    mask_rev);
  input por_l;
  input porb_h;
  input porb_l;
@@ -74,6 +75,7 @@ module double_wide_openframe_project_wrapper (por_l,
  output [62:0] gpio_out;
  output [62:0] gpio_slow_sel;
  output [62:0] gpio_vtrip_sel;
+ input [31:0] mask_rev;
 
  wire one_;
  wire zero_;
