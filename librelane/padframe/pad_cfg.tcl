@@ -68,23 +68,27 @@ foreach side $sides {
 }
 
 # Power-domain bridge slices (VCCHIB<->VCCD, VSWITCH<->VDDIO): 2 per side, near corners.
+# The names are braced so the backslashes stay in them: the netlist instances
+# are named `...slices\[i\].u`, backslashes included. Without them place_pad
+# finds no such instance and creates a second, unconnected one, leaving the
+# netlist's own slice unplaced.
 set slice_master sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um
 place_pad -row IO_SOUTH -location $pad_corner_site_width \
-    "vcchib_vccd_and_vswitch_vddio_slices\[0\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[0\].u} -master $slice_master
 place_pad -row IO_SOUTH -location [expr $DIE_WIDTH - $pad_corner_site_width - 20] \
-    "vcchib_vccd_and_vswitch_vddio_slices\[1\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[1\].u} -master $slice_master
 place_pad -row IO_EAST -location $pad_corner_site_height \
-    "vcchib_vccd_and_vswitch_vddio_slices\[2\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[2\].u} -master $slice_master
 place_pad -row IO_EAST -location [expr $DIE_HEIGHT - $pad_corner_site_height - 20] \
-    "vcchib_vccd_and_vswitch_vddio_slices\[3\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[3\].u} -master $slice_master
 place_pad -row IO_NORTH -location $pad_corner_site_width \
-    "vcchib_vccd_and_vswitch_vddio_slices\[5\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[5\].u} -master $slice_master
 place_pad -row IO_NORTH -location [expr $DIE_WIDTH - $pad_corner_site_width - 20] \
-    "vcchib_vccd_and_vswitch_vddio_slices\[4\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[4\].u} -master $slice_master
 place_pad -row IO_WEST -location $pad_corner_site_height \
-    "vcchib_vccd_and_vswitch_vddio_slices\[7\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[7\].u} -master $slice_master
 place_pad -row IO_WEST -location [expr $DIE_HEIGHT - $pad_corner_site_height - 20] \
-    "vcchib_vccd_and_vswitch_vddio_slices\[6\].u" -master $slice_master
+    {vcchib_vccd_and_vswitch_vddio_slices\[6\].u} -master $slice_master
 
 puts "\[INFO\] Placing corner cells..."
 place_corners $::env(PAD_CORNER)

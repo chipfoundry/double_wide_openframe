@@ -40,7 +40,7 @@ def main(def_path, out_path):
         "double_wide_openframe_project_wrapper")]
     lefs += [os.path.join(ROOT, "ip", m, "lef", f"{m}.lef") for m in (
         "dw_openframe_motto", "logo_dw_openframe", "open_source",
-        "project_id_textblock")]
+        "project_id_textblock", "user_id_programming", "user_id_textblock")]
     for lef in lefs:
         odb.read_lef(db, lef)
     odb.read_def(db.getTech(), def_path)

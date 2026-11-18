@@ -18,8 +18,10 @@
 #     inward just far enough to clear it. It must still stay WRAP_CLEAR_UM
 #     outside the user wrapper boundary, otherwise the step fails.
 #   * Pad taps: for every porb_h pin on a GPIO or reset pad, a met2 stub the
-#     width of the pin, from the pin straight in to the loop, plus one via1
-#     (sky130 M1M2_PR / M1M2_PR_R) on the loop.
+#     width of the pin, from the pin in to the loop, plus one via1 (sky130
+#     M1M2_PR / M1M2_PR_R) on the loop. The stub runs straight unless that
+#     would put it under minimum spacing from a wrapper pin, in which case the
+#     part beyond the pin shifts sideways by up to a fraction of its width.
 #   * POR tap: simple_por.gds already carries porb_h out of the macro to the
 #     wrapper pin (met2 "collar", with a met1 end piece joined by 4 via1 cuts).
 #     That met1 end lies on the west loop at the openframe offset; a met1 patch
@@ -38,8 +40,13 @@ POR_INST = "por"
 LOOP_WIDTH_UM = 0.26     # openframe loop width
 LOOP_OFFSET_UM = 209.33  # openframe: loop outer edge, measured from the die edge
 MET1_CLEAR_UM = 0.20     # loop <-> foreign fixed met1 (m1.2 spacing is 0.14)
-MET2_CLEAR_UM = 0.20     # stub <-> foreign fixed met2 (m2.2 spacing is 0.14)
+# Stub <-> foreign fixed met2. This is the m2.2 minimum, with no margin: on the
+# north and south edges each pad's ENABLE_H stub runs 0.16 um beside the
+# wrapper's 0.64 um wide gpio_dm2 pin, exactly as in the openframe.
+MET2_CLEAR_UM = 0.14
 WRAP_CLEAR_UM = 0.30     # loop inner edge stays this far outside the wrapper
+MFG_GRID_UM = 0.005      # sideways tail shifts are in these steps
+MIN_JOINT_UM = 0.14      # a shifted tail still abuts the pin over at least this
 
 # Pad masters and the enable pins that ride on porb_h (chip_io_openframe.v).
 ENABLE_PINS = {
@@ -223,7 +230,9 @@ def porb_ring(reader):
     land_ew = met2_landing(via_ew)  # relative to the via origin
     land_ns = met2_landing(via_ns)
     taps = []
+    shifted = []
     unexpected = []
+    grid = um(MFG_GRID_UM)
     for it in net.getITerms():
         inst = it.getInst()
         master = inst.getMaster().getName()
@@ -250,40 +259,71 @@ def porb_ring(reader):
             key=lambda kv: kv[1],
         )[0]
         loop = seg_rect(side, off)
-        # The stub covers the whole pin and runs on to the loop centre, where
-        # the via's met2 landing (same width as the stub) carries it a little
-        # past the loop. Only the metal beyond the pin's core-facing end is new,
-        # so that part, up to the far end of the landing, is what gets checked
-        # (`check`, trimmed by the clearance so the bloated zone starts exactly
-        # at the pin end); metal beside the pin inside the pad cell is the
-        # cell's own business.
-        if side in "WE":
+        # The stub is the pin itself plus a tail of the same width from the
+        # pin's core-facing end to the loop centre, where the via's met2 landing
+        # (same width again) carries it a little past the loop. Only the tail
+        # and the landing are new metal, so they are what gets checked (`check`,
+        # trimmed by the clearance so the bloated zone starts exactly at the pin
+        # end); metal beside the pin inside the pad cell is the cell's own
+        # business. If the straight tail is too close to a neighbour (the
+        # wrapper's 0.64 um gpio_dm2 pin sits 0.12 um from it on the north
+        # edge), tail and via move sideways in manufacturing-grid steps, away
+        # from the neighbour, by the least that clears it.
+        horizontal = side in "WE"
+        if horizontal:
             lc = (loop[0] + loop[2]) // 2           # loop centre x
-            if side == "W":
-                stub = (pr[0], pr[1], lc, pr[3])
-                check = (pr[2] + clear2, pr[1], lc + land_ew[2], pr[3])
-            else:
-                stub = (lc, pr[1], pr[2], pr[3])
-                check = (lc + land_ew[0], pr[1], pr[0] - clear2, pr[3])
-            via, vx, vy = via_ew, lc, cy
+            via, land = via_ew, land_ew
         else:
             lc = (loop[1] + loop[3]) // 2           # loop centre y
+            via, land = via_ns, land_ns
+
+        def tail_for(d):
+            """(tail, check, via x, via y) with the tail shifted sideways by d."""
+            if side == "W":
+                return ((pr[2], pr[1] + d, lc, pr[3] + d),
+                        (pr[2] + clear2, pr[1] + d, lc + land[2], pr[3] + d),
+                        lc, cy + d)
+            if side == "E":
+                return ((lc, pr[1] + d, pr[0], pr[3] + d),
+                        (lc + land[0], pr[1] + d, pr[0] - clear2, pr[3] + d),
+                        lc, cy + d)
             if side == "S":
-                stub = (pr[0], pr[1], pr[2], lc)
-                check = (pr[0], pr[3] + clear2, pr[2], lc + land_ns[3])
-            else:
-                stub = (pr[0], lc, pr[2], pr[3])
-                check = (pr[0], lc + land_ns[1], pr[2], pr[1] - clear2)
-            via, vx, vy = via_ns, cx, lc
-        if check[2] <= check[0] or check[3] <= check[1]:
-            raise SystemExit(
-                f"[porb_ring] ERROR: {inst.getName()}/{pin} is not outside the loop")
-        hits = geo.conflicts("met2", check, clear2)
-        if hits:
+                return ((pr[0] + d, pr[3], pr[2] + d, lc),
+                        (pr[0] + d, pr[3] + clear2, pr[2] + d, lc + land[3]),
+                        cx + d, lc)
+            return ((pr[0] + d, lc, pr[2] + d, pr[1]),
+                    (pr[0] + d, lc + land[1], pr[2] + d, pr[1] - clear2),
+                    cx + d, lc)
+
+        pin_width = (pr[3] - pr[1]) if horizontal else (pr[2] - pr[0])
+        max_shift = pin_width - um(MIN_JOINT_UM)  # tail must still abut the pin
+        chosen = None
+        first_hits = None
+        for n in range(0, max_shift // grid + 1):
+            for d in ((0,) if n == 0 else (-n * grid, n * grid)):
+                tail, check, vx, vy = tail_for(d)
+                if check[2] <= check[0] or check[3] <= check[1]:
+                    raise SystemExit(
+                        f"[porb_ring] ERROR: {inst.getName()}/{pin} is not "
+                        "outside the loop")
+                hits = geo.conflicts("met2", check, clear2)
+                if first_hits is None:
+                    first_hits = hits
+                if not hits:
+                    chosen = (d, tail, vx, vy)
+                    break
+            if chosen:
+                break
+        if chosen is None:
             raise SystemExit(
                 f"[porb_ring] ERROR: stub for {inst.getName()}/{pin} conflicts "
-                f"with {[w for _, w in hits[:5]]}")
-        odb.dbSBox.create(swire, met2, *stub, "STRIPE")
+                f"with {[w for _, w in first_hits[:5]]} and no sideways shift "
+                f"up to {max_shift / dbu:.3f} um clears it")
+        d, tail, vx, vy = chosen
+        if d:
+            shifted.append((inst.getName(), pin, d / dbu))
+        odb.dbSBox.create(swire, met2, *pr, "STRIPE")
+        odb.dbSBox.create(swire, met2, *tail, "STRIPE")
         odb.dbSBox.create(swire, via, vx, vy, "STRIPE")
         taps.append((side, inst.getName(), pin))
 
@@ -317,6 +357,11 @@ def porb_ring(reader):
     print("[porb_ring] wrapper clearance (um): " + ", ".join(
         f"{s}={(wrap_edge[s] - off[s] - width) / dbu:.3f}" for s in SIDES))
     print(f"[porb_ring] loop length {perim / dbu / 1000:.2f} mm, width {LOOP_WIDTH_UM} um")
+    if shifted:
+        by = sorted({f"{d:+.3f}" for _, _, d in shifted})
+        print(f"[porb_ring] {len(shifted)} stub tails shifted sideways to clear "
+              f"a neighbour (um: {', '.join(by)}); first: "
+              f"{shifted[0][0]}/{shifted[0][1]}")
     print(f"[porb_ring] {len(taps)} pad taps (per side {per_side}); "
           f"POR tap at y={collar[1] / dbu:.3f}..{collar[3] / dbu:.3f} um")
 

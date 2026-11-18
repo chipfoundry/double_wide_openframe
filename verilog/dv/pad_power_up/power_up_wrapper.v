@@ -20,6 +20,7 @@ module double_wide_openframe_project_wrapper (
     input  porb_l,
     input  resetb_h,
     input  resetb_l,
+    input  [31:0] mask_rev,
     input  [62:0] gpio_in,
     input  [62:0] gpio_in_h,
     input  [62:0] gpio_loopback_one,

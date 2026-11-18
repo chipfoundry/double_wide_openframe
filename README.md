@@ -140,16 +140,20 @@ The padframe router is also kept out of the user area. The empty wrapper's LEF
 has no obstructions, so without this TritonRoute jogs padframe nets along the
 inside of the wrapper edge, where they short to a hardened user design's own
 edge routing. `ROUTING_OBSTRUCTIONS` blocks met1-met5 over the wrapper, open only
-around each wrapper pin the router has to reach. The one exception is a met3
-opening in the 1 um pin band in front of each east `constant_block`: its met3
-obstruction leaves no legal path to the two loopback pins behind it, so those
-30 pins are reached by a short met3 jog inside the band, as before.
+around each wrapper pin the router has to reach. There are no exceptions:
+`lef/constant_block.lef` lists the block's real met2/met3 shapes
+(`scripts/exact_macro_obs.py`) instead of solid obstructions, so the router has
+a straight lane from each `constant_block` to its two loopback pins and does
+not need to jog inside the user area.
 
 ```bash
 make check-pad-enables  # RTL: pad control pins driven exactly as in the openframe
 make check-porb-net     # GDS: porb_h is one net over simple_por, the wrapper pin
                         #      and all 127 enable pins; no TIE_HI_ESD on it
 make sim-power-up       # sim: pads stay undriven until porb_h releases
+make check-xres-loops      # GDS: the reset pad's three local nets are whole and separate
+make check-analog-domains  # GDS: vdda/vdda1/vdda2 and vssa/vssa1/vssa2 are six nets
+make check-clamp-links     # GDS: vccd/vccd1/vccd2 and vssd/vssd1/vssd2 are whole and separate
 ```
 
 ## Building a user project

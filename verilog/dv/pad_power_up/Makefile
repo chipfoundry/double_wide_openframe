@@ -17,6 +17,7 @@ SRCS := \
 	$(RTL)/constant_block.v \
 	$(RTL)/xres_buf.v \
 	$(RTL)/dw_branding_stubs.v \
+	$(RTL)/user_id_programming.v \
 	$(RTL)/double_wide_chip_io.v \
 	power_up_wrapper.v \
 	tb_pad_power_up.v

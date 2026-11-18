@@ -1274,9 +1274,14 @@ def _routing_obstructions_yaml(inv):
 # PIN_DEPTH_UM deep inside the edge; the opening keeps one layer spacing on
 # either side so the router can land on the pin. POR pins and power ports are
 # not routed (SPECIAL), so they get no opening.
+#
+# There is no wider opening at the east constant_blocks any more. Each one sits
+# 0.855 um in front of its two loopback pins, and while its LEF showed met2 and
+# met3 as solid blocks the router could only reach those pins by jogging inside
+# the user area. lef/constant_block.lef now carries the block's real met2/met3
+# (scripts/exact_macro_obs.py), which leaves a straight lane to each pin.
 KEEPOUT_LAYERS = ("met1", "met2", "met3", "met4", "met5")
 KEEPOUT_SPACING_UM = {"met1": 0.14, "met2": 0.14, "met3": 0.3, "met4": 0.3, "met5": 1.6}
-ENINP_EAST_CB_MARGIN_UM = 1.5   # met3 band opening margin around each east constant_block (track phase varies per pad)
 
 
 def _user_area_keepout_lines(inv):
@@ -1306,17 +1311,6 @@ def _user_area_keepout_lines(inv):
             side, lo, hi = "N", x1, x2
         sp = KEEPOUT_SPACING_UM[layer]
         opens.setdefault((side, layer), []).append(((lo + OFF) / um - sp, (hi + OFF) / um + sp))
-    # East constant_blocks sit right in front of their two loopback pins, and
-    # their met3 obstruction leaves only 0.855um between it and the wrapper edge,
-    # less than a met3 jog needs (0.9um). The router has to make that short met3
-    # jog inside the pin band, as main always did, so open the met3 band over
-    # each east constant_block's along-edge span. met2 stays blocked under the
-    # pins (a user may legally run a different-net met2 there).
-    for o in inv["sig"]["E"]:
-        lly = o.cb["lly"]
-        opens.setdefault(("E", "met3"), []).append((lly - ENINP_EAST_CB_MARGIN_UM,
-                                                    lly + 14.0 + ENINP_EAST_CB_MARGIN_UM))
-
     def gaps(span_lo, span_hi, holes):
         out, cur = [], span_lo
         for lo, hi in sorted(holes):
@@ -1516,6 +1510,20 @@ CONST_BLOCK_NUDGE_UM = {
     "gpio_e[13].const_val": (0.0, 6.0),
 }
 
+# Along-edge shift of every per-pad constant_block on a side (um), so the
+# block's own met2/met3 clears the wrapper's two loopback pins. Those pins reach
+# 2.0 um outside the user area (openframe pin geometry) and stay centred on the
+# block's unshifted position; without the shift the first row of the block's
+# power via pads lies on or within minimum spacing of one of them at every pad
+# (east: 0.33 um of overlap; north and west: 0.02 um; south: under spacing).
+# Each value is the smallest shift that clears both pins, rounded up.
+CONST_BLOCK_PIN_CLEAR_UM = {
+    "E": (0.0, 1.0),
+    "N": (-0.8, 0.0),
+    "W": (0.0, -1.0),
+    "S": (0.05, 0.0),
+}
+
 
 def _gpio_const_block_instances(inv):
     """YAML instance entries for the 63 per-gpio constant_block placements.
@@ -1524,8 +1532,9 @@ def _gpio_const_block_instances(inv):
     its pad, extended metal reaching inward toward the wrapper), transformed to
     the double-wide ring (east +HALF, north/south duplicated, mid-seam
     synthesized). Instance names match the RTL generate blocks: gpio_<s>[i].const_val.
-    A few instances carry a small along-edge nudge (CONST_BLOCK_NUDGE_UM) to
-    clear localized detailed-routing DRCs.
+    Every block is shifted along its edge to clear the wrapper's loopback pins
+    (CONST_BLOCK_PIN_CLEAR_UM), and a few instances carry a further along-edge
+    nudge (CONST_BLOCK_NUDGE_UM) to clear localized detailed-routing DRCs.
     """
     lines = []
     for s in "WENS":
@@ -1537,8 +1546,9 @@ def _gpio_const_block_instances(inv):
             name = o.inst.replace("].u", "].const_val")
             cb = o.cb
             dx, dy = CONST_BLOCK_NUDGE_UM.get(name, (0.0, 0.0))
-            llx = cb["llx"] + ox + dx
-            lly = cb["lly"] + oy + dy
+            px, py = CONST_BLOCK_PIN_CLEAR_UM[s]
+            llx = cb["llx"] + ox + dx + px
+            lly = cb["lly"] + oy + dy + py
             lines.append(f"      {name}:")
             lines.append(f"        location: [{llx:.3f}, {lly:.3f}]")
             lines.append(f"        orientation: {SIDE_CONST_ORIENT[s]}")

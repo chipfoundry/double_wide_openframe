@@ -77,7 +77,9 @@ wrapper-empty:
 		--def $$(ls -td librelane/wrapper/runs/*/final/def/double_wide_openframe_project_wrapper.def | head -1)
 	$(MAKE) publish-golden
 
-## Copy empty wrapper GDS/RTL into the golden names expected by cf-precheck (-c).
+## Copy empty wrapper GDS/RTL into the golden names expected by cf-precheck (-c),
+## and its LEF (with the patched power ports) into lef/, where the padframe
+## check scripts read it.
 publish-golden:
 	mkdir -p gds verilog/gl
 	@if [ -f build/wrapper/gds/double_wide_openframe_project_wrapper.gds ]; then \
@@ -94,6 +96,11 @@ publish-golden:
 	@if [ -f build/wrapper/pnl/double_wide_openframe_project_wrapper.pnl.v ]; then \
 		cp -f build/wrapper/pnl/double_wide_openframe_project_wrapper.pnl.v \
 			verilog/gl/double_wide_openframe_project_wrapper.v; \
+	fi
+	@if [ -f build/wrapper/lef/double_wide_openframe_project_wrapper.lef ]; then \
+		mkdir -p lef; \
+		cp -f build/wrapper/lef/double_wide_openframe_project_wrapper.lef \
+			lef/double_wide_openframe_project_wrapper.lef; \
 	fi
 	@cp -f verilog/rtl/double_wide_openframe_project_wrapper.v \
 		verilog/rtl/__double_wide_openframe_project_wrapper.v.tmp && \
