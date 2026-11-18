@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Rewrite wrapper LEF power/ground PIN blocks from the final DEF.
 
-Magic.WriteLEF collapses multi-PORT power pins (keeps one met3 rect, drops the
-PDN ring ports). The DEF still has every BPin. Rebuild each power PIN in the
-LEF from the DEF so padframe routing sees the full clamp-aligned edge ports
-plus the met4/met5 ring ports.
+Magic.WriteLEF collapses multi-PORT power pins. The DEF still has every port,
+including the internal PDN ring. Openframe publishes only the edge ports that
+cross the prBoundary, so this rebuild keeps those and drops the ring.
 """
 from __future__ import annotations
 
@@ -26,6 +25,28 @@ def _upm(def_text: str) -> int:
     if not m:
         raise SystemExit("DEF missing UNITS DISTANCE MICRONS")
     return int(m.group(1))
+
+
+def _die_area(def_text: str, upm: int):
+    m = re.search(
+        r"DIEAREA \( ([-\d]+) ([-\d]+) \) \( ([-\d]+) ([-\d]+) \)",
+        def_text,
+    )
+    if not m:
+        raise SystemExit("DEF missing DIEAREA")
+    return tuple(int(v) / upm for v in m.groups())
+
+
+def _crosses_boundary(rect, die) -> bool:
+    """True when a rectangle is partly outside and partly inside the die."""
+    x1, y1, x2, y2 = rect
+    dx1, dy1, dx2, dy2 = die
+    xa, xb = min(x1, x2), max(x1, x2)
+    ya, yb = min(y1, y2), max(y1, y2)
+    eps = 1e-6
+    outside = xa < dx1 - eps or ya < dy1 - eps or xb > dx2 + eps or yb > dy2 + eps
+    inside = xb > dx1 + eps and yb > dy1 + eps and xa < dx2 - eps and ya < dy2 - eps
+    return outside and inside
 
 
 def _parse_def_power_ports(def_text: str, upm: int):
@@ -88,14 +109,26 @@ def patch_lef(lef_path: str, def_path: str) -> None:
     def_text = open(def_path).read()
     lef_text = open(lef_path).read()
     upm = _upm(def_text)
+    die = _die_area(def_text, upm)
     ports = _parse_def_power_ports(def_text, upm)
     missing = [n for n, p in ports.items() if not p]
     if missing:
         print(f"[patch_wrapper_lef] WARNING no DEF ports for: {missing}", file=sys.stderr)
 
-    for name, plist in ports.items():
+    for name, plist in list(ports.items()):
         if not plist:
             continue
+        edge = [p for p in plist if _crosses_boundary(p[1:], die)]
+        if not edge:
+            raise SystemExit(
+                f"[patch_wrapper_lef] {name} has {len(plist)} DEF ports and "
+                "none cross the prBoundary"
+            )
+        dropped = len(plist) - len(edge)
+        if dropped:
+            print(f"[patch_wrapper_lef] {name}: dropped {dropped} interior ports")
+        ports[name] = edge
+        plist = edge
         block = _lef_pin_block(name, plist)
         pat = re.compile(rf"  PIN {name}\n.*?  END {name}", re.S)
         if not pat.search(lef_text):

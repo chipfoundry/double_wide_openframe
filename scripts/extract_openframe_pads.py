@@ -105,6 +105,34 @@ ROUTE_OBS_LAYERS = ("met1", "met2", "met3", "met4", "met5")
 RESET_ROUTE_WINDOW_S_UM = (655.0, 800.0)   # x gap on the south edge
 POR_ROUTE_WINDOW_W_UM = (695.0, 820.0)     # y gap on the west edge
 
+# Openframe chip_io_openframe.mag places user_id_value at (3215.770, 46.230)
+# on the 3588 um die (magic transform / 200). The same offset from the
+# south-east corner is the right-hand pad-ring slot beside GPIO 0.
+OF_UID_PROG_X_UM = 3215.770
+OF_UID_PROG_Y_UM = 46.230
+UID_PROG_W_UM = 35.545
+UID_PROG_H_UM = 35.385
+UID_PROG_X_UM = DW_W_UM - (OF_W_UM - OF_UID_PROG_X_UM)  # 6803.770
+UID_PROG_Y_UM = OF_UID_PROG_Y_UM
+# Openframe mask_rev bus: mask_rev[0]'s left edge is 20.325 um right of the
+# block origin, then 32 met2 pins at 1.12 um pitch, 0.26 um wide. The bus
+# runs past the block's right edge. The route window covers both, plus 10 um.
+MASK_REV_COUNT = 32
+MASK_REV_DX_UM = 20.325
+MASK_REV_PITCH_UM = 1.120
+MASK_REV_WIDTH_UM = 0.260
+_UID_BUS_RIGHT_UM = (
+    UID_PROG_X_UM
+    + MASK_REV_DX_UM
+    + (MASK_REV_COUNT - 1) * MASK_REV_PITCH_UM
+    + MASK_REV_WIDTH_UM
+)
+UID_ROUTE_WINDOW_S_UM = (UID_PROG_X_UM - 10.0, _UID_BUS_RIGHT_UM + 10.0)
+if not RESET_ROUTE_WINDOW_S_UM[1] < UID_ROUTE_WINDOW_S_UM[0]:
+    raise RuntimeError("user-id route window overlaps the reset route window")
+if UID_ROUTE_WINDOW_S_UM[1] >= DW_W_UM - ROUTE_OBS_DEPTH_UM:
+    raise RuntimeError("user-id route window overlaps the east pad-ring obstruction")
+
 # Per-pad routing obstructions: the reset/POR windows cut through the pad-ring
 # obstruction let DRT route *under* the pads sitting in those windows. Stamp an
 # OBS box over every pad's footprint (all metal layers) so DRT is confined to the
@@ -181,6 +209,23 @@ CLAMP_MET3_STUBS = {
 POWER_PIN_LAYER = "met3"
 POWER_PIN_OUT_NM = 2000          # overhang outside the wrapper die edge
 POWER_PIN_IN_NM = 300            # into the die
+# Openframe signal pins are 0.64 um along the edge and use the same
+# perpendicular split as the power ports (2.0 um outside, 0.3 um inside).
+SIG_PIN_WIDTH_NM = 640
+SIG_PIN_OUT_NM = POWER_PIN_OUT_NM
+SIG_PIN_IN_NM = POWER_PIN_IN_NM
+# Along-edge clearance from a die corner to a pin center. Independent of
+# how far the pin crosses the prBoundary.
+PIN_CORNER_CLEAR_NM = 1000
+# Openframe POR: met3, 0.35 um along the edge, -2.0 .. +0.3.
+POR_PIN_HALF_NM = 175
+POR_PIN_IN_NM = POWER_PIN_IN_NM
+# Openframe reset: met2, 0.28 um along the edge, -2.0 .. +0.28.
+RESET_PIN_HALF_NM = 140
+RESET_PIN_IN_NM = 280
+# Openframe mask_rev: met2, 0.26 um along the edge, -2.0 .. +0.28.
+MASK_REV_PIN_OUT_NM = POWER_PIN_OUT_NM
+MASK_REV_PIN_IN_NM = 280
 GND_RAIL_NAMES = {
     "vssd", "vssd1", "vssd2", "vssio", "vssa", "vssa1", "vssa2",
 }
@@ -406,18 +451,33 @@ def build_inventory(uses):
                 o.cb = dict(llx=o.coord + r["dalong"], lly=r["perp"],
                             orient=r["orient"])
 
-    # ---- assign global gpio index (W, E, N, S) --------------------------- #
+    # Number from the lower-right corner, counterclockwise, matching
+    # caravel openframe: GPIO 0 is the lowest pad on the east edge, then up
+    # the east side, right-to-left across the north, top-to-bottom down the
+    # west, and left-to-right across the south. N/W lists are stored in that
+    # walk order so the generate loops' `base + i` follows it.
+    for s in "NW":
+        sig_by_side[s].reverse()
     g = 0
-    for s in "WENS":
-        for o in sig_by_side[s]:
-            o.g = g
-            o.inst = f"gpio_{s.lower()}[{sum(1 for x in sig_by_side[s][:sig_by_side[s].index(o)])}].u"
-            g += 1
-    # re-do per-side local index cleanly
-    for s in "WENS":
+    for s in "ENWS":
         for i, o in enumerate(sig_by_side[s]):
+            o.g = g
             o.inst = f"gpio_{s.lower()}[{i}].u"
+            g += 1
     n_gpio = g
+    pad0 = next(o for s in "ENWS" for o in sig_by_side[s] if o.g == 0)
+    east_bottom = min(sig_by_side["E"], key=lambda o: o.coord)
+    if pad0 is not east_bottom:
+        raise RuntimeError(
+            f"GPIO 0 must be the lowest east pad, got {pad0.side} @ {pad0.coord}"
+        )
+    expect = 0
+    for s in "ENWS":
+        got = [o.g for o in sig_by_side[s]]
+        want = list(range(expect, expect + len(got)))
+        if got != want:
+            raise RuntimeError(f"{s} GPIO indices {got} are not the walk {want}")
+        expect += len(got)
 
     # ---- assign clamp package-net vector indices ------------------------- #
     pkg_counts = {}
@@ -717,6 +777,7 @@ def gen_padframe_rtl(inv):
         body.append(f"    wire [{n-1}:0] {s};")
     for s in GPIO_VEC_SIGS_LOOPBACK:
         body.append(f"    wire [{n-1}:0] {s};")
+    body.append("    wire [31:0] mask_rev;")
     body.append("")
 
     # POR before reset/GPIO: reset ENABLE_H and (openframe) gpio ENABLE use porb_h.
@@ -793,6 +854,7 @@ def gen_padframe_rtl(inv):
     conn.append("`endif")
     for p in WRAPPER_CONTROL_PINS:
         conn.append(f"        .{p}({p}),")
+    conn.append("        .mask_rev(mask_rev),")
     all_vecs = (GPIO_VEC_SIGS_OUT + GPIO_VEC_SIGS_IN + GPIO_VEC_SIGS_INOUT
                 + GPIO_VEC_SIGS_LOOPBACK)
     conn += [f"        .{v}({v})," for v in all_vecs]
@@ -809,13 +871,11 @@ def gen_padframe_rtl(inv):
     body.append("""
     // ---- branding (placed by LibreLane MACROS; no electrical pins) ----
     (* keep *) open_source open_source ();
-    (* keep *) project_id_textblock project_id_textblock ();
     (* keep *) logo_dw_openframe logo_dw_openframe ();
 
     // Openframe user-id cells. The shadow tapeout path replaces these by
-    // cell name (user_id_programming, user_id_textblock). mask_rev stays
-    // inside the padframe; the user wrapper has no mask_rev port.
-    wire [31:0] mask_rev;
+    // cell name. user_id_programming drives mask_rev into the wrapper, the
+    // same port the openframe wrapper exports. The text block has no pins.
     (* keep *) user_id_programming user_id_value (
 `ifdef USE_POWER_PINS
         .VPWR(vccd),
@@ -866,9 +926,10 @@ def gen_wrapper_rtl(inv, empty=True):
     lines.append("    inout vdda1, vssa1, vccd1, vssd1,")
     lines.append("    inout vdda2, vssa2, vccd2, vssd2,")
     lines.append("`endif")
-    lines.append("    // Frame POR / reset (openframe-compatible)")
+    lines.append("    // Frame POR / reset / user id (openframe-compatible)")
     for p in WRAPPER_CONTROL_PINS:
         lines.append(f"    input  {p},")
+    lines.append("    input  [31:0] mask_rev,")
     for s in GPIO_VEC_SIGS_OUT:      # pad -> wrapper => wrapper input
         lines.append(f"    input  [{n-1}:0] {s},")
     for s in GPIO_VEC_SIGS_LOOPBACK:  # constant one/zero: pad -> wrapper input
@@ -1160,12 +1221,14 @@ def gen_pad_ef_io_blackboxes_v(inv, ef_io_v=DEFAULT_EF_IO_V):
 def _routing_obstructions_yaml(inv):
     """Pad-ring OBS with west (POR) + south (reset) windows cut for DRT.
 
-    The reset / POR cluster is routed by TritonRoute rather than marked SPECIAL,
-    so the full-ring obstruction is split on the west and south edges to leave a
-    gap over the POR cell / porb pin band and the xres pad / xres_buf column.
+    The reset / POR cluster and the user-id programming block are routed by
+    TritonRoute rather than marked SPECIAL, so the full-ring obstruction is
+    split on the west and south edges. The south edge has two gaps: the xres
+    column, and the user_id_programming block plus its mask_rev bus.
     """
     d = ROUTE_OBS_DEPTH_UM
     sx0, sx1 = RESET_ROUTE_WINDOW_S_UM
+    ux0, ux1 = UID_ROUTE_WINDOW_S_UM
     wy0, wy1 = POR_ROUTE_WINDOW_W_UM
     dw = "expr::$DIE_AREA[2]"
     dh = "expr::$DIE_AREA[3]"
@@ -1175,9 +1238,10 @@ def _routing_obstructions_yaml(inv):
         lines.append(f'- [{L}, 0, {wy1}, {d}, "{dh}"]')
     for L in ROUTE_OBS_LAYERS:      # East edge, full height
         lines.append(f'- [{L}, "expr::$DIE_AREA[2] - {d}", 0, "{dw}", "{dh}"]')
-    for L in ROUTE_OBS_LAYERS:      # South edge, split around the reset window
+    for L in ROUTE_OBS_LAYERS:      # South edge: reset window, then user-id window
         lines.append(f"- [{L}, 0, 0, {sx0}, {d}]")
-        lines.append(f'- [{L}, {sx1}, 0, "{dw}", {d}]')
+        lines.append(f"- [{L}, {sx1}, 0, {ux0:.3f}, {d}]")
+        lines.append(f'- [{L}, {ux1:.3f}, 0, "{dw}", {d}]')
     for L in ROUTE_OBS_LAYERS:      # North edge, full width
         lines.append(f'- [{L}, 0, "expr::$DIE_AREA[3] - {d}", "{dw}", "{dh}"]')
     lines.extend(_pad_obstruction_lines(inv))
@@ -1529,9 +1593,9 @@ CORE_AREA: [{WRAP_MARGIN_UM:.3f}, {WRAP_MARGIN_UM:.3f}, "expr::$DIE_AREA[2] - {W
 # cut-in (met3 short) and a 199.0 cut-in (met3 spacing vs obstruction) flagged
 # deferred DRT on gpio_in_h[3].
 #
-# Pad-ring OBS with windows cut on the west (POR) and south (reset) edges so
-# TritonRoute can wire the reset/POR cluster (resetb_h/resetb_l/porb_*/por_l).
-# East/north stay full-depth; see _routing_obstructions_yaml().
+# Pad-ring OBS with windows cut on the west (POR) and south (reset, and the
+# user-id programming block) so TritonRoute can wire resetb_*, porb_*, and
+# mask_rev. East/north stay full-depth; see _routing_obstructions_yaml().
 {routing_obs}
 
 # Power / ground nets (preserved multi-domain). LibreLane 3 only accepts the
@@ -1549,9 +1613,7 @@ IGNORE_DISCONNECTED_MODULES:
 - sky130_fd_io__top_power_lvc_wpad
 - sky130_fd_io__top_ground_lvc_wpad
 - open_source
-- project_id_textblock
 - logo_dw_openframe
-- user_id_programming
 - user_id_textblock
 
 # Multiple power pads share one domain net.
@@ -1606,7 +1668,7 @@ MACROS:
         orientation: {CONSTANT_ORIENT}
 {gpio_const_insts}
 
-  # North left gap between gpio_n[5] (cell ends ~2002) and gpio_n[6] (starts ~2367).
+  # North left gap (pad cell ends ~2002, next starts ~2367).
   # Logo only (198.4 x 54), centered in the clear filler span with margin from both
   # pad cells; com_bus_slice filler underneath (artwork met4/met5 OBS).
   logo_dw_openframe:
@@ -1635,24 +1697,10 @@ MACROS:
         location: [3791.300, 35.000]
         orientation: N
 
-  # Large clean mid-south gap (~4057-4523), away from the reset/xres cluster.
-  # project_id_textblock is 173.75 wide -> centered here.
-  project_id_textblock:
-    gds:
-    - dir::../../ip/project_id_textblock/gds/project_id_textblock.gds.gz
-    lef:
-    - dir::../../ip/project_id_textblock/lef/project_id_textblock.lef
-    vh:
-    - dir::../../ip/project_id_textblock/vh/project_id_textblock.vh
-    instances:
-      project_id_textblock:
-        location: [4203.100, 44.020]
-        orientation: N
-
-  # Same sky130 cells as caravel openframe. Stacked in the south gap just
-  # east of project_id_textblock (ends ~4377) and west of the pad whose bond
-  # is at 4560 (cell starts ~4461). 40um textblock over the 35.5um programming
-  # block, both inside the pad ring.
+  # The single chip-id text block: eight alpha_0 digits, 173.75 x 51.72.
+  # Same cell name as the OpenFrame harness. The slot is the south-west gap,
+  # between the SW connect slice (ends x=220) and the first vssa clamp (starts
+  # x=394). Origin is offset 3.28 in x, so location x = 220 + 3.28.
   user_id_textblock:
     gds:
     - dir::../../ip/user_id_textblock/gds/user_id_textblock.gds.gz
@@ -1662,8 +1710,12 @@ MACROS:
     - dir::../../ip/user_id_textblock/vh/user_id_textblock.vh
     instances:
       user_id_textblock:
-        location: [4388.000, 40.000]
+        location: [223.280, 35.000]
         orientation: N
+
+  # Same cell and offset from the south-east corner as openframe chip_io.
+  # Sits in the right-hand pad-ring slot beside GPIO 0. mask_rev routes
+  # through UID_ROUTE_WINDOW_S_UM up to the wrapper's south-edge pins.
   user_id_programming:
     gds:
     - dir::../../ip/user_id_programming/gds/user_id_programming.gds.gz
@@ -1673,7 +1725,7 @@ MACROS:
     - dir::../../ip/user_id_programming/vh/user_id_programming.vh
     instances:
       user_id_value:
-        location: [4390.000, 80.000]
+        location: [{UID_PROG_X_UM:.3f}, {UID_PROG_Y_UM:.3f}]
         orientation: N
 
 GRT_ALLOW_CONGESTION: true
@@ -1709,10 +1761,22 @@ def gen_pin_template_def(inv):
 
     WW, HH = nm(WRAP_W_UM), nm(WRAP_H_UM)
     OFF = nm(WRAP_MARGIN_UM)          # wrapper origin offset inside the die
-    PW = 400                          # pin width, across the wire      (0.40 um)
-    PL = 1000                         # pin length, into the die        (1.00 um)
+    PW = SIG_PIN_WIDTH_NM             # along the edge                  (0.64 um)
+    POUT = SIG_PIN_OUT_NM             # past the prBoundary             (2.00 um)
+    PIN = SIG_PIN_IN_NM               # inside the prBoundary           (0.30 um)
+    CLEAR = PIN_CORNER_CLEAR_NM
     PITCH = 4000                      # spacing between a gpio's pins    (4.00 um)
     HLAYER, VLAYER = "met3", "met2"
+
+    def edge_box(side, c, half, out_nm, in_nm):
+        """Pin rectangle that crosses the prBoundary the way openframe does."""
+        if side == "S":
+            return VLAYER, (c - half, -out_nm, c + half, in_nm)
+        if side == "N":
+            return VLAYER, (c - half, HH - in_nm, c + half, HH + out_nm)
+        if side == "W":
+            return HLAYER, (-out_nm, c - half, in_nm, c + half)
+        return HLAYER, (WW - in_nm, c - half, WW + out_nm, c + half)
 
     # Order each GPIO's 17 pins to mirror the gpiov2 pad's physical core-pin
     # layout so the pad->wrapper nets run as a clean parallel bundle instead of
@@ -1736,8 +1800,8 @@ def gen_pin_template_def(inv):
     pins = []   # (name, direction, layer, x1, y1, x2, y2)
     for s in "WENS":
         edge_len = WW if s in "NS" else HH
-        lo = halfspan + PL + GRID
-        hi = edge_len - halfspan - PL - GRID
+        lo = halfspan + CLEAR + GRID
+        hi = edge_len - halfspan - CLEAR - GRID
         for o in inv["sig"][s]:
             center = snap(nm(o.coord) - OFF)
             center = max(lo, min(hi, center))
@@ -1745,14 +1809,7 @@ def gen_pin_template_def(inv):
             for j, (sig, direction) in enumerate(sig_dirs):
                 c = snap(start + j * PITCH)
                 name = f"{sig}[{o.g}]"
-                if s == "S":
-                    layer, box = VLAYER, (c - PW // 2, 0, c + PW // 2, PL)
-                elif s == "N":
-                    layer, box = VLAYER, (c - PW // 2, HH - PL, c + PW // 2, HH)
-                elif s == "W":
-                    layer, box = HLAYER, (0, c - PW // 2, PL, c + PW // 2)
-                else:  # E
-                    layer, box = HLAYER, (WW - PL, c - PW // 2, WW, c + PW // 2)
+                layer, box = edge_box(s, c, PW // 2, POUT, PIN)
                 pins.append((name, direction, layer) + box)
 
     # Per-gpio buffered-constant pins (gpio_loopback_one / gpio_loopback_zero).
@@ -1766,34 +1823,48 @@ def gen_pin_template_def(inv):
         for o in inv["sig"][s]:
             along_um = (o.cb["llx"] if s in "NS" else o.cb["lly"]) + 7.0
             center = snap(nm(along_um) - OFF)
-            center = max(PL + GRID + PITCH, min(edge_len - PL - GRID - PITCH, center))
+            center = max(CLEAR + GRID + PITCH, min(edge_len - CLEAR - GRID - PITCH, center))
             for j, sig in enumerate(GPIO_VEC_SIGS_LOOPBACK):
                 c = snap(center + j * PITCH - PITCH // 2)
                 name = f"{sig}[{o.g}]"
-                if s == "S":
-                    layer, box = VLAYER, (c - PW // 2, 0, c + PW // 2, PL)
-                elif s == "N":
-                    layer, box = VLAYER, (c - PW // 2, HH - PL, c + PW // 2, HH)
-                elif s == "W":
-                    layer, box = HLAYER, (0, c - PW // 2, PL, c + PW // 2)
-                else:  # E
-                    layer, box = HLAYER, (WW - PL, c - PW // 2, WW, c + PW // 2)
+                layer, box = edge_box(s, c, PW // 2, POUT, PIN)
                 pins.append((name, "INPUT", layer) + box)
 
     # POR pins (west met3): openframe geometry, Y shifted with our POR place so
     # they abut the simple_por pin band. Order porb_h / por_l / porb_l.
-    # Preserve the openframe -2um overhang for padframe abutment, but extend
-    # 1um into the wrapper so a hardened user design reaches a met3 track.
+    # -2 um outside the prBoundary, 0.3 um inside, 0.35 um along the edge.
     dy = POR_LOCATION_UM[1] - OF_POR_LOCATION_Y_UM
     for sig, y_of in zip(WRAPPER_POR_PINS_WEST, OF_WRAP_POR_Y_UM):
         y = snap(nm(y_of + dy))
-        pins.append((sig, "INPUT", HLAYER, -2000, y - 175, PL, y + 175))
+        pins.append((
+            sig, "INPUT", HLAYER,
+            -POWER_PIN_OUT_NM, y - POR_PIN_HALF_NM,
+            POR_PIN_IN_NM, y + POR_PIN_HALF_NM,
+        ))
 
     # Reset pins (south met2): openframe X facing the south xres pad / xres_buf.
-    # Preserve the -2um overhang and extend 1um into the wrapper for met2 access.
+    # -2 um outside, 0.28 um inside, 0.28 um along the edge.
     for sig, x_of in zip(WRAPPER_RESET_PINS_SOUTH, OF_WRAP_RESET_X_UM):
         x = snap(nm(x_of))
-        pins.append((sig, "INPUT", VLAYER, x - 140, -2000, x + 140, PL))
+        pins.append((
+            sig, "INPUT", VLAYER,
+            x - RESET_PIN_HALF_NM, -POWER_PIN_OUT_NM,
+            x + RESET_PIN_HALF_NM, RESET_PIN_IN_NM,
+        ))
+
+    # mask_rev bus (south met2): the openframe packed bus, shifted with the
+    # programming block so each pin keeps the same offset from the block origin.
+    block_x = nm(UID_PROG_X_UM) - OFF
+    dx0 = nm(MASK_REV_DX_UM)
+    pitch = nm(MASK_REV_PITCH_UM)
+    width = nm(MASK_REV_WIDTH_UM)
+    for i in range(MASK_REV_COUNT):
+        x1 = snap(block_x + dx0 + i * pitch)
+        pins.append((
+            f"mask_rev[{i}]", "INPUT", VLAYER,
+            x1, -MASK_REV_PIN_OUT_NM,
+            x1 + width, MASK_REV_PIN_IN_NM,
+        ))
 
     # Power / ground edge ports: one SPECIAL multi-PORT pin per rail, with a
     # met3 rectangle facing every clamp met3 stub (openframe dual-~24um pattern).
@@ -1818,6 +1889,15 @@ def gen_pin_template_def(inv):
                 else:  # E
                     box = (WW - POWER_PIN_IN_NM, lo, WW + POWER_PIN_OUT_NM, hi)
                 power_ports[c.pkg].append(box)
+
+    for name, _direction, _layer, x1, y1, x2, y2 in pins:
+        outside = min(x1, x2) < 0 or min(y1, y2) < 0 or max(x1, x2) > WW or max(y1, y2) > HH
+        inside = max(x1, x2) > 0 and max(y1, y2) > 0 and min(x1, x2) < WW and min(y1, y2) < HH
+        if not (outside and inside):
+            raise RuntimeError(f"{name} pin does not cross the prBoundary: {(x1, y1, x2, y2)}")
+    mask_pins = [p for p in pins if p[0].startswith("mask_rev[")]
+    if len(mask_pins) != MASK_REV_COUNT:
+        raise RuntimeError(f"expected {MASK_REV_COUNT} mask_rev pins, got {len(mask_pins)}")
 
     n_pins = len(pins) + sum(1 for r in CORE_RAILS if power_ports[r])
     out = [

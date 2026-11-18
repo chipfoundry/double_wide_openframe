@@ -1,6 +1,6 @@
 (* keep *)
 // Physical blackbox. The GDS is the unprogrammed sky130 user-id cell;
-// tapeout via-programs it. mask_rev is left open in the padframe.
+// tapeout via-programs it. mask_rev is routed to the wrapper south edge.
 module user_id_programming (
 `ifdef USE_POWER_PINS
     inout VPWR,
