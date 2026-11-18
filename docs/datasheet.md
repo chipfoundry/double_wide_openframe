@@ -120,6 +120,27 @@ dedicated bond pad on the south edge (it is not one of the 63 GPIOs).
 `mask_rev` is driven by `user_id_programming`, placed in the south-east pad
 ring beside GPIO 0, and brought out on the wrapper's south edge.
 
+### Pad behaviour at power-up
+
+As in the standard openframe, the frame drives `ENABLE_H` and `ENABLE_VDDA_H`
+of every GPIO pad, and `ENABLE_H` of the `resetb` pad, from the on-chip
+power-on reset `porb_h`. While `porb_h` is low each pad is held in its safe
+state with the output driver off, so pads do not drive the board while the
+1.8 V controls from your design are not yet valid. Once `porb_h` goes high the
+pads follow `gpio_oeb` / `gpio_out` / `gpio_dm*` from the user area. These
+enables are internal to the frame and are not on the wrapper boundary.
+
+`porb_h` watches only the 3.3 V supply (`vddio`) and releases after a fixed
+delay (about 15 ms in the `simple_por` design). It protects the pads during
+that power-up window only:
+
+- Bring up the 1.8 V supplies (`vccd`, `vccd1`, `vccd2`) before, with, or within
+  the POR delay after 3.3 V.
+- If 1.8 V comes up later than that, is switched off while 3.3 V stays up, or
+  browns out, the pad controls are undefined for that time: pads may drive
+  high or low and draw extra `vddio` current. The standard openframe behaves
+  the same way.
+
 ---
 
 ## Designing in the user area

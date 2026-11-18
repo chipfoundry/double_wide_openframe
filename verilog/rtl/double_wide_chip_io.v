@@ -60,8 +60,9 @@ module double_wide_chip_io (
 
     // ---- power-on-reset (simple_por; fixed MACROS placement) ----
     // All three POR outputs (porb_h, porb_l, por_l) go to the user wrapper
-    // (west-edge pins abutting the POR Y-band). porb_h no longer crosses to the
-    // south reset pad -- that pad's ENABLE_H is tied locally (see master reset).
+    // (west-edge pins abutting the POR Y-band). As in the openframe, porb_h
+    // also drives ENABLE_H / ENABLE_VDDA_H of every GPIO pad and ENABLE_H of
+    // the reset pad, over the porb_h met1 loop drawn by Padframe.PorbRing.
     wire porb_h, porb_l, por_l;
 
     simple_por por (
@@ -79,7 +80,7 @@ module double_wide_chip_io (
 
     // ---- master reset (south xres4v2; openframe connectivity) ----
     wire xres_loopback_one, xres_loopback_zero;
-    wire xresloop, xres_vss_loop, xres_tie_hi;
+    wire xresloop, xres_vss_loop;
     wire resetb_h, resetb_l;
 
     constant_block constant_value_xres_inst (
@@ -102,16 +103,13 @@ module double_wide_chip_io (
         .PAD(resetb_pad),
 `endif
         .TIE_WEAK_HI_H(xresloop),
-        .TIE_HI_ESD(xres_tie_hi),
+        .TIE_HI_ESD(),
         .TIE_LO_ESD(xres_vss_loop),
         .PAD_A_ESD_H(xresloop),
         .XRES_H_N(resetb_h),
         .DISABLE_PULLUP_H(xres_vss_loop),
-        // ENABLE_H: openframe ties this to porb_h, but porb_h lives on the west
-        // POR and cannot be auto-routed across the die to this south pad. Tie it
-        // locally to the pad's own ESD-safe high (same pattern as the GPIO pads);
-        // a reset input pad is fine always-enabled. porb_h now only feeds the wrapper.
-        .ENABLE_H(xres_tie_hi),
+        // ENABLE_H: power-on reset, as in the openframe (porb_h met1 loop).
+        .ENABLE_H(porb_h),
         .EN_VDDIO_SIG_H(xres_vss_loop),
         .INP_SEL_H(xres_vss_loop),
         .FILT_IN_H(xres_vss_loop),
@@ -158,13 +156,13 @@ module double_wide_chip_io (
             .OUT(gpio_out[35 + i]),
             .OE_N(gpio_oeb[35 + i]),
             .HLD_H_N(tie_hi),
-            // ENABLE_H/VDDA_H: openframe ties these to porb_h. Automated DRT
-            // cannot fan porb_h out from simple_por's tiny met3 nub to every
-            // pad, so keep local tie-offs here (the south reset pad's ENABLE_H
-            // is tied locally the same way).
-            .ENABLE_H(tie_hi),
+            // ENABLE_H/VDDA_H follow the power-on reset, exactly as in
+            // chip_io_openframe.v: the pad is held in its safe state until
+            // porb_h releases. porb_h reaches every pad over the hand-drawn
+            // met1 loop (Padframe.PorbRing), not through the router.
+            .ENABLE_H(porb_h),
             .ENABLE_INP_H(tie_lo),
-            .ENABLE_VDDA_H(tie_hi),
+            .ENABLE_VDDA_H(porb_h),
             .ENABLE_VSWITCH_H(tie_lo),
             .ENABLE_VDDIO(gpio_loopback_one[35 + i]),
             .INP_DIS(gpio_inp_dis[35 + i]),
@@ -213,13 +211,13 @@ module double_wide_chip_io (
             .OUT(gpio_out[0 + i]),
             .OE_N(gpio_oeb[0 + i]),
             .HLD_H_N(tie_hi),
-            // ENABLE_H/VDDA_H: openframe ties these to porb_h. Automated DRT
-            // cannot fan porb_h out from simple_por's tiny met3 nub to every
-            // pad, so keep local tie-offs here (the south reset pad's ENABLE_H
-            // is tied locally the same way).
-            .ENABLE_H(tie_hi),
+            // ENABLE_H/VDDA_H follow the power-on reset, exactly as in
+            // chip_io_openframe.v: the pad is held in its safe state until
+            // porb_h releases. porb_h reaches every pad over the hand-drawn
+            // met1 loop (Padframe.PorbRing), not through the router.
+            .ENABLE_H(porb_h),
             .ENABLE_INP_H(tie_lo),
-            .ENABLE_VDDA_H(tie_hi),
+            .ENABLE_VDDA_H(porb_h),
             .ENABLE_VSWITCH_H(tie_lo),
             .ENABLE_VDDIO(gpio_loopback_one[0 + i]),
             .INP_DIS(gpio_inp_dis[0 + i]),
@@ -268,13 +266,13 @@ module double_wide_chip_io (
             .OUT(gpio_out[15 + i]),
             .OE_N(gpio_oeb[15 + i]),
             .HLD_H_N(tie_hi),
-            // ENABLE_H/VDDA_H: openframe ties these to porb_h. Automated DRT
-            // cannot fan porb_h out from simple_por's tiny met3 nub to every
-            // pad, so keep local tie-offs here (the south reset pad's ENABLE_H
-            // is tied locally the same way).
-            .ENABLE_H(tie_hi),
+            // ENABLE_H/VDDA_H follow the power-on reset, exactly as in
+            // chip_io_openframe.v: the pad is held in its safe state until
+            // porb_h releases. porb_h reaches every pad over the hand-drawn
+            // met1 loop (Padframe.PorbRing), not through the router.
+            .ENABLE_H(porb_h),
             .ENABLE_INP_H(tie_lo),
-            .ENABLE_VDDA_H(tie_hi),
+            .ENABLE_VDDA_H(porb_h),
             .ENABLE_VSWITCH_H(tie_lo),
             .ENABLE_VDDIO(gpio_loopback_one[15 + i]),
             .INP_DIS(gpio_inp_dis[15 + i]),
@@ -323,13 +321,13 @@ module double_wide_chip_io (
             .OUT(gpio_out[49 + i]),
             .OE_N(gpio_oeb[49 + i]),
             .HLD_H_N(tie_hi),
-            // ENABLE_H/VDDA_H: openframe ties these to porb_h. Automated DRT
-            // cannot fan porb_h out from simple_por's tiny met3 nub to every
-            // pad, so keep local tie-offs here (the south reset pad's ENABLE_H
-            // is tied locally the same way).
-            .ENABLE_H(tie_hi),
+            // ENABLE_H/VDDA_H follow the power-on reset, exactly as in
+            // chip_io_openframe.v: the pad is held in its safe state until
+            // porb_h releases. porb_h reaches every pad over the hand-drawn
+            // met1 loop (Padframe.PorbRing), not through the router.
+            .ENABLE_H(porb_h),
             .ENABLE_INP_H(tie_lo),
-            .ENABLE_VDDA_H(tie_hi),
+            .ENABLE_VDDA_H(porb_h),
             .ENABLE_VSWITCH_H(tie_lo),
             .ENABLE_VDDIO(gpio_loopback_one[49 + i]),
             .INP_DIS(gpio_inp_dis[49 + i]),

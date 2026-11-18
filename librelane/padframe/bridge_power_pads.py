@@ -18,9 +18,12 @@ import re
 WRAPPER_INST = "user_project"
 # Must match WRAP_MARGIN_UM in scripts/extract_openframe_pads.py
 WRAP_MARGIN_UM = 210.685
-# Overlap past the wrapper edge so the stripe covers the edge power PORT
-# (openframe-style pin extends ~0.3um into the wrapper die).
-WRAP_OVERLAP_UM = 1.0
+# How far the stripe runs past the wrapper edge. Zero: the stripe stops at the
+# user-area boundary. The wrapper's edge power PORT extends 2um outside the
+# boundary (and 0.3um in), so the stripe still overlaps it by 2um outside, and
+# no padframe metal lands inside the user area. (It used to run 1um in, 0.7um
+# past the port, and hit wide-metal spacing, MRW_met3.SP.2, against user met3.)
+WRAP_OVERLAP_UM = 0.0
 # Core-facing clamp pins that carry met3 stubs into the die.
 CORE_FACE_PINS = {
     "VCCD", "VSSD", "VDDIO", "VSSIO", "VDDA", "VSSA", "VCCD1", "VSSD1",
