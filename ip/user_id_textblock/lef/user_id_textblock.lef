@@ -5,8 +5,12 @@ VERSION 5.7 ;
 MACRO user_id_textblock
   CLASS BLOCK ;
   FOREIGN user_id_textblock ;
-  ORIGIN 0.000 0.000 ;
-  SIZE 40.000 BY 25.000 ;
+  ORIGIN 3.280 0.000 ;
+  SIZE 173.750 BY 51.720 ;
+  OBS
+      LAYER met5 ;
+        RECT 0.0 0.0 173.750 51.720 ;
+  END
 END user_id_textblock
 END LIBRARY
 

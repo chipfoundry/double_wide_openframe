@@ -848,7 +848,6 @@ IGNORE_DISCONNECTED_MODULES:
 - sky130_fd_io__top_power_lvc_wpad
 - sky130_fd_io__top_ground_lvc_wpad
 - open_source
-- project_id_textblock
 - logo_dw_openframe
 - user_id_programming
 - user_id_textblock
@@ -1122,24 +1121,10 @@ MACROS:
         location: [3791.300, 35.000]
         orientation: N
 
-  # Large clean mid-south gap (~4057-4523), away from the reset/xres cluster.
-  # project_id_textblock is 173.75 wide -> centered here.
-  project_id_textblock:
-    gds:
-    - dir::../../ip/project_id_textblock/gds/project_id_textblock.gds.gz
-    lef:
-    - dir::../../ip/project_id_textblock/lef/project_id_textblock.lef
-    vh:
-    - dir::../../ip/project_id_textblock/vh/project_id_textblock.vh
-    instances:
-      project_id_textblock:
-        location: [4203.100, 44.020]
-        orientation: N
-
-  # Same sky130 cells as caravel openframe. Stacked in the south gap just
-  # east of project_id_textblock (ends ~4377) and west of the pad whose bond
-  # is at 4560 (cell starts ~4461). 40um textblock over the 35.5um programming
-  # block, both inside the pad ring.
+  # The single chip-id text block: eight alpha_0 digits, 173.75 x 51.72.
+  # Same cell name as the OpenFrame harness. The slot is the south-west gap,
+  # between the SW connect slice (ends x=220) and the first vssa clamp (starts
+  # x=394). Origin is offset 3.28 in x, so location x = 220 + 3.28.
   user_id_textblock:
     gds:
     - dir::../../ip/user_id_textblock/gds/user_id_textblock.gds.gz
@@ -1149,7 +1134,7 @@ MACROS:
     - dir::../../ip/user_id_textblock/vh/user_id_textblock.vh
     instances:
       user_id_textblock:
-        location: [4388.000, 40.000]
+        location: [223.280, 35.000]
         orientation: N
   user_id_programming:
     gds:
