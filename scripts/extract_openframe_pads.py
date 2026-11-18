@@ -135,6 +135,20 @@ if not RESET_ROUTE_WINDOW_S_UM[1] < UID_ROUTE_WINDOW_S_UM[0]:
 if UID_ROUTE_WINDOW_S_UM[1] >= DW_W_UM - ROUTE_OBS_DEPTH_UM:
     raise RuntimeError("user-id route window overlaps the east pad-ring obstruction")
 
+# CF_owire_id occupies the south-east pad-ring bay below GPIO 0 (the lowest
+# east pad, origin y=503). West-edge pins face the core. The east routing
+# obstruction is split over this span so those pins can be reached; the
+# window stops below the GPIO 0 pad.
+OWIRE_W_UM = 155.0
+OWIRE_H_UM = 240.0
+OWIRE_X_UM = 6999.500
+OWIRE_Y_UM = 243.500
+OWIRE_ROUTE_WINDOW_E_UM = (230.0, 495.0)
+if not OWIRE_Y_UM > OWIRE_ROUTE_WINDOW_E_UM[0]:
+    raise RuntimeError("CF_owire_id sits outside its east route window")
+if not OWIRE_Y_UM + OWIRE_H_UM < OWIRE_ROUTE_WINDOW_E_UM[1]:
+    raise RuntimeError("CF_owire_id extends past its east route window")
+
 # Per-pad routing obstructions: the reset/POR windows cut through the pad-ring
 # obstruction let DRT route *under* the pads sitting in those windows. Stamp an
 # OBS box over every pad's footprint (all metal layers) so DRT is confined to the
@@ -621,6 +635,24 @@ def signal_runs(side, sigs):
             for n, r in enumerate(runs)]
 
 
+# GPIO 0 pad controls that CF_owire_id sits on. analog_io / analog_noesd_io /
+# gpio_in / gpio_in_h are not in this list: they stay on the pad, and the
+# wrapper pins are the same set the openframe wrapper exports.
+OWIRE_PAD_CTRLS = (
+    "gpio_out", "gpio_oeb", "gpio_inp_dis", "gpio_ib_mode_sel", "gpio_vtrip_sel",
+    "gpio_slow_sel", "gpio_holdover", "gpio_analog_en", "gpio_analog_sel",
+    "gpio_analog_pol", "gpio_dm0", "gpio_dm1", "gpio_dm2",
+)
+
+
+def _gpio0_net(sig, base):
+    """Pad-pin net. GPIO 0's muxed controls are driven by CF_owire_id."""
+    direct = f"{sig}[{base} + i]"
+    if base == 0 and sig in OWIRE_PAD_CTRLS:
+        return f"(i == 0 ? {sig}_owire : {direct})"
+    return direct
+
+
 def emit_signal_loop(side, sigs, label):
     """Emit one generate loop of gpiov2 pass-through pads (one analog domain)."""
     if not sigs:
@@ -628,6 +660,13 @@ def emit_signal_loop(side, sigs, label):
     dom = sigs[0].domain
     n = len(sigs)
     base = sigs[0].g
+    if base == 0 and side != "E":
+        raise RuntimeError(f"GPIO 0 is not on the east side ({side} {label})")
+    dm = "{{{0}, {1}, {2}}}".format(
+        _gpio0_net("gpio_dm2", base),
+        _gpio0_net("gpio_dm1", base),
+        _gpio0_net("gpio_dm0", base),
+    )
     return f"""
     // ---- {side} side signal pads ({n}) : domain {dom} ----
     generate for (genvar i = 0; i < {n}; i = i + 1) begin : {label}
@@ -647,8 +686,8 @@ def emit_signal_loop(side, sigs, label):
 `ifndef TOP_ROUTING
             .PAD(gpio_pad[{base} + i]),
 `endif
-            .OUT(gpio_out[{base} + i]),
-            .OE_N(gpio_oeb[{base} + i]),
+            .OUT({_gpio0_net("gpio_out", base)}),
+            .OE_N({_gpio0_net("gpio_oeb", base)}),
             .HLD_H_N(tie_hi),
             // ENABLE_H/VDDA_H follow the power-on reset, exactly as in
             // chip_io_openframe.v: the pad is held in its safe state until
@@ -659,15 +698,15 @@ def emit_signal_loop(side, sigs, label):
             .ENABLE_VDDA_H(porb_h),
             .ENABLE_VSWITCH_H(tie_lo),
             .ENABLE_VDDIO(gpio_loopback_one[{base} + i]),
-            .INP_DIS(gpio_inp_dis[{base} + i]),
-            .IB_MODE_SEL(gpio_ib_mode_sel[{base} + i]),
-            .VTRIP_SEL(gpio_vtrip_sel[{base} + i]),
-            .SLOW(gpio_slow_sel[{base} + i]),
-            .HLD_OVR(gpio_holdover[{base} + i]),
-            .ANALOG_EN(gpio_analog_en[{base} + i]),
-            .ANALOG_SEL(gpio_analog_sel[{base} + i]),
-            .ANALOG_POL(gpio_analog_pol[{base} + i]),
-            .DM({{gpio_dm2[{base} + i], gpio_dm1[{base} + i], gpio_dm0[{base} + i]}}),
+            .INP_DIS({_gpio0_net("gpio_inp_dis", base)}),
+            .IB_MODE_SEL({_gpio0_net("gpio_ib_mode_sel", base)}),
+            .VTRIP_SEL({_gpio0_net("gpio_vtrip_sel", base)}),
+            .SLOW({_gpio0_net("gpio_slow_sel", base)}),
+            .HLD_OVR({_gpio0_net("gpio_holdover", base)}),
+            .ANALOG_EN({_gpio0_net("gpio_analog_en", base)}),
+            .ANALOG_SEL({_gpio0_net("gpio_analog_sel", base)}),
+            .ANALOG_POL({_gpio0_net("gpio_analog_pol", base)}),
+            .DM({dm}),
             .PAD_A_NOESD_H(analog_noesd_io[{base} + i]),
             .PAD_A_ESD_0_H(analog_io[{base} + i]),
             .PAD_A_ESD_1_H(),
@@ -943,6 +982,10 @@ def gen_padframe_rtl(inv):
     for s in GPIO_VEC_SIGS_LOOPBACK:
         body.append(f"    wire [{n-1}:0] {s};")
     body.append("    wire [31:0] mask_rev;")
+    body.append("    // GPIO 0 pad controls. CF_owire_id drives bit 0; the")
+    body.append("    // generate loops below select these only for i == 0.")
+    for sig in OWIRE_PAD_CTRLS:
+        body.append(f"    wire {sig}_owire;")
     body.append("")
 
     # POR before reset/GPIO: reset ENABLE_H and (openframe) gpio ENABLE use porb_h.
@@ -1026,6 +1069,7 @@ def gen_padframe_rtl(inv):
     );
     (* keep *) user_id_textblock user_id_textblock ();
 """)
+    body.append(emit_owire())
 
     ports = ",\n".join(pad_ports)
     return f"""// AUTO-GENERATED by scripts/extract_openframe_pads.py  --  do not edit by hand.
@@ -1375,26 +1419,59 @@ def gen_pad_ef_io_blackboxes_v(inv, ef_io_v=DEFAULT_EF_IO_V):
     return "\n".join(lines)
 
 
-def _routing_obstructions_yaml(inv):
-    """Pad-ring OBS with west (POR) + south (reset) windows cut for DRT.
+def emit_owire():
+    """CF_owire_id between the wrapper's GPIO 0 controls and the pad.
 
-    The reset / POR cluster and the user-id programming block are routed by
-    TritonRoute rather than marked SPECIAL, so the full-ring obstruction is
-    split on the west and south edges. The south edge has two gaps: the xres
-    column, and the user_id_programming block plus its mask_rev bus.
+    The wrapper pin list is the openframe set. mask_rev stays the only id
+    port: user_id_programming drives it, and this block taps the same net.
+    """
+    lines = [
+        "    // GPIO 0 pad controls pass through CF_owire_id. Wrapper pins are",
+        "    // unchanged from the openframe (mask_rev is the only id port).",
+        "    // analog_io[0] and analog_noesd_io[0] stay on the pad. The default",
+        "    // cell shorts each user pin to its pad pin; the tapeout GDS swap",
+        "    // replaces those shorts with the reset mux.",
+        "    (* keep *) CF_owire_id CF_owire_id (",
+        "`ifdef USE_POWER_PINS",
+        "        .VPWR(vccd),",
+        "        .VGND(vssd),",
+        "`endif",
+        "        .chip_reset_n(resetb_l),",
+        "        .mask_rev(mask_rev),",
+        "        .gpio_in_pin(gpio_in[0]),",
+    ]
+    for sig in OWIRE_PAD_CTRLS:
+        lines.append(f"        .{sig}_user({sig}[0]),")
+        lines.append(f"        .{sig}_pin({sig}_owire),")
+    lines[-1] = lines[-1].rstrip(",")
+    lines.append("    );")
+    return "\n".join(lines) + "\n"
+
+
+def _routing_obstructions_yaml(inv):
+    """Pad-ring OBS with west (POR), south (reset, user-id) and east
+    (CF_owire_id) windows cut for DRT.
+
+    The reset / POR cluster, the user-id programming block, and CF_owire_id
+    are routed by TritonRoute rather than marked SPECIAL, so the full-ring
+    obstruction is split on the west, south, and east edges. The south edge
+    has two gaps: the xres column, and the user_id_programming block plus
+    its mask_rev bus. The east gap is the bay below GPIO 0.
     """
     d = ROUTE_OBS_DEPTH_UM
     sx0, sx1 = RESET_ROUTE_WINDOW_S_UM
     ux0, ux1 = UID_ROUTE_WINDOW_S_UM
     wy0, wy1 = POR_ROUTE_WINDOW_W_UM
+    ey0, ey1 = OWIRE_ROUTE_WINDOW_E_UM
     dw = "expr::$DIE_AREA[2]"
     dh = "expr::$DIE_AREA[3]"
     lines = ["ROUTING_OBSTRUCTIONS:"]
     for L in ROUTE_OBS_LAYERS:      # West edge, split around the POR window
         lines.append(f"- [{L}, 0, 0, {d}, {wy0}]")
         lines.append(f'- [{L}, 0, {wy1}, {d}, "{dh}"]')
-    for L in ROUTE_OBS_LAYERS:      # East edge, full height
-        lines.append(f'- [{L}, "expr::$DIE_AREA[2] - {d}", 0, "{dw}", "{dh}"]')
+    for L in ROUTE_OBS_LAYERS:      # East edge, split around CF_owire_id
+        lines.append(f'- [{L}, "expr::$DIE_AREA[2] - {d}", 0, "{dw}", {ey0}]')
+        lines.append(f'- [{L}, "expr::$DIE_AREA[2] - {d}", {ey1}, "{dw}", "{dh}"]')
     for L in ROUTE_OBS_LAYERS:      # South edge: reset window, then user-id window
         lines.append(f"- [{L}, 0, 0, {sx0}, {d}]")
         lines.append(f"- [{L}, {sx1}, 0, {ux0:.3f}, {d}]")
@@ -2012,6 +2089,22 @@ MACROS:
     instances:
       user_id_value:
         location: [{UID_PROG_X_UM:.3f}, {UID_PROG_Y_UM:.3f}]
+        orientation: N
+
+  # GPIO 0 electronic-id mux. West-edge pins face the core through the east
+  # route window. The default GDS shorts each user control to its pad pin.
+  # Tapeout replaces the cell by name
+  # (run_shadow_fill.py --replace CF_owire_id=<gds>); the origin stays put.
+  CF_owire_id:
+    gds:
+    - dir::../../ip/CF_owire_id/gds/CF_owire_id.gds.gz
+    lef:
+    - dir::../../ip/CF_owire_id/lef/CF_owire_id.lef
+    vh:
+    - dir::../../ip/CF_owire_id/vh/CF_owire_id.vh
+    instances:
+      CF_owire_id:
+        location: [{OWIRE_X_UM:.3f}, {OWIRE_Y_UM:.3f}]
         orientation: N
 
 GRT_ALLOW_CONGESTION: true
