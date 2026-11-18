@@ -9588,7 +9588,7 @@ MACRO double_wide_openframe_project_wrapper
     USE SIGNAL ;
     PORT
       LAYER met3 ;
-        RECT -2.000 528.180 0.300 528.530 ;
+        RECT -2.000 528.180 1.000 528.530 ;
     END
   END por_l
   PIN porb_h
@@ -9596,7 +9596,7 @@ MACRO double_wide_openframe_project_wrapper
     USE SIGNAL ;
     PORT
       LAYER met3 ;
-        RECT -2.000 527.055 0.300 527.405 ;
+        RECT -2.000 527.055 1.000 527.405 ;
     END
   END porb_h
   PIN porb_l
@@ -9604,7 +9604,7 @@ MACRO double_wide_openframe_project_wrapper
     USE SIGNAL ;
     PORT
       LAYER met3 ;
-        RECT -2.000 529.295 0.300 529.645 ;
+        RECT -2.000 529.295 1.000 529.645 ;
     END
   END porb_l
   PIN resetb_h
@@ -9612,7 +9612,7 @@ MACRO double_wide_openframe_project_wrapper
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 497.880 -2.000 498.160 0.280 ;
+        RECT 497.880 -2.000 498.160 1.000 ;
     END
   END resetb_h
   PIN resetb_l
@@ -9620,7 +9620,7 @@ MACRO double_wide_openframe_project_wrapper
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 550.820 -2.000 551.100 0.280 ;
+        RECT 550.820 -2.000 551.100 1.000 ;
     END
   END resetb_l
   PIN vccd
@@ -9634,50 +9634,6 @@ MACRO double_wide_openframe_project_wrapper
       LAYER met3 ;
         RECT -2.000 185.415 0.300 209.415 ;
     END
-    PORT
-      LAYER met5 ;
-        RECT 34.400 4730.240 6720.240 4731.840 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 34.400 36.320 6720.240 37.920 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6718.640 36.320 6720.240 4731.840 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 34.400 36.320 36.000 4731.840 ;
-    END
-  END vccd
-  PIN vccd
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT -2.000 185.415 0.300 209.415 ;
-    END
-  END vccd
-  PIN vccd
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met4 ;
-        RECT 34.400 36.320 36.000 4731.840 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6718.640 36.320 6720.240 4731.840 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 34.400 36.320 6720.240 37.920 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 34.400 4730.240 6720.240 4731.840 ;
-    END
   END vccd
   PIN vccd1
     DIRECTION INOUT ;
@@ -9690,50 +9646,6 @@ MACRO double_wide_openframe_project_wrapper
       LAYER met3 ;
         RECT 6754.330 4372.345 6756.630 4396.345 ;
     END
-    PORT
-      LAYER met5 ;
-        RECT 47.600 4717.040 6707.040 4718.640 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 47.600 49.520 6707.040 51.120 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6705.440 49.520 6707.040 4718.640 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 47.600 49.520 49.200 4718.640 ;
-    END
-  END vccd1
-  PIN vccd1
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT 6754.330 4372.345 6756.630 4396.345 ;
-    END
-  END vccd1
-  PIN vccd1
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met4 ;
-        RECT 47.600 49.520 49.200 4718.640 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6705.440 49.520 6707.040 4718.640 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 47.600 49.520 6707.040 51.120 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 47.600 4717.040 6707.040 4718.640 ;
-    END
   END vccd1
   PIN vccd2
     DIRECTION INOUT ;
@@ -9745,50 +9657,6 @@ MACRO double_wide_openframe_project_wrapper
     PORT
       LAYER met3 ;
         RECT -2.000 4405.285 0.300 4429.285 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 41.000 4723.640 6713.640 4725.240 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 41.000 42.920 6713.640 44.520 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6712.040 42.920 6713.640 4725.240 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 41.000 42.920 42.600 4725.240 ;
-    END
-  END vccd2
-  PIN vccd2
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT -2.000 4405.285 0.300 4429.285 ;
-    END
-  END vccd2
-  PIN vccd2
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met4 ;
-        RECT 41.000 42.920 42.600 4725.240 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6712.040 42.920 6713.640 4725.240 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 41.000 42.920 6713.640 44.520 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 41.000 4723.640 6713.640 4725.240 ;
     END
   END vccd2
   PIN vdda
@@ -9810,66 +9678,6 @@ MACRO double_wide_openframe_project_wrapper
       LAYER met3 ;
         RECT 2953.920 -2.000 2977.820 0.300 ;
     END
-    PORT
-      LAYER met5 ;
-        RECT 21.200 4743.440 6733.440 4745.040 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 21.200 23.120 6733.440 24.720 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6731.840 23.120 6733.440 4745.040 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 21.200 23.120 22.800 4745.040 ;
-    END
-  END vdda
-  PIN vdda
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT 6541.920 -2.000 6565.820 0.300 ;
-    END
-  END vdda
-  PIN vdda
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT 2904.025 -2.000 2927.925 0.300 ;
-    END
-  END vdda
-  PIN vdda
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT 2953.920 -2.000 2977.820 0.300 ;
-    END
-  END vdda
-  PIN vdda
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met4 ;
-        RECT 21.200 23.120 22.800 4745.040 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6731.840 23.120 6733.440 4745.040 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 21.200 23.120 6733.440 24.720 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 21.200 4743.440 6733.440 4745.040 ;
-    END
   END vdda
   PIN vdda1
     DIRECTION INOUT ;
@@ -9890,66 +9698,6 @@ MACRO double_wide_openframe_project_wrapper
       LAYER met3 ;
         RECT 6754.330 2358.920 6756.630 2382.820 ;
     END
-    PORT
-      LAYER met5 ;
-        RECT 14.600 4750.040 6740.040 4751.640 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 14.600 16.520 6740.040 18.120 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6738.440 16.520 6740.040 4751.640 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 14.600 16.520 16.200 4751.640 ;
-    END
-  END vdda1
-  PIN vdda1
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT 6754.330 3931.920 6756.630 3955.820 ;
-    END
-  END vdda1
-  PIN vdda1
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT 6754.330 2309.025 6756.630 2332.925 ;
-    END
-  END vdda1
-  PIN vdda1
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT 6754.330 2358.920 6756.630 2382.820 ;
-    END
-  END vdda1
-  PIN vdda1
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met4 ;
-        RECT 14.600 16.520 16.200 4751.640 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6738.440 16.520 6740.040 4751.640 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 14.600 16.520 6740.040 18.120 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 14.600 4750.040 6740.040 4751.640 ;
-    END
   END vdda1
   PIN vdda2
     DIRECTION INOUT ;
@@ -9961,50 +9709,6 @@ MACRO double_wide_openframe_project_wrapper
     PORT
       LAYER met3 ;
         RECT -2.000 2254.920 0.300 2278.820 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 8.000 4756.640 6746.640 4758.240 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 8.000 9.920 6746.640 11.520 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6745.040 9.920 6746.640 4758.240 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 8.000 9.920 9.600 4758.240 ;
-    END
-  END vdda2
-  PIN vdda2
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT -2.000 2254.920 0.300 2278.820 ;
-    END
-  END vdda2
-  PIN vdda2
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met4 ;
-        RECT 8.000 9.920 9.600 4758.240 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6745.040 9.920 6746.640 4758.240 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 8.000 9.920 6746.640 11.520 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 8.000 4756.640 6746.640 4758.240 ;
     END
   END vdda2
   PIN vddio
@@ -10026,66 +9730,6 @@ MACRO double_wide_openframe_project_wrapper
       LAYER met3 ;
         RECT -2.000 390.920 0.300 414.820 ;
     END
-    PORT
-      LAYER met5 ;
-        RECT 27.800 4736.840 6726.840 4738.440 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 27.800 29.720 6726.840 31.320 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6725.240 29.720 6726.840 4738.440 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 27.800 29.720 29.400 4738.440 ;
-    END
-  END vddio
-  PIN vddio
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT -2.000 4188.920 0.300 4212.820 ;
-    END
-  END vddio
-  PIN vddio
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT -2.000 341.025 0.300 364.925 ;
-    END
-  END vddio
-  PIN vddio
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met3 ;
-        RECT -2.000 390.920 0.300 414.820 ;
-    END
-  END vddio
-  PIN vddio
-    DIRECTION INOUT ;
-    USE POWER ;
-    PORT
-      LAYER met4 ;
-        RECT 27.800 29.720 29.400 4738.440 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6725.240 29.720 6726.840 4738.440 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 27.800 29.720 6726.840 31.320 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 27.800 4736.840 6726.840 4738.440 ;
-    END
   END vddio
   PIN vssa
     DIRECTION INOUT ;
@@ -10105,66 +9749,6 @@ MACRO double_wide_openframe_project_wrapper
     PORT
       LAYER met3 ;
         RECT 233.920 -2.000 257.820 0.300 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 17.900 4746.740 6736.740 4748.340 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 17.900 19.820 6736.740 21.420 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6735.140 19.820 6736.740 4748.340 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 17.900 19.820 19.500 4748.340 ;
-    END
-  END vssa
-  PIN vssa
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 3821.920 -2.000 3845.820 0.300 ;
-    END
-  END vssa
-  PIN vssa
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 184.025 -2.000 207.925 0.300 ;
-    END
-  END vssa
-  PIN vssa
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 233.920 -2.000 257.820 0.300 ;
-    END
-  END vssa
-  PIN vssa
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met4 ;
-        RECT 17.900 19.820 19.500 4748.340 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6735.140 19.820 6736.740 4748.340 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 17.900 19.820 6736.740 21.420 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 17.900 4746.740 6736.740 4748.340 ;
     END
   END vssa
   PIN vssa1
@@ -10194,82 +9778,6 @@ MACRO double_wide_openframe_project_wrapper
       LAYER met3 ;
         RECT 6754.330 1917.920 6756.630 1941.820 ;
     END
-    PORT
-      LAYER met5 ;
-        RECT 11.300 4753.340 6743.340 4754.940 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 11.300 13.220 6743.340 14.820 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6741.740 13.220 6743.340 4754.940 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 11.300 13.220 12.900 4754.940 ;
-    END
-  END vssa1
-  PIN vssa1
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 6305.920 4766.330 6329.820 4768.630 ;
-    END
-  END vssa1
-  PIN vssa1
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 2668.025 4766.330 2691.925 4768.630 ;
-    END
-  END vssa1
-  PIN vssa1
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 2717.920 4766.330 2741.820 4768.630 ;
-    END
-  END vssa1
-  PIN vssa1
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 6754.330 1868.025 6756.630 1891.925 ;
-    END
-  END vssa1
-  PIN vssa1
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 6754.330 1917.920 6756.630 1941.820 ;
-    END
-  END vssa1
-  PIN vssa1
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met4 ;
-        RECT 11.300 13.220 12.900 4754.940 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6741.740 13.220 6743.340 4754.940 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 11.300 13.220 6743.340 14.820 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 11.300 4753.340 6743.340 4754.940 ;
-    END
   END vssa1
   PIN vssa2
     DIRECTION INOUT ;
@@ -10281,50 +9789,6 @@ MACRO double_wide_openframe_project_wrapper
     PORT
       LAYER met3 ;
         RECT -2.000 3977.920 0.300 4001.820 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 4.700 4759.940 6749.940 4761.540 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 4.700 6.620 6749.940 8.220 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6748.340 6.620 6749.940 4761.540 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 4.700 6.620 6.300 4761.540 ;
-    END
-  END vssa2
-  PIN vssa2
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT -2.000 3977.920 0.300 4001.820 ;
-    END
-  END vssa2
-  PIN vssa2
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met4 ;
-        RECT 4.700 6.620 6.300 4761.540 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6748.340 6.620 6749.940 4761.540 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 4.700 6.620 6749.940 8.220 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 4.700 4759.940 6749.940 4761.540 ;
     END
   END vssa2
   PIN vssd
@@ -10346,67 +9810,8 @@ MACRO double_wide_openframe_project_wrapper
       LAYER met3 ;
         RECT 1040.215 -2.000 1064.215 0.300 ;
     END
-    PORT
-      LAYER met5 ;
-        RECT 31.100 4733.540 6723.540 4735.140 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 31.100 33.020 6723.540 34.620 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6721.940 33.020 6723.540 4735.140 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 31.100 33.020 32.700 4735.140 ;
-    END
   END vssd
-  PIN vssd
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 4628.215 -2.000 4652.215 0.300 ;
-    END
-  END vssd
-  PIN vssd
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 990.020 -2.000 1013.960 0.300 ;
-    END
-  END vssd
-  PIN vssd
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 1040.215 -2.000 1064.215 0.300 ;
-    END
-  END vssd
-  PIN vssd
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met4 ;
-        RECT 31.100 33.020 32.700 4735.140 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6721.940 33.020 6723.540 4735.140 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 31.100 33.020 6723.540 34.620 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 31.100 4733.540 6723.540 4735.140 ;
-    END
-  END vssd
+
   PIN vssd1
     DIRECTION INOUT ;
     USE GROUND ;
@@ -10417,50 +9822,6 @@ MACRO double_wide_openframe_project_wrapper
     PORT
       LAYER met3 ;
         RECT 6754.330 2133.350 6756.630 2157.350 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 44.300 4720.340 6710.340 4721.940 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 44.300 46.220 6710.340 47.820 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6708.740 46.220 6710.340 4721.940 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 44.300 46.220 45.900 4721.940 ;
-    END
-  END vssd1
-  PIN vssd1
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 6754.330 2133.350 6756.630 2157.350 ;
-    END
-  END vssd1
-  PIN vssd1
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met4 ;
-        RECT 44.300 46.220 45.900 4721.940 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6708.740 46.220 6710.340 4721.940 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 44.300 46.220 6710.340 47.820 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 44.300 4720.340 6710.340 4721.940 ;
     END
   END vssd1
   PIN vssd2
@@ -10473,50 +9834,6 @@ MACRO double_wide_openframe_project_wrapper
     PORT
       LAYER met3 ;
         RECT -2.000 2049.285 0.300 2073.285 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 37.700 4726.940 6716.940 4728.540 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 37.700 39.620 6716.940 41.220 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6715.340 39.620 6716.940 4728.540 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 37.700 39.620 39.300 4728.540 ;
-    END
-  END vssd2
-  PIN vssd2
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT -2.000 2049.285 0.300 2073.285 ;
-    END
-  END vssd2
-  PIN vssd2
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met4 ;
-        RECT 37.700 39.620 39.300 4728.540 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6715.340 39.620 6716.940 4728.540 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 37.700 39.620 6716.940 41.220 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 37.700 4726.940 6716.940 4728.540 ;
     END
   END vssd2
   PIN vssio
@@ -10554,106 +9871,109 @@ MACRO double_wide_openframe_project_wrapper
       LAYER met3 ;
         RECT 1506.920 4766.330 1530.820 4768.630 ;
     END
-    PORT
-      LAYER met5 ;
-        RECT 24.500 4740.140 6730.140 4741.740 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 24.500 26.420 6730.140 28.020 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6728.540 26.420 6730.140 4741.740 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 24.500 26.420 26.100 4741.740 ;
-    END
   END vssio
-  PIN vssio
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 6272.920 -2.000 6296.820 0.300 ;
-    END
-  END vssio
-  PIN vssio
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 2635.025 -2.000 2658.925 0.300 ;
-    END
-  END vssio
-  PIN vssio
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 2684.920 -2.000 2708.820 0.300 ;
-    END
-  END vssio
-  PIN vssio
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 5045.025 4766.330 5068.925 4768.630 ;
-    END
-  END vssio
-  PIN vssio
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 5094.920 4766.330 5118.820 4768.630 ;
-    END
-  END vssio
-  PIN vssio
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 1457.025 4766.330 1480.925 4768.630 ;
-    END
-  END vssio
-  PIN vssio
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met3 ;
-        RECT 1506.920 4766.330 1530.820 4768.630 ;
-    END
-  END vssio
-  PIN vssio
-    DIRECTION INOUT ;
-    USE GROUND ;
-    PORT
-      LAYER met4 ;
-        RECT 24.500 26.420 26.100 4741.740 ;
-    END
-    PORT
-      LAYER met4 ;
-        RECT 6728.540 26.420 6730.140 4741.740 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 24.500 26.420 6730.140 28.020 ;
-    END
-    PORT
-      LAYER met5 ;
-        RECT 24.500 4740.140 6730.140 4741.740 ;
-    END
-  END vssio
+
+
+
+
+
+
+
   OBS
       LAYER nwell ;
-        RECT 3374.830 2382.530 3377.970 2385.525 ;
+        RECT 3375.750 2379.915 3377.970 2385.525 ;
       LAYER li1 ;
-        RECT 3375.020 2382.635 3377.780 2385.525 ;
+        RECT 3375.940 2379.915 3377.780 2385.525 ;
       LAYER met1 ;
-        RECT 3375.020 2382.480 3377.780 2385.680 ;
+        RECT 40.020 40.560 6714.620 4724.880 ;
+      LAYER met2 ;
+        RECT 55.570 40.615 6540.410 4724.825 ;
+      LAYER met3 ;
+        RECT 6.050 4728.240 1456.625 4760.630 ;
+        RECT 1481.325 4760.190 1506.520 4760.630 ;
+        RECT 1531.220 4760.190 2667.625 4760.630 ;
+        RECT 1481.325 4728.240 2667.625 4760.190 ;
+        RECT 2692.325 4728.240 2717.520 4760.630 ;
+        RECT 2742.220 4728.240 5044.625 4760.630 ;
+        RECT 5069.325 4760.190 5094.520 4760.630 ;
+        RECT 5119.220 4760.190 6255.625 4760.630 ;
+        RECT 5069.325 4728.240 6255.625 4760.190 ;
+        RECT 6280.325 4728.240 6305.520 4760.630 ;
+        RECT 6330.220 4728.240 6748.580 4760.630 ;
+        RECT 6.050 4429.685 6748.580 4728.240 ;
+        RECT 6.450 4404.885 6748.580 4429.685 ;
+        RECT 6.050 4396.745 6748.580 4404.885 ;
+        RECT 6.050 4379.425 6748.180 4396.745 ;
+        RECT 6.450 4371.945 6748.180 4379.425 ;
+        RECT 6.450 4354.685 6748.580 4371.945 ;
+        RECT 6.050 4346.490 6748.580 4354.685 ;
+        RECT 6.050 4321.750 6748.180 4346.490 ;
+        RECT 6.050 4213.220 6748.580 4321.750 ;
+        RECT 6.450 4188.520 6748.580 4213.220 ;
+        RECT 6.050 4163.325 6748.580 4188.520 ;
+        RECT 6.450 4138.625 6748.580 4163.325 ;
+        RECT 6.050 4002.220 6748.580 4138.625 ;
+        RECT 6.450 3977.520 6748.580 4002.220 ;
+        RECT 6.050 3956.220 6748.580 3977.520 ;
+        RECT 6.050 3952.325 6748.180 3956.220 ;
+        RECT 6.450 3931.520 6748.180 3952.325 ;
+        RECT 6.450 3927.625 6748.580 3931.520 ;
+        RECT 6.050 3906.325 6748.580 3927.625 ;
+        RECT 6.050 3881.625 6748.180 3906.325 ;
+        RECT 6.050 2383.220 6748.580 3881.625 ;
+        RECT 6.050 2358.520 6748.180 2383.220 ;
+        RECT 6.050 2333.325 6748.580 2358.520 ;
+        RECT 6.050 2308.625 6748.180 2333.325 ;
+        RECT 6.050 2279.220 6748.580 2308.625 ;
+        RECT 6.450 2254.520 6748.580 2279.220 ;
+        RECT 6.050 2229.325 6748.580 2254.520 ;
+        RECT 6.450 2204.625 6748.580 2229.325 ;
+        RECT 6.050 2157.750 6748.580 2204.625 ;
+        RECT 6.050 2132.950 6748.180 2157.750 ;
+        RECT 6.050 2107.490 6748.580 2132.950 ;
+        RECT 6.050 2082.750 6748.180 2107.490 ;
+        RECT 6.050 2073.685 6748.580 2082.750 ;
+        RECT 6.450 2048.885 6748.580 2073.685 ;
+        RECT 6.050 2023.425 6748.580 2048.885 ;
+        RECT 6.450 1998.685 6748.580 2023.425 ;
+        RECT 6.050 1942.220 6748.580 1998.685 ;
+        RECT 6.050 1917.520 6748.180 1942.220 ;
+        RECT 6.050 1892.325 6748.580 1917.520 ;
+        RECT 6.050 1867.625 6748.180 1892.325 ;
+        RECT 6.050 415.220 6748.580 1867.625 ;
+        RECT 6.450 390.520 6748.580 415.220 ;
+        RECT 6.050 365.325 6748.580 390.520 ;
+        RECT 6.450 340.625 6748.580 365.325 ;
+        RECT 6.050 209.815 6748.580 340.625 ;
+        RECT 6.450 185.015 6748.580 209.815 ;
+        RECT 6.050 159.555 6748.580 185.015 ;
+        RECT 6.450 134.815 6748.580 159.555 ;
+        RECT 6.050 37.200 6748.580 134.815 ;
+        RECT 6.050 6.000 183.625 37.200 ;
+        RECT 208.325 36.435 989.620 37.200 ;
+        RECT 208.325 6.000 233.520 36.435 ;
+        RECT 258.220 6.000 989.620 36.435 ;
+        RECT 1014.360 6.000 1039.815 37.200 ;
+        RECT 1064.615 6.000 2634.625 37.200 ;
+        RECT 2659.325 6.000 2684.520 37.200 ;
+        RECT 2709.220 6.000 2903.625 37.200 ;
+        RECT 2928.325 6.440 3771.625 37.200 ;
+        RECT 2928.325 6.000 2953.520 6.440 ;
+        RECT 2978.220 6.000 3771.625 6.440 ;
+        RECT 3796.325 36.435 4577.620 37.200 ;
+        RECT 3796.325 6.000 3821.520 36.435 ;
+        RECT 3846.220 6.000 4577.620 36.435 ;
+        RECT 4602.360 6.000 4627.815 37.200 ;
+        RECT 4652.615 6.000 6222.625 37.200 ;
+        RECT 6247.325 6.000 6272.520 37.200 ;
+        RECT 6297.220 6.000 6491.625 37.200 ;
+        RECT 6516.325 6.440 6748.580 37.200 ;
+        RECT 6516.325 6.000 6541.520 6.440 ;
+        RECT 6566.220 6.000 6748.580 6.440 ;
+      LAYER met4 ;
+        RECT 6.000 6.000 6748.630 4760.630 ;
+      LAYER met5 ;
+        RECT 6.000 56.650 6748.630 4601.150 ;
   END
 END double_wide_openframe_project_wrapper
 END LIBRARY

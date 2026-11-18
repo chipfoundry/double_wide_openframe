@@ -65,9 +65,9 @@ pads:
 		--out-def-template librelane/wrapper/pin_template.def
 
 ## Harden the empty user-area wrapper (produces the LEF/DEF/GDS pin template).
-## LibreLane 3's native PDN_ENABLE_PINS promotes the PDN grid straight to the
-## pin_template.def pin locations (see librelane/wrapper/config.json), so no
-## custom step registration is needed here anymore.
+## librelane/wrapper/pdn_cfg.tcl (PDN_CFG) builds the stock grid and connects
+## every pad-aligned power port of pin_template.def to it, so plain librelane
+## is enough here; no custom step registration is needed.
 wrapper-empty:
 	$(LIBRELANE) \
 		librelane/wrapper/config.json --save-views-to build/wrapper/
