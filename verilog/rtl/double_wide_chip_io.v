@@ -56,8 +56,9 @@ module double_wide_chip_io (
     wire [62:0] gpio_loopback_one;
     wire [62:0] gpio_loopback_zero;
     wire [31:0] mask_rev;
-    // GPIO 0 pad controls. CF_owire_id drives bit 0; the
-    // generate loops below select these only for i == 0.
+    // GPIO 0 pad controls. CF_owire_id drives bit 0. The east generate
+    // loop indexes a concatenation, not a genvar ternary: Verilator 5
+    // cannot unroll the ternary.
     wire gpio_out_owire;
     wire gpio_oeb_owire;
     wire gpio_inp_dis_owire;
@@ -71,6 +72,21 @@ module double_wide_chip_io (
     wire gpio_dm0_owire;
     wire gpio_dm1_owire;
     wire gpio_dm2_owire;
+
+    wire [62:0] gpio_out_pad = {gpio_out[62:1], gpio_out_owire};
+    wire [62:0] gpio_oeb_pad = {gpio_oeb[62:1], gpio_oeb_owire};
+    wire [62:0] gpio_inp_dis_pad = {gpio_inp_dis[62:1], gpio_inp_dis_owire};
+    wire [62:0] gpio_ib_mode_sel_pad = {gpio_ib_mode_sel[62:1], gpio_ib_mode_sel_owire};
+    wire [62:0] gpio_vtrip_sel_pad = {gpio_vtrip_sel[62:1], gpio_vtrip_sel_owire};
+    wire [62:0] gpio_slow_sel_pad = {gpio_slow_sel[62:1], gpio_slow_sel_owire};
+    wire [62:0] gpio_holdover_pad = {gpio_holdover[62:1], gpio_holdover_owire};
+    wire [62:0] gpio_analog_en_pad = {gpio_analog_en[62:1], gpio_analog_en_owire};
+    wire [62:0] gpio_analog_sel_pad = {gpio_analog_sel[62:1], gpio_analog_sel_owire};
+    wire [62:0] gpio_analog_pol_pad = {gpio_analog_pol[62:1], gpio_analog_pol_owire};
+    wire [62:0] gpio_dm0_pad = {gpio_dm0[62:1], gpio_dm0_owire};
+    wire [62:0] gpio_dm1_pad = {gpio_dm1[62:1], gpio_dm1_owire};
+    wire [62:0] gpio_dm2_pad = {gpio_dm2[62:1], gpio_dm2_owire};
+
 
 
     // ---- power-on-reset (simple_por; fixed MACROS placement) ----
@@ -146,7 +162,7 @@ module double_wide_chip_io (
 
 
     // ---- W side signal pads (14) : domain user2 ----
-    generate for (genvar i = 0; i < 14; i = i + 1) begin : gpio_w
+    generate for (genvar i = 0; i < 14; ++i) begin : gpio_w
         wire tie_hi, tie_lo;
         // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
         // pad ENABLE_VDDIO; both are exported to the user wrapper for loopback.
@@ -201,7 +217,7 @@ module double_wide_chip_io (
 
 
     // ---- E side signal pads (15) : domain user1 ----
-    generate for (genvar i = 0; i < 15; i = i + 1) begin : gpio_e
+    generate for (genvar i = 0; i < 15; ++i) begin : gpio_e
         wire tie_hi, tie_lo;
         // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
         // pad ENABLE_VDDIO; both are exported to the user wrapper for loopback.
@@ -223,8 +239,8 @@ module double_wide_chip_io (
 `ifndef TOP_ROUTING
             .PAD(gpio_pad[0 + i]),
 `endif
-            .OUT((i == 0 ? gpio_out_owire : gpio_out[0 + i])),
-            .OE_N((i == 0 ? gpio_oeb_owire : gpio_oeb[0 + i])),
+            .OUT(gpio_out_pad[0 + i]),
+            .OE_N(gpio_oeb_pad[0 + i]),
             .HLD_H_N(tie_hi),
             // ENABLE_H/VDDA_H follow the power-on reset, exactly as in
             // chip_io_openframe.v: the pad is held in its safe state until
@@ -235,15 +251,15 @@ module double_wide_chip_io (
             .ENABLE_VDDA_H(porb_h),
             .ENABLE_VSWITCH_H(tie_lo),
             .ENABLE_VDDIO(gpio_loopback_one[0 + i]),
-            .INP_DIS((i == 0 ? gpio_inp_dis_owire : gpio_inp_dis[0 + i])),
-            .IB_MODE_SEL((i == 0 ? gpio_ib_mode_sel_owire : gpio_ib_mode_sel[0 + i])),
-            .VTRIP_SEL((i == 0 ? gpio_vtrip_sel_owire : gpio_vtrip_sel[0 + i])),
-            .SLOW((i == 0 ? gpio_slow_sel_owire : gpio_slow_sel[0 + i])),
-            .HLD_OVR((i == 0 ? gpio_holdover_owire : gpio_holdover[0 + i])),
-            .ANALOG_EN((i == 0 ? gpio_analog_en_owire : gpio_analog_en[0 + i])),
-            .ANALOG_SEL((i == 0 ? gpio_analog_sel_owire : gpio_analog_sel[0 + i])),
-            .ANALOG_POL((i == 0 ? gpio_analog_pol_owire : gpio_analog_pol[0 + i])),
-            .DM({(i == 0 ? gpio_dm2_owire : gpio_dm2[0 + i]), (i == 0 ? gpio_dm1_owire : gpio_dm1[0 + i]), (i == 0 ? gpio_dm0_owire : gpio_dm0[0 + i])}),
+            .INP_DIS(gpio_inp_dis_pad[0 + i]),
+            .IB_MODE_SEL(gpio_ib_mode_sel_pad[0 + i]),
+            .VTRIP_SEL(gpio_vtrip_sel_pad[0 + i]),
+            .SLOW(gpio_slow_sel_pad[0 + i]),
+            .HLD_OVR(gpio_holdover_pad[0 + i]),
+            .ANALOG_EN(gpio_analog_en_pad[0 + i]),
+            .ANALOG_SEL(gpio_analog_sel_pad[0 + i]),
+            .ANALOG_POL(gpio_analog_pol_pad[0 + i]),
+            .DM({gpio_dm2_pad[0 + i], gpio_dm1_pad[0 + i], gpio_dm0_pad[0 + i]}),
             .PAD_A_NOESD_H(analog_noesd_io[0 + i]),
             .PAD_A_ESD_0_H(analog_io[0 + i]),
             .PAD_A_ESD_1_H(),
@@ -256,7 +272,7 @@ module double_wide_chip_io (
 
 
     // ---- N side signal pads (15) : domain user1 ----
-    generate for (genvar i = 0; i < 15; i = i + 1) begin : gpio_n
+    generate for (genvar i = 0; i < 15; ++i) begin : gpio_n
         wire tie_hi, tie_lo;
         // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
         // pad ENABLE_VDDIO; both are exported to the user wrapper for loopback.
@@ -311,7 +327,7 @@ module double_wide_chip_io (
 
 
     // ---- N side signal pads (5) : domain user2 ----
-    generate for (genvar i = 0; i < 5; i = i + 1) begin : gpio_n_user2
+    generate for (genvar i = 0; i < 5; ++i) begin : gpio_n_user2
         wire tie_hi, tie_lo;
         // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
         // pad ENABLE_VDDIO; both are exported to the user wrapper for loopback.
@@ -366,7 +382,7 @@ module double_wide_chip_io (
 
 
     // ---- S side signal pads (14) : domain user0 ----
-    generate for (genvar i = 0; i < 14; i = i + 1) begin : gpio_s
+    generate for (genvar i = 0; i < 14; ++i) begin : gpio_s
         wire tie_hi, tie_lo;
         // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
         // pad ENABLE_VDDIO; both are exported to the user wrapper for loopback.

@@ -503,5 +503,15 @@ MACRO CF_owire_id
         RECT 0.000 232.500 2.000 234.000 ;
     END
   END VGND
+  OBS
+    LAYER met1 ;
+      RECT 2.500 0.000 155.000 240.000 ;
+    LAYER met2 ;
+      RECT 2.500 0.000 155.000 240.000 ;
+    LAYER met3 ;
+      RECT 2.500 0.000 155.000 240.000 ;
+    LAYER met4 ;
+      RECT 2.500 0.000 155.000 240.000 ;
+  END
 END CF_owire_id
 END LIBRARY

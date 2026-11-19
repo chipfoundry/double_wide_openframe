@@ -81,6 +81,9 @@ def _check(plist):
             raise RuntimeError(f"met3 overlap between {n0} and {n1}")
 
 
+OBS_X0_UM = 2.5
+
+
 def write_lef(plist, path):
     lines = [
         "VERSION 5.7 ;",
@@ -104,7 +107,17 @@ def write_lef(plist, path):
             "    END",
             f"  END {name}",
         ]
-    lines += ["END CF_owire_id", "END LIBRARY", ""]
+    # The block is empty, so without this the router treats its interior as
+    # open space and runs wires through it (gpio_holdover[0] left the block on
+    # met4 and shorted the pad-ring rails). Keep the west 2.5 um open: all pins
+    # sit on the west edge, 0..2 um.
+    lines += ["  OBS"]
+    for layer in ("met1", "met2", "met3", "met4"):
+        lines += [
+            f"    LAYER {layer} ;",
+            f"      RECT {OBS_X0_UM:.3f} 0.000 {W_UM:.3f} {H_UM:.3f} ;",
+        ]
+    lines += ["  END", "END CF_owire_id", "END LIBRARY", ""]
     with open(path, "w") as fh:
         fh.write("\n".join(lines))
 
