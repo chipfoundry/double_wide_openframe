@@ -115,7 +115,7 @@ def write_io_map_svg(path: Path, summary: dict) -> None:
     )
     P.append(
         f'<text x="{VW/2:g}" y="62" text-anchor="middle" font-size="11" fill="{MUTE}">'
-        "63 GPIOs · indexed West → East → North → South</text>"
+        "63 GPIOs · indexed East → North → West → South</text>"
     )
 
     # Die + user area

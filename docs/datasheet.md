@@ -29,7 +29,7 @@ raises the GPIO count to **63** while keeping the same pad interface.
 
 ## I/O map
 
-GPIOs are numbered **West → East → North → South**. Each side maps to a power
+GPIOs are numbered **East → North → West → South**. Each side maps to a power
 domain; the on-chip POR sits in the west gap and the external reset pad is on
 the south edge.
 
