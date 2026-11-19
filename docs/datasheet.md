@@ -37,9 +37,9 @@ the south edge.
 
 | Edge | GPIO indices | Count | Domain | Order |
 |------|--------------|------:|:------:|-------|
-| West | `gpio[0]`–`gpio[13]` | 14 | user2 | bottom → top |
-| East | `gpio[14]`–`gpio[28]` | 15 | user1 | bottom → top |
-| North | `gpio[29]`–`gpio[48]` | 20 | user1 | left → right |
+| East | `gpio[0]`–`gpio[14]` | 15 | user1 | bottom → top |
+| North | `gpio[15]`–`gpio[34]` | 20 | user1 | right → left |
+| West | `gpio[35]`–`gpio[48]` | 14 | user2 | top → bottom |
 | South | `gpio[49]`–`gpio[62]` | 14 | user0 | left → right |
 
 Exact bond-pad coordinates for every index are in [pinout.md](pinout.md) and
@@ -58,8 +58,8 @@ any domain, but **digital standard-cell logic should connect to `vccd1` /
 | Domain | GPIO sides | Core / analog rails |
 |--------|------------|----------------------|
 | **user0** | South (49–62) | `vccd1` / `vssd1`, `vdda` / `vssa` |
-| **user1** | East (14–28), North (29–48) | `vccd1` / `vssd1`, `vdda1` / `vssa1` |
-| **user2** | West (0–13) | `vccd2` / `vssd2`, `vdda2` / `vssa2` |
+| **user1** | East (0–14), North (15–34) | `vccd1` / `vssd1`, `vdda1` / `vssa1` |
+| **user2** | West (35–48) | `vccd2` / `vssd2`, `vdda2` / `vssa2` |
 | Shared ring | all | `vddio` / `vssio` (3.3 V I/O), `vccd` / `vssd`, `vdda` / `vssa` |
 
 Power is delivered through **24 clamped power bond pads** (per-net counts in
@@ -113,9 +113,12 @@ known state without extra circuitry.
 | `por_l` | in | Power-on-reset, 1.8 V core side |
 | `resetb_h` | in | External reset bar from `resetb` pad, 3.3 V |
 | `resetb_l` | in | External reset bar, level-shifted to 1.8 V |
+| `mask_rev[31:0]` | in | User id from the pad-ring programming block, 1.8 V |
 
 `resetb_l` is the recommended reset for 1.8 V digital logic. `resetb` is a
 dedicated bond pad on the south edge (it is not one of the 63 GPIOs).
+`mask_rev` is driven by `user_id_programming`, placed in the south-east pad
+ring beside GPIO 0, and brought out on the wrapper's south edge.
 
 ---
 

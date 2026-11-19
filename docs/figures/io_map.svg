@@ -74,24 +74,24 @@
 </g>
 <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0070f3"/></marker></defs>
 <g stroke="#0070f3" stroke-width="1.4" fill="none" stroke-dasharray="3 3">
-<line x1="204" y1="534.517" x2="204" y2="211.524" marker-end="url(#ar)"/>
+<line x1="204" y1="211.524" x2="204" y2="534.517" marker-end="url(#ar)"/>
 <line x1="836" y1="568.627" x2="836" y2="212.607" marker-end="url(#ar)"/>
-<line x1="255.199" y1="162" x2="785.048" y2="162" marker-end="url(#ar)"/>
+<line x1="785.048" y1="162" x2="255.199" y2="162" marker-end="url(#ar)"/>
 <line x1="301.273" y1="631.779" x2="738.313" y2="631.779" marker-end="url(#ar)"/>
 </g>
 <line x1="211" y1="534.517" x2="186" y2="534.517" stroke="#1d1d1f"/>
-<text x="182" y="538.517" text-anchor="end" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[0]</text>
-<text x="182" y="551.517" text-anchor="end" font-size="9.5" fill="#86868b">start</text>
+<text x="182" y="538.517" text-anchor="end" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[48]</text>
 <line x1="211" y1="211.524" x2="186" y2="211.524" stroke="#1d1d1f"/>
-<text x="182" y="215.524" text-anchor="end" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[13]</text>
+<text x="182" y="215.524" text-anchor="end" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[35]</text>
 <line x1="829" y1="568.627" x2="854" y2="568.627" stroke="#1d1d1f"/>
-<text x="858" y="572.627" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[14]</text>
+<text x="858" y="572.627" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[0]</text>
+<text x="858" y="585.627" font-size="9.5" fill="#86868b">start</text>
 <line x1="829" y1="212.607" x2="854" y2="212.607" stroke="#1d1d1f"/>
-<text x="858" y="216.607" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[28]</text>
+<text x="858" y="216.607" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[14]</text>
 <line x1="255.199" y1="171" x2="255.199" y2="146" stroke="#1d1d1f"/>
-<text x="255.199" y="142" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[29]</text>
+<text x="255.199" y="142" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[34]</text>
 <line x1="785.048" y1="171" x2="785.048" y2="146" stroke="#1d1d1f"/>
-<text x="785.048" y="142" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[48]</text>
+<text x="785.048" y="142" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[15]</text>
 <line x1="301.273" y1="622.779" x2="301.273" y2="647.779" stroke="#1d1d1f"/>
 <text x="301.273" y="659.779" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1d1d1f">GPIO[49]</text>
 <line x1="738.313" y1="622.779" x2="738.313" y2="647.779" stroke="#1d1d1f"/>
@@ -106,12 +106,12 @@
 <text x="250.566" y="665.779" text-anchor="end" font-size="12" font-weight="600" fill="#bf4800">reset pad</text>
 <text x="250.566" y="678.779" text-anchor="end" font-size="9.5" fill="#86868b">resetb_h · resetb_l</text>
 <text x="124" y="366.89" text-anchor="end" font-size="11" font-weight="600" fill="#1d1d1f">West edge</text>
-<text x="124" y="381.89" text-anchor="end" font-size="11" fill="#86868b">GPIO[0]–[13] · user2</text>
-<text x="124" y="395.89" text-anchor="end" font-size="11" fill="#86868b">14 GPIOs, bottom→top</text>
+<text x="124" y="381.89" text-anchor="end" font-size="11" fill="#86868b">GPIO[35]–[48] · user2</text>
+<text x="124" y="395.89" text-anchor="end" font-size="11" fill="#86868b">14 GPIOs, top→bottom</text>
 <text x="916" y="366.89" font-size="11" font-weight="600" fill="#1d1d1f">East edge</text>
-<text x="916" y="381.89" font-size="11" fill="#86868b">GPIO[14]–[28] · user1</text>
+<text x="916" y="381.89" font-size="11" fill="#86868b">GPIO[0]–[14] · user1</text>
 <text x="916" y="395.89" font-size="11" fill="#86868b">15 GPIOs, bottom→top</text>
-<text x="520" y="108" text-anchor="middle" font-size="11" fill="#86868b">North edge — GPIO[29]–[48] — 20 GPIOs — user1 — left→right</text>
+<text x="520" y="108" text-anchor="middle" font-size="11" fill="#86868b">North edge — GPIO[15]–[34] — 20 GPIOs — user1 — right→left</text>
 <text x="520" y="756" text-anchor="middle" font-size="11" fill="#86868b">South edge — GPIO[49]–[62] — 14 GPIOs — user0 — left→right</text>
 <g transform="translate(40,738)">
 <rect width="250" height="30" fill="none" stroke="#d2d2d7" rx="4"/>

@@ -55,6 +55,7 @@ module double_wide_chip_io (
     wire [62:0] analog_noesd_io;
     wire [62:0] gpio_loopback_one;
     wire [62:0] gpio_loopback_zero;
+    wire [31:0] mask_rev;
 
 
     // ---- power-on-reset (simple_por; fixed MACROS placement) ----
@@ -141,6 +142,61 @@ module double_wide_chip_io (
             .vccd(vccd),
             .vssd(vssd),
 `endif
+            .one(gpio_loopback_one[35 + i]),
+            .zero(gpio_loopback_zero[35 + i])
+        );
+        sky130_ef_io__gpiov2_pad u (
+        .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
+`ifdef USE_POWER_PINS
+        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
+        .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
+        .VSSD(vssd), .VSSIO_Q(vssio_q),
+`endif
+`ifndef TOP_ROUTING
+            .PAD(gpio_pad[35 + i]),
+`endif
+            .OUT(gpio_out[35 + i]),
+            .OE_N(gpio_oeb[35 + i]),
+            .HLD_H_N(tie_hi),
+            // ENABLE_H/VDDA_H: openframe ties these to porb_h. Automated DRT
+            // cannot fan porb_h out from simple_por's tiny met3 nub to every
+            // pad, so keep local tie-offs here (the south reset pad's ENABLE_H
+            // is tied locally the same way).
+            .ENABLE_H(tie_hi),
+            .ENABLE_INP_H(tie_lo),
+            .ENABLE_VDDA_H(tie_hi),
+            .ENABLE_VSWITCH_H(tie_lo),
+            .ENABLE_VDDIO(gpio_loopback_one[35 + i]),
+            .INP_DIS(gpio_inp_dis[35 + i]),
+            .IB_MODE_SEL(gpio_ib_mode_sel[35 + i]),
+            .VTRIP_SEL(gpio_vtrip_sel[35 + i]),
+            .SLOW(gpio_slow_sel[35 + i]),
+            .HLD_OVR(gpio_holdover[35 + i]),
+            .ANALOG_EN(gpio_analog_en[35 + i]),
+            .ANALOG_SEL(gpio_analog_sel[35 + i]),
+            .ANALOG_POL(gpio_analog_pol[35 + i]),
+            .DM({gpio_dm2[35 + i], gpio_dm1[35 + i], gpio_dm0[35 + i]}),
+            .PAD_A_NOESD_H(analog_noesd_io[35 + i]),
+            .PAD_A_ESD_0_H(analog_io[35 + i]),
+            .PAD_A_ESD_1_H(),
+            .IN(gpio_in[35 + i]),
+            .IN_H(gpio_in_h[35 + i]),
+            .TIE_HI_ESD(tie_hi),
+            .TIE_LO_ESD(tie_lo)
+        );
+    end endgenerate
+
+
+    // ---- E side signal pads (15) : domain user1 ----
+    generate for (genvar i = 0; i < 15; i = i + 1) begin : gpio_e
+        wire tie_hi, tie_lo;
+        // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
+        // pad ENABLE_VDDIO; both are exported to the user wrapper for loopback.
+        constant_block const_val (
+`ifdef USE_POWER_PINS
+            .vccd(vccd),
+            .vssd(vssd),
+`endif
             .one(gpio_loopback_one[0 + i]),
             .zero(gpio_loopback_zero[0 + i])
         );
@@ -186,61 +242,6 @@ module double_wide_chip_io (
     end endgenerate
 
 
-    // ---- E side signal pads (15) : domain user1 ----
-    generate for (genvar i = 0; i < 15; i = i + 1) begin : gpio_e
-        wire tie_hi, tie_lo;
-        // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
-        // pad ENABLE_VDDIO; both are exported to the user wrapper for loopback.
-        constant_block const_val (
-`ifdef USE_POWER_PINS
-            .vccd(vccd),
-            .vssd(vssd),
-`endif
-            .one(gpio_loopback_one[14 + i]),
-            .zero(gpio_loopback_zero[14 + i])
-        );
-        sky130_ef_io__gpiov2_pad u (
-        .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
-`ifdef USE_POWER_PINS
-        .VSSA(vssa), .VDDA(vdda), .VSWITCH(vddio), .VDDIO_Q(vddio_q),
-        .VCCHIB(vccd), .VDDIO(vddio), .VCCD(vccd), .VSSIO(vssio),
-        .VSSD(vssd), .VSSIO_Q(vssio_q),
-`endif
-`ifndef TOP_ROUTING
-            .PAD(gpio_pad[14 + i]),
-`endif
-            .OUT(gpio_out[14 + i]),
-            .OE_N(gpio_oeb[14 + i]),
-            .HLD_H_N(tie_hi),
-            // ENABLE_H/VDDA_H: openframe ties these to porb_h. Automated DRT
-            // cannot fan porb_h out from simple_por's tiny met3 nub to every
-            // pad, so keep local tie-offs here (the south reset pad's ENABLE_H
-            // is tied locally the same way).
-            .ENABLE_H(tie_hi),
-            .ENABLE_INP_H(tie_lo),
-            .ENABLE_VDDA_H(tie_hi),
-            .ENABLE_VSWITCH_H(tie_lo),
-            .ENABLE_VDDIO(gpio_loopback_one[14 + i]),
-            .INP_DIS(gpio_inp_dis[14 + i]),
-            .IB_MODE_SEL(gpio_ib_mode_sel[14 + i]),
-            .VTRIP_SEL(gpio_vtrip_sel[14 + i]),
-            .SLOW(gpio_slow_sel[14 + i]),
-            .HLD_OVR(gpio_holdover[14 + i]),
-            .ANALOG_EN(gpio_analog_en[14 + i]),
-            .ANALOG_SEL(gpio_analog_sel[14 + i]),
-            .ANALOG_POL(gpio_analog_pol[14 + i]),
-            .DM({gpio_dm2[14 + i], gpio_dm1[14 + i], gpio_dm0[14 + i]}),
-            .PAD_A_NOESD_H(analog_noesd_io[14 + i]),
-            .PAD_A_ESD_0_H(analog_io[14 + i]),
-            .PAD_A_ESD_1_H(),
-            .IN(gpio_in[14 + i]),
-            .IN_H(gpio_in_h[14 + i]),
-            .TIE_HI_ESD(tie_hi),
-            .TIE_LO_ESD(tie_lo)
-        );
-    end endgenerate
-
-
     // ---- N side signal pads (20) : domain user1 ----
     generate for (genvar i = 0; i < 20; i = i + 1) begin : gpio_n
         wire tie_hi, tie_lo;
@@ -251,8 +252,8 @@ module double_wide_chip_io (
             .vccd(vccd),
             .vssd(vssd),
 `endif
-            .one(gpio_loopback_one[29 + i]),
-            .zero(gpio_loopback_zero[29 + i])
+            .one(gpio_loopback_one[15 + i]),
+            .zero(gpio_loopback_zero[15 + i])
         );
         sky130_ef_io__gpiov2_pad u (
         .AMUXBUS_A(analog_a), .AMUXBUS_B(analog_b),
@@ -262,10 +263,10 @@ module double_wide_chip_io (
         .VSSD(vssd), .VSSIO_Q(vssio_q),
 `endif
 `ifndef TOP_ROUTING
-            .PAD(gpio_pad[29 + i]),
+            .PAD(gpio_pad[15 + i]),
 `endif
-            .OUT(gpio_out[29 + i]),
-            .OE_N(gpio_oeb[29 + i]),
+            .OUT(gpio_out[15 + i]),
+            .OE_N(gpio_oeb[15 + i]),
             .HLD_H_N(tie_hi),
             // ENABLE_H/VDDA_H: openframe ties these to porb_h. Automated DRT
             // cannot fan porb_h out from simple_por's tiny met3 nub to every
@@ -275,21 +276,21 @@ module double_wide_chip_io (
             .ENABLE_INP_H(tie_lo),
             .ENABLE_VDDA_H(tie_hi),
             .ENABLE_VSWITCH_H(tie_lo),
-            .ENABLE_VDDIO(gpio_loopback_one[29 + i]),
-            .INP_DIS(gpio_inp_dis[29 + i]),
-            .IB_MODE_SEL(gpio_ib_mode_sel[29 + i]),
-            .VTRIP_SEL(gpio_vtrip_sel[29 + i]),
-            .SLOW(gpio_slow_sel[29 + i]),
-            .HLD_OVR(gpio_holdover[29 + i]),
-            .ANALOG_EN(gpio_analog_en[29 + i]),
-            .ANALOG_SEL(gpio_analog_sel[29 + i]),
-            .ANALOG_POL(gpio_analog_pol[29 + i]),
-            .DM({gpio_dm2[29 + i], gpio_dm1[29 + i], gpio_dm0[29 + i]}),
-            .PAD_A_NOESD_H(analog_noesd_io[29 + i]),
-            .PAD_A_ESD_0_H(analog_io[29 + i]),
+            .ENABLE_VDDIO(gpio_loopback_one[15 + i]),
+            .INP_DIS(gpio_inp_dis[15 + i]),
+            .IB_MODE_SEL(gpio_ib_mode_sel[15 + i]),
+            .VTRIP_SEL(gpio_vtrip_sel[15 + i]),
+            .SLOW(gpio_slow_sel[15 + i]),
+            .HLD_OVR(gpio_holdover[15 + i]),
+            .ANALOG_EN(gpio_analog_en[15 + i]),
+            .ANALOG_SEL(gpio_analog_sel[15 + i]),
+            .ANALOG_POL(gpio_analog_pol[15 + i]),
+            .DM({gpio_dm2[15 + i], gpio_dm1[15 + i], gpio_dm0[15 + i]}),
+            .PAD_A_NOESD_H(analog_noesd_io[15 + i]),
+            .PAD_A_ESD_0_H(analog_io[15 + i]),
             .PAD_A_ESD_1_H(),
-            .IN(gpio_in[29 + i]),
-            .IN_H(gpio_in_h[29 + i]),
+            .IN(gpio_in[15 + i]),
+            .IN_H(gpio_in_h[15 + i]),
             .TIE_HI_ESD(tie_hi),
             .TIE_LO_ESD(tie_lo)
         );
@@ -716,6 +717,7 @@ module double_wide_chip_io (
         .porb_l(porb_l),
         .resetb_h(resetb_h),
         .resetb_l(resetb_l),
+        .mask_rev(mask_rev),
         .gpio_in(gpio_in),
         .gpio_in_h(gpio_in_h),
         .gpio_out(gpio_out),
@@ -740,13 +742,11 @@ module double_wide_chip_io (
 
     // ---- branding (placed by LibreLane MACROS; no electrical pins) ----
     (* keep *) open_source open_source ();
-    (* keep *) project_id_textblock project_id_textblock ();
     (* keep *) logo_dw_openframe logo_dw_openframe ();
 
     // Openframe user-id cells. The shadow tapeout path replaces these by
-    // cell name (user_id_programming, user_id_textblock). mask_rev stays
-    // inside the padframe; the user wrapper has no mask_rev port.
-    wire [31:0] mask_rev;
+    // cell name. user_id_programming drives mask_rev into the wrapper, the
+    // same port the openframe wrapper exports. The text block has no pins.
     (* keep *) user_id_programming user_id_value (
 `ifdef USE_POWER_PINS
         .VPWR(vccd),

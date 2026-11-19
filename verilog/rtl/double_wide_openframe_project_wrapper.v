@@ -12,12 +12,13 @@ module double_wide_openframe_project_wrapper (
     inout vdda1, vssa1, vccd1, vssd1,
     inout vdda2, vssa2, vccd2, vssd2,
 `endif
-    // Frame POR / reset (openframe-compatible)
+    // Frame POR / reset / user id (openframe-compatible)
     input  porb_h,
     input  por_l,
     input  porb_l,
     input  resetb_h,
     input  resetb_l,
+    input  [31:0] mask_rev,
     input  [62:0] gpio_in,
     input  [62:0] gpio_in_h,
     input  [62:0] gpio_loopback_one,
