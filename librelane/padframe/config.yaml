@@ -8,6 +8,12 @@ meta:
     # Magic reports some overlaps which can be ignored
     Checker.IllegalOverlap: null
 
+    # GPIO 0's pad-facing buses are aliases (bit 0 is the CF_owire_id
+    # pin). A genvar ternary is rejected by Verilator 5, and a
+    # concatenation select is rejected by Yosys, so the alias is an
+    # assign and this checker is off.
+    Checker.NetlistAssignStatements: null
+
     # Disable KLayout DRC
     #KLayout.DRC: null
     #Checker.KLayoutDRC: null

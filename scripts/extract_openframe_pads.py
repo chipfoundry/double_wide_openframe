@@ -646,11 +646,11 @@ OWIRE_PAD_CTRLS = (
 
 
 def _gpio0_net(sig, base):
-    """Pad-pin net. GPIO 0's muxed controls are driven by CF_owire_id."""
-    direct = f"{sig}[{base} + i]"
+    """Pad-pin net. GPIO 0's controls come from the *_pad bus, whose bit 0
+    is the CF_owire_id pin. The genvar only indexes that bus."""
     if base == 0 and sig in OWIRE_PAD_CTRLS:
-        return f"(i == 0 ? {sig}_owire : {direct})"
-    return direct
+        return f"{sig}_pad[{base} + i]"
+    return f"{sig}[{base} + i]"
 
 
 def emit_signal_loop(side, sigs, label):
@@ -669,7 +669,7 @@ def emit_signal_loop(side, sigs, label):
     )
     return f"""
     // ---- {side} side signal pads ({n}) : domain {dom} ----
-    generate for (genvar i = 0; i < {n}; i = i + 1) begin : {label}
+    generate for (genvar i = 0; i < {n}; ++i) begin : {label}
         wire tie_hi, tie_lo;
         // openframe per-pad constant one/zero (buffered 1.8V). `one` drives the
         // pad ENABLE_VDDIO; both are exported to the user wrapper for loopback.
@@ -982,10 +982,13 @@ def gen_padframe_rtl(inv):
     for s in GPIO_VEC_SIGS_LOOPBACK:
         body.append(f"    wire [{n-1}:0] {s};")
     body.append("    wire [31:0] mask_rev;")
-    body.append("    // GPIO 0 pad controls. CF_owire_id drives bit 0; the")
-    body.append("    // generate loops below select these only for i == 0.")
+    body.append("    // GPIO 0 pad controls. CF_owire_id drives bit 0 of each *_pad bus.")
+    body.append("    // The generate loops only index those buses: a genvar inside a")
+    body.append("    // ternary cannot be unrolled by Verilator 5.")
     for sig in OWIRE_PAD_CTRLS:
         body.append(f"    wire {sig}_owire;")
+    for sig in OWIRE_PAD_CTRLS:
+        body.append(f"    wire [{n-1}:0] {sig}_pad = {{{sig}[{n-1}:1], {sig}_owire}};")
     body.append("")
 
     # POR before reset/GPIO: reset ENABLE_H and (openframe) gpio ENABLE use porb_h.
@@ -1782,6 +1785,12 @@ meta:
 
     # Magic reports some overlaps which can be ignored
     Checker.IllegalOverlap: null
+
+    # GPIO 0's pad-facing buses are aliases (bit 0 is the CF_owire_id
+    # pin). A genvar ternary is rejected by Verilator 5, and a
+    # concatenation select is rejected by Yosys, so the alias is an
+    # assign and this checker is off.
+    Checker.NetlistAssignStatements: null
 
     # Disable KLayout DRC
     #KLayout.DRC: null
